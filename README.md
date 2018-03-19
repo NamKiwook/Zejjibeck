@@ -4,14 +4,14 @@ capstone design/ data broker
 # master 
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=master)](https://travis-ci.org/peter1201/Zejjibeck)
 
-#pyeon 
+# pyeon 
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=pyeon)](https://travis-ci.org/peter1201/Zejjibeck)
 
-##cho 
+## cho 
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=cho)](https://travis-ci.org/peter1201/Zejjibeck)
 
-#nam
+# nam
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=nam)](https://travis-ci.org/peter1201/Zejjibeck)
 
-#park
+# park
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=park)](https://travis-ci.org/peter1201/Zejjibeck)
