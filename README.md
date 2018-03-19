@@ -7,7 +7,7 @@ capstone design/ data broker
 # pyeon 
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=pyeon)](https://travis-ci.org/peter1201/Zejjibeck)
 
-## cho 
+# cho 
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=cho)](https://travis-ci.org/peter1201/Zejjibeck)
 
 # nam
