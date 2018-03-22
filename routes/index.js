@@ -16,7 +16,7 @@ router.get('/uuu',function(req,res,next){
 });
 // signedUrl 얻어서 클라이언트한테 url 전달
 router.get('/presignedUrl', function(req, res) {
-    s3.getSignedUrl('putObject', params, function(err, url){
+    s3.getSignedUrl('getObject', params, function(err, url){// getObject 는 read  putObject는 write
         console.log(url);
         res.end(url);
     });

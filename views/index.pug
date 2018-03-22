@@ -21,14 +21,14 @@ block content
                   //formData.append('doc', 'asd');
 
                   $.ajax({  //읽기 또는 쓰기 요청
-                      type:'put',  //쓸때는 put 읽을 때는 get
+                      type:'get',  //쓸때는 put 읽을 때는 get
                       url : url,
-                      data :'asdasd',    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
+                      //data :'asdasd',    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
                       //data:123,
                       //contentType: "multipart/form-data",
                       //processData: false,
-                      success:function(){      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
-                          console.log();
+                      success:function(data){      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
+                          console.log(data);
                       },
                       error:function(err){
                           console.log(err);
