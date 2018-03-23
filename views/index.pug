@@ -2,28 +2,45 @@ extends layout
 
 block content
     h1 Testing!
-
     p Welcome to Zejjibeck
+
+    p
+        audio#myaudio(controls='')
+            source(type = 'audio/mp3')
 
     button#btn Test!
 
-    img(id="testImage")
+    img(id = "testImage")
 
     script.
+        $.ajax({
+            type:'GET',
+            url:'/presignedAudioUrl',
+            success:function(url){
+                var audio = document.getElementById('myaudio');
 
-        var checkBtn = document.getElementById("btn").addEventListener("click",showImage);
+                audio.src = url;
+                //audio.source = url;
 
-        function showImage(){
+                console.log("url : " + url);
+            },
+            error:function(err){
+                console.log(err);
+            }
+        })
+
+        var checkBtn = document.getElementById("btn").addEventListener("click", showImage);
+
+        function showImage() {
             $.ajax({
-                type:'GET',
-                url:'/presignedUrl',
-                success:function(url){ // 요청 성공 시
-
+                type: 'GET',
+                url: '/presignedImageUrl',
+                success: function (url) { // 요청 성공 시
                     var img = document.getElementById('testImage');
                     img.src = url;
                     console.log("success");
                 },
-                error:function(err){
+                error: function (err) {
                     console.log(err);
                 }
             })

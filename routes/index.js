@@ -31,16 +31,19 @@ router.get('/uuu',function(req,res,next){
     res.render('error', {title : 'error'});
 });
 
-// signedUrl 얻어서 클라이언트한테 url 전달
-router.get('/presignedUrl', function(req, res) {
+router.get('/presignedAudioUrl', function(req, res) {
+    params.Key = "Buzz.mp3";
 
+    s3.getSignedUrl('getObject', params, function(err, url){
+        console.log(url);
+        res.end(url);
+    });
+});
 
-    //params.Key = setFileName();
-    //console.log("File Name : " + params.Key);
-
+router.get('/presignedImageUrl', function(req, res) {
     params.Key = "screen.png"
 
-    s3.getSignedUrl('getObject', params, function(err, url){// getObject 는 read  putObject는 write
+    s3.getSignedUrl('getObject', params, function(err, url){
         console.log(url);
         res.end(url);
     });
