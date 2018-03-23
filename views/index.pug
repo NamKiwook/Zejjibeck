@@ -1,36 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Bootstrap Example</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-</head>
-<body>
+extends layout
 
-<div class="jumbotron text-center">
-	<h1>Zejjibeck</h1>
-	<p>제일 찌개 백반</p> 
-</div>
+block content
+    h1 Testing!
 
-<div class="container">
-	<div class="row">
-		<div class="col-sm-4">
-			<h3>Price</h3>
-			<p>7,000 Won</p>
-		</div>
-		<div class="col-sm-4">
-			<h3>Taste</h3>
-			<p>Delicious Kimchi-zzigae</p>
-		</div>
-		<div class="col-sm-4">
-			<h3>Column 3</h3>        
-			<p>lets get it</p>
-		</div>
-	</div>
-</div>
-</body>
-</html>
+    p Welcome to Zejjibeck
+
+    button#btn Test!
+
+    img(id="testImage")
+
+    script.
+
+        var checkBtn = document.getElementById("btn").addEventListener("click",showImage);
+
+        function showImage(){
+            $.ajax({
+                type:'GET',
+                url:'/presignedUrl',
+                success:function(url){ // 요청 성공 시
+
+                    var img = document.getElementById('testImage');
+                    img.src = url;
+                    console.log("success");
+                },
+                error:function(err){
+                    console.log(err);
+                }
+            })
+        }
