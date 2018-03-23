@@ -3,7 +3,7 @@ extends layout
 block content
   h1 title
   p Welcome to #{title}
-  input(type='file', id='selector', multiple= 'multiple', name='test')
+  input(type='file', id='selector')
   button#btn1 Up load
   div#status No uploads
   script.
@@ -14,26 +14,36 @@ block content
       function upload(){
           $.ajax({//signed된 url요청
               type:'get',
-              url:'presignedUrl',
+              url:'/s3/putPresignedUrl',
               success:function(url){//요청성공시
                   console.log(url);
-                 // var formData = new FormData();
-                  //formData.append('doc', 'asd');
+                  var file = document.getElementById('selector').files[0];
+                  var content ='asd';
+                  if (file) {
+                      // create reader
+                      var reader = new FileReader();
+                      reader.readAsBinaryString(file);
+                      reader.onload = function (e) {
+                          // browser completed reading file - display it
+                          alert(e.target.result);
+                          content = e.target.result;
+                          $.ajax({  //읽기 또는 쓰기 요청
+                              type: 'put',  //쓸때는 put 읽을 때는 get
+                              url: url,
+                              data: content,    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
+                              //contentType: "multipart/form-data",
+                              //processData: false,
+                              success: function () {      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
+                                  console.log('ok');
+                              },
+                              error: function (err) {
+                                  console.log(err);
+                              }
+                          });
+                      };
 
-                  $.ajax({  //읽기 또는 쓰기 요청
-                      type:'get',  //쓸때는 put 읽을 때는 get
-                      url : url,
-                      //data :'asdasd',    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
-                      //data:123,
-                      //contentType: "multipart/form-data",
-                      //processData: false,
-                      success:function(data){      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
-                          console.log(data);
-                      },
-                      error:function(err){
-                          console.log(err);
-                      }
-                  });
+                  }
+
               },
               error:function(err){
                   console.log(err);
