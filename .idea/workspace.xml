@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ed9c6332-0c84-4c57-bd63-c23dd613c591" name="Default" comment="" />
+    <list default="true" id="ed9c6332-0c84-4c57-bd63-c23dd613c591" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/Zejjibeck.iml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/watcherTasks.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/get-pip.py" />
+    </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -124,12 +131,12 @@
       <option name="presentableId" value="Default" />
       <updated>1521710257250</updated>
       <workItem from="1521710259535" duration="2031000" />
-      <workItem from="1521773942946" duration="326000" />
+      <workItem from="1521773942946" duration="471000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="2357000" />
+    <option name="totallyTimeSpent" value="2502000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="283" y="-4" width="1857" height="1092" extended-state="6" />
