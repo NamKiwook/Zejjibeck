@@ -4,36 +4,26 @@ block content
   h1= title
   button= title
   p Welcome to #{title}
-  input(type='file', id='selector', multiple= 'multiple', name='test')
-  button#btn1 Up load
-  div#status No uploads
-  script.
-      var btn = document.getElementById("btn1").addEventListener("click", upload);
-      var a = 1;
-      var selector = document.getElementById('selector');
 
+  form#ajaxFrom(enctype="multipart/form-data")
+    input#ajaxFile(type="file")
+    input(type="button" onclick="upload();" value="업로드")
+
+  script.
       function upload() {
-          $.ajax({//signed된 url요청
+          var file = document.getElementById('ajaxFile').files[0];
+
+          $.ajax({
               type: 'get',
               url: 'presignedUrl',
-              success: function (url) {//요청성공시
+              success: function (url) {
                   console.log(url);
-                  // var formData = new FormData();
-                  //formData.append('doc', 'asd');
-
-                  $.ajax({  //읽기 또는 쓰기 요청
-                      type: 'put',  //쓸때는 put 읽을 때는 get
+                  $.ajax({
+                      type: 'put',
                       url: url,
-                      data: 'asdasd',    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
-                      //data:123,
-                      //contentType: "multipart/form-data",
-                      //processData: false,
-                      success: function () {      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
-                          console.log();
-                      },
-                      error: function (err) {
-                          console.log(err);
-                      }
+                      contentType: false,
+                      processData: false,
+                      data: file,
                   });
               },
               error: function (err) {
