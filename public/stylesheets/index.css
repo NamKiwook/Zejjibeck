@@ -77,6 +77,7 @@ nav > .container {
 	max-width: 1080px;
 	display: flex;
 	margin: auto;
+	padding: 0 20px;
 	height: 100%;
 	overflow: hidden;
 	align-items: center;
@@ -193,3 +194,40 @@ nav > .container > .menu > a {
 	color: #777;
 }
 
+
+@media only screen and (max-width: 1080px) {
+	.container {
+		padding: 0 20px;
+	}
+	.sectionSecond > .container {
+		flex-flow: column;
+	}
+	.sectionSecond > .container > .content {
+		padding: 50px 15px;
+	}
+	.sectionSecond > .container > .content > .text{
+		max-width: 320px;
+		margin: 15px auto;
+	}
+}
+
+@media only screen and (max-width: 550px) {
+	nav > .container > .menu > .mobileHidden {
+		visibility: hidden;
+	}
+	nav > .container > .menu > a {
+		padding: 0;
+	}
+	.sectionFirst > .imgCover > .container > .slogan {
+		font-size: 28px;
+	}
+	.sectionFirst > .imgCover > .container > .text {
+		font-size: 14px;
+	}
+	.sectionFirst > .imgCover > .container > .sign > .signIn{
+		font-size: 16px;
+	}
+	.sectionFirst > .imgCover > .container > .sign > .signUp{
+		font-size: 12px;
+	}
+}

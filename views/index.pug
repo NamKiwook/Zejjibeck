@@ -2,6 +2,7 @@ doctype html
 html
   head
     meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
     title DATAG
     link(rel='stylesheet', href='/stylesheets/index.css')
     script(src='https://code.jquery.com/jquery-3.3.1.min.js')
@@ -10,9 +11,9 @@ html
       .container
         a.logoImage(href='/') DATAG
         .menu
-          a(data-target='#home') HOME
-          a(data-target='#about') ABOUT
-          a LOGIN
+          a.mobileHidden(data-target='#home') HOME
+          a.mobileHidden(data-target='#about') ABOUT
+          a SIGN IN
     section.sectionFirst#home
       .imgCover
         .container
@@ -42,7 +43,7 @@ script.
   $(window).scroll(function(){
     var scrollPosition = $(document).scrollTop();
 
-    if (scrollPosition >= 100) {
+    if (scrollPosition >= 50) {
       $('nav').addClass('scrolled');
     } else {
       $('nav').removeClass('scrolled');
