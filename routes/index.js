@@ -31,6 +31,14 @@ router.get('/uuu',function(req,res,next){
     res.render('error', {title : 'error'});
 });
 
+router.get('/presignedUploadUrl/:fileName', function(req, res) {
+    params.Key = req.params.fileName;
+    s3.getSignedUrl('putObject', params, function(err, url){
+        console.log(url);
+        res.end(url);
+    });
+});
+
 router.get('/presignedAudioUrl', function(req, res) {
     params.Key = "Buzz.mp3";
 

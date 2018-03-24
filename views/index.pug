@@ -12,7 +12,36 @@ block content
 
     img(id = "testImage")
 
+    form#ajaxFrom(enctype="multipart/form-data")
+        input#ajaxFile(type="file", multiple="multiple")
+        input(type="button" onclick="upload();" value="업로드")
+
     script.
+        function upload() {
+            var file = document.getElementById('ajaxFile').files;
+
+            if(file.length > 0) {
+                for (var i = 0; i < file.length; i++) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'presignedUploadUrl/' + file[i].name,
+                        success: function (url) {
+                            $.ajax({
+                                type: 'PUT',
+                                url: url,
+                                contentType: false,
+                                processData: false,
+                                data: file[i],
+                            })
+                        },
+                        error: function (err) {
+                            console.log(err);
+                        }
+                    })
+                }
+            }
+        }
+
         $.ajax({
             type:'GET',
             url:'/presignedAudioUrl',
