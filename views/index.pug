@@ -5,19 +5,17 @@ block content
   p Welcome to #{title}
   form#ajaxForm(enctype='multipart/form-data')
     input#ajaxFile(type='file', multiple="multiple")
-  button#btn1 Up load
+    input(type='button' onclick="upload();", value="업로드")
   div#status No uploads
   script.
-      var btn = document.getElementById("btn1").addEventListener("click",upload);
-      var fileInput = document.getElementById('ajaxFile');
 
       function upload() {
 
 
-            var files = fileInput.files;
+            var files = document.getElementById('ajaxFile').files;
               for (var i = 0; i < files.length; i++) {
                   var filename = files[i].name;
-
+                  var file = files[i];
                   console.log(filename);
                   $.ajax({//signed된 url요청
                       type: 'post',
@@ -29,9 +27,9 @@ block content
                           $.ajax({  //읽기 또는 쓰기 요청
                               type: 'put',  //쓸때는 put 읽을 때는 get
                               url: url,
-                              data: files[i],    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
                               contentType: false,
                               processData: false,
+                              data: file,    // 이거는 put할때 넣는 데이터 get일때는 쓸모없음
                               success: function () {      // 만약에 get했을때 데이터 보고싶으면 function(data){console.log(data);}하면됨
                                   console.log('ok');
                               },
