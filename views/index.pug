@@ -1,6 +1,49 @@
-extends layout
+//- extends layout
 
-block content
-  h1= title
-  button= title
-  p Welcome to #{title}
+//- block content
+//-   h1= title
+//-   button= title
+//-   p Welcome to #{title}
+
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    title DATAG
+    link(rel='stylesheet', href='/stylesheets/index.css')
+    script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  body
+    nav
+      .container
+        a.logoImage(href='/') DATAG
+        .menu
+          a(data-target='#home') HOME
+          a(data-target='#about') ABOUT
+          a LOGIN
+    section.sectionFirst#home
+      .container
+        .slogan Welcome to DATAG
+        .text alkdjalksdjflaksjdfaklsfa
+    section.sectionSecond#about
+      .container Second Section!!
+
+script.
+  $(window).scroll(function(){
+    var scrollPosition = $(document).scrollTop();
+
+    if (scrollPosition >= 100) {
+      $('nav').addClass('scrolled');
+    } else {
+      $('nav').removeClass('scrolled');
+    }
+  });
+
+  //메뉴 선택시 스크롤링
+  $('.menu a').click(function() {
+    var scrollPosition = $($(this).attr('data-target')).offset().top;
+    console.log(scrollPosition);
+    
+    $('html').animate({
+      scrollTop: scrollPosition
+    }, 500);
+  })
