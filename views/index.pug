@@ -18,20 +18,29 @@ block content
 
     script.
         function upload() {
+            var isRun = 0;
             var file = document.getElementById('ajaxFile').files;
 
             if(file.length > 0) {
                 for (var i = 0; i < file.length; i++) {
+                    var fileURL = 'presignedUploadUrl/' + file[i].name;
+                    var sendFile = file[i];
+
+                    console.log(fileURL);
+
                     $.ajax({
-                        type: 'GET',
-                        url: 'presignedUploadUrl/' + file[i].name,
+                        type: 'get',
+                        url: fileURL,
                         success: function (url) {
                             $.ajax({
-                                type: 'PUT',
+                                type: 'put',
                                 url: url,
                                 contentType: false,
                                 processData: false,
-                                data: file[i],
+                                data: sendFile,
+                                success: function() {
+                                    console.log("isrun is zero");
+                                }
                             })
                         },
                         error: function (err) {
@@ -49,7 +58,6 @@ block content
                 var audio = document.getElementById('myaudio');
 
                 audio.src = url;
-                //audio.source = url;
 
                 console.log("url : " + url);
             },

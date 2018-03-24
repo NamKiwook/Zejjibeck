@@ -33,6 +33,7 @@ router.get('/uuu',function(req,res,next){
 
 router.get('/presignedUploadUrl/:fileName', function(req, res) {
     params.Key = req.params.fileName;
+
     s3.getSignedUrl('putObject', params, function(err, url){
         console.log(url);
         res.end(url);
