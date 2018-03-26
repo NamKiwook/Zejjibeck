@@ -83,13 +83,20 @@ body > .container > .password {
 	border-bottom-right-radius: 2px;
 }
 
-body > .container > .btn {
+body > .container > .login {
 	color: #fff;
 	border-width: 0;
 	background-color:#2E76B1;
 	font-size: 20px;
 	margin-top: 20px; 
 	padding: 16px 0;
+}
+
+body > .container > .google {
+	border-color: rgba(211, 215, 219, 1.0);
+	font-size: 16px;
+	padding: 16px 0;
+	margin-top: 20px;
 }
 
 body > .container > .text {
