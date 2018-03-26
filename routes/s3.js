@@ -7,24 +7,27 @@ var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 
 
 router.get('/', function(req, res) {
-  res.render('S3ex', { title: 'S3'  });
+  params.Key = "Buzz.mp3";
+  s3.getSignedUrl('getObject', params, function(err, audioUrl){
+    params.Key = "screen.png"
+    s3.getSignedUrl('getObject', params, function(err, imageUrl){
+      res.render('S3ex', { title: 'S3', audioUrl : audioUrl, imageUrl:imageUrl});
+    });
+  });
 });
 
 
 router.get('/getPresignedUrl', function(req, res) {
-    s3.getSignedUrl('getObject', params, function(err, url){
-        console.log(url);
-        res.end(url);
-    });
+  s3.getSignedUrl('getObject', params, function(err, url){
+    res.end(url);
+  });
 });
 
 
-router.post('/putPresignedUrl', function(req,res){
-    params.Key = req.body.filename;
-    console.log(params.Key);
-    s3.getSignedUrl('putObject', params, function(err, url){
-        console.log(url);
-        res.end(url);
+router.get('/putPresignedUrl/:fileName', function(req,res){
+  params.Key = req.params.fileName;
+  s3.getSignedUrl('putObject', params, function(err, url){
+    res.end(url);
     });
 });
 
