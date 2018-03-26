@@ -7,9 +7,9 @@ var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 
 
 router.get('/', function(req, res) {
-  params.Key = "Buzz.mp3";
+  params.Key = "Phonecert.mp3";
   s3.getSignedUrl('getObject', params, function(err, audioUrl){
-    params.Key = "screen.png"
+    params.Key = "cap.png";
     s3.getSignedUrl('getObject', params, function(err, imageUrl){
       res.render('S3ex', { title: 'S3', audioUrl : audioUrl, imageUrl:imageUrl});
     });
