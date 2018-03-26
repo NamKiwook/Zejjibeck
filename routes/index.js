@@ -20,5 +20,9 @@ router.get('/presignedUrl', function(req, res) {
         res.end(url);
     });
 });
+router.get('/uuu',function(req,res,next){
+    console.log('asd');
+   res.render('error', {title : 'error'});
+});
 
 module.exports = router;
