@@ -49,47 +49,14 @@ body {
 	height: 100%;
 }
 
+body > nav {
+	height: 100px;
+	background-color: inherit;
+}
+
 .scrolled {
 	height: 60px;
-	background-color:rgba(0,0,0,0.8);
-}
-
-nav {
-	height: 100px;
-	left: 0;
-	right: 0;
-	top: 0;
-	position: fixed;
-	width: 100%;
-	z-index: 999;
-	transition: all 0.2s;
-}
-
-nav > .container {
-	max-width: 1080px;
-	display: flex;
-	margin: auto;
-	padding: 0 20px;
-	height: 100%;
-	overflow: hidden;
-	align-items: center;
-}
-
-nav > .container > .logoImage {
-	color: #fff;
-	display: inline-block;
-	font-weight: 800;
-	font-size: 28px;
-}
-
-nav > .container > .menu {
-	margin-left: auto;
-}
-
-nav > .container > .menu > a {
-	color: #fff;
-	padding: 20px;
-	font-weight: 700;
+	background-color: rgba(0,0,0,0.8);
 }
 
 .sectionFirst {
@@ -204,12 +171,6 @@ nav > .container > .menu > a {
 }
 
 @media only screen and (max-width: 550px) {
-	nav > .container > .menu > .mobileHidden {
-		visibility: hidden;
-	}
-	nav > .container > .menu > a {
-		padding: 0;
-	}
 	.sectionFirst > .imgCover > .container > .slogan {
 		font-size: 28px;
 	}
