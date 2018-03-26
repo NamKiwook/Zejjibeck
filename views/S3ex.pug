@@ -2,16 +2,15 @@ extends layout
 
 block content
     h1 title
-    p Welcome to #{title}
+
     form#ajaxForm(enctype='multipart/form-data')
         input#ajaxFile(type='file', multiple="multiple")
         input(type='button' onclick="upload();", value="업로드")
     div#status No uploads
+
     script.
 
         function upload() {
-
-
             var files = document.getElementById('ajaxFile').files;
             for (var i = 0; i < files.length; i++) {
                 var filename = files[i].name;

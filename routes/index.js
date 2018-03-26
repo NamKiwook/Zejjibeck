@@ -14,15 +14,4 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express'  });
 });
 
-router.get('/presignedUrl', function(req, res) {
-    s3.getSignedUrl('putObject',params, function(err, url){
-        console.log(url);
-        res.end(url);
-    });
-});
-router.get('/uuu',function(req,res,next){
-    console.log('asd');
-   res.render('error', {title : 'error'});
-});
-
 module.exports = router;
