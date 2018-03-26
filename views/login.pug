@@ -1,0 +1,20 @@
+doctype html
+html
+	head
+		meta(charset='utf-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		title Login
+		link(rel='stylesheet', href='/stylesheets/login.css')
+		script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+	body
+		include navbar.pug
+		.container
+			.title Welcome back!
+			.text Don't have an account?
+				a Sign Up
+			input.id(type="text", name="userID", placeholder="Email")
+			input.password(type="password", name="password", placeholder="Password")
+			a.login.btn Sign In
+			a.google.btn Sign in with Google
+			.text Forgot your password?
+				a Reset it
