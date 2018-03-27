@@ -1,6 +1,54 @@
-extends layout
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name='viewport', content='width=device-width, initial-scale=1.0')
+    title DATAG
+    link(rel='stylesheet', href='/stylesheets/index.css')
+    script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  body
+    include navbar.pug
+    section.sectionFirst#home
+      .imgCover
+        .container
+          .slogan Necessary data get easily.
+          .text We can help you get the data you need more easily
+          .sign
+            a.signIn.btn(href='/login') Start DATAG
+            a.signUp Don't have an account yet?
+    section.sectionSecond#about
+      .container
+        .content
+          img(src='/icon/iconmonstr-coin-10-240.png', width='120', height='120')
+          .title cash
+          .text 우리껄 쓰면 돈을 벌 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라
+        .content
+          img(src='/icon/iconmonstr-file-9-240.png', width='120', height='120')
+          .title data
+          .text 우리껄 쓰면 원하는 데이터를 얻을 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라
+        .content
+          img(src='/icon/iconmonstr-time-19-240.png', width='120', height='120')
+          .title speed
+          .text 우리껄 쓰면 빠른시간안에 데이터를 얻을 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라
+    section.sectionThird
+      .text Copyright © Zejjibeck
+script.
+  //스크롤시 nav 투명도 및 길이조정
+  $(window).scroll(function(){
+    var scrollPosition = $(document).scrollTop();
 
-block content
-  h1= title
-  button= title
-  p Welcome to #{title}
+    if (scrollPosition >= 50) {
+      $('nav').addClass('scrolled');
+    } else {
+      $('nav').removeClass('scrolled');
+    }
+  });
+
+  //메뉴 선택시 스크롤링
+  $('.menu a').click(function() {
+    var scrollPosition = $($(this).attr('data-target')).offset().top;
+
+    $('html').animate({
+      scrollTop: scrollPosition-60
+    }, 500);
+  })
