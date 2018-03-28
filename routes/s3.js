@@ -3,13 +3,13 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
-var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
+var params = {Bucket: 'firebat.com',Key:'', Expires: 60*5 };
 
 
 router.get('/', function(req, res) {
-  params.Key = "Phonecert.mp3";
+  params.Key = "Buzz.mp3";
   s3.getSignedUrl('getObject', params, function(err, audioUrl){
-    params.Key = "cap.png";
+    params.Key = "432.png";
     s3.getSignedUrl('getObject', params, function(err, imageUrl){
       res.render('S3ex', { title: 'S3', audioUrl : audioUrl, imageUrl:imageUrl});
     });

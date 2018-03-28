@@ -8,7 +8,7 @@ block content
     audio#myaudio(controls='')
       source(src = audioUrl, type = 'audio/mp3')
 
-  button#btn Test!
+  button#btn logout!
 
   img(src = imageUrl, id = "testImage")
 
@@ -17,6 +17,15 @@ block content
     input(type="button" onclick="upload();" value="업로드")
 
   script.
+    document.getElementById('btn').addEventListener('click',function(){
+        $.ajax({
+            type:'post',
+            url:'/login/logout',
+            success: function(){
+                window.location.href = '/';
+            }
+        })
+    })
     function upload() {
       var file = document.getElementById('ajaxFile').files;
 
