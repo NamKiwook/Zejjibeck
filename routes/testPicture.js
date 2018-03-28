@@ -3,19 +3,14 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
-var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
-
+var params = {Bucket: 'zejjibeck', Key:'', Expires: 60 };
 
 router.get('/', function(req, res) {
-  params.Key = "Phonecert.mp3";
-  s3.getSignedUrl('getObject', params, function(err, audioUrl){
-    params.Key = "cap.png";
-    s3.getSignedUrl('getObject', params, function(err, imageUrl){
-      res.render('S3ex', { title: 'S3', audioUrl : audioUrl, imageUrl:imageUrl});
-    });
+  params.Key = "cap.png";
+  s3.getSignedUrl('getObject', params, function(err, imageUrl){
+    res.render('testPicture', { title: 'testPicture', imageUrl:imageUrl});
   });
 });
-
 
 router.get('/getPresignedUrl', function(req, res) {
   s3.getSignedUrl('getObject', params, function(err, url){
@@ -23,12 +18,11 @@ router.get('/getPresignedUrl', function(req, res) {
   });
 });
 
-
 router.get('/putPresignedUrl/:fileName', function(req,res){
   params.Key = req.params.fileName;
   s3.getSignedUrl('putObject', params, function(err, url){
     res.end(url);
-    });
+  });
 });
 
 module.exports = router;
