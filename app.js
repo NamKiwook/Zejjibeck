@@ -9,6 +9,7 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 var s3 = require('./routes/s3');
+var sImage = require('./routes/solveImage');
 var app = express();
 
 // view engine setup
@@ -27,6 +28,7 @@ app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/s3', s3);
+app.use('/solveImage', sImage);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
