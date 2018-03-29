@@ -1,0 +1,37 @@
+doctype html
+-var dataType = 'checkbox'
+html
+  head
+  body
+    include navbar.pug
+    .container
+      .imgWrap
+        img(src="/icon/profileImg1.jpg", width="200", height="200")
+      if dataType == 'text'
+        .textWrap
+          p.title 위의 그림이 나타내는 것을 적어주세요.
+          input(type="text" placeholder="asdf")
+      else if dataType == 'checkbox'
+        .checkboxWrap
+          p.title 위의 그림이 나타내는 것을 적어주세요.
+          input(type="checkbox", name="checkbox", value="a")
+          | a
+          input(type="checkbox", name="checkbox", value="b")
+          | b
+          input(type="checkbox", name="checkbox", value="c")
+          | c
+      else if dataType == 'radio'
+        .radioWrap
+          p.title 위의 그림이 나타내는 것을 적어주세요.
+          input(type="radio", name="radio", value="가")
+          | 가
+          input(type="radio", name="radio", value="나")
+          | 나
+          input(type="radio", name="radio", value="다")
+          | 다
+style.
+  .container {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 40px;
+  }
