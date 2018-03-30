@@ -54,6 +54,11 @@ body > nav {
 	background-color: inherit;
 }
 
+body > nav > .container > .menu > .dashboard {
+	visibility: hidden;
+	height: 0;
+}
+
 .scrolled {
 	height: 60px;
 	background-color: rgba(0,0,0,0.8);
