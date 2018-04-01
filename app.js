@@ -5,6 +5,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
+//mongo session
 var mongoStore = require('connect-mongo')(session);
 var mongourl = 'mongodb://localhost:27017/test';
 
@@ -31,6 +32,7 @@ app.use(session({
         url: mongourl,
         ttl:60*60*24*7
     }),
+    key: 'zjb',
     resave: false,
     saveUninitialized: true
 }));

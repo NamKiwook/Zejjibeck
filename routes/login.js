@@ -18,9 +18,8 @@ router.get('/certification/:id/:password', function(req,res,next){
     res.send({pass:'ok'});
 });
 router.post('/logout', function(req,res,next){
-    req.session.destroy(function(err){
-        console.log("session delete");
-    });
+    req.session.destroy();
+    res.clearCookie('zjb');
     res.end();
 });
 module.exports = router;
