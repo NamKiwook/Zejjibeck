@@ -1,34 +1,49 @@
 doctype html
--var dataType = 'checkbox'
 html
   head
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
   body
     include navbar.pug
     .container
       .imgWrap
-        img(src="/icon/profileImg1.jpg", width="200", height="200")
-      if dataType == 'text'
-        .textWrap
-          p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="text" placeholder="asdf")
-      else if dataType == 'checkbox'
-        .checkboxWrap
-          p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="checkbox", name="checkbox", value="a")
-          | a
-          input(type="checkbox", name="checkbox", value="b")
-          | b
-          input(type="checkbox", name="checkbox", value="c")
-          | c
-      else if dataType == 'radio'
-        .radioWrap
-          p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="radio", name="radio", value="가")
-          | 가
-          input(type="radio", name="radio", value="나")
-          | 나
-          input(type="radio", name="radio", value="다")
-          | 다
+        img#problemImg(width='200', height='200')
+      .checkboxWrap
+        form#problemForm(action='/', method='get')
+          p#title.title
+          each i in _value
+            input(type='checkbox', name='checkbox')
+            | #{i}
+          input#but(type='button', value='next', onclick='next()')
+          input#sub(type='hidden', value = 'submit')
+
+    script(type='text/javascript').
+      var problemNum = 1;
+      var _title = (!{JSON.stringify(_title)});
+      var _url = !{JSON.stringify(_url)};
+      console.log(_url);
+      document.getElementById('title').innerText = problemNum + ". " + _title;
+      $.ajax({
+        type: 'GET',
+        url: '/s3/getPresignedUrl/' + _url[0],
+        success: function (url) { // 요청 성공 시
+          document.getElementById('problemImg').src = url;
+        }
+      })
+
+      function next() {
+        problemNum++;
+        document.getElementById('title').innerText = problemNum + ". " + _title;
+        if(problemNum == _url.length) {
+          document.getElementById('but').type = 'hidden';
+          document.getElementById('sub').type = 'submit';
+        }
+        $.ajax({
+          type: 'GET',
+          url: '/s3/getPresignedUrl/' + _url[problemNum - 1],
+          success: function (url) { // 요청 성공 시
+            document.getElementById('problemImg').src = url;          }
+        })
+      }
 style.
   .container {
     margin-left: 250px;

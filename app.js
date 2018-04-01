@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -15,7 +16,7 @@ var db = require('./routes/db');
 
 var app = express();
 
-mongoose.connect('mongodb://zejjibeckAdmin:1234@13.125.242.69:2018/zejjibeck');
+mongoose.connect('mongodb://localhost:27017/zejjibeck');
 mongoose.Promise = global.Promise;
 
 // view engine setup
