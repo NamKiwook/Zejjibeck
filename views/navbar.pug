@@ -2,10 +2,14 @@ nav
   .container
     a.logoImage(href='/') DATAG
     .menu
-      a.mobileHidden(data-target='#home') HOME
-      a.mobileHidden(data-target='#about') ABOUT
-      a(href='/login') SIGN IN
-
+      .main
+        a.mobileHidden(data-target='#home') HOME
+        a.mobileHidden(data-target='#about') ABOUT
+        a(href='/login') SIGN IN
+      .dashboard
+        a 과제 풀기
+        a(href = '/upload') 과제 등록
+        a 마이페이지
 style.
   nav {
     background-color: rgba(0,0,0,0.8);
@@ -40,7 +44,7 @@ style.
     margin-left: auto;
   }
 
-  nav > .container > .menu > a {
+  nav > .container > .menu a {
     color: #fff;
     padding: 20px;
     font-weight: 700;

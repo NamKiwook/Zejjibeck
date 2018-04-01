@@ -7,12 +7,8 @@ html
         link(rel='stylesheet', href='/stylesheets/dashboard.css')
         script(src='https://code.jquery.com/jquery-3.3.1.min.js')
     body
-        include navbar
+        include navbar.pug
         .menubar
-            .profileWrap
-                img.profileImg(src="/icon/profileImg1.jpg", width='40', height='40')
-                .title Park Seongjun
-                img.setting(src="/icon/iconmonstr-gear-1-240.png", width='22',height='22')
             section.firstSection
                 a.btn(href="/type1") type1
                 a.btn type2

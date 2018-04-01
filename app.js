@@ -15,6 +15,7 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 var s3 = require('./routes/s3');
+var upload = require('./routes/upload');
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -52,6 +53,7 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/s3', s3);
 app.use('/signup', signup);
+app.use('/upload', upload);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
