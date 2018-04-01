@@ -18,8 +18,9 @@ router.get('/', function(req, res) {
 
 
 router.get('/getPresignedUrl/:fileName', function(req, res) {
-  params.Key=req.params.filenName;
+  params.Key=req.params.fileName;
   s3.getSignedUrl('getObject', params, function(err, url){
+    console.log(url);
     res.end(url);
   });
 });

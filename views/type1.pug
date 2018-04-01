@@ -41,7 +41,9 @@ html
           type: 'GET',
           url: '/s3/getPresignedUrl/' + _url[problemNum - 1],
           success: function (url) { // 요청 성공 시
-            document.getElementById('problemImg').src = url;          }
+            document.getElementById('problemImg').src = url;
+            console.log(url);
+          }
         })
       }
 style.
