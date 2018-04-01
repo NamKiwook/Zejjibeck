@@ -1,0 +1,25 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title DashBoard
+        link(rel='stylesheet', href='/stylesheets/dashboard.css')
+        script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+    body
+        include navbar
+        .menubar
+            .profileWrap
+                img.profileImg(src="/icon/profileImg1.jpg", width='40', height='40')
+                .title Park Seongjun
+                img.setting(src="/icon/iconmonstr-gear-1-240.png", width='22',height='22')
+            section.firstSection
+                a.btn(href="/type1") type1
+                a.btn type2
+                a.btn type3
+                a.btn menu4
+            section.secondSection
+                a.btn menu1
+                a.btn menu2
+                a.btn menu3
+                a.btn menu4

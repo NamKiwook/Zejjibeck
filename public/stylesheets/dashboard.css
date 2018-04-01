@@ -1,0 +1,112 @@
+Skip to content
+This repository
+Search
+Pull requests
+Issues
+Marketplace
+Explore
+@peter1201
+Sign out
+2
+1 1 peter1201/Zejjibeck
+Code  Issues 0  Pull requests 0  Projects 0  Wiki  Insights  Settings
+Zejjibeck/public/stylesheets/dashboard.css
+208214f  4 days ago
+@jg7502 jg7502 dashboard, problempage prototype
+
+95 lines (84 sloc)  1.38 KB
+* {
+    border: 0;
+    box-sizing: border-box;
+    color: #3c4858;
+    font-size: 14px;
+    font-family: 'Spoqa Han Sans', 'Sans-serif';
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.btn {
+    display: inline-block;
+    text-align: center;
+    border-radius: 2px;
+    border-width: 1px;
+    border-style: solid;
+    transition: all 0.2;
+    position: relative;
+    user-select: none;
+}
+
+.btn::after {
+    display: block;
+    position: absolute;
+    left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.btn:hover::after {
+    content: "";
+    background-color: #fff;
+    opacity: 0.08;
+}
+
+.btn:active::after {
+    content: "";
+    background-color: #000;
+    opacity: 0.16;
+}
+
+body > nav > .container > .menu > .main {
+    visibility: hidden;
+    height: 0;
+}
+
+body {
+}
+
+.menubar {
+    position: fixed;
+    top: 60px; left: 0px; bottom: 0px;
+    width: 250px;
+    background-color: #425262;
+    transition: all 0.4s;
+}
+.menubar > .profileWrap {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+}
+.menubar > .profileWrap > .profileImg {
+    border-radius: 50%;
+    flex: 1;
+}
+.menubar > .profileWrap > .title {
+    color: #fff;
+    display: inline-block;
+    margin: 0 20px;
+    flex: 5;
+
+}
+.menubar > .profileWrap > .setting {
+    flex: 1;
+}
+
+.menubar section {
+    color: #666;
+}
+.menubar .btn {
+    width: 100%;
+    color: #fff;
+    border-width: 0;
+    padding: 20px 20px;
+    text-align: left;
+}
+
+@media only screen and (max-width:1080px) {
+    body > .menubar {
+        left: -250px;
+    }
+}

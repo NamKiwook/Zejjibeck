@@ -1,21 +1,27 @@
 var express = require('express');
 var router = express.Router();
-
+var userSchema = require('../model/user');
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    if(req.session.username)
-        res.redirect('/users');
-    else
         res.render('login', { title: 'Express' });
 });
-router.get('/certification/:id/:password', function(req,res,next){
+router.get('/certification/:id/:password', async function(req,res,next){
     var id = req.params.id;
     var password = req.params.password;
+    try{
+        var compare = await userSchema.find({userId: id, password: password});
+        console.log(compare.toString());
+        if(compare.toString())
+        {
+            req.session.id = id;
+            res.send({pass:'ok'});
+        }
+        else
+            res.send({pass:'no'});
+    }catch (err){
+        res.send({pass:'no'});
+    }
 
-    console.log(id);
-    if(req.session.username!=id)
-        req.session.username = id;
-    res.send({pass:'ok'});
 });
 router.post('/logout', function(req,res,next){
     req.session.destroy();
