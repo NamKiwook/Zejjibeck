@@ -4,6 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -14,8 +15,13 @@ var sImage = require('./routes/solveImage');
 
 var dashboard = require('./routes/dashboard');
 var type1 = require('./routes/type1');
+//var s3 = require('./routes/s3');
+var db = require('./routes/db');
 
 var app = express();
+
+mongoose.connect('mongodb://localhost:27017/zejjibeck');
+mongoose.Promise = global.Promise;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -40,6 +46,8 @@ app.use('/solveImage', sImage);
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
 
+app.use('/s3', s3);
+app.use('/db', db);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
