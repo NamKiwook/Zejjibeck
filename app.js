@@ -9,7 +9,7 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var users = require('./routes/users');
 
-var testSound = require('./routes/testSound');
+var testSound = require('./routes/test');
 var sImage = require('./routes/solveImage');
 
 var dashboard = require('./routes/dashboard');

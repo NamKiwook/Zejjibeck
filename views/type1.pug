@@ -20,6 +20,7 @@ html
           | b
           input(type="checkbox", name="checkbox", value="c")
           | c
+
       else if dataType == 'radio'
         .radioWrap
           p.title 위의 그림이 나타내는 것을 적어주세요.
@@ -29,9 +30,13 @@ html
           | 나
           input(type="radio", name="radio", value="다")
           | 다
+
 style.
   .container {
     margin-left: 250px;
     margin-top: 60px;
     padding: 40px;
   }
+
+
+
