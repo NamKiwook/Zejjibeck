@@ -1,0 +1,31 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title SIGN UP
+    link(rel="stylesheet", href="/stylesheets/signUp.css")
+    script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+  body
+    include navbar.pug
+    .container
+      .title Let's create an account
+      .text Already have an account?
+        a(href="/login") Log In
+      input#name(type="text", placeholder="Full Name")
+      input#id(type="text", placeholder="Email")
+      input#password(type="password", placeholder="Password")
+      input#passwordChk(type="password", placeholder="Password Check")
+      p#chkfield
+      .btn.register REGISTER
+
+script.
+  $('#passwordChk').on("keyup", function() {
+    var password = $('#password').val();
+    var passwordChk = $('#passwordChk').val();
+
+    if (password != passwordChk)
+      $('#chkfield').text('비밀번호가 틀렸습니다.');
+    else
+      $('#chkfield').empty();
+  })
