@@ -7,21 +7,36 @@ html
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
     script(src='https://code.jquery.com/jquery-3.3.1.min.js')
   body
-    include navbar
+    nav
+      .menu.btn
+      .logo DATAG
+      .btn.profileWrap
+        img.profileImg(src="/icon/profileImg1.jpg", width="30", height="30")
+        .profileTitle Park Seongjun
+        .dropdownMenu
+          a.btn Profile
+          a.btn Setting
+          a.btn Logout
     .menubar
-      .profileWrap
-        img.profileImg(src="/icon/profileImg1.jpg", width='40', height='40')
-        .title Park Seongjun
-        img.setting(src="/icon/iconmonstr-gear-1-240.png", width='22',height='22')
-      section.firstSection
-        a.btn(href="/type1") type1
-        a.btn type2
-        a.btn type3
-        a.btn menu4
-      section.secondSection
-        a.btn menu1
-        a.btn menu2
-        a.btn menu3
-        a.btn menu4
+      a.btn(href="/type1") type1
+      a.btn type2
+      a.btn type3
+      a.btn menu4
+      a.btn menu1
+      a.btn menu2
+      a.btn menu3
+      a.btn menu4
+    .boardType
+      a 구매하기
+      a 판매하기
+      a.active 마이페이지
+    section.firstSection 안녕하세요
+    section.secondSection
+script.
+  $('.profileWrap').click(function(){
+    $('.dropdownMenu').toggleClass('visible');
+  })
 
-
+  $('.menu').click(function(){
+    $('.menubar').toggleClass('visible');
+  })

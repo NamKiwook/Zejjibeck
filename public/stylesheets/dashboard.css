@@ -35,61 +35,166 @@ a {
 	background-color: #fff;
 	opacity: 0.08;
 }
-
+/* 
 .btn:active::after {
 	content: "";
 	background-color: #000;
 	opacity: 0.16;
-}
-
-body > nav > .container > .menu > .main {
-  visibility: hidden;
-  height: 0;
-}
+} */
 
 body {
+  background-color: rgba(235, 237, 239, 1.0);
+  margin-left: 250px;
+  padding: 60px 0;
+}
+
+nav {
+  height: 60px;
+  background-color:#222;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top:0; left:0; right:0;
+  z-index: 999;
+}
+
+nav > .menu {
+  background-image: url('/icon/iconmonstr-menu-1-240.png');
+  background-size: 18px;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100%;
+  border: 0;
+}
+
+nav > .logo {
+  font-size: 28px;
+  font-weight: 800;
+  color: #fff;
+  display: inline-block;
+  margin-left: 70px;
+}
+
+nav > .profileWrap {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  height: 100%;
+  padding: 20px;
+  border: 0;
+}
+
+nav > .profileWrap > .profileImg {
+  border-radius: 50%;
+  /* padding: 0 15px; */
+  /* border: 2px solid rgba(211, 215, 219, 1.0); */
+}
+
+nav > .profileWrap > .profileTitle {
+  padding-top: 5px;
+  margin-left: 10px;
+  color: #fff;
+}
+
+nav > .profileWrap > .dropdownMenu {
+  display: flex;
+  flex-flow: column;
+  position: fixed;
+  top: 60px; right: 0;
+  background-color: #222;
+  box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
+  visibility: hidden;
+}
+nav > .profileWrap > .dropdownMenu.visible {
+  visibility: visible;
+}
+nav > .profileWrap > .dropdownMenu > a {
+  background-image: url("/icon/iconmonstr-power-on-off-8-240.png");
+  background-repeat: no-repeat;
+  background-size: 14px;
+  background-position: 15px center;
+  text-align: left;
+  border: 0;
+  color: #fff;
+  width: 150px;
+  padding: 10px 15px 10px 40px;
 }
 
 .menubar {
-  position: fixed;
+  position: absolute;
   top: 60px; left: 0px; bottom: 0px;
   width: 250px;
   background-color: #425262;
   transition: all 0.4s;
-}
-.menubar > .profileWrap {
-  display: flex;
-  align-items: center;
-  padding: 20px;
-}
-.menubar > .profileWrap > .profileImg {
-  border-radius: 50%;
-  flex: 1;
-}
-.menubar > .profileWrap > .title {
-  color: #fff;
-  display: inline-block;
-  margin: 0 20px;
-  flex: 5;
-
-}
-.menubar > .profileWrap > .setting {
-  flex: 1;
+  padding: 20px 0;
 }
 
 .menubar section {
   color: #666;
 }
 .menubar .btn {
+  background-image: url("/icon/iconmonstr-briefcase-1-240.png");
+  background-repeat: no-repeat;
+  background-size: 14px;
+  background-position: 30px center;
   width: 100%;
-  color: #fff;
+  color: rgba(255, 255, 255, 0.5);
   border-width: 0;
-  padding: 20px 20px;
+  padding: 20px 20px 20px 60px;
   text-align: left;
 }
 
+.boardType {
+  padding: 10px 20px;
+  text-align: right;
+  border-bottom: 1px solid rgba(211, 215, 219, 1.0);
+}
+
+.boardType > a {
+  display: inline-block;
+  border-radius: 20px;
+  padding: 12px 20px;
+  margin: 0 3px;
+}
+.boardType > .active {
+  background-color: #425262;
+  color: #fff;
+}
+
+section {
+  background-color: #fff;
+  border-radius: 4px;
+  padding: 20px;
+  border: 1px solid rgba(211, 215, 219, 1.0);
+  margin: 20px 20px 0;
+}
+
 @media only screen and (max-width:1080px) {
+  nav > .menu {
+    width: 60px;
+  }
+  nav > .logo {
+    text-align: center;
+    flex: 1;
+    margin: 0;
+  }
+  nav > .profileWrap {
+    width: 60px;
+    margin: 0;
+    padding: 15px;
+  }
+  nav > .profileWrap > .profileTitle {
+    visibility: hidden;
+    width: 0;
+    margin: 0;
+  }
+  body {
+    margin-left: 0;
+  }
   body > .menubar {
     left: -250px;
+  }
+  body > .menubar.visible {
+    left: 0px;
   }
 }
