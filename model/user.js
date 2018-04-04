@@ -8,4 +8,4 @@ var userSchema = new Schema({
     password: String,
     credit: Number
 });
-module.exports = mongoose.model('user', userSchema);g
+module.exports = mongoose.model('user', userSchema);
