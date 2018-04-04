@@ -5,6 +5,10 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+//mongo session
+var mongoStore = require('connect-mongo')(session);
+var mongourl = 'mongodb://localhost:27017/zejjibeck';
 
 var index = require('./routes/index');
 var login = require('./routes/login');
@@ -18,13 +22,18 @@ var dashboard = require('./routes/dashboard');
 var type1 = require('./routes/type1');
 var type2 = require('./routes/type2');
 var s3 = require('./routes/s3');
-//var s3 = require('./routes/s3');
+var upload = require('./routes/upload');
 var db = require('./routes/db');
 
 var app = express();
 
-mongoose.connect('mongodb://localhost:27017/zejjibeck');
 mongoose.Promise = global.Promise;
+mongoose.connect(mongourl);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function(){
+    console.log('mongodb connection OK.');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -37,6 +46,16 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+    secret: 'zejjibeck',
+    store: new mongoStore({
+        url: mongourl,
+        ttl:60*60*24*7
+    }),
+    key: 'zjb',
+    resave: false,
+    saveUninitialized: true
+}));
 
 app.use('/', index);
 app.use('/users', users);
@@ -52,6 +71,7 @@ app.use('/solveImage', sImage);
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
 app.use('/type2', type2);
+app.use('/upload', upload);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

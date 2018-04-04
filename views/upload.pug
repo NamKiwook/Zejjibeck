@@ -1,0 +1,36 @@
+doctype html
+html
+    head
+        meta(charset='utf-8')
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+        title SignUp
+        link(rel='stylesheet', href='/stylesheets/login.css')
+        script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+    body
+        include navbar.pug
+        .container
+            input.projectName(type="text", name="projectName", placeholder="Project Name")
+            input.type(type="text", name="type", placeholder="material type")
+            input.credit(type="text", name="credit", placeholder="credit")
+            input.TagType(type="text", name="tagType", placeholder="tagType")
+            input.TagVal1(type="text", name="TagVal1", placeholder="TagVal1")
+            input.TagVal2(type="text", name="TagVal2", placeholder="TagVal2")
+            input.TagVal3(type="text", name="TagVal3", placeholder="TagVal3")
+            input.minTag(type="text", name="minTag", placeholder="minTag")
+            form#ajaxFrom(enctype="multipart/form-data")
+                input#ajaxFile(type="file", multiple="multiple")
+
+            a.login.btn Up load
+script.
+    $('.login.btn').click(function(){
+        var projectName = document.getElementsByName('projectName').value;
+        var type = document.getElementsByName('type').value;
+        var credit = document.getElementsByName('credit').value;
+        var TagType = document.getElementsByName('tagType').value;
+        var minTag = document.getElementsByName('minTag').value;
+        var tagValList = [];
+        tagValList.push(document.getElementsByName('TagVal1').value);
+        tagValList.push(document.getElementsByName('TagVal2').value);
+        tagValList.push(document.getElementsByName('TagVal2').value);
+
+    })
