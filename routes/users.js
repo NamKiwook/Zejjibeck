@@ -4,8 +4,8 @@ var router = express.Router();
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 
-  console.log(req.session.username);
-  if(req.session.username)
+  console.log(req.session.id);
+  if(req.session.id)
     res.render('dashboard',{title: 'login'});
   else
     res.redirect('login');

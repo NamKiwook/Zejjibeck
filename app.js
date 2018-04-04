@@ -14,17 +14,12 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var signUp = require('./routes/signUp');
 var users = require('./routes/users');
-
-var testSound = require('./routes/test');
-var sImage = require('./routes/solveImage');
-
+var test = require('./routes/test');
 var dashboard = require('./routes/dashboard');
 var type1 = require('./routes/type1');
-var type2 = require('./routes/type2');
+var refine = require('./routes/refine');
 var s3 = require('./routes/s3');
 var upload = require('./routes/upload');
-var db = require('./routes/db');
-
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -46,6 +41,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 app.use(session({
     secret: 'zejjibeck',
     store: new mongoStore({
@@ -62,16 +58,12 @@ app.use('/users', users);
 app.use('/login', login);
 app.use('/signUp', signUp);
 app.use('/s3', s3);
-app.use('/db', db);
-
-app.use('/testSound', testSound);
-app.use('/solveImage', sImage);
-
-
+app.use('/test', test);
+app.use('/refine', refine);
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
-app.use('/type2', type2);
 app.use('/upload', upload);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

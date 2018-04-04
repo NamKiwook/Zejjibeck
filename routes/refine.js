@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('type2',{
+  res.render('testRefine',{
     _title: 'sibal',
     _url : ['pic1.png','pic2.png', 'pic3.png'],
     _value : ['강아지', '고양이', '새']

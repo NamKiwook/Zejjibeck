@@ -26,14 +26,14 @@ script.
 
         $.ajax({
             type: 'post',
-            url:'/signup/confirm',
+            url:'/signUp/confirm',
             data:{userId: email, password: password, username: name},
             dataType:'json',
             success:function(data){
                 console.log(data);
                 if(data.pass == 'ok')
                 {
-                    alert('signup complete');
+                    alert('signUp complete');
                     window.location.href = '/login';
                 }
                 else
