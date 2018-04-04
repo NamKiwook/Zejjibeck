@@ -10,11 +10,12 @@ html
       .checkboxWrap
         form#problemForm(action='/', method='get')
           p#title.title
-          each i in _value
-            input(type='checkbox', name='checkbox')
-            | #{i}
-          input#but(type='button', value='next', onclick='next()')
-          input#sub(type='hidden', value = 'submit')
+          div#asd
+            each i in _value
+              input(type='checkbox', name='checkbox')
+              | #{i}
+            input#but(type='button', value='next', onclick='next()')
+            input#sub(type='hidden', value = 'submit')
 
     script(type='text/javascript').
       var problemNum = 1;
