@@ -8,8 +8,10 @@ var mongoose = require('mongoose');
 
 var index = require('./routes/index');
 var login = require('./routes/login');
+var signUp = require('./routes/signUp');
 var users = require('./routes/users');
 var dashboard = require('./routes/dashboard');
+var type1 = require('./routes/type1');
 var type2 = require('./routes/type2');
 var s3 = require('./routes/s3');
 var db = require('./routes/db');
@@ -34,9 +36,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
+app.use('/signUp', signUp);
 app.use('/s3', s3);
 app.use('/db', db);
 app.use('/dashboard', dashboard);
+app.use('/type1', type1);
 app.use('/type2', type2);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
