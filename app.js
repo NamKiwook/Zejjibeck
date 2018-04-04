@@ -10,10 +10,15 @@ var index = require('./routes/index');
 var login = require('./routes/login');
 var signUp = require('./routes/signUp');
 var users = require('./routes/users');
+
+var testSound = require('./routes/test');
+var sImage = require('./routes/solveImage');
+
 var dashboard = require('./routes/dashboard');
 var type1 = require('./routes/type1');
 var type2 = require('./routes/type2');
 var s3 = require('./routes/s3');
+//var s3 = require('./routes/s3');
 var db = require('./routes/db');
 
 var app = express();
@@ -39,6 +44,11 @@ app.use('/login', login);
 app.use('/signUp', signUp);
 app.use('/s3', s3);
 app.use('/db', db);
+
+app.use('/testSound', testSound);
+app.use('/solveImage', sImage);
+
+
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
 app.use('/type2', type2);
