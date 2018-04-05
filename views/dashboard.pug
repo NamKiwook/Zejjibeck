@@ -1,42 +1,9 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title DashBoard
+    include head.pug
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
-    script(src='https://code.jquery.com/jquery-3.3.1.min.js')
   body
-    nav
-      .menu.btn
-      .logo DATAG
-      .btn.profileWrap
-        img.profileImg(src="/icon/profileImg1.jpg", width="30", height="30")
-        .profileTitle Park Seongjun
-        .dropdownMenu
-          a.btn Profile
-          a.btn Setting
-          a.btn Logout
-    .menubar
-      a.btn(href="/type1") type1
-      a.btn type2
-      a.btn type3
-      a.btn menu4
-      a.btn menu1
-      a.btn menu2
-      a.btn menu3
-      a.btn menu4
-    .boardType
-      a 구매하기
-      a 판매하기
-      a.active 마이페이지
+    include dashboardLayout.pug
     section.firstSection 안녕하세요
-    section.secondSection
-script.
-  $('.profileWrap').click(function(){
-    $('.dropdownMenu').toggleClass('visible');
-  })
-
-  $('.menu').click(function(){
-    $('.menubar').toggleClass('visible');
-  })
+    section.secondSection 반갑습니다
