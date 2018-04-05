@@ -1,0 +1,55 @@
+doctype html
+html
+  head
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+  body
+    include navbar.pug
+    .container
+      .imgWrap
+        img#problemImg(width='200', height='200')
+      .checkboxWrap
+        form#problemForm(action='/', method='get')
+          p#title.title
+          div#asd
+            each i in _value
+              input(type='checkbox', name='checkbox')
+              | #{i}
+            input#but(type='button', value='next', onclick='next()')
+            input#sub(type='hidden', value = 'submit')
+
+    script(type='text/javascript').
+      var problemNum = 1;
+      var _title = (!{JSON.stringify(_title)});
+      var _url = !{JSON.stringify(_url)};
+      console.log(_url);
+      document.getElementById('title').innerText = problemNum + ". " + _title;
+      $.ajax({
+        type: 'GET',
+        url: '/s3/getPresignedUrl/' + _url[0],
+        success: function (url) { // 요청 성공 시
+          document.getElementById('problemImg').src = url;
+        }
+      })
+
+      function next() {
+        problemNum++;
+        document.getElementById('title').innerText = problemNum + ". " + _title;
+        if(problemNum == _url.length) {
+          document.getElementById('but').type = 'hidden';
+          document.getElementById('sub').type = 'submit';
+        }
+        $.ajax({
+          type: 'GET',
+          url: '/s3/getPresignedUrl/' + _url[problemNum - 1],
+          success: function (url) { // 요청 성공 시
+            document.getElementById('problemImg').src = url;
+            console.log(url);
+          }
+        })
+      }
+style.
+  .container {
+    margin-left: 250px;
+    margin-top: 60px;
+    padding: 40px;
+  }
