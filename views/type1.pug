@@ -1,5 +1,7 @@
 doctype html
 -var dataType = 'text'
+-var totalSequence = 20
+-var nowSequence = 1
 html
   head
     include head.pug
@@ -7,6 +9,7 @@ html
   body
     include dashboardLayout.pug
     .container
+      .sequence #{nowSequence} / #{totalSequence}
       .imgWrap
         img(src="/icon/profileImg1.jpg")
       if dataType == 'text'

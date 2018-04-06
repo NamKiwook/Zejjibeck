@@ -43,8 +43,16 @@ a {
   margin-top: 20px;
   text-align: center;
 }
+.container > .sequence {
+  display: inline-block;
+  color: #333333;
+  padding: 10px;
+  border-radius: 20px;
+  float: right;
+}
 .imgWrap {
   text-align: center;
+  margin-top: 45px;
 }
 .imgWrap > img {
   width: 100%;
