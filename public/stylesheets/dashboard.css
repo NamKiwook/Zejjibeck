@@ -36,60 +36,18 @@ a {
 	opacity: 0.08;
 }
 
-.btn:active::after {
-	content: "";
-	background-color: #000;
-	opacity: 0.16;
-}
-
-body > nav > .container > .menu > .main {
-  visibility: hidden;
-  height: 0;
-}
 
 body {
+  background-color: rgba(235, 237, 239, 1.0);
+  margin-left: 250px;
+  padding: 60px 20px;
 }
 
-.menubar {
-  position: fixed;
-  top: 60px; left: 0px; bottom: 0px;
-  width: 250px;
-  background-color: #425262;
-  transition: all 0.4s;
-}
-.menubar > .profileWrap {
-  display: flex;
-  align-items: center;
+section {
+  background-color: #fff;
+  border-radius: 4px;
   padding: 20px;
-}
-.menubar > .profileWrap > .profileImg {
-  border-radius: 50%;
-  flex: 1;
-}
-.menubar > .profileWrap > .title {
-  color: #fff;
-  display: inline-block;
-  margin: 0 20px;
-  flex: 5;
-
-}
-.menubar > .profileWrap > .setting {
-  flex: 1;
+  border: 1px solid rgba(211, 215, 219, 1.0);
+  margin-top: 20px;
 }
 
-.menubar section {
-  color: #666;
-}
-.menubar .btn {
-  width: 100%;
-  color: #fff;
-  border-width: 0;
-  padding: 20px 20px;
-  text-align: left;
-}
-
-@media only screen and (max-width:1080px) {
-  body > .menubar {
-    left: -250px;
-  }
-}

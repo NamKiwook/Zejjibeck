@@ -2,17 +2,19 @@ doctype html
 -var dataType = 'checkbox'
 html
   head
+    include head.pug
+    link(rel='stylesheet', href='/stylesheets/type1.css')
   body
-    include navbar.pug
+    include dashboardLayout.pug
     .container
       .imgWrap
-        img(src="/icon/profileImg1.jpg", width="200", height="200")
+        img(src="/icon/profileImg1.jpg")
       if dataType == 'text'
-        .textWrap
+        .problemWrap.text
           p.title 위의 그림이 나타내는 것을 적어주세요.
           input(type="text" placeholder="asdf")
       else if dataType == 'checkbox'
-        .checkboxWrap
+        .problemWrap.checkbox
           p.title 위의 그림이 나타내는 것을 적어주세요.
           input(type="checkbox", name="checkbox", value="a")
           | a
@@ -21,7 +23,7 @@ html
           input(type="checkbox", name="checkbox", value="c")
           | c
       else if dataType == 'radio'
-        .radioWrap
+        .problemWrap.radio
           p.title 위의 그림이 나타내는 것을 적어주세요.
           input(type="radio", name="radio", value="가")
           | 가
@@ -29,9 +31,6 @@ html
           | 나
           input(type="radio", name="radio", value="다")
           | 다
-style.
-  .container {
-    margin-left: 250px;
-    margin-top: 60px;
-    padding: 40px;
-  }
+      .btnWrap
+        .prev.btn PREV
+        .next.btn NEXT

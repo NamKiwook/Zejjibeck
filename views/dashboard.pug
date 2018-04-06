@@ -1,11 +1,8 @@
 doctype html
 html
   head
-    meta(charset='utf-8')
-    meta(name='viewport', content='width=device-width, initial-scale=1.0')
-    title DashBoard
+    include head.pug
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
-    script(src='https://code.jquery.com/jquery-3.3.1.min.js')
   body
     include navbar
     .menubar
@@ -24,3 +21,6 @@ html
         a.btn menu3
         a.btn menu4
 
+    include dashboardLayout.pug
+    section.firstSection 안녕하세요
+    section.secondSection 반갑습니다
