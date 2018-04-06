@@ -18,9 +18,9 @@ nav
   a.btn menu3
   a.btn menu4
 .boardType
-  a 구매하기
-  a 판매하기
-  a.active 마이페이지
+  a 과제풀기
+  a#upload(href='/upload') 과제등록
+  a#mypage(href='/dashboard') 마이페이지
 
 style.
   body {
@@ -107,7 +107,11 @@ style.
     background-color: #425262;
     transition: all 0.4s;
     padding: 20px 0;
-    z-index: 999;
+    z-index: 900;
+  }
+
+  .menubar.hide {
+    left: -250px;
   }
 
   .menubar section {
@@ -186,10 +190,8 @@ style.
 script.
   $('.profileWrap').click(function(){
     $('.dropdownMenu').toggleClass('visible');
-    console.log('1');
   })
 
   $('.menu').click(function(){
     $('.menubar').toggleClass('visible');
-    console.log('2');
   })

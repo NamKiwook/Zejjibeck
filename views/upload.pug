@@ -1,36 +1,125 @@
 doctype html
 html
-    head
-        meta(charset='utf-8')
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')
-        title SignUp
-        link(rel='stylesheet', href='/stylesheets/login.css')
-        script(src='https://code.jquery.com/jquery-3.3.1.min.js')
-    body
-        include navbar.pug
-        .container
-            input.projectName(type="text", name="projectName", placeholder="Project Name")
-            input.type(type="text", name="type", placeholder="material type")
-            input.credit(type="text", name="credit", placeholder="credit")
-            input.TagType(type="text", name="tagType", placeholder="tagType")
-            input.TagVal1(type="text", name="TagVal1", placeholder="TagVal1")
-            input.TagVal2(type="text", name="TagVal2", placeholder="TagVal2")
-            input.TagVal3(type="text", name="TagVal3", placeholder="TagVal3")
-            input.minTag(type="text", name="minTag", placeholder="minTag")
-            form#ajaxFrom(enctype="multipart/form-data")
-                input#ajaxFile(type="file", multiple="multiple")
+  head
+    include head.pug
+    link(rel='stylesheet', href='stylesheets/upload.css')
+  body
+    include dashboardLayout
+    .container
+      section.textWrap
+        .title Project Name
+        input.text(type='text')
+      section.textWrap
+        .title Credit
+        input.text(type='text')
+      section.typeWrap
+        p.title Type
+        label.radioWrap Image
+          input.type#typeImg(type="radio", name="type", value="image")
+          span.radiomark
+        label.radioWrap Audio
+          input.type(type="radio", name="type", value="audio")
+          span.radiomark
+        label.radioWrap Text
+          input.type(type="radio", name="type", value="text")
+          span.radiomark
+      section.tagTypeWrap
+        p.title Tag Type
+        label.radioWrap Radio
+          input.tagType#radioTag(type="radio", name="tagType", value="radio")
+          span.radiomark
+        label.radioWrap Check box
+          input.tagType#checkboxTag(type="radio", name="tagType", value="checkbox")
+          span.radiomark
+        label.radioWrap Text
+          input.tagType(type="radio", name="tagType", value="text")
+          span.radiomark
+        label.radioWrap#dragType Drag
+          input.tagType(type="radio", name="tagType", value="drag")
+          span.radiomark
+      section.tagValue
+        .title Tag Value
+        .valueWrap
+          .textWrap#valueField
+            input.text(type='text')
+          .btnWrap
+            a#plus.btn +
+      section.upload
+        .title Upload
+        form#ajaxFrom(enctype="multipart/form-data")
+          input#ajaxFile(type="file", multiple="mutiple")
+      .btn.register REGISTER
 
-            a.login.btn Up load
 script.
-    $('.login.btn').click(function(){
-        var projectName = document.getElementsByName('projectName').value;
-        var type = document.getElementsByName('type').value;
-        var credit = document.getElementsByName('credit').value;
-        var TagType = document.getElementsByName('tagType').value;
-        var minTag = document.getElementsByName('minTag').value;
-        var tagValList = [];
-        tagValList.push(document.getElementsByName('TagVal1').value);
-        tagValList.push(document.getElementsByName('TagVal2').value);
-        tagValList.push(document.getElementsByName('TagVal2').value);
+  $(document).ready(function(){
+    $('#upload').addClass('active');
 
+    // image type일때 drag 추가
+    $('.type').change(function(){
+      if ($('#typeImg').is(":checked")) {
+        $('#dragType').css('display', 'inline-block');
+      } else {
+        $('#dragType').css('display', 'none');
+      }
     })
+
+    $('.tagType').change(function(){
+      if($('#radioTag').is(":checked") || $('#checkboxTag').is(":checked")){
+        $('.tagValue').css('display', 'flex');
+      }else{
+        $('.tagValue').css('display', 'none');
+      }
+    })
+
+
+
+    // input field 동적생성
+    var maxFields = 5;
+    var x = 1;
+    $('#plus').click(function(){
+      if(x < maxFields) {
+        x++;
+        $('#valueField').append('<input class="text" type="text"/>');
+      }
+    })
+  })
+
+
+
+
+//doctype html
+//html
+//    head
+//        meta(charset='utf-8')
+//        meta(name='viewport', content='width=device-width, initial-scale=1.0')
+//        title SignUp
+//        link(rel='stylesheet', href='/stylesheets/login.css')
+//        script(src='https://code.jquery.com/jquery-3.3.1.min.js')
+//    body
+//        include navbar.pug
+//        .container
+//            input.projectName(type="text", name="projectName", placeholder="Project Name")
+//            input.type(type="text", name="type", placeholder="material type")
+//            input.credit(type="text", name="credit", placeholder="credit")
+//            input.TagType(type="text", name="tagType", placeholder="tagType")
+//            input.TagVal1(type="text", name="TagVal1", placeholder="TagVal1")
+//            input.TagVal2(type="text", name="TagVal2", placeholder="TagVal2")
+//            input.TagVal3(type="text", name="TagVal3", placeholder="TagVal3")
+//            input.minTag(type="text", name="minTag", placeholder="minTag")
+//            form#ajaxFrom(enctype="multipart/form-data")
+//                input#ajaxFile(type="file", multiple="multiple")
+//
+//            a.login.btn Up load
+//script.
+//    $('.login.btn').click(function(){
+//        var projectName = document.getElementsByName('projectName').value;
+//        var type = document.getElementsByName('type').value;
+//        var credit = document.getElementsByName('credit').value;
+//        var TagType = document.getElementsByName('tagType').value;
+//        var minTag = document.getElementsByName('minTag').value;
+//        var tagValList = [];
+//        tagValList.push(document.getElementsByName('TagVal1').value);
+//        tagValList.push(document.getElementsByName('TagVal2').value);
+//        tagValList.push(document.getElementsByName('TagVal2').value);
+//
+//    })
