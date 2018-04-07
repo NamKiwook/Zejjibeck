@@ -10,6 +10,9 @@ html
         .title Project Name
         input.text(type='text')
       section.textWrap
+        .title Description
+        input.text(type='text')
+      section.textWrap
         .title Credit
         input.text(type='text')
       section.typeWrap
@@ -86,7 +89,8 @@ script.
 
   $('.register').click(function(){
       $.ajax({
-          url: '/upload/test',
+          type:'post',
+          url: '/upload/register',
           success:function(){
               console.log('ok');
           },

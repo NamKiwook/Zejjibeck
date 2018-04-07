@@ -15,11 +15,9 @@ router.get('/certification/:id/:password', async function(req,res,next){
 
    try{
      var user = await userSchema.findOne({userId: id, password: password});
-     console.log(user.toString());
      if(user.toString())
      {
        req.session.user = user;
-       console.log(req.session.user);
        res.send({pass:'ok'});
      }
      else
