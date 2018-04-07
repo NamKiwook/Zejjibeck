@@ -12,7 +12,6 @@ router.get('/', function(req, res, next) {
     res.render('upload', { title: 'Express'  });
 });
 
-// "fileNo" means upload file's index
 // TODO : get user/project id from cookie
 router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
   var userId = "user";
