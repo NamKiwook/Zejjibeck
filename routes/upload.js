@@ -20,27 +20,6 @@ router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
   var fileNo = getLeadingZero(req.params.fileNo);
 
   params.Key = "rawData/" + userId + "/" + projectId + "/" + fileNo + extension;
-
-  s3.getSignedUrl('putObject', params, function(err, url){
-    console.log(url);
-    res.end(url);
-  });
-});
-
-function getLeadingZero(fileNo){
-  while(fileNo.length < digits){
-    fileNo = '0' + fileNo;
-  }
-  return fileNo;
-}
-
-function getExtension(fileName){
-  var extension = "";
-  for(var i = fileName.length - 1 ; i >= 0 ; i--) {
-    extension = fileName[i] + extension;
-    if(fileName[i] == '.') break;
-  }
-  return extension;
 }
 
 module.exports = router;
