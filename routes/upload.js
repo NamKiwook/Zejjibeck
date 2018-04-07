@@ -11,7 +11,11 @@ const digits = 6;
 router.get('/', function(req, res, next) {
     res.render('upload', { title: 'Express'  });
 });
-
+router.get('/test', async function(req, res, next){
+  if(req.session && req.session.user)
+  var id = req.session.user.userId;
+  console.log(id);
+})
 // "fileNo" means upload file's index
 // TODO : get user/project id from cookie
 router.get('/uploadUrl/:fileName/:fileNo', function(req,res){

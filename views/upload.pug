@@ -84,7 +84,17 @@ script.
     })
   })
 
-
+  $('.register').click(function(){
+      $.ajax({
+          url: '/upload/test',
+          success:function(){
+              console.log('ok');
+          },
+          error:function(err){
+              console.log(err);
+          }
+      })
+  })
 
 
 //doctype html
