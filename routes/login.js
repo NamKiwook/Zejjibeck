@@ -13,7 +13,8 @@ router.get('/certification/:id/:password', async function(req,res,next){
         console.log(compare.toString());
         if(compare.toString())
         {
-            req.session.id = id;
+            req.session.userInfo = {id : id};
+            req.session.save();
             res.send({pass:'ok'});
         }
         else
