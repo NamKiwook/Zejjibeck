@@ -46,7 +46,7 @@ script.
   //메뉴 선택시 스크롤링
   $('.menu a').click(function() {
     var scrollPosition = $($(this).attr('data-target')).offset().top;
-
+    
     $('html').animate({
       scrollTop: scrollPosition-60
     }, 500);

@@ -1,5 +1,7 @@
 doctype html
--var dataType = 'checkbox'
+-var dataType = 'text'
+-var totalSequence = 20
+-var nowSequence = 1
 html
   head
     include head.pug
@@ -7,30 +9,37 @@ html
   body
     include dashboardLayout.pug
     .container
+      .sequence #{nowSequence} / #{totalSequence}
       .imgWrap
         img(src="/icon/profileImg1.jpg")
       if dataType == 'text'
         .problemWrap.text
           p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="text" placeholder="asdf")
+          input(type="text" placeholder="정답을 입력해주세요")
       else if dataType == 'checkbox'
         .problemWrap.checkbox
           p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="checkbox", name="checkbox", value="a")
-          | a
-          input(type="checkbox", name="checkbox", value="b")
-          | b
-          input(type="checkbox", name="checkbox", value="c")
-          | c
+          label.inputWrap a
+            input(type="checkbox", name="checkbox", value="a")
+            span.checkmark
+          label.inputWrap b
+            input(type="checkbox", name="checkbox", value="b")
+            span.checkmark
+          label.inputWrap c
+            input(type="checkbox", name="checkbox", value="c")
+            span.checkmark
       else if dataType == 'radio'
         .problemWrap.radio
           p.title 위의 그림이 나타내는 것을 적어주세요.
-          input(type="radio", name="radio", value="가")
-          | 가
-          input(type="radio", name="radio", value="나")
-          | 나
-          input(type="radio", name="radio", value="다")
-          | 다
+          label.inputWrap 가
+            input(type="radio", name="radio", value="가")
+            span.radiomark
+          label.inputWrap 나
+            input(type="radio", name="radio", value="나")
+            span.radiomark
+          label.inputWrap 다
+            input(type="radio", name="radio", value="다")
+            span.radiomark
       .btnWrap
         .prev.btn PREV
         .next.btn NEXT

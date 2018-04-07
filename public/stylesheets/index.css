@@ -95,8 +95,6 @@ body > nav {
 }
 
 .sectionFirst > .imgCover > .container > .sign {
-	display: flex;
-	flex-flow: column;
 	width: 80%;
 	margin: auto;
 }
@@ -107,7 +105,7 @@ body > nav {
 	background-color:#2E76B1;
 	font-size: 20px; 
 	padding: 16px 70px;
-	
+	width: 100%;
 }
 
 .sectionFirst > .imgCover > .container > .sign > .signUp {
