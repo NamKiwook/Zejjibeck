@@ -29,7 +29,7 @@ router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
   var userId = "user";
   var projectId = "first_project";
   var extension = getExtension(req.params.fileName);
-  var fileNo = getLeadingZero(req.params.fileNo, leadingNumber);
+  var fileNo = setLeadingZero(req.params.fileNo, leadingNumber);
 
   params.Key = "rawData/" + userId + "/" + projectId + "/" + fileNo + extension;
 
@@ -39,7 +39,7 @@ router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
   });
 });
 
-function getLeadingZero(fileNo, leading){
+function setLeadingZero(fileNo, leading){
   while(fileNo.length < leading){
     fileNo = '0' + fileNo;
   }
