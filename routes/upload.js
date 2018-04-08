@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
 
 // TODO : get user/project id from cookie
 router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
-  var userId = "user";
+  var userId = req.session.userInfo.id;
   var projectId = "first_project";
   var extension = getExtension(req.params.fileName);
   var fileNo = setLeadingZero(req.params.fileNo);

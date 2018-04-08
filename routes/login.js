@@ -14,20 +14,20 @@ router.get('/certification/:id/:password', async function(req,res,next){
   var id = req.params.id;
   var password = req.params.password;
 
-  try{
+  try {
     var compare = await userSchema.find({userId: id, password: password});
     console.log(compare.toString());
-    if(compare.toString()) {
-      req.session.id = id;
-      res.send({pass:'ok'});
+    if (compare.toString()) {
+      req.session.userInfo = {id : id};
+      req.session.save();
+      res.send({pass: 'ok'});
     }
     else {
       res.send({pass: 'no'});
     }
-  }catch (err){
+  } catch (err) {
     res.send({pass:'no'});
   }
-
 });
 
 router.post('/logout', function(req,res,next){
