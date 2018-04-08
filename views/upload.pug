@@ -13,6 +13,9 @@ html
         .title Project Description
         input.text(type='text')
       section.textWrap
+        .title Credit
+        input.text(type='text')
+      section.textWrap
         .title Minimum Number of Refine
         input.text(type='number')
       section.textWrap
@@ -90,7 +93,18 @@ script.
     })
   })
 
-
+  $('.register').click(function(){
+      $.ajax({
+          type:'post',
+          url: '/upload/register',
+          success:function(){
+              console.log('ok');
+          },
+          error:function(err){
+              console.log(err);
+          }
+      })
+  })
 
 
 //doctype html
