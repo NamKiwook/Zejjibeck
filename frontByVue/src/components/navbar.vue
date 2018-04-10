@@ -1,5 +1,5 @@
 <template lang="pug">
-nav.scrolled
+nav(v-bind:class="{scrolled : isScrolled}")
   .container
     router-link.logoImage(to="/") DATAG
     .menu
@@ -10,7 +10,28 @@ nav.scrolled
 
 <script>
 export default {
-  name: 'navbar'
+  name: 'navbar',
+  data () {
+    return {
+      isScrolled: false
+    }
+  },
+  methods: {
+    handleScroll () {
+      var scrollPosition = window.scrollY
+      if (scrollPosition >= 50) {
+        this.isScrolled = true
+      } else {
+        this.isScrolled = false
+      }
+    }
+  },
+  beforeMount () {
+    window.addEventListener('scroll', this.handleScroll)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.handleScroll)
+  }
 }
 </script>
 
