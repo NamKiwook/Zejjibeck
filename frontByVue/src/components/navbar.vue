@@ -11,19 +11,19 @@ nav(v-bind:class="{scrolled : isScrolled}")
 <script>
 export default {
   name: 'navbar',
-  data () {
-    return {
-      isScrolled: false
-    }
-  },
   methods: {
     handleScroll () {
       var scrollPosition = window.scrollY
       if (scrollPosition >= 50) {
-        this.isScrolled = true
+        this.$store.commit('scrollIsTrue')
       } else {
-        this.isScrolled = false
+        this.$store.commit('scrollIsFalse')
       }
+    }
+  },
+  computed: {
+    isScrolled () {
+      return this.$store.getters.getScrolled
     }
   },
   beforeMount () {

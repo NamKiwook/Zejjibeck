@@ -17,8 +17,8 @@ export default {
     border: 0;
     box-sizing: border-box;
     color: #3c4858;
-    font-size: 14px;
-    font-family: 'Spoqa Han Sans', 'Sans-serif';
+    font-size: 14px;vsad
+  font-family: 'Spoqa Han Sans', 'Sans-serif';
     margin: 0;
     padding: 0;
   }
@@ -60,9 +60,12 @@ export default {
   html {
     height: 100%;
   }
+
   body {
+    background-color: #425262;
     height: 100%;
   }
+
   #app {
     height: 100%;
   }

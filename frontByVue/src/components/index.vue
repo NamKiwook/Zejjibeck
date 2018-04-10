@@ -122,6 +122,7 @@ export default {
   }
 
   .sectionSecond {
+    background-color: #fff;
     padding: 120px 0 180px;
   }
   .sectionSecond > .container {

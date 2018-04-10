@@ -64,6 +64,9 @@ app.use('/dashboard', dashboard);
 app.use('/type1', type1);
 app.use('/upload', upload);
 
+//for Vue Develop
+app.use('/api/login',login);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
