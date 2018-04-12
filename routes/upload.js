@@ -18,7 +18,12 @@ router.get('/', function(req, res, next) {
 //TODO : implement rest things use body-parser
 router.post('/register', async function(req,res,next){
 
+  var projectData = req.body.contents;
+
+  console.log(projectData);
+
   var upload = new uploadSchema({
+
     type: "image",
     files: 10,
     tagType: "radio",

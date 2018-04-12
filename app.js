@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 //mongo session
 var mongoStore = require('connect-mongo')(session);
+// var mongourl = 'mongodb://172.25.3.3:27017/zejjibeck';
 var mongourl = 'mongodb://localhost:27017/zejjibeck';
 
 var index = require('./routes/index');
