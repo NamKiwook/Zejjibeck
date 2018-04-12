@@ -82,52 +82,6 @@ a {
   display: block;
 }
 
-/* 라디오버튼 */
-.radioWrap{
-  display: inline-block;
-  position: relative;
-  padding-left: 25px;
-  padding-top: 3px;
-  cursor: pointer;
-  width: 100px;
-  margin-right: 50px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-}
-.radioWrap > input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-}
-.radiomark {
-  position: absolute;;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 20px;
-  background-color: #eee;
-  border-radius: 50%;
-}
-.radioWrap > input:checked ~ .radiomark {
-  background-color: #2E76B1;
-}
-.radioWrap > .radiomark:after {
-  content: "";
-  position: absolute;
-  display: none;
-  width: 6px;
-  height: 6px;
-  top: 7px;
-  left: 7px;
-  border-radius: 50%;
-  background-color: #fff;
-}
-.radioWrap > input:checked ~ .radiomark:after {
-  display: block;
-}
-
 
 body > .container {
   background-color: #fff;

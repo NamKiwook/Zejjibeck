@@ -32,7 +32,7 @@ html
       section.typeWrap
         p.title Data Type
         label.radioWrap Image
-          input.type(type="radio", name="dataType", value="image")
+          input.type#typeImg(type="radio", name="dataType", value="image")
           span.radiomark
         label.radioWrap Audio
           input.type(type="radio", name="dataType", value="audio")
@@ -43,15 +43,15 @@ html
       section.tagTypeWrap
         p.title Refine Type
         label.radioWrap Radio
-          input.tagType(type="radio", name="refineType", value="radio")
+          input.tagType#radioTag(type="radio", name="refineType", value="radio")
           span.radiomark
         label.radioWrap Check box
-          input.tagType(type="radio", name="refineType", value="checkbox")
+          input.tagType#checkboxTag(type="radio", name="refineType", value="checkbox")
           span.radiomark
         label.radioWrap Text
           input.tagType(type="radio", name="refineType", value="text")
           span.radiomark
-        label.radioWrap Drag
+        label.radioWrap#dragType Drag
           input.tagType(type="radio", name="refineType", value="drag")
           span.radiomark
       section.tagValue
@@ -66,120 +66,13 @@ html
         form#ajaxFrom(enctype="multipart/form-data")
           input#ajaxFile(type="file", multiple="multiple")
           input(type="button", onclick="upload();", value="업로드")
+          //.btn.register REGISTER
 
 script.
-  async function upload() {
-    var projectName = String(document.getElementById('projectName').value);
-    var refine = String(document.getElementById('refine').value);
-    var credit = String(document.getElementById('credit').value);
-    var description = String(document.getElementById('description').value);
-    var fileList = document.getElementById('ajaxFile').files;
-    var projectType = -1;
-    var refineType = -1;
-    var dataType = -1;
-    var state;
-
-    var projectRadio = document.getElementsByName('projectType');
-    var dataRadio = document.getElementsByName('dataType');
-    var refineRadio = document.getElementsByName('refineType')
-
-    console.log(projectRadio);
-
-    for(var i = 0 ; i < 3 ; i++)
-      if(projectRadio[i].checked == true) projectType = i;
-
-    for(var i = 0 ; i < 3 ; i++)
-      if(dataRadio[i].checked == true) dataType = i;
-
-    for(var i = 0 ; i < 4 ; i++)
-      if(refineRadio[i].checked == true) refineType = i;
-
-    if(projectType == 1) state = 1;
-    else state = 0;
-
-    console.log(projectType + " , " + dataType + " , " + refineType);
-
-    if(fileList.length < 1 || refineType < 0 || dataType < 0 || projectType < 0) return;
-
-    var contents = {
-      projectName : projectName,
-      projectType : projectType,
-      fileList : fileList,
-      refineType : refineType,
-      dataType : dataType,
-      refine : refine,
-      state : state,
-      description : description,
-      credit : credit
-    }
-    /*
-    * project name
-    * type of project(image, sound, txt)
-    * file list(json)
-    * number of files
-    * return type(radio, check, drag..)
-    * minimum number of refine
-    * project state("get data", "refine", "finish")
-    * purpose of project("only refine", "only raw data", "get data & refine")
-    * description of project
-    * total credit
-    * */
-
-    try {
-      $.ajax({
-        type : 'post',
-        url : /upload/,
-        contentType : false,
-        processData : false,
-        data: contents,
-      })
-
-    } catch(rejectedValue){
-
-    }
-
-
-    if (fileList.length > 0) {
-      for (var i = 0; i < fileList.length; i++) {
-
-        var url = '/uploadUrl/' + fileList[i].name + '/' + i.toString();
-
-        $.ajax({
-          type: 'get',
-          url: url,
-          success: function (url) {
-
-          }
-        })
-        var fileURL = '/s3/uploadUrl/' + fileList[i].name + '/' + i.toString();
-        var sendFile = fileList[i];
-
-        console.log(fileURL);
-
-        $.ajax({
-          type: 'get',
-          url: fileURL,
-          success: function (url) {
-            $.ajax({
-              type: 'put',
-              url: url,
-              contentType: false,
-              processData: false,
-              data: sendFile,
-            })
-          },
-          error: function (err) {
-            console.log(err);
-          }
-        })
-      }
-    }
-  }
-
   $(document).ready(function(){
     $('#upload').addClass('active');
 
-    // image type일때 drag 추가
+      // image type일때 drag 추가
     $('.type').change(function(){
       if ($('#typeImg').is(":checked")) {
         $('#dragType').css('display', 'inline-block');
@@ -207,53 +100,92 @@ script.
     })
   })
 
-  $('.register').click(function(){
+  // $('.register').click(upload())
+
+  function upload() {
+    var projectName = String(document.getElementById('projectName').value);
+    var refine = String(document.getElementById('refine').value);
+    var credit = String(document.getElementById('credit').value);
+    var description = String(document.getElementById('description').value);
+    var fileList = document.getElementById('ajaxFile').files;
+    var projectType = -1;
+    var refineType = -1;
+    var dataType = -1;
+    var state;
+    var refineField = document.getElementById('valueField');
+    var refineList = Object();
+
+    var projectRadio = document.getElementsByName('projectType');
+    var dataRadio = document.getElementsByName('dataType');
+    var refineRadio = document.getElementsByName('refineType')
+
+    for(var i = 0 ; i < 3 ; i++)
+      if(projectRadio[i].checked == true) projectType = i.toString();
+
+    for(var i = 0 ; i < 3 ; i++)
+      if(dataRadio[i].checked == true) dataType = i.toString();
+
+    for(var i = 0 ; i < 4 ; i++)
+      if(refineRadio[i].checked == true) refineType = i.toString();
+
+    for(var i = 0 ; i < refineField.childElementCount ; i++) {
+      console.log(refineField.children[i].value);
+      refineList[i] = refineField.children[i].value;
+    }
+
+    console.log(refineList);
+
+    if(projectType == 1) state = '1';
+    else state = '0';
+
+    if(fileList.length < 1 || refineType < 0 || dataType < 0 || projectType < 0) return;
+
+    try {
       $.ajax({
-          type:'post',
-          url: '/upload/register',
-          success:function(){
-              console.log('ok');
-          },
-          error:function(err){
-              console.log(err);
-          }
+        type : 'post',
+        url : '/upload/register',
+        data: {
+          projectName : projectName,
+          projectType : projectType,
+          refineType : refineType,
+          dataType : dataType,
+          refine : refine,
+          state : state,
+          description : description,
+          credit : credit,
+          refineList : refineList,
+        },
+        dataType : 'json',
       })
-  })
 
+    } catch(rejectedValue){
 
-//doctype html
-//html
-//    head
-//        meta(charset='utf-8')
-//        meta(name='viewport', content='width=device-width, initial-scale=1.0')
-//        title SignUp
-//        link(rel='stylesheet', href='/stylesheets/login.css')
-//        script(src='https://code.jquery.com/jquery-3.3.1.min.js')
-//    body
-//        include navbar.pug
-//        .container
-//            input.projectName(type="text", name="projectName", placeholder="Project Name")
-//            input.type(type="text", name="type", placeholder="material type")
-//            input.credit(type="text", name="credit", placeholder="credit")
-//            input.TagType(type="text", name="tagType", placeholder="tagType")
-//            input.TagVal1(type="text", name="TagVal1", placeholder="TagVal1")
-//            input.TagVal2(type="text", name="TagVal2", placeholder="TagVal2")
-//            input.TagVal3(type="text", name="TagVal3", placeholder="TagVal3")
-//            input.minTag(type="text", name="minTag", placeholder="minTag")
-//            form#ajaxFrom(enctype="multipart/form-data")
-//                input#ajaxFile(type="file", multiple="multiple")
-//
-//            a.login.btn Up load
-//script.
-//    $('.login.btn').click(function(){
-//        var projectName = document.getElementsByName('projectName').value;
-//        var type = document.getElementsByName('type').value;
-//        var credit = document.getElementsByName('credit').value;
-//        var TagType = document.getElementsByName('tagType').value;
-//        var minTag = document.getElementsByName('minTag').value;
-//        var tagValList = [];
-//        tagValList.push(document.getElementsByName('TagVal1').value);
-//        tagValList.push(document.getElementsByName('TagVal2').value);
-//        tagValList.push(document.getElementsByName('TagVal2').value);
-//
-//    })
+    }
+
+    /*
+    for (var i = 0; i < fileList.length; i++) {
+      var fileURL = '/s3/uploadUrl/' + fileList[i].name + '/' + i.toString();
+      var sendFile = fileList[i];
+
+      console.log(fileURL);
+
+      $.ajax({
+        type: 'get',
+        url: fileURL,
+        success: function (url) {
+          $.ajax({
+            type: 'put',
+            url: url,
+            contentType: 'false',
+            processData: false,
+            data: sendFile,
+          })
+        },
+        error: function (err) {
+          console.log(err);
+        }
+      })
+    }
+    */
+  }
+

@@ -5,25 +5,26 @@ var userSchema = require('../model/user');
 var projectSchema = require('../model/project');
 var uploadSchema = require('../model/upload');
 
+var bodyParser = require('body-parser');
+
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 
 const digits = 6;
+
+router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
     res.render('upload', { title: 'Express'  });
 });
 
-//TODO : implement rest things use body-parser
-router.post('/register', async function(req,res,next){
+router.post('/register', async function(req,res, next){
 
-  var projectData = req.body.contents;
-
-  console.log(projectData);
+  var projectData = req.body.projectName;
 
   var upload = new uploadSchema({
-
     type: "image",
     files: 10,
     tagType: "radio",
@@ -33,6 +34,7 @@ router.post('/register', async function(req,res,next){
     blockSize: 5
   });
 
+  /*
   try {
     var uploadData = await upload.save();
     console.log(uploadData._id);
@@ -59,7 +61,7 @@ router.post('/register', async function(req,res,next){
   }
 
   res.send({pass:'ok'});
-
+  */
 });
 
 router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
