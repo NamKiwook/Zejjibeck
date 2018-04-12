@@ -24,6 +24,9 @@ router.post('/register', async function(req,res, next){
 
   var projectData = req.body.projectName;
 
+  console.log(req.body.fileNames);
+  console.log(req.body.refineList);
+
   var upload = new uploadSchema({
     type: "image",
     files: 10,
@@ -64,13 +67,13 @@ router.post('/register', async function(req,res, next){
   */
 });
 
-router.get('/uploadUrl/:fileName/:fileNo', function(req,res){
+router.get('/url/:projectName/:fileNo/:fileName', function(req,res){
   var userId = req.session.userInfo.id;
-  var projectId = req.param('projectId');
+  var projectName = req.params.projectName;
   var extension = getExtension(req.params.fileName);
   var fileNo = setLeadingZero(req.params.fileNo);
 
-  params.Key = "rawData/" + userId + "/" + projectId + "/" + fileNo + extension;
+  params.Key = "rawData/" + userId + "/" + projectName + "/" + fileNo + extension;
 
   s3.getSignedUrl('putObject', params, function(err, url){
     console.log(url);

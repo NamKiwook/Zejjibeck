@@ -118,6 +118,7 @@ script.
     var projectRadio = document.getElementsByName('projectType');
     var dataRadio = document.getElementsByName('dataType');
     var refineRadio = document.getElementsByName('refineType')
+    var fileNames = Object();
 
     for(var i = 0 ; i < 3 ; i++)
       if(projectRadio[i].checked == true) projectType = i.toString();
@@ -140,6 +141,12 @@ script.
 
     if(fileList.length < 1 || refineType < 0 || dataType < 0 || projectType < 0) return;
 
+    for(var i = 0 ; i < fileList.length ; i++)
+      fileNames[i] = fileList[i].name;
+
+    fileNames = JSON.stringify(fileNames);
+    refineList = JSON.stringify(refineList);
+
     try {
       $.ajax({
         type : 'post',
@@ -154,17 +161,16 @@ script.
           description : description,
           credit : credit,
           refineList : refineList,
+          fileNames : fileNames,
         },
         dataType : 'json',
       })
-
     } catch(rejectedValue){
 
     }
 
-    /*
     for (var i = 0; i < fileList.length; i++) {
-      var fileURL = '/s3/uploadUrl/' + fileList[i].name + '/' + i.toString();
+      var fileURL = '/upload/url/' + projectName + '/' + i.toString() + '/' + fileList[i].name;
       var sendFile = fileList[i];
 
       console.log(fileURL);
@@ -186,6 +192,5 @@ script.
         }
       })
     }
-    */
   }
 
