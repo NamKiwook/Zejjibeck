@@ -22,18 +22,17 @@ router.get('/', function(req, res, next) {
 
 router.post('/register', async function(req,res, next){
 
-  var projectData = req.body.projectName;
+  var fileNames = req.body.fileNames;
 
-  console.log(req.body.fileNames);
-  console.log(req.body.refineList);
+  fileNames = JSON.parse(fileNames);
 
   var upload = new uploadSchema({
     type: "image",
     files: 10,
     tagType: "radio",
-    tagValue: ["사과", "딸기", "바나나"],
-    minTag: 5,
-    totalCredit: 100,
+    refineList: req.body.refineList,
+    refine: req.body.refine,
+    credit: req.body.credit,
     blockSize: 5
   });
 

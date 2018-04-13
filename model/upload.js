@@ -2,11 +2,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var uploadSchema = new Schema({
-  type: String, // 'image' 'audio' 'text'
-  files: Number,
-  tagType: String, //radioBox, checkBox, drag
-  tagValue: Array,
-  minTag: Number,
+  projectType: String, // 'image' 'audio' 'text'
+  fileNo: Number,
+  refineType: String, //radioBox, checkBox, drag
+  refineList: Array,
+  minimumRefine: Number,
   totalCredit: Number,
   blockSize: Number
 });
