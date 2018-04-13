@@ -10,4 +10,5 @@ var uploadSchema = new Schema({
   totalCredit: Number,
   blockSize: Number
 });
+
 module.exports = mongoose.model('upload', uploadSchema);

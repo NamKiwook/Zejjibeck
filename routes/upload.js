@@ -22,35 +22,42 @@ router.get('/', function(req, res, next) {
 
 router.post('/register', async function(req,res, next){
 
+  /* TODO: implement check duplicated projectName */
+
   var fileNames = req.body.fileNames;
 
   fileNames = JSON.parse(fileNames);
 
   var upload = new uploadSchema({
-    type: "image",
-    files: 10,
-    tagType: "radio",
+    projectType: req.body.projectType, // 'image' 'audio' 'text'
+    fileNo: fileNames.length,
+    refineType: req.body.refineType,
     refineList: req.body.refineList,
-    refine: req.body.refine,
-    credit: req.body.credit,
-    blockSize: 5
+    minimumRefine: req.body.minimumRefine,
+    totalCredit: req.body.totalCredit,
+    blockSize: req.body.blockSize,
   });
 
-  /*
   try {
     var uploadData = await upload.save();
     console.log(uploadData._id);
 
     var project = new projectSchema();
 
-    project.projectId = "test project4";
-    project.description = "this is test project4";
+    project.projectName = req.body.projectName;
+    project.description = req.body.description;
     project.uploadInfo = uploadData._id;
 
     var projectData = await project.save();
-    var user = await userSchema.findOne({userId: req.session.userInfo.id});
 
-    user.projects.push({projectId:project.projectId, project_dbid:projectData._id});
+    var user = await userSchema.findOne({
+      userId: req.session.userInfo.id
+    });
+
+    user.projects.push({
+        projectName:project.projectName,
+        project_dbid:projectData._id
+      });
 
     var user2 = await user.save();
     var user2Project = user2.projects[user2.projects.length-1];
@@ -63,7 +70,6 @@ router.post('/register', async function(req,res, next){
   }
 
   res.send({pass:'ok'});
-  */
 });
 
 router.get('/url/:projectName/:fileNo/:fileName', function(req,res){
