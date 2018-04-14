@@ -1,7 +1,10 @@
 <template lang="pug">
 div.container
   .title Dash Board
-  carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5)
+  .btn-wrap
+    router-link.btn(to='/upload') 과제풀기
+    a.btn 과제등록
+  carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5, pagination-active-color='#666')
     slide
       .project-wrap
         .title Project1
@@ -13,6 +16,13 @@ div.container
           .solved
             .num 341
             .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
     slide
       .project-wrap
         .title Project1
@@ -24,6 +34,13 @@ div.container
           .solved
             .num 341
             .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p62.center
+              span 62%
+              .slice
+                .bar
+                .fill
     slide
       .project-wrap
         .title Project1
@@ -35,6 +52,13 @@ div.container
           .solved
             .num 341
             .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p10.center
+              span 10%
+              .slice
+                .bar
+                .fill
     slide
       .project-wrap
         .title Project1
@@ -46,6 +70,13 @@ div.container
           .solved
             .num 341
             .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
     slide
       .project-wrap
         .title Project1
@@ -57,6 +88,25 @@ div.container
           .solved
             .num 341
             .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
+  section.credit
+    .title Credit
+    .credit-wrap
+      .available
+        .text 사용가능 포인트
+        .point 3230원
+      .expected
+        .text 적립예정 포인트
+        .point 300원
+      .btn-wrap
+        a.btn 충전
+        a.btn 출금
 </template>
 
 <script>
@@ -80,6 +130,16 @@ export default {
     margin-left: 250px;
     margin-top: 60px;
   }
+  .container > .btn-wrap {
+    display: flex;
+    width: 100%;
+    padding: 10px 10px 20px;
+  }
+  .container > .btn-wrap > .btn {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+  }
   .container > .title {
     display: inline-block;
     width: 100%;
@@ -91,7 +151,7 @@ export default {
   .project-wrap {
     height: 400px;
     background-color: #fff;
-    margin: 20px;
+    margin: 20px 20px 0;
     padding: 15px;
     border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
@@ -120,6 +180,50 @@ export default {
   }
   .problem-wrap > div > .text {
     color: #a7b3bf;
+    margin-top: 3px;
+    font-size: 14px;
+  }
+  .credit {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid rgba(211, 215, 219, 1.0);
+    margin: 20px;
+  }
+  .credit > .title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .credit > .credit-wrap {
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .credit > .credit-wrap > .available {
+    flex: 3;
+    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  }
+  .credit > .credit-wrap > .expected {
+    flex: 2;
+    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  }
+  .credit > .credit-wrap > div > .text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #a7b3bf;
+    margin-top: 10px;
+  }
+  .credit > .credit-wrap > div > .point {
+    font-size: 32px;
+    margin-top: 10px;
+  }
+  .credit > .credit-wrap > .btn-wrap {
+    flex: 2;
+  }
+  .credit > .credit-wrap > .btn-wrap > .btn {
+    width: 60%;
+    margin: 5px;
+    padding: 10px;
   }
   @media only screen and (max-width: 1080px) {
     .container {
