@@ -22,8 +22,10 @@ block content
 
         if(file.length > 0) {
           for (var i = 0; i < file.length; i++) {
-            var fileURL = '/s3/putPresignedUrl/' + file[i].name;
+            var fileURL = '/s3/uploadUrl/' + file[i].name + '/' + i.toString();
             var sendFile = file[i];
+
+            console.log(fileURL);
 
             $.ajax({
               type: 'get',

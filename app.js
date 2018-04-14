@@ -9,6 +9,7 @@ var session = require('express-session');
 var authMiddleware = require('./authMiddleware');
 //mongo session
 var mongoStore = require('connect-mongo')(session);
+// var mongourl = 'mongodb://172.25.3.3:27017/zejjibeck';
 var mongourl = 'mongodb://localhost:27017/zejjibeck';
 
 var index = require('./routes/index');
