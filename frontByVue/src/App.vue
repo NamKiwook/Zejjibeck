@@ -63,6 +63,22 @@ export default {
     background-color: #fff;
     border-width: 1px;
   }
+  .progressbar {
+    width: 100%;
+    height: 24px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+  }
+  .progressbar > .gauge {
+    width: 60%;
+    height: 100%;
+    background-color: #333333;
+    text-align: center;
+    line-height: 24px;
+    color: #fff;
+    border-radius: 8px;
+  }
+
 
   body {
     background-color: #425262;
