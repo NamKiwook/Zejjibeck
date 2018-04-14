@@ -5,15 +5,15 @@ var userSchema = require('../model/user');
 router.get('/', function(req, res, next) {
         res.render('login', { title: 'Express' });
 });
-router.get('/certification/:id/:password', async function(req,res,next){
+router.get('/certification', async function(req,res,next){
     var id = req.params.id;
     var password = req.params.password;
+
     try{
         var compare = await userSchema.find({userId: id, password: password});
-        console.log(compare.toString());
         if(compare.toString())
         {
-            req.session.id = id;
+            req.session.user = user;
             res.send({pass:'ok'});
         }
         else
