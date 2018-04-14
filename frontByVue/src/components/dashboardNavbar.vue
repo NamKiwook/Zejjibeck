@@ -1,11 +1,11 @@
 <template lang="pug">
 nav
-  .menu.btn
+  .menu.btn(@click="menuToggle")
   router-link.logo(to='/dashboard') DATAG
-  .btn.profileWrap
+  .btn.profileWrap(@click="profileToggle")
     img.profileImg(src="../assets/profileImg1.jpg", width="30", height="30")
     .profileTitle Park Seongjun
-    .dropdownMenu
+    .dropdownMenu(v-bind:class="{visible : profileIsVisible}")
       a.btn Profile
       a.btn Setting
       a.btn Logout
@@ -13,7 +13,20 @@ nav
 
 <script>
 export default {
-  name: 'dashboardNavbar'
+  name: 'dashboardNavbar',
+  data () {
+    return {
+      profileIsVisible: false
+    }
+  },
+  methods: {
+    profileToggle () {
+      this.profileIsVisible = !this.profileIsVisible
+    },
+    menuToggle () {
+      this.$store.commit('menuToggle')
+    }
+  }
 }
 </script>
 

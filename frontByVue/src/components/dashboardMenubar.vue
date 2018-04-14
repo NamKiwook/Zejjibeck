@@ -1,5 +1,5 @@
 <template lang="pug">
-div.menubar
+div.menubar(v-bind:class="{visible : isVisible}")
   router-link.btn(to="/type1") type1
   a.btn type2
   a.btn type3
@@ -12,7 +12,12 @@ div.menubar
 
 <script>
 export default {
-  name: 'dashboardManubar'
+  name: 'dashboardManubar',
+  computed: {
+    isVisible () {
+      return this.$store.getters.menuIsVisible
+    }
+  }
 }
 </script>
 

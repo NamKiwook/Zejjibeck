@@ -4,28 +4,6 @@ html
     include head.pug
     link(rel='stylesheet', href='/stylesheets/dashboard.css')
   body
-    include navbar
-    .menubar
-      .profileWrap
-        img.profileImg(src="/icon/profileImg1.jpg", width='40', height='40')
-        .title Park Seongjun
-        img.setting(src="/icon/iconmonstr-gear-1-240.png", width='22',height='22')
-      section.firstSection
-        a.btn(href="/type1", id="btn1") type1
-        a.btn type2
-        a.btn type3
-        a.btn menu4
-      section.secondSection
-        a.btn menu1
-        a.btn menu2
-        a.btn menu3
-        a.btn menu4
-
     include dashboardLayout.pug
     section.firstSection 안녕하세요
     section.secondSection 반갑습니다
-
-script.
-  $(document).ready(function () {
-    $('#mypage').addClass('active');
-  })
