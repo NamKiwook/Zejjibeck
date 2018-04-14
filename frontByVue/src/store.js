@@ -14,7 +14,7 @@ enhanceAccessToeken()
 
 export const store = new Vuex.Store({
   state: {
-    isScrolled: false,
+    isScrolled: true,
     accessToken: null
   },
   getters: {

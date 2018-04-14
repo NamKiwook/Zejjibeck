@@ -14,13 +14,13 @@ export default {
 
 <style>
   * {
-     border: 0;
-     box-sizing: border-box;
-     color: #3c4858;
-     font-size: 14px;vsad
+    border: 0;
+    box-sizing: border-box;
+    color: #3c4858;
+    font-size: 14px;
     font-family: 'Spoqa Han Sans', 'Sans-serif';
-     margin: 0;
-     padding: 0;
+    margin: 0;
+    padding: 0;
    }
 
   a {
@@ -30,12 +30,14 @@ export default {
 
   .btn {
     display: inline-block;
+    color: #fff;
+    background-color: #2E76B1;
     text-align: center;
     border-radius: 2px;
-    border-width: 1px;
+    border-width: 0px;
     border-style: solid;
-    transition: all 0.2;
     position: relative;
+    padding: 15px 20px;
     user-select: none;
   }
 
@@ -57,13 +59,13 @@ export default {
     opacity: 0.16;
   }
 
-  html {
-    height: 100%;
+  .btn.white {
+    background-color: #fff;
+    border-width: 1px;
   }
 
   body {
     background-color: #425262;
-    height: 100%;
   }
 
   #app {

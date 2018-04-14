@@ -11,26 +11,14 @@ nav(v-bind:class="{scrolled : isScrolled}")
 <script>
 export default {
   name: 'navbar',
-  methods: {
-    handleScroll () {
-      var scrollPosition = window.scrollY
-      if (scrollPosition >= 50) {
-        this.$store.commit('scrollIsTrue')
-      } else {
-        this.$store.commit('scrollIsFalse')
-      }
-    }
-  },
   computed: {
     isScrolled () {
       return this.$store.getters.getScrolled
     }
   },
-  beforeMount () {
-    window.addEventListener('scroll', this.handleScroll)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.handleScroll)
+  created () {
+    console.log(window.location.pathname)
+    return this.isScrolled
   }
 }
 </script>
@@ -40,7 +28,6 @@ export default {
     height: 60px;
     background-color: rgba(0,0,0,0.8);
   }
-
   nav {
     height: 100px;
     background-color: inherit;

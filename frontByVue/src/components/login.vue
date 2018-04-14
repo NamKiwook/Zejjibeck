@@ -6,7 +6,6 @@
     input.id(type="text", name="userID", placeholder="Email", v-model="userId")
     input.password(type="password", name="password", placeholder="Password", v-model="password")
     a.login.btn(v-on:click="submit") Sign In
-    a.google.btn Sign in with Google
     .text Forgot your password?
       a Reset it
 </template>
@@ -71,18 +70,7 @@ export default {
   }
 
   .container > .login {
-    color: #fff;
-    border-width: 0;
-    background-color:#2E76B1;
     font-size: 20px;
-    margin-top: 20px;
-    padding: 16px 0;
-  }
-
-  .container > .google {
-    border-color: rgba(211, 215, 219, 1.0);
-    font-size: 16px;
-    padding: 16px 0;
     margin-top: 20px;
   }
 
