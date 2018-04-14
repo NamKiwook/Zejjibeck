@@ -1,25 +1,30 @@
 <template lang="pug">
-div.sections
+div.container
   .title Dash Board
-  carousel.hi(per-page='3', pagination-color="#fff")
-    slide.project-item
-      .title Project 1
-      .progressbar
-        .gauge 60%
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-  section.secondSection 반갑습니다
-  section.thirdSection 나는 {{ userId }}
+  carousel.project(per-page=3, scroll-per-page=true)
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .title Total Problem
+          .solved
+            .num 341
+            .title Solved Problem
+    slide
+      .project-wrap
+        .title Project2
+    slide
+      .project-wrap
+        .title Project3
+    slide
+      .project-wrap
+        .title Project4
+    slide
+      .project-wrap
+        .title Project5
 </template>
 
 <script>
@@ -39,63 +44,55 @@ export default {
 </script>
 
 <style scoped>
-  .sections {
+  .container {
     margin-left: 250px;
-    padding: 0px 20px;
+    margin-top: 60px;
   }
-  section {
-    overflow-x: scroll;
-  }
-  .sections > .title {
+  .container > .title {
+    display: inline-block;
+    width: 100%;
     font-weight: 800;
     font-size: 32px;
-    margin-top: 20px;
+    padding: 10px;
+    margin: 10px;
   }
   .project-wrap {
     height: 400px;
-  }
-  .project-item {
-    display: inline-block;
     background-color: #fff;
-    border: 1px solid rgba(211,215,219,1.0);
+    margin: 20px;
+    padding: 15px;
+    border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
-    width: 300px;
-    height: 100%;
-    margin: 10px;
   }
-  /*section {*/
-    /*background-color: #fff;*/
-    /*border-radius: 4px;*/
-    /*padding: 20px;*/
-    /*border: 1px solid rgba(211, 215, 219, 1.0);*/
-    /*margin-top: 20px;*/
-  /*}*/
-  /*section > .title {*/
-    /*font-size: 20px;*/
-  /*}*/
-  /*section > .flex-container {*/
-    /*display: flex;*/
-    /*flex-flow: row;*/
-  /*}*/
-  /*.project-wrap {*/
-    /*display: flex;*/
-    /*flex-flow: column;*/
-    /*width: 400px;*/
-    /*padding: 10px;*/
-    /*margin: 15px;*/
-    /*border: 1px solid rgba(211, 215, 219, 1.0);*/
-    /*border-radius: 8px;*/
-  /*}*/
-  /*.project-wrap > .title {*/
-    /*flex: 1;*/
-  /*}*/
-  /*.project-wrap > .progressbar {*/
-    /*flex: 3;*/
-    /*margin-top: 10px;*/
-  /*}*/
+  .project-wrap > .title {
+    font-size: 18px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .project-wrap > .sub {
+    color: #a7b3bf;
+    margin-left: 5px;
+  }
+  .problem-wrap {
+    display: flex;
+    padding: 20px 0;
+  }
+  .problem-wrap > div {
+    flex: 1;
+    text-align: center;
+  }
+  .problem-wrap > div > .num {
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .problem-wrap > div > .title {
+    color: #a7b3bf;
+  }
+
+
   @media only screen and (max-width: 1080px) {
-    .sections {
-      margin: 0;
+    .container {
+      margin-left: 0;
     }
   }
 </style>
