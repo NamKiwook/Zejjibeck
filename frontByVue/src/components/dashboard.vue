@@ -101,7 +101,6 @@ export default {
 </style>
 <style>
   body {
-    height: 100%;
     background-color: rgba(235, 237, 239, 1.0);
   }
 </style>
