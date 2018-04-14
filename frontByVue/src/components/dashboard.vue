@@ -129,6 +129,7 @@ export default {
   .container {
     margin-left: 250px;
     margin-top: 60px;
+    overflow: hidden;
   }
   .container > .btn-wrap {
     display: flex;
