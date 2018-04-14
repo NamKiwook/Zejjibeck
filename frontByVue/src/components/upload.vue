@@ -100,37 +100,52 @@ export default {
       }
       this.fileList = this.$refs.files.files
       for (var i = 0; i < this.fileList.length; i++) {
-        this.fileNames[i] = this.$refs.files.files[i].name
+        this.fileNames[i] = this.fileList[i].name
       }
-      console.log(this.projectName, this.minimumRefine, this.totalCredit, this.fileNames, this.refineList)
-      this.$http.post('/api/upload',{
-        projectName : this.projectName,
-        projectType : this.projectType,
-        refineType : this.refineType,
-        dataType : this.dataType,
-        minimumRefine : this.minimumRefine,
-        state : this.state,
-        description : this.description,
-        totalCredit : this.totalCredit,
-        refineList : this.refineList,
-        fileNames : this.fileNames,
-        blockSize : this.blockSize,}).then((res) => {
-          if (res.data.pass === 'no') {
-            alert("fail")
-          } else if (res.data.pass === 'ok') {
-            for (var i = 0; i <  this.fileList.length; i++) {
-              this.$http.get('/api/upload/url',{params:
-                  {
-                    projectName: this.projectName,
-                    fileName: this.fileNames[i],
-                    fileNo: i
-                  }}).then((res) => {
-                    this.$http.get(res.data.url,{data: this.fileList[i]})
-              }).catch((err) =>{
-                console.log(err);
+      this.$http.post('/api/upload', {
+        projectName: this.projectName,
+        projectType: this.projectType,
+        refineType: this.refineType,
+        dataType: this.dataType,
+        minimumRefine: this.minimumRefine,
+        state: this.state,
+        description: this.description,
+        totalCredit: this.totalCredit,
+        refineList: this.refineList,
+        fileNames: this.fileNames,
+        blockSize: this.blockSize}).then(async (res) => {
+        if (res.data.pass === 'no') {
+          alert('fail')
+        } else if (res.data.pass === 'ok') {
+          for (var i = 0; i < this.fileList.length; i++) {
+            var file = this.fileList[i]
+            await this.$http.get('/api/upload/url', {
+              params:
+                {
+                  projectName: this.projectName,
+                  fileName: this.fileNames[i],
+                  fileNo: i.toString()
+                }
+            }).then((res) => {
+              this.$http({
+                method: 'put',
+                url: res.data.url,
+                contentType: false,
+                processData: false,
+                data: file
+              }).then((res) => {
+                if (i === this.fileList.length) {
+                  alert('complete' + this.fileList.length)
+                  this.$router.push('/dashboard')
+                }
+              }).catch((err) => {
+                alert('data upload err' + err)
               })
-            }
+            }).catch((err) => {
+              alert('get upload url err' + err)
+            })
           }
+        }
       })
     }
   },
