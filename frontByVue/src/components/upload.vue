@@ -2,72 +2,135 @@
   .container
     section.textWrap
       .title Project Name
-      input.text#projectName(type='text')
+      input.text#projectName(type='text', v-model="projectName")
     section.textWrap
       .title Project Description
-      input.text#description(type='text')
+      input.text#description(type='text', v-model="description")
     section.textWrap
       .title Credit
-      input.text#totalCredit(type='number')
+      input.text#totalCredit(type='number', v-model="totalCredit")
     section.textWrap
       .title Minimum Number of Refine
-      input.text#minimumRefine(type='number')
+      input.text#minimumRefine(type='number', v-model="minimumRefine")
     section.textWrap
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='number', value=10)
+      input.text#blockSize(type='number', v-model="blockSize")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
-        input.type(type="radio", name="projectType", value="data")
+        input.type(type="radio", name="projectType", value="data", v-model="projectType")
         span.radiomark
       label.radioWrap Only Refine
-        input.type(type="radio", name="projectType", value="refine")
+        input.type(type="radio", name="projectType", value="refine", v-model="projectType")
         span.radiomark
       label.radioWrap Data/Refine
-        input.type(type="radio", name="projectType", value="data&refine")
+        input.type(type="radio", name="projectType", value="data&refine", v-model="projectType")
         span.radiomark
     section.typeWrap
       p.title Data Type
       label.radioWrap Image
-        input.type#typeImg(type="radio", name="dataType", value="image")
+        input.type#typeImg(type="radio", name="dataType", value="image", v-model="dataType")
         span.radiomark
       label.radioWrap Audio
-        input.type(type="radio", name="dataType", value="audio")
+        input.type(type="radio", name="dataType", value="audio", v-model="dataType")
         span.radiomark
       label.radioWrap Text
-        input.type(type="radio", name="dataType", value="text")
+        input.type(type="radio", name="dataType", value="text", v-model="dataType")
         span.radiomark
     section.tagTypeWrap
       p.title Refine Type
       label.radioWrap Radio
-        input.tagType#radioTag(type="radio", name="refineType", value="radio")
+        input.tagType#radioTag(type="radio", name="refineType", value="radio", v-model="refineType")
         span.radiomark
       label.radioWrap Check box
-        input.tagType#checkboxTag(type="radio", name="refineType", value="checkbox")
+        input.tagType#checkboxTag(type="radio", name="refineType", value="checkbox", v-model="refineType")
         span.radiomark
       label.radioWrap Text
-        input.tagType(type="radio", name="refineType", value="text")
+        input.tagType(type="radio", name="refineType", value="text", v-model="refineType")
         span.radiomark
-      label.radioWrap#dragType Drag
-        input.tagType(type="radio", name="refineType", value="drag")
+      label.radioWrap#dragType(v-bind:style="isImg") Drag
+        input.tagType(type="radio", name="refineType", value="drag", v-model="refineType")
         span.radiomark
-    section.tagValue
+    section.tagValue(v-bind:style="isBox")
       .title Tag Value
       .valueWrap
         .textWrap#valueField
-          input.text(type='text')
+          input.text(type='text', v-for="n in tagNumber", v-model="refineList[n-1]")
         .btnWrap
-          a#plus.btn +
-    section.upload
+          a#plus.btn(@click="tagPlus") +
+    section.upload.active
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
-        input#ajaxFile(type="file", multiple="multiple")
-        input(type="button", onclick="upload();", value="업로드")
+        input#ajaxFile(type="file", multiple="multiple", ref="files")
+        input(type="button", @click="submit", value="업로드")
 </template>
 
 <script>
 export default {
-  name: 'upload'
+  name: 'upload',
+  data () {
+    return {
+      projectName: null,
+      minimumRefine: null,
+      totalCredit: null,
+      description: null,
+      blockSize: 10,
+      fileList: [],
+      projectType: null,
+      refineType: null,
+      dataType: null,
+      state: null,
+      fileNames: [],
+      refineList: [],
+      tagNumber: 1
+    }
+  },
+  methods: {
+    tagPlus () {
+      var maxFields = 5
+      if (this.tagNumber < maxFields) {
+        this.tagNumber++
+      }
+    },
+    process (event) {
+      this.fileNames = event.target.files
+    },
+    submit () {
+      if (this.projectType === 1) {
+        this.state = '1'
+      } else {
+        this.state = '0'
+      }
+      for (var i = 0; i < this.$refs.files.files.length; i++) {
+        this.fileNames[i] = this.$refs.files.files[i].name
+      }
+      console.log(this.projectName, this.minimumRefine, this.totalCredit, this.fileNames, this.refineList)
+    }
+  },
+  computed: {
+    isImg () {
+      if (this.dataType === 'image') {
+        return {
+          display: 'inline-block'
+        }
+      } else {
+        return {
+          display: 'none'
+        }
+      }
+    },
+    isBox () {
+      if (this.refineType === 'radio' || this.refineType === 'checkbox') {
+        return {
+          display: 'flex'
+        }
+      } else {
+        return {
+          display: 'none'
+        }
+      }
+    }
+  }
 }
 </script>
 
@@ -116,7 +179,6 @@ export default {
   .radioWrap > input:checked ~ .radiomark:after {
     display: block;
   }
-
 
   body > .container {
     background-color: #fff;
