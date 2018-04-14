@@ -1,6 +1,6 @@
 <template lang="pug">
 nav
-  .menu.btn
+  .menu
   router-link.logo(to='/dashboard') DATAG
   .btn.profileWrap
     img.profileImg(src="../assets/profileImg1.jpg", width="30", height="30")
@@ -33,6 +33,7 @@ export default {
     background-size: 18px;
     background-repeat: no-repeat;
     background-position: center;
+    display: none;
     height: 100%;
     border: 0;
   }
@@ -91,6 +92,7 @@ export default {
   }
   @media only screen and (max-width:1080px) {
     nav > .menu {
+      display: inline-block;
       width: 60px;
     }
 

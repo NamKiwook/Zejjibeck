@@ -2,7 +2,6 @@
   div.dashboardLayout
     navbar
     menubar
-    type
 
 </template>
 
