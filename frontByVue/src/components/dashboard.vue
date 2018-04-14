@@ -1,7 +1,7 @@
 <template lang="pug">
 div.container
   .title Dash Board
-  carousel.project(per-page=3, scroll-per-page=true)
+  carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5)
     slide
       .project-wrap
         .title Project1
@@ -9,22 +9,54 @@ div.container
         .problem-wrap
           .total
             .num 8,421
-            .title Total Problem
+            .text Total Problem
           .solved
             .num 341
-            .title Solved Problem
+            .text Solved Problem
     slide
       .project-wrap
-        .title Project2
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
     slide
       .project-wrap
-        .title Project3
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
     slide
       .project-wrap
-        .title Project4
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
     slide
       .project-wrap
-        .title Project5
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
 </template>
 
 <script>
@@ -76,6 +108,7 @@ export default {
   .problem-wrap {
     display: flex;
     padding: 20px 0;
+    margin: 10px 0 20px;
   }
   .problem-wrap > div {
     flex: 1;
@@ -85,11 +118,9 @@ export default {
     font-weight: 800;
     font-size: 20px;
   }
-  .problem-wrap > div > .title {
+  .problem-wrap > div > .text {
     color: #a7b3bf;
   }
-
-
   @media only screen and (max-width: 1080px) {
     .container {
       margin-left: 0;

@@ -21,6 +21,7 @@ export default {
     font-family: 'Spoqa Han Sans', 'Sans-serif';
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
    }
 
   a {
@@ -78,6 +79,8 @@ export default {
     color: #fff;
     border-radius: 8px;
   }
+
+
 
   body {
     background-color: #425262;
