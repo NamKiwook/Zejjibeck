@@ -15,11 +15,15 @@ enhanceAccessToeken()
 export const store = new Vuex.Store({
   state: {
     isScrolled: true,
+    menuVisible: false,
     accessToken: null
   },
   getters: {
     getScrolled (state) {
       return state.isScrolled
+    },
+    menuIsVisible (state) {
+      return state.menuVisible
     },
     isAuthenticated (state) {
       state.accessToken = state.accessToken || localStorage.accessToken
@@ -36,6 +40,9 @@ export const store = new Vuex.Store({
     },
     scrollIsFalse (state) {
       state.isScrolled = false
+    },
+    menuToggle (state) {
+      state.menuVisible = !state.menuVisible
     },
     login (state, accessToken) {
       state.accessToken = accessToken

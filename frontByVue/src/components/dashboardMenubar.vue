@@ -1,20 +1,23 @@
 <template lang="pug">
-div.menubar
-  section
-    a.btn 과제풀기
-    router-link.btn(to='/upload') 과제등록
-  section
-    router-link.btn(to="/type1") type1
-    a.btn menu4
-    a.btn menu1
-    a.btn menu2
-    a.btn menu3
-    a.btn menu4
+div.menubar(v-bind:class="{visible : isVisible}")
+  router-link.btn(to="/type1") type1
+  a.btn type2
+  a.btn type3
+  a.btn menu4
+  a.btn menu1
+  a.btn menu2
+  a.btn menu3
+  a.btn menu4
 </template>
 
 <script>
 export default {
-  name: 'dashboardManubar'
+  name: 'dashboardManubar',
+  computed: {
+    isVisible () {
+      return this.$store.getters.menuIsVisible
+    }
+  }
 }
 </script>
 
