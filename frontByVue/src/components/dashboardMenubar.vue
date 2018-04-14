@@ -1,13 +1,15 @@
 <template lang="pug">
 div.menubar(v-bind:class="{visible : isVisible}")
-  router-link.btn(to="/type1") type1
-  a.btn type2
-  a.btn type3
-  a.btn menu4
-  a.btn menu1
-  a.btn menu2
-  a.btn menu3
-  a.btn menu4
+  section
+    router-link.btn(to="/type1") type1
+    a.btn type2
+    a.btn type3
+  section
+    a.btn menu4
+    a.btn menu1
+    a.btn menu2
+    a.btn menu3
+    a.btn menu4
 </template>
 
 <script>
@@ -22,11 +24,6 @@ export default {
 </script>
 
 <style scoped>
-  body {
-    background-color: rgba(235, 237, 239, 1.0);
-    margin-left: 250px;
-    padding: 60px 20px;
-  }
   .menubar {
     position: absolute;
     top: 60px; left: 0px; bottom: 0px;
@@ -42,7 +39,7 @@ export default {
     left: -250px;
   }
 
-  .menubar section {
+  .menubar > section {
     margin-top: 20px;
   }
   .menubar > section > .btn {

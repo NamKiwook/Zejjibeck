@@ -1,6 +1,6 @@
 <template lang="pug">
 nav
-  .menu.btn(@click="menuToggle")
+  .menu(@click="menuToggle")
   router-link.logo(to='/dashboard') DATAG
   .btn.profileWrap(@click="profileToggle")
     img.profileImg(src="../assets/profileImg1.jpg", width="30", height="30")
@@ -31,7 +31,7 @@ export default {
 </script>
 
 <style scoped>
-   nav {
+  nav {
     height: 60px;
     background-color:#222;
     display: flex;
