@@ -62,7 +62,7 @@
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
         input#ajaxFile(type="file", multiple="multiple", ref="files")
-        input(type="button", @click="submit", value="업로드")
+        input.btn.register(type="button", @click="submit", value="REGISTER")
 </template>
 
 <script>
@@ -207,13 +207,16 @@ export default {
     display: block;
   }
 
-  body > .container {
+  .container {
     background-color: #fff;
     border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
     padding: 20px;
-    margin-top: 20px;
     padding-bottom: 60px;
+    margin: 20px;
+    position: absolute;
+    left: 250px;
+    top: 60px;
   }
 
   section {
@@ -264,10 +267,18 @@ export default {
     color: #fff;
   }
   .btn.register {
-    padding: 10px 20px;
-    background-color: #2E76B1;
-    border: 0;
-    color: #fff;
+    margin-top: 30px;
     float: right;
+  }
+  @media only screen and (max-width: 1080px) {
+    .container {
+      left: 0;
+      margin: 0;
+    }
+  }
+</style>
+<style>
+  body {
+    background-color: rgba(235, 237, 239, 1.0);
   }
 </style>

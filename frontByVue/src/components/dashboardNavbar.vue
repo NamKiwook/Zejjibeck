@@ -36,11 +36,13 @@ export default {
     background-color:#222;
     display: flex;
     align-items: center;
-    /*position: fixed;*/
+    position: fixed;
     top:0; left:0; right:0;
     z-index: 999;
   }
-
+  nav .btn {
+    background-color: rgba(0,0,0,0);
+  }
   nav > .menu {
     background-image: url('../assets/iconmonstr-menu-1-240.png');
     background-size: 18px;
@@ -88,6 +90,7 @@ export default {
     background-color: #222;
     box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);
     visibility: hidden;
+    z-index: 999;
   }
   nav > .profileWrap > .dropdownMenu.visible {
     visibility: visible;
@@ -128,3 +131,4 @@ export default {
     }
   }
 </style>
+

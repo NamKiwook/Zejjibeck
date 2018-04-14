@@ -25,7 +25,7 @@ export default {
 
 <style scoped>
   .menubar {
-    position: absolute;
+    position: fixed;
     top: 60px; left: 0px; bottom: 0px;
     width: 250px;
     background-color: #425262;
