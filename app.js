@@ -60,7 +60,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
 app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);

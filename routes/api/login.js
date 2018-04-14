@@ -14,7 +14,7 @@ router.get('/',async function(req, res, next) {
     {
       var userToken= await jwt.sign(
         {
-          _id:userId
+          userId:userId
         },
         secret,
         {

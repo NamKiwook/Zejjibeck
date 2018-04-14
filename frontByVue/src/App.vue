@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <router-view name="nav"></router-view>
-    <router-view name="side-bar"></router-view>
+    <router-view name="sidebar"></router-view>
     <router-view></router-view>
   </div>
 </template>
@@ -14,14 +14,14 @@ export default {
 
 <style>
   * {
-    border: 0;
-    box-sizing: border-box;
-    color: #3c4858;
-    font-size: 14px;vsad
-  font-family: 'Spoqa Han Sans', 'Sans-serif';
-    margin: 0;
-    padding: 0;
-  }
+     border: 0;
+     box-sizing: border-box;
+     color: #3c4858;
+     font-size: 14px;vsad
+    font-family: 'Spoqa Han Sans', 'Sans-serif';
+     margin: 0;
+     padding: 0;
+   }
 
   a {
     cursor: pointer;

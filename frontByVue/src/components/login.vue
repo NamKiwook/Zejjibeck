@@ -3,7 +3,7 @@
     .title Welcome back!
     .text Don't have an account?
       a(href='/signUp') Sign Up
-    input.id(type="text", name="userID", placeholder="Email", v-model="id")
+    input.id(type="text", name="userID", placeholder="Email", v-model="userId")
     input.password(type="password", name="password", placeholder="Password", v-model="password")
     a.login.btn(v-on:click="submit") Sign In
     a.google.btn Sign in with Google
@@ -16,15 +16,22 @@ export default {
   name: 'login',
   data () {
     return {
-      id: '',
+      userId: '',
       password: ''
     }
   },
   methods: {
     submit () {
-      this.$http.get('/api/login/certification/', {params: {id: this.id, password: this.password}})
-        .then((res) => {
+      this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
+        .then(async (res) => {
           console.log(res)
+          if (res.data.pass === 'yes') {
+            await this.$store.dispatch('login', res.data.token)
+            alert('success')
+            await this.$router.push('/dashboard')
+          } else {
+            alert('fail')
+          }
         })
     }
   }

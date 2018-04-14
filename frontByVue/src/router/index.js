@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import { store } from '../store'
 import index from '../components/index'
 import navbar from '../components/navbar'
 import login from '../components/login'
+import dashboard from '../components/dashboard'
+import dashboardLayout from '../components/dashboardLayout'
 
 import VueScrollTo from 'vue-scrollto'
 
 // You can also pass in the default options
 Vue.use(Router)
+
 Vue.use(VueScrollTo, {
   container: 'body',
   duration: 500,
@@ -20,6 +24,12 @@ Vue.use(VueScrollTo, {
   x: false,
   y: true
 })
+
+const requireAuth = (from, to, next) => {
+  const isAuthenticated = store.getters.isAuthenticated
+  if (isAuthenticated) return next()
+  next('/login')
+}
 
 export default new Router({
   mode: 'history',
@@ -37,6 +47,14 @@ export default new Router({
         default: login,
         nav: navbar
       }
+    },
+    {
+      path: '/dashboard',
+      components: {
+        default: dashboard,
+        nav: dashboardLayout
+      },
+      beforeEnter: requireAuth
     }
   ]
 })
