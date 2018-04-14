@@ -2,7 +2,7 @@
   .container
     .title Welcome back!
     .text Don't have an account?
-      a(href='/signUp') Sign Up
+      router-link(to='/signUp') Sign Up
     input.id(type="text", name="userID", placeholder="Email", v-model="userId")
     input.password(type="password", name="password", placeholder="Password", v-model="password")
     a.login.btn(v-on:click="submit") Sign In
