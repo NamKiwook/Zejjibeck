@@ -4,8 +4,10 @@ import { store } from '../store'
 import index from '../components/index'
 import navbar from '../components/navbar'
 import login from '../components/login'
+import signUp from '../components/signUp'
 import dashboard from '../components/dashboard'
 import dashboardLayout from '../components/dashboardLayout'
+import upload from '../components/upload'
 
 import VueScrollTo from 'vue-scrollto'
 
@@ -49,9 +51,24 @@ export default new Router({
       }
     },
     {
+      path: '/signUp',
+      components: {
+        default: signUp,
+        nav: navbar
+      }
+    },
+    {
       path: '/dashboard',
       components: {
         default: dashboard,
+        nav: dashboardLayout
+      },
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/upload',
+      components: {
+        default: upload,
         nav: dashboardLayout
       },
       beforeEnter: requireAuth
