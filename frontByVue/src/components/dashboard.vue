@@ -33,6 +33,11 @@ export default {
     border: 1px solid rgba(211, 215, 219, 1.0);
     margin-top: 20px;
   }
+  @media only screen and (max-width: 1080px) {
+    .sections {
+      margin: 0;
+    }
+  }
 </style>
 <style>
   body {

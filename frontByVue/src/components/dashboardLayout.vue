@@ -2,7 +2,6 @@
   div.dashboardLayout
     navbar
     menubar
-    type
 
 </template>
 
@@ -24,6 +23,6 @@ export default {
 <style scoped>
   .dashboardLayout {
     margin-left: 0;
-    background-color: rgba(235, 237, 239, 1.0);
+    background-color: rgba(235, 237, 239, 1);
   }
 </style>
