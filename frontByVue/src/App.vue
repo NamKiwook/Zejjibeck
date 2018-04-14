@@ -79,8 +79,6 @@ export default {
     border-radius: 8px;
   }
 
-
-
   body {
     background-color: #425262;
   }
