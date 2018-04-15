@@ -8,6 +8,7 @@ import signUp from '../components/signUp'
 import dashboard from '../components/dashboard'
 import dashboardLayout from '../components/dashboardLayout'
 import upload from '../components/upload'
+import refine from '../components/refine'
 
 import VueScrollTo from 'vue-scrollto'
 
@@ -69,6 +70,14 @@ export default new Router({
       path: '/upload',
       components: {
         default: upload,
+        nav: dashboardLayout
+      },
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/refine',
+      components: {
+        default: refine,
         nav: dashboardLayout
       },
       beforeEnter: requireAuth
