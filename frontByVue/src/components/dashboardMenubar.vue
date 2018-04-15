@@ -1,9 +1,8 @@
 <template lang="pug">
 div.menubar(v-bind:class="{visible : isVisible}")
   section
-    router-link.btn(to="/type1") type1
-    a.btn type2
-    a.btn type3
+    router-link.btn(to="/upload") 과제등록
+    a.btn 과제풀기
   section
     a.btn menu4
     a.btn menu1

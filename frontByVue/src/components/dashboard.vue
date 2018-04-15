@@ -1,25 +1,112 @@
 <template lang="pug">
-div.sections
+div.container
   .title Dash Board
-  carousel.hi(per-page='3', pagination-color="#fff")
-    slide.project-item
-      .title Project 1
-      .progressbar
-        .gauge 60%
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-    <!--slide.project-item-->
-      <!--.title Project 1-->
-      <!--.progressbar-->
-        <!--.gauge 60%-->
-  section.secondSection 반갑습니다
-  section.thirdSection 나는 {{ userId }}
+  .btn-wrap
+    router-link.btn(to='/upload') 과제풀기
+    a.btn 과제등록
+  carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5, pagination-active-color='#666')
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p62.center
+              span 62%
+              .slice
+                .bar
+                .fill
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p10.center
+              span 10%
+              .slice
+                .bar
+                .fill
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
+    slide
+      .project-wrap
+        .title Project1
+        .sub.title #231
+        .problem-wrap
+          .total
+            .num 8,421
+            .text Total Problem
+          .solved
+            .num 341
+            .text Solved Problem
+        .col-xs-6
+          .inner-content.text-center
+            .c100.p33.center
+              span 33%
+              .slice
+                .bar
+                .fill
+  section.credit
+    .title Credit
+    .credit-wrap
+      .available
+        .text 사용가능 포인트
+        .point 3230원
+      .expected
+        .text 적립예정 포인트
+        .point 300원
+      .btn-wrap
+        a.btn 충전
+        a.btn 출금
 </template>
 
 <script>
@@ -39,63 +126,109 @@ export default {
 </script>
 
 <style scoped>
-  .sections {
+  .container {
     margin-left: 250px;
-    padding: 0px 20px;
+    margin-top: 60px;
+    overflow: hidden;
   }
-  section {
-    overflow-x: scroll;
+  .container > .btn-wrap {
+    display: flex;
+    width: 100%;
+    padding: 10px 10px 20px;
   }
-  .sections > .title {
+  .container > .btn-wrap > .btn {
+    flex: 1;
+    margin: 0 10px;
+    padding: 20px;
+  }
+  .container > .title {
+    display: inline-block;
+    width: 100%;
     font-weight: 800;
     font-size: 32px;
-    margin-top: 20px;
+    padding: 10px;
+    margin: 10px;
   }
   .project-wrap {
     height: 400px;
-  }
-  .project-item {
-    display: inline-block;
     background-color: #fff;
-    border: 1px solid rgba(211,215,219,1.0);
+    margin: 20px 20px 0;
+    padding: 15px;
+    border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
-    width: 300px;
-    height: 100%;
-    margin: 10px;
   }
-  /*section {*/
-    /*background-color: #fff;*/
-    /*border-radius: 4px;*/
-    /*padding: 20px;*/
-    /*border: 1px solid rgba(211, 215, 219, 1.0);*/
-    /*margin-top: 20px;*/
-  /*}*/
-  /*section > .title {*/
-    /*font-size: 20px;*/
-  /*}*/
-  /*section > .flex-container {*/
-    /*display: flex;*/
-    /*flex-flow: row;*/
-  /*}*/
-  /*.project-wrap {*/
-    /*display: flex;*/
-    /*flex-flow: column;*/
-    /*width: 400px;*/
-    /*padding: 10px;*/
-    /*margin: 15px;*/
-    /*border: 1px solid rgba(211, 215, 219, 1.0);*/
-    /*border-radius: 8px;*/
-  /*}*/
-  /*.project-wrap > .title {*/
-    /*flex: 1;*/
-  /*}*/
-  /*.project-wrap > .progressbar {*/
-    /*flex: 3;*/
-    /*margin-top: 10px;*/
-  /*}*/
+  .project-wrap > .title {
+    font-size: 18px;
+    font-weight: 600;
+    display: inline-block;
+  }
+  .project-wrap > .sub {
+    color: #a7b3bf;
+    margin-left: 5px;
+  }
+  .problem-wrap {
+    display: flex;
+    padding: 20px 0;
+    margin: 10px 0 20px;
+  }
+  .problem-wrap > div {
+    flex: 1;
+    text-align: center;
+  }
+  .problem-wrap > div > .num {
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .problem-wrap > div > .text {
+    color: #a7b3bf;
+    margin-top: 3px;
+    font-size: 14px;
+  }
+  .credit {
+    background-color: #fff;
+    padding: 15px;
+    border: 1px solid rgba(211, 215, 219, 1.0);
+    margin: 20px;
+  }
+  .credit > .title {
+    font-size: 18px;
+    font-weight: 600;
+  }
+  .credit > .credit-wrap {
+    display: flex;
+    flex-flow: row;
+    text-align: center;
+    margin-top: 20px;
+  }
+  .credit > .credit-wrap > .available {
+    flex: 3;
+    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  }
+  .credit > .credit-wrap > .expected {
+    flex: 2;
+    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  }
+  .credit > .credit-wrap > div > .text {
+    font-size: 16px;
+    font-weight: 600;
+    color: #a7b3bf;
+    margin-top: 10px;
+  }
+  .credit > .credit-wrap > div > .point {
+    font-size: 32px;
+    margin-top: 10px;
+  }
+  .credit > .credit-wrap > .btn-wrap {
+    flex: 2;
+  }
+  .credit > .credit-wrap > .btn-wrap > .btn {
+    width: 60%;
+    margin: 5px;
+    padding: 10px;
+  }
   @media only screen and (max-width: 1080px) {
-    .sections {
-      margin: 0;
+    .container {
+      margin-left: 0;
     }
   }
 </style>
