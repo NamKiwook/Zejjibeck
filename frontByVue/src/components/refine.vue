@@ -212,8 +212,3 @@ export default {
     }
   }
 </style>
-<style>
-  body {
-    background-color: rgba(235, 237, 239, 1.0);
-  }
-</style>

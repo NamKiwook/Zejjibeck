@@ -2,8 +2,8 @@
 div.container
   .title Dash Board
   .btn-wrap
-    router-link.btn(to='/upload') 과제풀기
-    a.btn 과제등록
+    router-link.btn(to='/refine') 과제풀기
+    router-link.btn(to='/upload') 과제등록
   carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5, pagination-active-color='#666')
     slide
       .project-wrap
@@ -230,10 +230,5 @@ export default {
     .container {
       margin-left: 0;
     }
-  }
-</style>
-<style>
-  body {
-    background-color: rgba(235, 237, 239, 1.0);
   }
 </style>

@@ -1147,7 +1147,7 @@ export default {
   }
 
   body {
-    background-color: #425262;
+    background-color: rgba(235,237,239,1.0)
   }
 
   #app {

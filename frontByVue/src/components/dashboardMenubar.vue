@@ -2,7 +2,7 @@
 div.menubar(v-bind:class="{visible : isVisible}")
   section
     router-link.btn(to="/upload") 과제등록
-    a.btn 과제풀기
+    router-link.btn(to="/refine") 과제풀기
   section
     a.btn menu4
     a.btn menu1

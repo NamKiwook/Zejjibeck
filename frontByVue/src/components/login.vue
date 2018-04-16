@@ -19,6 +19,12 @@ export default {
       password: ''
     }
   },
+  mounted () {
+    document.body.style.backgroundColor = '#425262'
+  },
+  beforeDestroy () {
+    document.body.style.backgroundColor = 'rgba(235,237,239,1.0)'
+  },
   methods: {
     submit () {
       this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
