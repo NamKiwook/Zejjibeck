@@ -28,7 +28,25 @@ div.sections
 
 <script>
 export default {
-  name: 'index'
+  name: 'index',
+  methods: {
+    handleScroll () {
+      var scrollPosition = window.scrollY
+      if (scrollPosition >= 50) {
+        this.$store.commit('scrollIsTrue')
+      } else {
+        this.$store.commit('scrollIsFalse')
+      }
+    }
+  },
+  beforeMount () {
+    window.addEventListener('scroll', this.handleScroll)
+    this.$store.commit('scrollIsFalse')
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.handleScroll)
+    this.$store.commit('scrollIsTrue')
+  }
 }
 </script>
 
@@ -62,15 +80,12 @@ export default {
       margin: 15px auto;
     }
   }
-  .sections {
-    height: 100%;
-  }
   .sectionFirst {
     background-image: url('../assets/paper-3249919_1920.jpg');
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100%;
+    height: 100vh;
     align-items: center;
   }
   .sectionFirst > .imgCover {
@@ -105,9 +120,6 @@ export default {
   }
 
   .sectionFirst > .imgCover > .container > .sign > .signIn {
-    color: #fff;
-    border-width: 0;
-    background-color:#2E76B1;
     font-size: 20px;
     padding: 16px 70px;
     width: 100%;

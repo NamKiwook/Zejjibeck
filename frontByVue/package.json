@@ -16,6 +16,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "vue": "^2.5.2",
+    "vue-carousel": "^0.6.14",
     "vue-router": "^3.0.1",
     "vue-scrollto": "^2.11.0",
     "vuex": "^3.0.1"

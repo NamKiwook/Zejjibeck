@@ -1,22 +1,22 @@
 <template lang="pug">
   .container
-    .title Welcome back!
-    .text Don't have an account?
-      router-link(to='/signUp') Sign Up
-    input.id(type="text", name="userID", placeholder="Email", v-model="userId")
-    input.password(type="password", name="password", placeholder="Password", v-model="password")
-    a.login.btn(v-on:click="submit") Sign In
-    .text Forgot your password?
-      a Reset it
+    .title Let's create an account
+    .text Already have an account?
+      router-link(to="/login") Log In
+    input#name(type="text", placeholder="Full Name", v-model="username")
+    input#id(type="text", placeholder="Email", v-model="userId")
+    input#password(type="password", placeholder="Password",v-model="password")
+    .btn.register(@click="submit") REGISTER
 </template>
 
 <script>
 export default {
-  name: 'login',
+  name: 'sign-up',
   data () {
     return {
-      userId: '',
-      password: ''
+      username: null,
+      userId: null,
+      password: null
     }
   },
   mounted () {
@@ -27,21 +27,24 @@ export default {
   },
   methods: {
     submit () {
-      this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
-        .then(async (res) => {
-          console.log(res)
-          if (res.data.pass === 'yes') {
-            await this.$store.dispatch('login', res.data.token)
-            alert('success')
-            await this.$router.push('/dashboard')
+      this.$http.get('/api/signup',
+        {params: {
+          userId: this.userId,
+          password: this.password,
+          username: this.username}})
+        .then((res) => {
+          if (res.data.pass === 'ok') {
+            alert('complete')
+            this.$router.push('/login')
           } else {
-            alert('fail')
+            alert('exist id')
           }
         })
     }
   }
 }
 </script>
+
 <style scoped>
   .container {
     border: 1px solid #3c4858;
@@ -63,21 +66,28 @@ export default {
   .container > input {
     border: 1px solid rgba(211, 215, 219, 1.0);
     padding: 16px 20px;
+    border-bottom: none;
   }
 
-  .container > .id {
+  .container > #name {
     border-top-left-radius: 2px;
     border-top-right-radius: 2px;
     border-bottom: none;
   }
-  .container > .password {
+
+  .container > #password {
     border-bottom-left-radius: 2px;
     border-bottom-right-radius: 2px;
+    border-bottom: 1px solid rgba(211, 215, 219, 1.0);
   }
 
-  .container > .login {
-    font-size: 20px;
-    margin-top: 20px;
+  .container > .register {
+    color: #fff;
+    border-width: 0;
+    background-color:#2E76B1;
+    font-size: 16px;
+    margin-top: 15px;
+    padding: 16px 0;
   }
 
   .container > .text {
@@ -88,5 +98,14 @@ export default {
   .container > .text > a {
     color: #2E76B1;
     margin-left: 10px;
+  }
+
+  .container > #chkfield {
+    color: #c7254e;
+    font-size: 10px;
+    text-align: left;
+    margin-top: 10px;
+    height: 10px;
+
   }
 </style>

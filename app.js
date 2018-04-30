@@ -28,6 +28,8 @@ var vueGetHtml = require('./routes/api/index');
 var vueSignUp = require('./routes/api/signUp');
 var vueLogin = require('./routes/api/login');
 var vueDashboard = require('./routes/api/dashboard');
+var vueUpload = require('./routes/api/upload');
+
 
 var app = express();
 
@@ -61,8 +63,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
-
-app.use('/', index);
+/*app.use('/', index);
 app.use('/users', users);
 app.use('/login', login);
 app.use('/signUp', signUp);
@@ -71,14 +72,15 @@ app.use('/test', test);
 app.use('/refine', refine);
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
-app.use('/upload', upload);
+app.use('/upload', upload);*/
 
 //for Vue Develop
-app.use('/vue',vueGetHtml);
+app.use('/',vueGetHtml);
 app.use('/api/signup',vueSignUp);
 app.use('/api/login',vueLogin);
 app.use(authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
 app.use('/api/dashboard',vueDashboard);
+app.use('/api/upload',vueUpload);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
