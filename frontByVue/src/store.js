@@ -6,7 +6,6 @@ Vue.use(Vuex)
 
 var enhanceAccessToken = function () {
   var accessToken = localStorage.accessToken
-  console.log(accessToken)
   if (!accessToken) return
   axios.defaults.headers.common['x-access-token'] = accessToken
 }
