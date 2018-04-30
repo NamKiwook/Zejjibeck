@@ -8,7 +8,7 @@ var uploadSchema = new Schema({
   refineList: Array,
   minimumRefine: Number,
   totalCredit: Number,
-  blockSize: Number
+  blockSize: Number,
 });
 
 module.exports = mongoose.model('upload', uploadSchema);

@@ -21,6 +21,7 @@ router.post('/', async function(req,res, next){
   /* TODO: implement check duplicated projectName */
 
   var fileNames = req.body.fileNames;
+  var currentTime = new Date().getTime();
 
  // fileNames = JSON.parse(fileNames);
 
@@ -42,6 +43,7 @@ router.post('/', async function(req,res, next){
     project.projectName = req.body.projectName;
     project.description = req.body.description;
     project.uploadInfo = uploadData._id;
+    project.uploadTime = currentTime;
 
     var projectData = await project.save();
 
