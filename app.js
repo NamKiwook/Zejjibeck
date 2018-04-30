@@ -1,6 +1,5 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -12,7 +11,6 @@ var signUp = require('./routes/signUp');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard');
 var upload = require('./routes/upload');
-
 
 var app = express();
 
@@ -40,7 +38,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',index);
 app.use('/api/signup',signUp);
 app.use('/api/login',login);
-app.use(authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
+app.use('/api',authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
 app.use('/api/dashboard',dashboard);
 app.use('/api/upload',upload);
 

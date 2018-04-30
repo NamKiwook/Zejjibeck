@@ -29,7 +29,6 @@ export default {
     submit () {
       this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
         .then(async (res) => {
-          console.log(res)
           if (res.data.pass === 'yes') {
             await this.$store.dispatch('login', res.data.token)
             alert('success')

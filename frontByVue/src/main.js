@@ -11,6 +11,14 @@ Vue.use(VueCarousel)
 Vue.prototype.$http = axios
 Vue.config.productionTip = false
 
+router.beforeEach((to, from, next) => {
+    var accessToken = localStorage.accessToken
+    if (!accessToken)
+      return next()
+    store.dispatch('login',accessToken)
+    next()
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',
