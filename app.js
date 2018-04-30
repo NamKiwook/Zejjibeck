@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
+var authMiddleware = require('./authMiddleware');
 //mongo session
 var mongoStore = require('connect-mongo')(session);
 // var mongourl = 'mongodb://172.25.3.3:27017/zejjibeck';
@@ -21,6 +22,13 @@ var type1 = require('./routes/type1');
 var refine = require('./routes/refine');
 var s3 = require('./routes/s3');
 var upload = require('./routes/upload');
+
+//for Vue
+var vueGetHtml = require('./routes/api/index');
+var vueSignUp = require('./routes/api/signUp');
+var vueLogin = require('./routes/api/login');
+var vueDashboard = require('./routes/api/dashboard');
+
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -64,6 +72,13 @@ app.use('/refine', refine);
 app.use('/dashboard', dashboard);
 app.use('/type1', type1);
 app.use('/upload', upload);
+
+//for Vue Develop
+app.use('/vue',vueGetHtml);
+app.use('/api/signup',vueSignUp);
+app.use('/api/login',vueLogin);
+app.use(authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
+app.use('/api/dashboard',vueDashboard);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

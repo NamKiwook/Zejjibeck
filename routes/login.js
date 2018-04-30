@@ -10,9 +10,9 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.get('/certification/:id/:password', async function(req,res,next){
-  var id = req.params.id;
-  var password = req.params.password;
+router.get('/certification', async function(req,res,next){
+    var id = req.params.id;
+    var password = req.params.password;
 
   try {
     var compare = await userSchema.find({userId: id, password: password});
