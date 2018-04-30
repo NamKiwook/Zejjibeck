@@ -11,8 +11,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/certification', async function(req,res,next){
-    var id = req.params.id;
-    var password = req.params.password;
+  var params = getParameters(req.url);
+
+  var id = params.id;
+  var password = params.password;
+
+  console.log(id);
+  console.log(password);
 
   try {
     var compare = await userSchema.find({userId: id, password: password});
@@ -35,5 +40,20 @@ router.post('/logout', function(req,res,next){
     res.clearCookie('zjb');
     res.end();
 });
+
+function getParameters(url)
+{
+  var params = {};
+
+  var temp = (url.slice(url.indexOf('?') + 1, url.length)).split('&');
+
+  for(var i = 0; i < temp.length; i++) {
+    var key = temp[i].split('=')[0];
+    var value = temp[i].split('=')[1];
+    params[key]=value;
+  }
+  return params
+}
+
 
 module.exports = router;
