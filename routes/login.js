@@ -1,34 +1,35 @@
 var express = require('express');
-var router = express.Router();
+const jwt = require('jsonwebtoken')
 var userSchema = require('../model/user');
+var router = express.Router();
 
-var session = require('express-session'); // 세션정보는 메모리에 저장함
-
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  res.render('login', { title: 'Express' });
-});
-router.get('/certification', async function(req,res,next){
-    var id = req.params.id;
-    var password = req.params.password;
-
-    try{
-        var compare = await userSchema.find({userId: id, password: password});
-        if(compare.toString())
+/* GET users listing. */
+router.get('/',async function(req, res, next) {
+  var userId = req.query.userId;
+  var password = req.query.password;
+  const secret = 'zejjibeck';
+  try{
+    var compare = await userSchema.findOne({userId: userId, password: password});
+    if(compare.toString())
+    {
+      var userToken= await jwt.sign(
         {
-            req.session.user = user;
-            res.send({pass:'ok'});
-        }
-        else
-            res.send({pass:'no'});
-    }catch (err){
-        res.send({pass:'no'});
+          userId:userId
+        },
+        secret,
+        {
+          expiresIn: '7d'
+        })
+      res.send({
+        pass: 'yes',
+        token: userToken
+      });
     }
+    else
+      res.send({pass:'no'});
+  }catch (err){
+    res.send({pass:'no'});
+  }
+})
 
-});
-router.post('/logout', function(req,res,next){
-    req.session.destroy();
-    res.clearCookie('zjb');
-    res.end();
-});
 module.exports = router;

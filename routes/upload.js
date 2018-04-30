@@ -16,17 +16,13 @@ router.use(bodyParser.urlencoded({extended:true}));
 router.use(bodyParser.json());
 
 /* GET home page. */
-router.get('/', function(req, res, next) {
-    res.render('upload', { title: 'Express'  });
-});
-
-router.post('/register', async function(req,res, next){
+router.post('/', async function(req,res, next){
 
   /* TODO: implement check duplicated projectName */
 
   var fileNames = req.body.fileNames;
 
-  fileNames = JSON.parse(fileNames);
+ // fileNames = JSON.parse(fileNames);
 
   var upload = new uploadSchema({
     projectType: req.body.projectType, // 'image' 'audio' 'text'
@@ -40,7 +36,6 @@ router.post('/register', async function(req,res, next){
 
   try {
     var uploadData = await upload.save();
-    console.log(uploadData._id);
 
     var project = new projectSchema();
 
@@ -51,7 +46,7 @@ router.post('/register', async function(req,res, next){
     var projectData = await project.save();
 
     var user = await userSchema.findOne({
-      userId: req.session.userInfo.id
+      userId: req.decoded.userId
     });
 
     user.projects.push({
@@ -63,26 +58,23 @@ router.post('/register', async function(req,res, next){
     var user2Project = user2.projects[user2.projects.length-1];
     var project2 = await projectSchema.findOne({_id: user2Project.project_dbid});
 
-    console.log(user2);
-    console.log(project2);
+    res.send({pass:'ok'});
   } catch(err){
       res.send({pass:'no'});
   }
-
-  res.send({pass:'ok'});
 });
 
-router.get('/url/:projectName/:fileNo/:fileName', function(req,res){
-  var userId = req.session.userInfo.id;
-  var projectName = req.params.projectName;
-  var extension = getExtension(req.params.fileName);
-  var fileNo = setLeadingZero(req.params.fileNo);
+router.get('/url', function(req,res){
+  var userId = req.decoded.userId;
+  var projectName = req.query.projectName;
+  var extension = getExtension(req.query.fileName);
+  var fileNo = setLeadingZero(req.query.fileNo);
 
   params.Key = "rawData/" + userId + "/" + projectName + "/" + fileNo + extension;
 
   s3.getSignedUrl('putObject', params, function(err, url){
     console.log(url);
-    res.end(url);
+    res.send({url: url});
   });
 });
 
