@@ -4,13 +4,13 @@ import axios from 'axios'
 
 Vue.use(Vuex)
 
-var enhanceAccessToeken = () => {
-  const {accessToken} = localStorage
+var enhanceAccessToken = function () {
+  var accessToken = localStorage.accessToken
   if (!accessToken) return
   axios.defaults.headers.common['x-access-token'] = accessToken
 }
 
-enhanceAccessToeken()
+enhanceAccessToken()
 
 export const store = new Vuex.Store({
   state: {

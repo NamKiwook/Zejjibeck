@@ -1,10 +1,10 @@
 var express = require('express');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var connectHistory = require('connect-history-api-fallback')();
 var authMiddleware = require('./routes/middleware/authMiddleware');
 var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 var index = require('./routes/index');
@@ -12,8 +12,6 @@ var signUp = require('./routes/signUp');
 var login = require('./routes/login');
 var dashboard = require('./routes/dashboard');
 var upload = require('./routes/upload');
-
-
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -30,6 +28,9 @@ app.set('view engine', 'pug');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+
+//TODO : MUST DELETE ANNOTATE BEFORE USE
+//app.use(connectHistory);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -40,7 +41,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/',index);
 app.use('/api/signup',signUp);
 app.use('/api/login',login);
-app.use(authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
+app.use('/api',authMiddleware); //인증된 요청인지 체크(Token을 Decode하는 역할도 함)
 app.use('/api/dashboard',dashboard);
 app.use('/api/upload',upload);
 

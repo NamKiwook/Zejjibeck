@@ -3,7 +3,6 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 var userSchema = require('../model/user');
 var projectSchema = require('../model/project');
-var uploadSchema = require('../model/upload');
 
 var bodyParser = require('body-parser');
 
@@ -24,7 +23,7 @@ router.post('/', async function(req,res, next){
 
  // fileNames = JSON.parse(fileNames);
 
-  var upload = new uploadSchema({
+  var project = new projectSchema({
     projectType: req.body.projectType, // 'image' 'audio' 'text'
     fileNo: fileNames.length,
     refineType: req.body.refineType,
@@ -32,18 +31,12 @@ router.post('/', async function(req,res, next){
     minimumRefine: req.body.minimumRefine,
     totalCredit: req.body.totalCredit,
     blockSize: req.body.blockSize,
+    projectName: req.body.projectName,
+    description: req.body.description,
+    uploadTime: currentTime,
   });
 
   try {
-    var uploadData = await upload.save();
-
-    var project = new projectSchema();
-
-    project.projectName = req.body.projectName;
-    project.description = req.body.description;
-    project.uploadInfo = uploadData._id;
-    project.uploadTime = currentTime;
-
     var projectData = await project.save();
 
     var user = await userSchema.findOne({

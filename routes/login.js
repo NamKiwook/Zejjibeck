@@ -7,6 +7,9 @@ var router = express.Router();
 router.get('/',async function(req, res, next) {
   var userId = req.query.userId;
   var password = req.query.password;
+
+  console.log(userId);
+
   const secret = 'zejjibeck';
   try {
     var compare = await
