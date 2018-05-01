@@ -6,6 +6,6 @@ var userSchema = new Schema({
     projects: Array,
     userId: String,
     password: String,
-    credit: Number
+    credit: Number,
 });
 module.exports = mongoose.model('user', userSchema);
