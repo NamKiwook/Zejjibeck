@@ -3,6 +3,7 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 var userSchema = require('../model/user');
 var projectSchema = require('../model/project');
+var blockSchema = require('../model/blockInfo');
 
 var bodyParser = require('body-parser');
 
@@ -22,16 +23,23 @@ router.post('/', async function(req,res, next){
  // fileNames = JSON.parse(fileNames);
 
   var project = new projectSchema({
+    projectName: req.body.projectName,
     projectType: req.body.projectType,
+
+    uploadTime: currentTime,
+
+    description: req.body.description,
     fileNo: fileNames.length,
     refineType: req.body.refineType,
     refineList: req.body.refineList,
+
     minimumRefine: req.body.minimumRefine,
+
     totalCredit: req.body.totalCredit,
+
     blockSize: req.body.blockSize,
-    projectName: req.body.projectName,
-    description: req.body.description,
-    uploadTime: currentTime,
+
+    completedBlock: 0,
   });
 
   try{
@@ -41,15 +49,28 @@ router.post('/', async function(req,res, next){
 
     var userProjects = user.projects;
 
-    console.log(userProjects);
-
-    for(var i = 0 ; i < userProjects.length ; i++) {
-      console.log(userProjects[i]);
-      console.log(userProjects[i].projectName);
+    for(var i = 0 ; i < userProjects.length ; i++)
       if (userProjects[i].projectName == req.body.projectName) {
         res.send({pass: 'dup'});
         return;
       }
+
+    var fileNo = fileNames.length;
+    var blockSize = req.body.blockSize.valueOf();
+    var blockNo = (fileNo + (fileNo%blockSize)) / blockSize;
+
+    project.blockNo = blockNo;
+    project.blocks = [];
+
+    for(var i = 0 ; i < blockNo ; i++){
+      var newBlock = new blockSchema();
+      newBlock.isValidate = 0;
+      newBlock.finished = 0;
+      newBlock.running = 0;
+      newBlock.lastAssignTime = 0;
+      newBlock.AnswerLists = [];
+      var blockId= await newBlock.save();
+      project.blocks.push(blockId._id);
     }
 
     var projectUpload = await project.save();
