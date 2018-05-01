@@ -116,6 +116,8 @@ export default {
         blockSize: this.blockSize}).then(async (res) => {
         if (res.data.pass === 'no') {
           alert('fail')
+        } else if(res.data.pass === 'dup'){
+          alert('Already exist project Name!')
         } else if (res.data.pass === 'ok') {
           for (var i = 0; i < this.fileList.length; i++) {
             var file = this.fileList[i]

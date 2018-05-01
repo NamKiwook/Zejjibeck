@@ -9,7 +9,7 @@ router.get('/getProjectList', async function(req,res,next){
   var projectList = await projectSchema.find().sort({"uploadTime":-1}).skip((page-1)*unit).limit(unit);
   var totalList = await projectSchema.find().length();
 
-  //TODO: SEND ONLY JSON TYPEgit
+  //TODO: SEND ONLY JSON TYPE
   res.send({
         projectList: projectList,
         totalList: totalList,

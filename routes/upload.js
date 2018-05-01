@@ -16,15 +16,13 @@ router.use(bodyParser.json());
 
 /* GET home page. */
 router.post('/', async function(req,res, next){
-
-
   var fileNames = req.body.fileNames;
   var currentTime = new Date().getTime();
 
  // fileNames = JSON.parse(fileNames);
 
   var project = new projectSchema({
-    projectType: req.body.projectType, // 'image' 'audio' 'text'
+    projectType: req.body.projectType,
     fileNo: fileNames.length,
     refineType: req.body.refineType,
     refineList: req.body.refineList,
@@ -36,25 +34,36 @@ router.post('/', async function(req,res, next){
     uploadTime: currentTime,
   });
 
-  try {
-    var projectData = await project.save();
-
+  try{
     var user = await userSchema.findOne({
-      userId: req.decoded.userId
+        userId: req.decoded.userId
     });
 
-    user.projects.push({
-        projectName:project.projectName,
-        project_dbid:projectData._id
-      });
+    var userProjects = user.projects;
 
-    var user2 = await user.save();
-    var user2Project = user2.projects[user2.projects.length-1];
-    var project2 = await projectSchema.findOne({_id: user2Project.project_dbid});
+    console.log(userProjects);
+
+    for(var i = 0 ; i < userProjects.length ; i++) {
+      console.log(userProjects[i]);
+      console.log(userProjects[i].projectName);
+      if (userProjects[i].projectName == req.body.projectName) {
+        res.send({pass: 'dup'});
+        return;
+      }
+    }
+
+    var projectUpload = await project.save();
+
+    user.projects.push({
+        projectName:req.body.projectName,
+        project_dbid:projectUpload._id,
+    });
+
+    var userUpdate = await user.save();
 
     res.send({pass:'ok'});
   } catch(err){
-      res.send({pass:'no'});
+    res.send({pass:'no'});
   }
 });
 

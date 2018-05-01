@@ -29,7 +29,7 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-//TODO : MUST DELETE ANNOTATE BEFORE USE
+//ALERT! MUST DELETE THIS ANNOTATE BEFORE USE(IT'S FOR USING POSTMAN)
 //app.use(connectHistory);
 app.use(logger('dev'));
 app.use(bodyParser.json());
