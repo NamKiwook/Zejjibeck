@@ -56,8 +56,8 @@ router.post('/', async function(req,res, next){
       }
 
     var fileNo = fileNames.length;
-    var blockSize = req.body.blockSize.valueOf();
-    var blockNo = (fileNo + (fileNo%blockSize)) / blockSize;
+    var blockSize = parseInt(req.body.blockSize);
+    var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
     project.blockNo = blockNo;
     project.blocks = [];

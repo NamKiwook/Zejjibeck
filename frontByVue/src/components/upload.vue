@@ -116,12 +116,14 @@ export default {
         blockSize: this.blockSize}).then(async (res) => {
         if (res.data.pass === 'no') {
           alert('fail')
-        } else if(res.data.pass === 'dup'){
+        } else if (res.data.pass === 'dup') {
           alert('Already exist project Name!')
         } else if (res.data.pass === 'ok') {
           for (var i = 0; i < this.fileList.length; i++) {
             var file = this.fileList[i]
-            await this.$http.get('/api/upload/url', {
+            var uploadCount = 0;
+
+            this.$http.get('/api/upload/url', {
               params:
                 {
                   projectName: this.projectName,
@@ -136,7 +138,8 @@ export default {
                 processData: false,
                 data: file
               }).then((res) => {
-                if (i === this.fileList.length) {
+                uploadCount = uploadCount + 1
+                if (uploadCount === this.fileList.length) {
                   alert('complete' + this.fileList.length)
                   this.$router.push('/dashboard')
                 }
