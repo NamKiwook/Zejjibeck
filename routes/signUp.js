@@ -8,6 +8,7 @@ router.get('/', async function(req,res,next){
   user.userId = req.query.userId;
   user.password = req.query.password;
   user.credit = 0;
+  user.penalty = 0;
   user.projects = [];
   try{
     var compare = await userSchema.find({userId: user.userId});

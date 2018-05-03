@@ -16,6 +16,7 @@
     "debug": "~2.6.9",
     "express": "~4.15.5",
     "express-session": "^1.15.6",
+    "http": "0.0.0",
     "jquery": "^3.3.1",
     "jsonwebtoken": "^8.2.1",
     "minio": "^4.0.0",

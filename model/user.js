@@ -7,5 +7,6 @@ var userSchema = new Schema({
     userId: String,
     password: String,
     credit: Number,
+    penalty : Number,
 });
 module.exports = mongoose.model('user', userSchema);

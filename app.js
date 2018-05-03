@@ -14,16 +14,7 @@ var dashboard = require('./routes/dashboard');
 var upload = require('./routes/upload');
 var app = express();
 
-var http = require('http').Server(app);
-http.listen(3000,"127.0.0.1");
-var io = require('socket.io')(http);
-io.on('connection', function(socket){
-	console.log('socket connection success');
-	socket.on('event',function(msg){
-		console.log(msg);
-	});
-	socket.emit('event',"connnnnnnect!!");
-});
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl);
