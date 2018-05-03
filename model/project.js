@@ -2,8 +2,10 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
+  owner: String,
   projectName: String,
   projectType: String, // 'image' 'audio' 'text'
+  projectState: String, // "collect", "refine", "verify", "complete"
 
   uploadTime: Number,
 

@@ -22,29 +22,32 @@ router.post('/', async function(req,res, next){
 
  // fileNames = JSON.parse(fileNames);
 
-  var project = new projectSchema({
-    projectName: req.body.projectName,
-    projectType: req.body.projectType,
-
-    uploadTime: currentTime,
-
-    description: req.body.description,
-    fileNo: fileNames.length,
-    refineType: req.body.refineType,
-    refineList: req.body.refineList,
-
-    minimumRefine: req.body.minimumRefine,
-
-    totalCredit: req.body.totalCredit,
-
-    blockSize: req.body.blockSize,
-
-    completedBlock: 0,
-  });
 
   try{
     var user = await userSchema.findOne({
         userId: req.decoded.userId
+    });
+
+    var project = new projectSchema({
+      owner : user.userId,
+
+      projectName: req.body.projectName,
+      projectType: req.body.projectType,
+
+      uploadTime: currentTime,
+
+      description: req.body.description,
+      fileNo: fileNames.length,
+      refineType: req.body.refineType,
+      refineList: req.body.refineList,
+
+      minimumRefine: req.body.minimumRefine,
+
+      totalCredit: req.body.totalCredit,
+
+      blockSize: req.body.blockSize,
+
+      completedBlock: 0,
     });
 
     var userProjects = user.projects;

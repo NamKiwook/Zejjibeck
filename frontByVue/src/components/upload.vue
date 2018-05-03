@@ -121,34 +121,33 @@ export default {
         } else if (res.data.pass === 'ok') {
           for (var i = 0; i < this.fileList.length; i++) {
             var file = this.fileList[i]
-            var uploadCount = 0;
-
-            this.$http.get('/api/upload/url', {
-              params:
-                {
-                  projectName: this.projectName,
-                  fileName: this.fileNames[i],
-                  fileNo: i.toString()
-                }
-            }).then((res) => {
-              this.$http({
+            try {
+              var res = await this.$http.get('/api/upload/url', {
+                params:
+                  {
+                    projectName: this.projectName,
+                    fileName: this.fileNames[i],
+                    fileNo: i.toString()
+                  }
+              });
+              console.log("now 올라가는중!")
+              var res2 = await this.$http({
                 method: 'put',
                 url: res.data.url,
                 contentType: false,
                 processData: false,
                 data: file
-              }).then((res) => {
-                uploadCount = uploadCount + 1
-                if (uploadCount === this.fileList.length) {
-                  alert('complete' + this.fileList.length)
-                  this.$router.push('/dashboard')
-                }
-              }).catch((err) => {
-                alert('data upload err' + err)
-              })
-            }).catch((err) => {
-              alert('get upload url err' + err)
-            })
+              });
+              console.log("??::" + res2);
+            } catch(err){
+              console.log(err);
+            }
+
+              if (i+1 === this.fileList.length) {
+                alert('complete' + this.fileList.length)
+                this.$router.push('/dashboard')
+              }
+
           }
         }
       })
