@@ -114,12 +114,13 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      userId: null
+      username: null,
+
     }
   },
   created () {
     this.$http.get('/api/dashboard').then((res) => {
-      this.userId = res.data.decode.userId
+      this.username = res.data.decode.userId
     })
   }
 }

@@ -4,6 +4,7 @@ var projectSchema = require('../model/project');
 var userSchema = require('../model/user');
 /* GET home page. */
 router.get('/', async function(req, res, next) {
+
   var Id = req.decoded.userId;
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;

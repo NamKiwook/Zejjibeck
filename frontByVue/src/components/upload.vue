@@ -121,7 +121,7 @@ export default {
         } else if (res.data.pass === 'ok') {
           for (var i = 0; i < this.fileList.length; i++) {
             var file = this.fileList[i]
-            var uploadCount = 0;
+            var uploadCount = 0
 
             this.$http.get('/api/upload/url', {
               params:
