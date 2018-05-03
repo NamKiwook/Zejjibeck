@@ -114,8 +114,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      username: null,
-
+      username: null
     }
   },
   created () {
