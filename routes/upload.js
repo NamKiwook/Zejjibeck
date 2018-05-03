@@ -97,7 +97,6 @@ router.get('/url', function(req,res){
   params.Key = "rawData/" + userId + "/" + projectName + "/" + fileNo + extension;
 
   s3.getSignedUrl('putObject', params, function(err, url){
-    console.log(url);
     res.send({url: url});
   });
 });
