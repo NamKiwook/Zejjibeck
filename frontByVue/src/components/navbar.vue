@@ -17,7 +17,6 @@ export default {
     }
   },
   created () {
-    console.log(window.location.pathname)
     return this.isScrolled
   }
 }
