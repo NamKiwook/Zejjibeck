@@ -4,4 +4,7 @@ node_js:
   - "8"
 
 before_install:
+  - cd MainServer
   - npm install -g mocha
+
+services: mongodb
