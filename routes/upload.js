@@ -69,6 +69,7 @@ router.post('/', async function(req,res, next){
       newBlock.running = 0;
       newBlock.lastAssignTime = 0;
       newBlock.AnswerLists = [];
+      newBlock.users = [];
       var blockId= await newBlock.save();
       project.blocks.push(blockId._id);
     }
