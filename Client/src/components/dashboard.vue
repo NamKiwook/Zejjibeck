@@ -6,6 +6,7 @@ div.container
     router-link.btn(to='/upload') 과제등록
   modal(name="charge-modal" width="450" height="auto" scrollable="ture")
     .modal-container
+      a.close-btn(@click="hide")
       .box
         .title 충전할 크레딧
         .sep :
@@ -15,6 +16,7 @@ div.container
       .btn 크레딧 충전
   modal(name="withdraw-modal" width="450" height="auto" scrollable="ture")
     .modal-container
+      a.close-btn(@click="hide")
       .box
         .title 은행명
         .sep :
@@ -164,7 +166,7 @@ export default {
       this.$modal.show('withdraw-modal');
     },
     hide () {
-      this.$modal.hide('chage-modal');
+      this.$modal.hide('charge-modal');
       this.$modal.hide('withdraw-modal');
     }
   }
