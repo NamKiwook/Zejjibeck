@@ -4,9 +4,16 @@ div.container
   .btn-wrap
     router-link.btn(to='/refine') 과제풀기
     router-link.btn(to='/upload') 과제등록
-  modal(name="charge-modal" height="auto" scrollable="ture")
-    .title 충전
-  modal(name="withdraw-modal" height="auto" scrollable="ture")
+  modal(name="charge-modal" width="450" height="auto" scrollable="ture")
+    .modal-container
+      .box
+        .title 충전할 크레딧
+        .sep :
+        .description
+          input(type="tel")
+          | 원
+      .btn 크레딧 충전
+  modal(name="withdraw-modal" width="450" height="auto" scrollable="ture")
     .modal-container
       .box
         .title 은행명

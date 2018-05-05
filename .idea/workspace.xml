@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/upload.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/upload.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -39,8 +37,8 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="205">
-              <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+            <state relative-caret-position="216">
+              <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -224,12 +222,12 @@
       <workItem from="1525071747261" duration="11544000" />
       <workItem from="1525255883443" duration="14237000" />
       <workItem from="1525405749876" duration="5138000" />
-      <workItem from="1525499566419" duration="5567000" />
+      <workItem from="1525499566419" duration="5813000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="39459000" />
+    <option name="totallyTimeSpent" value="39705000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1400" y="0" width="1359" height="1159" extended-state="0" />
@@ -330,8 +328,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="205">
-          <caret line="30" column="25" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
+        <state relative-caret-position="216">
+          <caret line="15" column="42" selection-start-line="15" selection-start-column="42" selection-end-line="15" selection-end-column="42" />
         </state>
       </provider>
     </entry>
