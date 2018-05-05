@@ -4,6 +4,33 @@ div.container
   .btn-wrap
     router-link.btn(to='/refine') 과제풀기
     router-link.btn(to='/upload') 과제등록
+  modal(name="charge-modal" height="auto" scrollable="ture")
+    .title 충전
+  modal(name="withdraw-modal" height="auto" scrollable="ture")
+    .modal-container
+      .box
+        .title 은행명
+        .sep :
+        .description 국민은행
+      .box
+        .title 계좌번호
+        .sep :
+        .description 7051231231231
+      .box
+        .title 예금주
+        .sep :
+        .description 박성준
+      .box
+        .title 총 크레딧
+        .sep :
+        .description 2500원
+      .box
+        .title 출금할 크레딧
+        .sep :
+        .description
+          input(type="tel")
+          | 원
+      .btn 크레딧 출금
   carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5, pagination-active-color='#666')
     slide
       .project-wrap
@@ -105,8 +132,8 @@ div.container
         .text 적립예정 포인트
         .point 300원
       .btn-wrap
-        a.btn 충전
-        a.btn 출금
+        a.btn(@click="showCharge") 충전
+        a.btn(@click="showWithdraw") 출금
 </template>
 
 <script>
@@ -121,7 +148,20 @@ export default {
     this.$http.get('/api/dashboard').then((res) => {
       this.username = res.data.decode.userId
     })
+  },
+  methods: {
+    showCharge () {
+      this.$modal.show('charge-modal');
+    },
+    showWithdraw() {
+      this.$modal.show('withdraw-modal');
+    },
+    hide () {
+      this.$modal.hide('chage-modal');
+      this.$modal.hide('withdraw-modal');
+    }
   }
+
 }
 </script>
 
@@ -156,6 +196,22 @@ export default {
     padding: 15px;
     border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
+    cursor: pointer;
+  }
+  .project-wrap:hover .c100{
+    cursor: default;
+  }
+  .project-wrap:hover .c100 > span {
+    width: 3.33em;
+    line-height: 3.33em;
+    font-size: 0.3em;
+    color: #4e4e4e;
+  }
+  .project-wrap:hover .c100:after {
+    top: 0.04em;
+    left: 0.04em;
+    width: 0.92em;
+    height: 0.92em;
   }
   .project-wrap > .title {
     font-size: 18px;
@@ -225,6 +281,51 @@ export default {
     width: 60%;
     margin: 5px;
     padding: 10px;
+  }
+  .modal-container {
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .modal-container > .close-btn {
+    display: inline-block;
+    background-image: url("../assets/close.png");
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px; top: 10px;
+  }
+  .modal-container > .box {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .modal-container > .box > .title {
+    width: 100px;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .modal-container > .box > .sep {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  .modal-container > .box > .description {
+    font-size: 12px;
+    margin-left: auto;
+  }
+  .modal-container > .box > .description > input {
+    border: 1px solid #eee;
+    border-radius : 2px;
+    text-align: right;
+    width: 100px;
+  }
+  .modal-container > .btn {
+    margin-top: 20px;
+    padding: 15px 60px;
   }
   @media only screen and (max-width: 1080px) {
     .container {
