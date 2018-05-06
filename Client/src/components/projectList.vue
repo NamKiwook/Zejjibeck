@@ -34,7 +34,7 @@
             | 8000원 (프로젝트 완료시)
             br
             | 100원 (대상 초과시)
-        .btn(@click="hide") START
+        .btn START
     section
       .menu
         .title Project Name

@@ -1,29 +1,58 @@
 <template lang="pug">
 div.sections
-  section.sectionFirst#home
-    .imgCover
-      .container
-        .slogan Necessary data get easily.
-        .text We can help you get the data you need more easily
-        .sign
-          router-link.signIn.btn(to="/login") Start DATAG
-          router-link.signUp(to="/signUp") Don't have an account yet?
-  section.sectionSecond#about
-    .container
+  section.main-section#home
+    .content
+      .main-left
+        .title
+          |데이터 습득을 위한
+          br
+          |데이터유통플랫폼
+        .description 안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요
+        router-link(to="/login").btn 서비스 시작하기
+      .main-right
+        .main-img
+  section.description-section#about
+    .content
+      .section-title PRODUCT FEATURES AND BENEFITS
+      .title 우리의 장점을 써보자
+      .description 나에게 꼭 필요한 데이터만 수집을 할 수 있다 나에게 꼭 필요한 데이터만 수집을 할 수 있다 나에게 꼭 필요한 데이터만 수집을 할 수 있다나에게 꼭 필요한 데이터만 수집을 할 수 있다
+  section.team-section#member
+    .content
+      .team-profile
+        .profile-wrap
+          .profile-img
+          .profile-content
+            .name 조현성
+            .role Backend
+            .description  awefadfawef
+        .profile-wrap
+          .profile-img
+          .profile-content
+            .name 편경민
+            .role Backend
+            .description awefadfawef
+        .profile-wrap
+          .profile-img
+          .profile-content
+            .name 박성준
+            .role Frontend
+            .description awefadfawef
+        .profile-wrap
+          .profile-img
+          .profile-content
+            .name 남기욱
+            .role Frontend
+            .description awefadfawef
+        .profile-wrap
+          .profile-img
+          .profile-content
+            .name 김태우
+            .role mentor
+            .description awefadfawef
+  section.last-section
+    .img-cover
       .content
-        img(src="../assets/iconmonstr-coin-10-240.png", width='120', height='120')
-        .title cash
-        .text 우리껄 쓰면 돈을 벌 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라
-      .content
-        img(src='../assets/iconmonstr-file-9-240.png', width='120', height='120')
-        .title data
-        .text 우리껄 쓰면 원하는 데이터를 얻을 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라블라블라블라
-      .content
-        img(src="../assets/iconmonstr-time-19-240.png", width='120', height='120')
-        .title speed
-        .text 우리껄 쓰면 빠른시간안에 데이터를 얻을 수 있다 블라블라블라블라블라블라블라블라블라블라블라블라
-  section.sectionThird
-    .text Copyright © Zejjibeck
+        .title Copyright © Zejjibeck
 </template>
 
 <script>
@@ -51,121 +80,153 @@ export default {
 </script>
 
 <style scoped>
-  @media only screen and (max-width: 550px) {
-    .sectionFirst > .imgCover > .container > .slogan {
-      font-size: 28px;
-    }
-    .sectionFirst > .imgCover > .container > .text {
-      font-size: 14px;
-    }
-    .sectionFirst > .imgCover > .container > .sign > .signIn{
-      font-size: 16px;
-    }
-    .sectionFirst > .imgCover > .container > .sign > .signUp{
-      font-size: 12px;
-    }
+  section {
+    overflow: hidden;
   }
-  @media only screen and (max-width: 1080px) {
-    .container {
-      padding: 0 20px;
-    }
-    .sectionSecond > .container {
-      flex-flow: column;
-    }
-    .sectionSecond > .container > .content {
-      padding: 50px 15px;
-    }
-    .sectionSecond > .container > .content > .text{
-      max-width: 320px;
-      margin: 15px auto;
-    }
+  .content {
+    width: 1170px;
+    margin: 0 auto;
+    padding: 0 15px;
   }
-  .sectionFirst {
-    background-image: url('../assets/paper-3249919_1920.jpg');
-    background-position: center;
+  .main-section {
+    padding-top: 60px;
+    background-color: #fbfbfb;
+  }
+  .main-section > .content {
+    display: flex;
+    margin-top: 200px ;
+  }
+  .main-left {
+    width: 550px;
+    flex: 1;
+  }
+  .main-left > .title {
+    display: inline-block;
+    color: #000;
+    font-size: 60px;
+    font-weight: bold;
+  }
+  .main-left > .description {
+    display: inline-block;
+    font-size: 24px;
+    color: #8492a6;
+    font-weight: normal;
+    line-height: 1.5;
+    margin-top: 30px;
+  }
+  .main-left > .btn {
+    background-color: #2979ff;
+    width: 265px;
+    margin-top: 30px;
+    margin-bottom: 200px;
+    font-size: 20px;
+    box-shadow: 0 3px 15px 0 rgba(0, 0, 0, 0.05);
+    padding: 20px 0;
+    font-weight: bold;
+    border-radius: 50px;
+  }
+  .main-right {
+    position: relative;
+    flex: 1;
+  }
+  .main-right > .main-img {
+    display: inline-block;
+    width: 800px;
+    height: 800px;
+    background-image: url("../assets/index-img.png");
+    background-repeat: no-repeat;
+    background-size: 800px;
+    position: absolute;
+    top: 50px;
+  }
+  .description-section {
+    background-color: #fff;
+  }
+  .description-section > .content {
+    text-align: center;
+    padding: 200px 15px;
+  }
+  .description-section > .content > .section-title {
+    font-size: 14px;
+    letter-spacing: 1.5px;
+    font-weight: bold;
+    color: #2979ff;
+    margin-bottom: 30px;
+  }
+  .description-section > .content > .title {
+    display: inline-block;
+    color: #000;
+    font-size: 52px;
+    font-weight: bold;
+  }
+  .description-section > .content > .description {
+    font-size: 20px;
+    color: #8492a6;
+    font-weight: normal;
+    line-height: 1.5;
+    width: 600px;
+    margin: 30px auto 0;
+  }
+  .team-section {
+    background-color: #fbfbfb;
+    padding: 100px 15px;
+  }
+  .team-section > .content {
+  }
+  .team-profile {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .team-profile > .profile-wrap{
+    display: flex;
+    width: 50%;
+    padding: 20px 0;
+  }
+  .team-profile > .profile-wrap > .profile-img {
+    display: inline-block;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background-image: url("../assets/profileImg1.jpg");
     background-repeat: no-repeat;
     background-size: cover;
-    height: 100vh;
-    align-items: center;
   }
-  .sectionFirst > .imgCover {
-    background-image: linear-gradient(127deg, rgba(40, 47, 62, 0.9), rgba(40, 47, 62, 0.82) 34%, rgba(40, 47, 62, 0.75));
-    text-align: center;
+  .team-profile > .profile-wrap > .profile-content {
     display: flex;
-    align-items: center;
+    flex-flow: column;
+    margin-left: 30px;
     justify-content: center;
+  }
+  .team-profile > .profile-wrap > .profile-content > .name {
+    font-size: 24px;
+    font-weight: bolder;
+    color: #000;
+    margin-bottom: 5px;
+  }
+  .team-profile > .profile-wrap > .profile-content > .role {
+    color: #8492a6;
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 25px;
+  }
+  .team-profile > .profile-wrap > .profile-content > .description {
+
+  }
+  .last-section {
+    background: url("../assets/business-3370832_1920.jpg") no-repeat;
+    background-position-y: -150px;
+    background-size: cover;
+    height: 400px;
+  }
+  .last-section > .img-cover {
+    background-color: rgba(43, 43, 43, 0.9);
     width:100%;
     height: 100%;
   }
-
-  .sectionFirst > .imgCover > .container > .slogan {
-    color: #fff;
-    font-size: 54px;
-    font-weight: 100;
-    margin: auto;
-    padding-bottom: 20px;
-  }
-
-  .sectionFirst > .imgCover > .container > .text {
-    color: #fff;
-    font-size: 24px;
-    font-style: italic;
-    font-weight: 100;
-    padding-bottom: 40px;
-  }
-
-  .sectionFirst > .imgCover > .container > .sign {
-    width: 80%;
-    margin: auto;
-  }
-
-  .sectionFirst > .imgCover > .container > .sign > .signIn {
-    font-size: 20px;
-    padding: 16px 70px;
-    width: 100%;
-  }
-
-  .sectionFirst > .imgCover > .container > .sign > .signUp {
-    color: #fff;
-    float: right;
-    text-align: right;
-    margin-top: 15px;
-    font-weight: 100;
-  }
-
-  .sectionSecond {
-    background-color: #fff;
-    padding: 120px 0 180px;
-  }
-  .sectionSecond > .container {
-    display: flex;
-    flex-flow: row;
-    max-width: 1080px;
-    margin: auto;
-  }
-
-  .sectionSecond > .container > .content {
+  .last-section .title {
     text-align: center;
-    padding:0 30px;
-  }
-
-  .sectionSecond > .container > .content > .title {
-    font-size: 24px;
-    margin-top: 20px;
-  }
-
-  .sectionSecond > .container > .content > .text {
-    margin-top: 15px;
-  }
-
-  .sectionThird {
-    background-color: #242424;
-    height: 400px;
-    padding-top: 120px;
-    text-align: center;
-  }
-  .sectionThird > .text {
+    padding-top: 140px;
     font-size: 18px;
-    color: #777;
+    color: #c8c8c8;
   }
 </style>
