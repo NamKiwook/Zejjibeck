@@ -67,17 +67,17 @@
 
 </template>
 <script>
-  export default {
-    name: 'projectList',
-    methods: {
-      show () {
-        this.$modal.show('project');
-      },
-      hide () {
-        this.$modal.hide('project');
-      }
+export default {
+  name: 'projectList',
+  methods: {
+    show () {
+      this.$modal.show('project')
+    },
+    hide () {
+      this.$modal.hide('project')
     }
   }
+}
 </script>
 <style scoped>
   .container {
