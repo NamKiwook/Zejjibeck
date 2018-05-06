@@ -6,7 +6,9 @@ import router from './router'
 import axios from 'axios'
 import { store } from './store'
 import VueCarousel from 'vue-carousel'
+import VModal from 'vue-js-modal'
 
+Vue.use(VModal)
 Vue.use(VueCarousel)
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

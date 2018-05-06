@@ -11,10 +11,10 @@
       input.text#totalCredit(type='number', v-model="totalCredit")
     section.textWrap
       .title Minimum Number of Refine
-      input.text#minimumRefine(type='number', v-model="minimumRefine")
+      input.text#minimumRefine(type='number', v-model="minimumRefine", min="0")
     section.textWrap
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='number', v-model="blockSize")
+      input.text#blockSize(type='number', v-model="blockSize", min="0")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
