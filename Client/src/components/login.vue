@@ -61,7 +61,7 @@ export default {
     padding: 40px;
   }
   .container > .img-cover > .content {
-    background-color: rgba(25, 121, 255, 0.5);
+    background-color: rgba(11, 17, 31, 0.5);
     border-radius: 4px;
     margin: 20vh auto 0;
     position: relative;
@@ -86,7 +86,7 @@ export default {
   .description-wrap > .divider {
     width: 100px;
     height: 2px;
-    background-color: #3eb3e6;
+    background-color: #2979ff;
     margin: 20px 0;
   }
   .description-wrap > .text {

@@ -5,7 +5,7 @@
       input.text#projectName(type='text', v-model="projectName")
     section.textWrap
       .title Project Description
-      input.text#description(type='text', v-model="description")
+      textarea.text#description(v-model="description")
     section.textWrap
       .title Credit
       input.text#totalCredit(type='number', v-model="totalCredit")
@@ -252,6 +252,13 @@ export default {
     border: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 4px;
     width: 100%;
+  }
+  textarea.text {
+    padding: 10px;
+    border: 1px solid rgba(211, 215, 219, 1.0);
+    border-radius: 4px;
+    width: 100%;
+    resize: none;
   }
   .title {
     font-size: 16px;
