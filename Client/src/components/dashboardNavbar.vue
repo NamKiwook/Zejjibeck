@@ -3,8 +3,8 @@ nav
   .menu(@click="menuToggle")
   router-link.logo(to='/dashboard') DATAG
   .btn.profileWrap(@click="profileToggle")
-    img.profileImg(src="../assets/profileImg1.jpg", width="30", height="30")
-    .profileTitle Park Seongjun
+    img.profileImg(src="../assets/default-user.png", width="30", height="30")
+    .profileTitle {{username}}
     .dropdownMenu(v-bind:class="{visible : profileIsVisible}")
       a.btn Profile
       a.btn Setting
@@ -16,7 +16,8 @@ export default {
   name: 'dashboardNavbar',
   data () {
     return {
-      profileIsVisible: false
+      profileIsVisible: false,
+      username: 'temp_username'
     }
   },
   methods: {
