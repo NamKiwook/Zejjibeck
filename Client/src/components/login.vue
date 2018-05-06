@@ -3,7 +3,7 @@
     .img-cover
       .content
         .description-wrap
-          .logo-img DATAG
+          .title DATAG
           .slogun 필요한 데이터를 쉽고 빠르게
           .divider
           .text 장점1
@@ -11,8 +11,8 @@
           .text 장점3
         .login-wrap
           .title Sign In
-          input.id(type="text", name="userID", placeholder="Enter Email", v-model="userId")
-          input.password(type="password", name="password", placeholder="Enter Password", v-model="password")
+          input.id(type="text", name="userID", placeholder="Email", v-model="userId")
+          input.password(type="password", name="password", placeholder="Password", v-model="password")
           a.signin.btn(v-on:click="submit") Sign In
           router-link.btn.signup(to="/signUp") Sign Up
           a.text Forgot password?
@@ -72,7 +72,7 @@ export default {
     padding: 40px;
     width: 500px;
   }
-  .description-wrap > .logo-img {
+  .description-wrap > .title {
     display: inline-block;
     color: #fff;
     font-weight: 800;
