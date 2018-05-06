@@ -1,13 +1,21 @@
 <template lang="pug">
   .container
-    .title Welcome back!
-    .text Don't have an account?
-      router-link(to='/signUp') Sign Up
-    input.id(type="text", name="userID", placeholder="Email", v-model="userId")
-    input.password(type="password", name="password", placeholder="Password", v-model="password")
-    a.login.btn(v-on:click="submit") Sign In
-    .text Forgot your password?
-      a Reset it
+    .img-cover
+      .content
+        .description-wrap
+          .logo-img DATAG
+          .slogun 필요한 데이터를 쉽고 빠르게
+          .divider
+          .text 장점1
+          .text 장점2
+          .text 장점3
+        .login-wrap
+          .title Sign In
+          input.id(type="text", name="userID", placeholder="Enter Email", v-model="userId")
+          input.password(type="password", name="password", placeholder="Enter Password", v-model="password")
+          a.signin.btn(v-on:click="submit") Sign In
+          router-link.btn.signup(to="/signUp") Sign Up
+          a.text Forgot password?
 </template>
 
 <script>
@@ -18,12 +26,6 @@ export default {
       userId: '',
       password: ''
     }
-  },
-  mounted () {
-    document.body.style.backgroundColor = '#425262'
-  },
-  beforeDestroy () {
-    document.body.style.backgroundColor = 'rgba(235,237,239,1.0)'
   },
   methods: {
     submit () {
@@ -43,49 +45,93 @@ export default {
 </script>
 <style scoped>
   .container {
-    border: 1px solid #3c4858;
-    border-radius: 8px;
+    background-image: url("../assets/login-img.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 4px;
+    box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    height: 100vh;
+    position: relative;
+  }
+  .container > .img-cover {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(30,30,30,0.8);
+    padding: 40px;
+  }
+  .container > .img-cover > .content {
+    background-color: rgba(25, 121, 255, 0.5);
+    border-radius: 4px;
+    margin: 20vh auto 0;
+    position: relative;
+    width: 900px;
+    height: 500px;
+  }
+  .description-wrap {
+    padding: 40px;
+    width: 500px;
+  }
+  .description-wrap > .logo-img {
+    display: inline-block;
+    color: #fff;
+    font-weight: 800;
+    font-size: 43px;
+    margin-top: 60px;
+  }
+  .description-wrap > .slogun {
+    color: #fff;
+    padding: 5px 0;
+  }
+  .description-wrap > .divider {
+    width: 100px;
+    height: 2px;
+    background-color: #3eb3e6;
+    margin: 20px 0;
+  }
+  .description-wrap > .text {
+    color: #fff;
+    padding: 10px 0;
+  }
+  .login-wrap {
     background-color: #fff;
-    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.12), 0px 0px 0px 1px rgba(0, 0, 0, 0.04);
+    width: 400px;
+    margin: 0 auto;
     display: flex;
     flex-flow: column;
-    max-width: 420px;
-    margin: 25vh auto;
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
     padding: 20px;
-    text-align: center;
   }
-  .container > .title {
-    font-size: 24px;
-    padding-top: 20px;
-  }
-
-  .container > input {
-    border: 1px solid rgba(211, 215, 219, 1.0);
-    padding: 16px 20px;
-  }
-
-  .container > .id {
-    border-top-left-radius: 2px;
-    border-top-right-radius: 2px;
-    border-bottom: none;
-  }
-  .container > .password {
-    border-bottom-left-radius: 2px;
-    border-bottom-right-radius: 2px;
-  }
-
-  .container > .login {
-    font-size: 20px;
+  .login-wrap > .title {
+    font-size: 18px;
     margin-top: 20px;
+    padding: 30px 0;
   }
-
-  .container > .text {
-    color: #a7b3bf;
-    margin: 15px 0 20px;
+  .login-wrap > input {
+    background-color: inherit;
+    border-bottom: 1px solid #245eae;
+    padding: 10px;
+    width: 100%;
+    margin-bottom: 25px;
+    outline: none;
   }
-
-  .container > .text > a {
-    color: #2E76B1;
-    margin-left: 10px;
+  .login-wrap > .btn {
+    margin-top: 15px;
+    width: 100%;
+  }
+  .login-wrap > .signin {
+    background-color: #2979ff;
+  }
+  .login-wrap > .signup {
+    background-color: #fff;
+    color: #2979ff;
+    border: 1px solid #eee;
+  }
+  .login-wrap >.text {
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 20px;
+    color: #4e4e4e;
   }
 </style>

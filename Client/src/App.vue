@@ -27,7 +27,9 @@ export default {
     cursor: pointer;
     text-decoration: none;
   }
-
+  body {
+    background-color: #fbfbfb;
+  }
   .btn {
     display: inline-block;
     color: #fff;

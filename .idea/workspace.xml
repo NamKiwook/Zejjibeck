@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/navbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/navbar.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/projectList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/projectList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/assets/paper-3249919_1920.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/login.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -33,13 +32,27 @@
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
-      <file leaf-file-name="index.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="-1458">
+              <caret line="117" column="29" lean-forward="true" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="29" />
             </state>
           </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="login.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/login.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="21" selection-start-column="21" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logo-black.PNG" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/assets/logo-black.PNG">
+          <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
       <file leaf-file-name="team-img.jpg" pinned="false" current-in-tab="false">
@@ -50,8 +63,8 @@
       <file leaf-file-name="navbar.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/navbar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="30" />
+            <state relative-caret-position="378">
+              <caret line="51" column="4" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="60" selection-end-column="20" />
             </state>
           </provider>
         </entry>
@@ -77,20 +90,8 @@
       <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1008">
-              <caret line="56" column="13" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Client/src/main.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="54">
-              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="486">
+              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
             </state>
           </provider>
         </entry>
@@ -129,11 +130,12 @@
         <option value="$PROJECT_DIR$/frontByVue/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/main.js" />
         <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
-        <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/navbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
+        <option value="$PROJECT_DIR$/Client/src/App.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
       </list>
     </option>
   </component>
@@ -256,25 +258,25 @@
       <workItem from="1525255883443" duration="14237000" />
       <workItem from="1525405749876" duration="5138000" />
       <workItem from="1525499566419" duration="5990000" />
-      <workItem from="1525573319578" duration="12586000" />
+      <workItem from="1525573319578" duration="24491000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="52468000" />
+    <option name="totallyTimeSpent" value="64373000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1658" y="0" width="1100" height="1158" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25138122" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25138122" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.29789272" />
+      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.29789272" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -371,13 +373,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="56" column="13" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -402,20 +397,37 @@
     <entry file="file://$PROJECT_DIR$/Client/src/assets/DATAG-logo.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/navbar.vue">
+    <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="30" lean-forward="true" selection-start-line="8" selection-start-column="6" selection-end-line="8" selection-end-column="30" />
+        <state relative-caret-position="486">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1458">
+          <caret line="117" column="29" lean-forward="true" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="29" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/assets/team-img.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
+    <entry file="file://$PROJECT_DIR$/Client/src/components/navbar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="19" lean-forward="true" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+        <state relative-caret-position="378">
+          <caret line="51" column="4" lean-forward="true" selection-start-line="51" selection-start-column="4" selection-end-line="60" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/assets/logo-black.PNG">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/login.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="21" selection-start-column="21" selection-end-column="21" />
         </state>
       </provider>
     </entry>
