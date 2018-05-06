@@ -180,7 +180,7 @@ export default {
   .team-profile > .profile-wrap{
     display: flex;
     width: 50%;
-    padding: 20px 0;
+    padding: 30px 0;
   }
   .team-profile > .profile-wrap > .profile-img {
     display: inline-block;
@@ -208,9 +208,6 @@ export default {
     font-weight: bold;
     font-size: 18px;
     margin-bottom: 25px;
-  }
-  .team-profile > .profile-wrap > .profile-content > .description {
-
   }
   .last-section {
     background: url("../assets/business-3370832_1920.jpg") no-repeat;

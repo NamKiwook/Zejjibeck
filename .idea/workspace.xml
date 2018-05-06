@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/assets/paper-3249919_1920.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/login.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/index.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -35,8 +33,8 @@
       <file leaf-file-name="index.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1458">
-              <caret line="117" column="29" lean-forward="true" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="29" />
+            <state relative-caret-position="-285">
+              <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -52,11 +50,6 @@
       </file>
       <file leaf-file-name="logo-black.PNG" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/assets/logo-black.PNG">
-          <provider selected="true" editor-type-id="images" />
-        </entry>
-      </file>
-      <file leaf-file-name="team-img.jpg" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Client/src/assets/team-img.jpg">
           <provider selected="true" editor-type-id="images" />
         </entry>
       </file>
@@ -133,9 +126,9 @@
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/navbar.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
         <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
       </list>
     </option>
   </component>
@@ -258,25 +251,25 @@
       <workItem from="1525255883443" duration="14237000" />
       <workItem from="1525405749876" duration="5138000" />
       <workItem from="1525499566419" duration="5990000" />
-      <workItem from="1525573319578" duration="24491000" />
+      <workItem from="1525573319578" duration="24962000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="64373000" />
+    <option name="totallyTimeSpent" value="64844000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1658" y="0" width="1100" height="1158" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25138122" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25138122" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" visible="true" weight="0.29789272" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" visible="true" weight="0.29789272" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -404,13 +397,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1458">
-          <caret line="117" column="29" lean-forward="true" selection-start-line="117" selection-start-column="22" selection-end-line="117" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/assets/team-img.jpg">
       <provider selected="true" editor-type-id="images" />
     </entry>
@@ -423,6 +409,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/assets/logo-black.PNG">
       <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-285">
+          <caret line="182" column="14" selection-start-line="182" selection-start-column="14" selection-end-line="182" selection-end-column="14" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/login.vue">
       <provider selected="true" editor-type-id="text-editor">
