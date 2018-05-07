@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/login.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/login.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/signUp.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/signUp.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -63,11 +61,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="signUp.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="signUp.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="270">
               <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dashboardMenubar.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="396">
+              <caret line="28" column="130" selection-start-line="28" selection-start-column="130" selection-end-line="28" selection-end-column="130" />
             </state>
           </provider>
         </entry>
@@ -134,6 +141,7 @@
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue" />
       </list>
     </option>
   </component>
@@ -261,7 +269,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="68852000" />
+    <option name="totallyTimeSpent" value="69564000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1401" y="0" width="1358" height="1158" extended-state="0" />
@@ -303,7 +311,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/frontByVue/src/store.js" />
     <entry file="file://$PROJECT_DIR$/model/user.js" />
     <entry file="file://$PROJECT_DIR$/frontByVue/src/components/login.vue" />
     <entry file="file://$PROJECT_DIR$/frontByVue/src/components/navbar.vue" />
@@ -486,6 +493,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="270">
           <caret line="15" column="72" selection-start-line="15" selection-start-column="72" selection-end-line="15" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="28" column="130" selection-start-line="28" selection-start-column="130" selection-end-line="28" selection-end-column="130" />
         </state>
       </provider>
     </entry>
