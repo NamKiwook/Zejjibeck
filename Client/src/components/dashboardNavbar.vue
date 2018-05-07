@@ -20,6 +20,9 @@ export default {
       username: 'temp_username'
     }
   },
+  created () {
+    this.username = this.$store.getters.getUsername
+  },
   methods: {
     profileToggle () {
       this.profileIsVisible = !this.profileIsVisible

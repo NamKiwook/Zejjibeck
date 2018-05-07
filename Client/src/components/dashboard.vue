@@ -40,22 +40,22 @@ div.container
           input(type="tel" v-model="amountWithdraw")
           | 원
       a.btn(@click="withdraw") 크레딧 출금
-  carousel.project(perPage=3, scroll-per-page=true, pagination-color='#fff', paginationPadding=5, pagination-active-color='#666')
+  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap
         .title {{projectInfo.projectName}}
         .sub.title {{projectInfo.projectType}}
         .problem-wrap
           .total
-            .num {{projectInfo.totalBlock}}
+            .num {{projectInfo.blockNo}}
             .text Total Block
           .solved
-            .num {{projectInfo.solvedBlock}}
+            .num {{projectInfo.completedBlock}}
             .text Solved Block
         .col-xs-6
           .inner-content.text-center
-            .c100.p33.center
-              span {{projectInfo.solvedBlock / projectInfo.totalBlock * 100}}%
+            .c100.center(:class="percent(projectInfo.completedBlock / projectInfo.blockNo * 100)")
+              span {{Math.round(projectInfo.completedBlock / projectInfo.blockNo * 100)}}%
               .slice
                 .bar
                 .fill
@@ -78,6 +78,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
+      perpage: 2,
       bank: '은행 이름',
       username: '유저 이름',
       bankAccount: '계좌번호',
@@ -85,20 +86,32 @@ export default {
       prearrangedCredit: 100,
       amountWithdraw: 0,
       chargeCredit: 0,
-      projectsInfoList: [
-        {projectName: '첫번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine'},
-        {projectName: '두번째 프로젝트', totalBlock: 2000, solvedBlock: 300, projectType: 'Refine&Collect'},
-        {projectName: '세번째 프로젝트', totalBlock: 4000, solvedBlock: 230, projectType: 'Collect'},
-        {projectName: '네번째 프로젝트', totalBlock: 2000, solvedBlock: 130, projectType: 'Collect'}
-      ]
+      projectNo: 0,
+      projectsInfoList: []
     }
   },
   created () {
     this.$http.get('/api/dashboard').then((res) => {
-      this.username = res.data.username
+      this.username = res.data.userInfo.username
+      this.bank = res.data.userInfo.bank
+      this.bankAccount = res.data.userInfo.bankAccount
+      this.usableCredit = res.data.userInfo.usableCredit
+      this.prearrangedCredit = res.data.userInfo.prearrangedCredit
+      this.projectNo = res.data.projectsInfoList.length
+      this.projectsInfoList = res.data.projectsInfoList
+      if (this.projectNo === 0 || window.innerWidth < 1050) {
+        this.perpage = 1
+      } else if (this.projectNo > 3) {
+        this.perpage = 3
+      } else {
+        this.perpage = this.projectNo
+      }
     })
   },
   methods: {
+    percent (percent) {
+      return 'p' + Math.round(percent)
+    },
     showCharge () {
       this.$modal.show('charge-modal')
     },

@@ -14,11 +14,9 @@ router.get('/', async function(req, res, next) {
     projectList.push(project);
   }
 
-  console.log(projectList);
   res.send({
-      username: userInfo.username,
-      credit : userInfo.credit,
-      projectsInfoList: projectList,
+      userInfo: userInfo,
+      projectsInfoList: projectList
   });
 });
 

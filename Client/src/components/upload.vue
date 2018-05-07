@@ -18,38 +18,38 @@
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
-        input.type(type="radio", name="projectType", value="data", v-model="projectType")
+        input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
         span.radiomark
       label.radioWrap Only Refine
-        input.type(type="radio", name="projectType", value="refine", v-model="projectType")
+        input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
         span.radiomark
       label.radioWrap Data/Refine
-        input.type(type="radio", name="projectType", value="data&refine", v-model="projectType")
+        input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
         span.radiomark
     section.typeWrap
       p.title Data Type
       label.radioWrap Image
-        input.type#typeImg(type="radio", name="dataType", value="image", v-model="dataType")
+        input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
         span.radiomark
       label.radioWrap Audio
-        input.type(type="radio", name="dataType", value="audio", v-model="dataType")
+        input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
         span.radiomark
       label.radioWrap Text
-        input.type(type="radio", name="dataType", value="text", v-model="dataType")
+        input.type(type="radio", name="dataType", value="Text", v-model="dataType")
         span.radiomark
     section.tagTypeWrap
       p.title Refine Type
       label.radioWrap Radio
-        input.tagType#radioTag(type="radio", name="refineType", value="radio", v-model="refineType")
+        input.tagType#radioTag(type="radio", name="refineType", value="Radio", v-model="refineType")
         span.radiomark
       label.radioWrap Check box
-        input.tagType#checkboxTag(type="radio", name="refineType", value="checkbox", v-model="refineType")
+        input.tagType#checkboxTag(type="radio", name="refineType", value="Checkbox", v-model="refineType")
         span.radiomark
       label.radioWrap Text
-        input.tagType(type="radio", name="refineType", value="text", v-model="refineType")
+        input.tagType(type="radio", name="refineType", value="Text", v-model="refineType")
         span.radiomark
       label.radioWrap#dragType(v-bind:style="isImg") Drag
-        input.tagType(type="radio", name="refineType", value="drag", v-model="refineType")
+        input.tagType(type="radio", name="refineType", value="Drag", v-model="refineType")
         span.radiomark
     section.tagValue(v-bind:style="isBox")
       .title Tag Value

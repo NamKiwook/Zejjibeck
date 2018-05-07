@@ -7,7 +7,10 @@ router.get('/', async function(req,res,next){
   user.username = req.query.username;
   user.userId = req.query.userId;
   user.password = req.query.password;
-  user.credit = 0;
+  user.usableCredit = 0;
+  user.prearrangedCredit = 0;
+  user.bank = '농협';
+  user.bankAccount = '123-456-789'
   user.penalty = 0;
   user.projects = [];
   try{

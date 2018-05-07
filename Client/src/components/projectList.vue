@@ -51,18 +51,18 @@ export default {
   name: 'projectList',
   data () {
     return {
-      modalProject: {projectName: 'default', totalBlock: 0, solvedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       projectList: [
-        {projectName: '첫번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 100, description: '1프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '두번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Collect', credit: 200, description: '2프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '세번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 300, description: '3프로젝트의 자세한 내용', dataType: 'Audio'},
-        {projectName: '네번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Collect', credit: 200, description: '4프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '다섯번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 100, description: '5프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '여섯번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 400, description: '6프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '일곱번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 600, description: '7프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '여덜번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Collect', credit: 100, description: '8프로젝트의 자세한 내용', dataType: 'Audio'},
-        {projectName: '아홉번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 1500, description: '9프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '열번째 프로젝트', totalBlock: 1000, solvedBlock: 100, projectType: 'Refine', credit: 10000, description: '10프로젝트의 자세한 내용', dataType: 'Text'}
+        {projectName: '첫번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 100, description: '1프로젝트의 자세한 내용', dataType: 'Image'},
+        {projectName: '두번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 200, description: '2프로젝트의 자세한 내용', dataType: 'Text'},
+        {projectName: '세번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 300, description: '3프로젝트의 자세한 내용', dataType: 'Audio'},
+        {projectName: '네번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 200, description: '4프로젝트의 자세한 내용', dataType: 'Text'},
+        {projectName: '다섯번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 100, description: '5프로젝트의 자세한 내용', dataType: 'Image'},
+        {projectName: '여섯번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 400, description: '6프로젝트의 자세한 내용', dataType: 'Image'},
+        {projectName: '일곱번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 600, description: '7프로젝트의 자세한 내용', dataType: 'Text'},
+        {projectName: '여덜번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 100, description: '8프로젝트의 자세한 내용', dataType: 'Audio'},
+        {projectName: '아홉번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 1500, description: '9프로젝트의 자세한 내용', dataType: 'Image'},
+        {projectName: '열번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 10000, description: '10프로젝트의 자세한 내용', dataType: 'Text'}
       ]
     }
   },

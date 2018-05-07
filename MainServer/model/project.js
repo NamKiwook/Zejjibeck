@@ -3,7 +3,8 @@ var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
   projectName: String,
-  projectType: String, // 'image' 'audio' 'text'
+  projectType: String, // 'Refine' 'Collect' 'Refine&Collect'
+  dataType: String, // 'Image' 'Audio' 'Text'
 
   uploadTime: Number,
 
@@ -11,7 +12,7 @@ var projectSchema = new Schema({
 
   description: String,
   fileNo: Number,
-  refineType: String, //radioBox, checkBox, drag
+  refineType: String, //RadioBox, CheckBox, Drag, Text
   refineList: Array,
 
   minimumRefine: Number,

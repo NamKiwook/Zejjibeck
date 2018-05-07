@@ -29,12 +29,12 @@ export default {
     submit () {
       this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
         .then(async (res) => {
-          if (res.data.pass === 'yes') {
+          if (res.data.success) {
             await this.$store.dispatch('login', res.data.token)
-            alert('success')
+            await this.$store.commit('username', res.data.userInfo.username)
             await this.$router.push('/dashboard')
           } else {
-            alert('fail')
+            alert('아이디가 존재하지 않거나 비밀번호가 잘못되었습니다.')
           }
         })
     }

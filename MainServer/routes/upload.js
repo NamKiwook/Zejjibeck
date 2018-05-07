@@ -25,7 +25,7 @@ router.post('/', async function(req,res, next){
   var project = new projectSchema({
     projectName: req.body.projectName,
     projectType: req.body.projectType,
-
+    dataType: req.body.dataType,
     uploadTime: currentTime,
 
     description: req.body.description,
