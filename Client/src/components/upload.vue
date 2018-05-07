@@ -14,7 +14,7 @@
       input.text#minimumRefine(type='text', v-model="minimumRefine", ref="mr", placeholder="0")
     section.textWrap
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='text', v-model="blockSize", ref="bs", style="ime-mode: disable")
+      input.text#blockSize(type='text', v-model="blockSize", ref="bs")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
@@ -87,12 +87,26 @@ export default {
   },
   updated () {
     if (this.$refs.tc.value) {
-      this.$refs.tc.value = Number.parseInt(this.$refs.tc.value.replace(/[^0-9]/g, ''))
+      if (this.$refs.tc.value.replace(/[^0-9]/g, '') === '') {
+        this.$refs.tc.value = 0
+      } else {
+        this.$refs.tc.value = Number.parseInt(this.$refs.tc.value.replace(/[^0-9]/g, ''))
+      }
     }
     if (this.$refs.mr.value) {
-      this.$refs.mr.value = Number.parseInt(this.$refs.mr.value.replace(/[^0-9]/g, ''))
+      if (this.$refs.mr.value.replace(/[^0-9]/g, '') === '') {
+        this.$refs.mr.value = 0
+      } else {
+        this.$refs.mr.value = Number.parseInt(this.$refs.mr.value.replace(/[^0-9]/g, ''))
+      }
     }
-    this.$refs.bs.value = Number.parseInt(this.$refs.bs.value.replace(/[^0-9]/g, ''))
+    if (this.$refs.bs.value) {
+      if (this.$refs.bs.value.replace(/[^0-9]/g, '') === '') {
+        this.$refs.bs.value = 0
+      } else {
+        this.$refs.bs.value = Number.parseInt(this.$refs.bs.value.replace(/[^0-9]/g, ''))
+      }
+    }
   },
   methods: {
     tagPlus () {
