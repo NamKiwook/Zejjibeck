@@ -8,13 +8,13 @@
       input.text#description(type='text', v-model="description")
     section.textWrap
       .title Credit
-      input.text#totalCredit(type='number', v-model="totalCredit")
+      input.text#totalCredit(type='text', v-model="totalCredit", ref="tc", placeholder="0")
     section.textWrap
       .title Minimum Number of Refine
-      input.text#minimumRefine(type='number', v-model="minimumRefine", min="0")
+      input.text#minimumRefine(type='text', v-model="minimumRefine", ref="mr", placeholder="0")
     section.textWrap
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='number', v-model="blockSize", min="0")
+      input.text#blockSize(type='text', v-model="blockSize", ref="bs", style="ime-mode: disable")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
@@ -84,6 +84,15 @@ export default {
       tagNumber: 1,
       fileList: []
     }
+  },
+  updated () {
+    if (this.$refs.tc.value) {
+      this.$refs.tc.value = Number.parseInt(this.$refs.tc.value.replace(/[^0-9]/g, ''))
+    }
+    if (this.$refs.mr.value) {
+      this.$refs.mr.value = Number.parseInt(this.$refs.mr.value.replace(/[^0-9]/g, ''))
+    }
+    this.$refs.bs.value = Number.parseInt(this.$refs.bs.value.replace(/[^0-9]/g, ''))
   },
   methods: {
     tagPlus () {
