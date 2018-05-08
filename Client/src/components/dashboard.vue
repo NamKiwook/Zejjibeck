@@ -152,13 +152,13 @@ export default {
     showWithdraw () {
       this.$modal.show('withdraw-modal')
     },
-    showProject() {
-      this.$modal.show('project-modal');
+    showProject () {
+      this.$modal.show('project-modal')
     },
     hide () {
       this.$modal.hide('charge-modal')
       this.$modal.hide('withdraw-modal')
-      this.$modal.hide('project-modal');
+      this.$modal.hide('project-modal')
     },
     withdraw () {
 

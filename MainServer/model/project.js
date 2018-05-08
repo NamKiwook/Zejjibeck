@@ -18,11 +18,12 @@ var projectSchema = new Schema({
   minimumRefine: Number,
 
   totalCredit: Number,
+  credit: {type: Number, default: 0}, //블락당 크레딧
 
-  blockNo: Number,
+  blockNo:  {type: Number, default: 1},
   blockSize: Number,
   blocks: Array,
 
-  completedBlock:Number,
+  completedBlock: {type: Number, default: 0},
 });
 module.exports = mongoose.model('project', projectSchema);

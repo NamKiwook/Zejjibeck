@@ -8,10 +8,10 @@
       textarea.text#description(v-model="description")
     section.textWrap
       .title Credit
-      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
+      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0", style="ime-mode:disabled;")
     section.textWrap
       .title Minimum Number of Refine
-      input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
+      input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0", style="ime-mode:disabled;")
     section.textWrap
       .title Block Size (Basic = 10)
       input.text#blockSize(type='text', v-model="blockSize")
@@ -88,21 +88,21 @@ export default {
   watch: {
     totalCredit: function () {
       if (this.totalCredit) {
-        this.totalCredit = Number.parseInt(this.totalCredit.replace(/[^0-9]/g, ''))
+        this.totalCredit = Number.parseFloat(this.totalCredit.toString().replace(/[^0-9]/g, ''))
       } else {
         this.totalCredit = 0
       }
     },
     minimumRefine: function () {
       if (this.minimumRefine) {
-        this.minimumRefine = Number.parseInt(this.minimumRefine.replace(/[^0-9]/g, ''))
+        this.minimumRefine = Number.parseFloat(this.minimumRefine.toString().replace(/[^0-9]/g, ''))
       } else {
         this.minimumRefine = 0
       }
     },
     blockSize: function () {
       if (this.blockSize) {
-        this.blockSize = Number.parseInt(this.blockSize.replace(/[^0-9]/g, ''))
+        this.blockSize = Number.parseInt(this.blockSize.toString().replace(/[^0-9]/g, ''))
       } else {
         this.blockSize = 0
       }

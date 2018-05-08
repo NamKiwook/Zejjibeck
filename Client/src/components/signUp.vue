@@ -14,6 +14,9 @@
           input#name(type="text", placeholder="Full Name", v-model="username")
           input#id(type="text", name="userID", placeholder="Email", v-model="userId")
           input#password(type="password", name="password", placeholder="Password", v-model="password")
+          input#bank(type="text", name="bank", placeholder="은행", v-model="bank")
+          input#bankAccount(type="text", name="bankAccount", placeholder="계좌번호", v-model="bankAccount")
+
           a.register.btn(v-on:click="submit") Register
           router-link.text(to="/login") Already have an account?
 </template>
@@ -25,7 +28,9 @@ export default {
     return {
       username: null,
       userId: null,
-      password: null
+      password: null,
+      bank: null,
+      bankAccount: null
     }
   },
   mounted () {
@@ -40,13 +45,15 @@ export default {
         {params: {
           userId: this.userId,
           password: this.password,
-          username: this.username}})
+          username: this.username,
+          bank: this.bank,
+          bankAccount: this.bankAccount}})
         .then((res) => {
-          if (res.data.pass === 'ok') {
+          if (res.data.success) {
             alert('complete')
             this.$router.push('/login')
           } else {
-            alert('exist id')
+            alert(res.data.errorMassage)
           }
         })
     }

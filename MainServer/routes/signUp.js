@@ -3,31 +3,24 @@ var router = express.Router();
 var userSchema= require('../model/user');
 
 router.get('/', async function(req,res,next){
-  var user = new userSchema();
-  user.username = req.query.username;
-  user.userId = req.query.userId;
-  user.password = req.query.password;
-  user.usableCredit = 0;
-  user.prearrangedCredit = 0;
-  user.bank = '농협';
-  user.bankAccount = '123-456-789'
-  user.penalty = 0;
-  user.projects = [];
+  var user = new userSchema(req.query);
   try{
     var compare = await userSchema.find({userId: user.userId});
     if(compare.toString())
-      res.send({pass:'no'});
+      res.send({success:false,errorMassage:"중복된 아이디"});
     else{
       try{
-        var save = await user.save();
-        res.send({pass:'ok'});
+        await user.save();
+        res.send({success:true});
       }
       catch (err){
-        res.send({pass:'no'});
+        console.log(err)
+        res.send({success:false});
       }
     }
   }catch (err){
-    res.send({pass:'no'});
+    console.log(err)
+    res.send({success:false});
   }
 });
 
