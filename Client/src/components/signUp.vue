@@ -81,10 +81,10 @@ export default {
   .container > .img-cover > .content {
     background-color: rgba(11, 17, 31, 0.5);
     border-radius: 4px;
-    margin: 20vh auto 0;
+    margin: 10vh auto 0;
     position: relative;
     width: 900px;
-    height: 500px;
+    height: 550px;
   }
   .description-wrap {
     padding: 40px;
@@ -123,7 +123,6 @@ export default {
   }
   .login-wrap > .title {
     font-size: 18px;
-    margin-top: 20px;
     padding: 30px 0;
   }
   .login-wrap > input {
