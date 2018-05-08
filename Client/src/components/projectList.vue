@@ -1,19 +1,6 @@
 <template lang="pug">
   div.container
     .title Project List
-    section
-      .menu
-        .title Project Name
-        .type Type
-        .credit Credit
-      .project(@click="show(project)" v-for="project in projectList")
-        .title {{project.projectName}}
-        .type {{project.projectType}}
-        .credit {{project.credit}}원
-      .pagination
-        a(@click="nextList(currentPage - 10)") &laquo;
-        a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
-        a(@click="nextList(currentPage + 10)") &raquo;
     modal(name="project" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
@@ -41,6 +28,19 @@
             br
             | 100원 (대상 초과시)
         a.btn(@click="selectProject(modalProject)") START
+    section
+      .menu
+        .title Project Name
+        .type Type
+        .credit Credit
+      .project(@click="show(project)" v-for="project in projectList")
+        .title {{project.projectName}}
+        .type {{project.projectType}}
+        .credit {{project.credit}}원
+      .pagination
+        a(@click="nextList(currentPage - 10)") &laquo;
+        a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
+        a(@click="nextList(currentPage + 10)") &raquo;
 </template>
 <script>
 export default {

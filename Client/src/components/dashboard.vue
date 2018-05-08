@@ -40,6 +40,40 @@ div.container
           input(type="tel" v-model="amountWithdraw")
           | 원
       a.btn(@click="withdraw") 크레딧 출금
+  modal(name="project-modal" height="auto" scrollable=true)
+    .modal-container
+      a.close-btn(@click="hide")
+      .box
+        .title 프로젝트 이름
+        .sep :
+        input(value="프로젝트 123")
+      .box
+        .title 프로젝트 설명
+        .sep :
+        .description
+          | 이 프로젝트는
+          br
+          | 테스트를 위한
+          br
+          | 프로젝트입니다
+          br
+          | 감사합니다
+      .box
+        .title 프로젝트 타입
+        .sep :
+        .description Refine
+      .box
+        .title 데이터 타입
+        .sep :
+        .description Image
+      .box
+        .title 적립금
+        .sep :
+        .description
+          | 8000원 (프로젝트 완료시)
+          br
+          | 100원 (대상 초과시)
+      .btn 다운로드
   carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap
@@ -118,9 +152,13 @@ export default {
     showWithdraw () {
       this.$modal.show('withdraw-modal')
     },
+    showProject() {
+      this.$modal.show('project-modal');
+    },
     hide () {
       this.$modal.hide('charge-modal')
       this.$modal.hide('withdraw-modal')
+      this.$modal.hide('project-modal');
     },
     withdraw () {
 
