@@ -76,7 +76,7 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/refine',
+      path: '/refine/:projectId',
       components: {
         default: refine,
         nav: dashboardLayout
@@ -84,7 +84,7 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/list',
+      path: '/list/:page/:filter/:category',
       components: {
         default: projectList,
         nav: dashboardLayout

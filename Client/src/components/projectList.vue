@@ -11,14 +11,10 @@
         .type {{project.projectType}}
         .credit {{project.credit}}원
       .pagination
-        a(href="#") &laquo;
-        a.active(href="#") 1
-        a(href="#") 2
-        a(href="#") 3
-        a(href="#") 4
-        a(href="#") 5
-        a(href="#") &raquo;
-    modal(name="project" height="auto" scrollable="true")
+        a(@click="nextList(currentPage - 10)") &laquo;
+        a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
+        a(@click="nextList(currentPage + 10)") &raquo;
+    modal(name="project" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -44,7 +40,7 @@
             | {{modalProject.credit}}원 (프로젝트 완료시)
             br
             | 100원 (대상 초과시)
-        a.btn(@click="selectProject") START
+        a.btn(@click="selectProject(modalProject)") START
 </template>
 <script>
 export default {
@@ -52,21 +48,59 @@ export default {
   data () {
     return {
       modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
-      projectList: [
-        {projectName: '첫번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 100, description: '1프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '두번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 200, description: '2프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '세번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 300, description: '3프로젝트의 자세한 내용', dataType: 'Audio'},
-        {projectName: '네번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 200, description: '4프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '다섯번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 100, description: '5프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '여섯번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 400, description: '6프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '일곱번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 600, description: '7프로젝트의 자세한 내용', dataType: 'Text'},
-        {projectName: '여덜번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Collect', credit: 100, description: '8프로젝트의 자세한 내용', dataType: 'Audio'},
-        {projectName: '아홉번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 1500, description: '9프로젝트의 자세한 내용', dataType: 'Image'},
-        {projectName: '열번째 프로젝트', blockNo: 1000, completedBlock: 100, projectType: 'Refine', credit: 10000, description: '10프로젝트의 자세한 내용', dataType: 'Text'}
-      ]
+      projectList: [],
+      currentPage: 1,
+      totalPage: 1,
+      filter: 'recent',
+      category: 'all',
+      startNavigator: 1,
+      endNavigator: 1
     }
   },
+  watch: {
+    $route () {
+      this.loadList()
+    }
+  },
+  created () {
+    this.loadList()
+  },
   methods: {
+    loadList () {
+      this.currentPage = Number.parseInt(this.$route.params.page)
+      this.filter = this.$route.params.filter
+      this.category = this.$route.params.category
+      this.$http.get('/api/project/list', {params: {
+        page: this.currentPage,
+        filter: this.filter,
+        category: this.category,
+        listNumber: 10
+      }}).then((res) => {
+        this.projectList = res.data.projectList
+        this.totalPage = res.data.totalPage
+        if (this.currentPage - 4 > 0) {
+          this.startNavigator = this.currentPage - 4
+        } else {
+          this.startNavigator = 1
+        }
+        if (this.currentPage + 4 < this.totalPage) {
+          this.endNavigator = this.currentPage + 4
+        } else {
+          this.endNavigator = this.totalPage
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    nextList (page) {
+      if (page > this.totalPage) {
+        page = this.totalPage
+      }
+      if (page <= 0) {
+        page = 1
+      }
+      this.$router.push({path: `/list/${page}/${this.filter}/${this.category}`})
+    },
     show (project) {
       this.modalProject = project
       this.$modal.show('project')
@@ -74,9 +108,9 @@ export default {
     hide () {
       this.$modal.hide('project')
     },
-    selectProject () {
+    selectProject (project) {
       this.$modal.hide('project')
-      this.$router.push('/refine')
+      this.$router.push({path: `/refine/${project._id}`})
     }
   }
 }

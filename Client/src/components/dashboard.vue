@@ -2,7 +2,7 @@
 div.container
   .title Dash Board
   .btn-wrap
-    router-link.btn(to='/list') 과제풀기
+    router-link.btn(to='/list/1/recent/all') 과제풀기
     router-link.btn(to='/upload') 과제등록
   modal(name="charge-modal" width="450" height="auto" scrollable=true)
     .modal-container

@@ -43,6 +43,9 @@ export default {
       totalSequence: 20,
       nowSequence: 1
     }
+  },
+  created () {
+    console.log(this.$route.params.projectId)
   }
 }
 </script>

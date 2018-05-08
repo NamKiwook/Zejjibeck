@@ -8,13 +8,13 @@
       input.text#description(type='text', v-model="description")
     section.textWrap
       .title Credit
-      input.text#totalCredit(type='text', v-model="totalCredit", ref="tc", placeholder="0")
+      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
     section.textWrap
       .title Minimum Number of Refine
-      input.text#minimumRefine(type='text', v-model="minimumRefine", ref="mr", placeholder="0")
+      input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
     section.textWrap
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='text', v-model="blockSize", ref="bs")
+      input.text#blockSize(type='text', v-model="blockSize")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
@@ -85,26 +85,26 @@ export default {
       fileList: []
     }
   },
-  updated () {
-    if (this.$refs.tc.value) {
-      if (this.$refs.tc.value.replace(/[^0-9]/g, '') === '') {
-        this.$refs.tc.value = 0
+  watch: {
+    totalCredit: function () {
+      if (this.totalCredit) {
+        this.totalCredit = Number.parseInt(this.totalCredit.replace(/[^0-9]/g, ''))
       } else {
-        this.$refs.tc.value = Number.parseInt(this.$refs.tc.value.replace(/[^0-9]/g, ''))
+        this.totalCredit = 0
       }
-    }
-    if (this.$refs.mr.value) {
-      if (this.$refs.mr.value.replace(/[^0-9]/g, '') === '') {
-        this.$refs.mr.value = 0
+    },
+    minimumRefine: function () {
+      if (this.minimumRefine) {
+        this.minimumRefine = Number.parseInt(this.minimumRefine.replace(/[^0-9]/g, ''))
       } else {
-        this.$refs.mr.value = Number.parseInt(this.$refs.mr.value.replace(/[^0-9]/g, ''))
+        this.minimumRefine = 0
       }
-    }
-    if (this.$refs.bs.value) {
-      if (this.$refs.bs.value.replace(/[^0-9]/g, '') === '') {
-        this.$refs.bs.value = 0
+    },
+    blockSize: function () {
+      if (this.blockSize) {
+        this.blockSize = Number.parseInt(this.blockSize.replace(/[^0-9]/g, ''))
       } else {
-        this.$refs.bs.value = Number.parseInt(this.$refs.bs.value.replace(/[^0-9]/g, ''))
+        this.blockSize = 0
       }
     }
   },
