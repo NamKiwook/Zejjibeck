@@ -84,7 +84,7 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/list/:page/:filter/:category',
+      path: '/list/:page?/:filter?/:category?',
       components: {
         default: projectList,
         nav: dashboardLayout

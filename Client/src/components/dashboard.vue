@@ -2,7 +2,7 @@
 div.container
   .title Dash Board
   .btn-wrap
-    router-link.btn(to='/list/1/recent/all') 과제풀기
+    router-link.btn(to='/list') 과제풀기
     router-link.btn(to='/upload') 과제등록
   modal(name="charge-modal" width="450" height="auto" scrollable=true)
     .modal-container
@@ -46,37 +46,30 @@ div.container
       .box
         .title 프로젝트 이름
         .sep :
-        input(value="프로젝트 123")
+        .description {{modalProject.projectName}}
       .box
         .title 프로젝트 설명
         .sep :
-        .description
-          | 이 프로젝트는
-          br
-          | 테스트를 위한
-          br
-          | 프로젝트입니다
-          br
-          | 감사합니다
+        .description {{modalProject.description}}
       .box
         .title 프로젝트 타입
         .sep :
-        .description Refine
+        .description {{modalProject.projectType}}
       .box
         .title 데이터 타입
         .sep :
-        .description Image
+        .description {{modalProject.dataType}}
       .box
         .title 적립금
         .sep :
         .description
-          | 8000원 (프로젝트 완료시)
+          | {{modalProject.credit}}원 (프로젝트 완료시)
           br
           | 100원 (대상 초과시)
       .btn 다운로드
   carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
-      .project-wrap
+      .project-wrap(@click="showProject(projectInfo)")
         .title {{projectInfo.projectName}}
         .sub.title {{projectInfo.projectType}}
         .problem-wrap
@@ -112,6 +105,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       perpage: 2,
       bank: '은행 이름',
       username: '유저 이름',
@@ -152,7 +146,8 @@ export default {
     showWithdraw () {
       this.$modal.show('withdraw-modal')
     },
-    showProject () {
+    showProject (modalProject) {
+      this.modalProject = modalProject
       this.$modal.show('project-modal')
     },
     hide () {

@@ -67,9 +67,15 @@ export default {
   },
   methods: {
     loadList () {
-      this.currentPage = Number.parseInt(this.$route.params.page)
-      this.filter = this.$route.params.filter
-      this.category = this.$route.params.category
+      if (this.$route.params.page) {
+        this.currentPage = Number.parseInt(this.$route.params.page)
+      }
+      if (this.$route.params.filter) {
+        this.filter = this.$route.params.filter
+      }
+      if (this.$route.params.category) {
+        this.category = this.$route.params.category
+      }
       this.$http.get('/api/project/list', {params: {
         page: this.currentPage,
         filter: this.filter,
