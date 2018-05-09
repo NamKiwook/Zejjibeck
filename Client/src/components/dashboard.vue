@@ -66,7 +66,7 @@ div.container
           | {{modalProject.credit}}원 (프로젝트 완료시)
           br
           | 100원 (대상 초과시)
-      .btn 다운로드
+      .btn(@click="download(modalProject)") 다운로드
   carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showProject(projectInfo)")
@@ -127,6 +127,17 @@ export default {
       this.prearrangedCredit = res.data.userInfo.prearrangedCredit
       this.projectNo = res.data.projectsInfoList.length
       this.projectsInfoList = res.data.projectsInfoList
+      this.carouselPerpage()
+    })
+  },
+  beforeMount () {
+    window.addEventListener('resize', this.carouselPerpage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.carouselPerpage)
+  },
+  methods: {
+    carouselPerpage () {
       if (this.projectNo === 0 || window.innerWidth < 1050) {
         this.perpage = 1
       } else if (this.projectNo > 3) {
@@ -134,9 +145,10 @@ export default {
       } else {
         this.perpage = this.projectNo
       }
-    })
-  },
-  methods: {
+    },
+    download (project) {
+      console.log(project._id)
+    },
     percent (percent) {
       return 'p' + Math.round(percent)
     },
