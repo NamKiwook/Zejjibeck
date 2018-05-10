@@ -42,7 +42,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'radio',
+      dataType: 'checkbox',
       totalSequence: 20,
       nowSequence: 1
     }
@@ -72,12 +72,12 @@ export default {
     position: fixed;
     bottom: 30px; right: 50px;
   }
-  .sequence > .now-sequence {
+  .sequence-wrap > .now-sequence {
     font-size: 30px;
     font-weight: 900;
     margin-right: 10px;
   }
-  .sequence > .total-sequence {
+  .sequence-wrap > .total-sequence {
     font-size: 30px;
     font-weight: 900;
     color: #a7b3bf;
@@ -148,32 +148,22 @@ export default {
     cursor: pointer;
   }
   .checkmark {
-    position: absolute;
-    left: 45px;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 4px;
+    /*position: absolute;*/
+    /*left: 45px;*/
+    /*height: 25px;*/
+    /*width: 25px;*/
+    /*background-color: #eee;*/
+    /*border-radius: 4px;*/
+    background-image: url("../assets/check.png");
+    background-repeat: no-repeat;
+    background-size: 20px;
+    background-position: center;
+    display:inline-block;
+    width: 20px;
+    height: 20px;
   }
   .inputWrap > input:checked ~ .checkmark {
-    background-color: #2E76B1;
-  }
-  .inputWrap > .checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    left: 9px;
-    top: 5px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 3px 3px 0;
-    -webkit-transform: rotate(45deg);
-    -ms-transform: rotate(45deg);
-    transform: rotate(45deg);
-  }
-  .inputWrap > input:checked ~ .checkmark:after {
-    display: block;
+    background-image: url("../assets/check-active.png");
   }
 
   /* 라디오버튼 */
