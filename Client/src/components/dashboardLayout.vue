@@ -11,8 +11,8 @@ import dashboardMenubar from './dashboardMenubar'
 export default {
   name: 'dashboardLayout',
   components: {
-    navbar: dashboardNavbar,
-    menubar: dashboardMenubar
+    navbar: dashboardNavbar
+    // menubar: dashboardMenubar
   }
 }
 </script>

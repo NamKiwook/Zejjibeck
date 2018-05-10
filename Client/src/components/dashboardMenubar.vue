@@ -1,3 +1,4 @@
+<script src="../router/index.js"></script>
 <template lang="pug">
 div.menubar(v-bind:class="{visible : isVisible}")
   section

@@ -180,8 +180,8 @@ export default {
 
 <style scoped>
   .container {
-    margin-left: 250px;
-    margin-top: 60px;
+    width: 1170px;
+    margin: 150px auto 0;
     overflow: hidden;
   }
   .container > .btn-wrap {
@@ -339,10 +339,5 @@ export default {
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
-  }
-  @media only screen and (max-width: 1080px) {
-    .container {
-      margin-left: 0;
-    }
   }
 </style>

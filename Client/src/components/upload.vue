@@ -119,6 +119,29 @@ export default {
       }
     }
   },
+  watch: {
+    totalCredit: function () {
+      if (this.totalCredit) {
+        this.totalCredit = Number.parseFloat(this.totalCredit.toString().replace(/[^0-9]/g, ''))
+      } else {
+        this.totalCredit = 0
+      }
+    },
+    minimumRefine: function () {
+      if (this.minimumRefine) {
+        this.minimumRefine = Number.parseFloat(this.minimumRefine.toString().replace(/[^0-9]/g, ''))
+      } else {
+        this.minimumRefine = 0
+      }
+    },
+    blockSize: function () {
+      if (this.blockSize) {
+        this.blockSize = Number.parseInt(this.blockSize.toString().replace(/[^0-9]/g, ''))
+      } else {
+        this.blockSize = 0
+      }
+    }
+  },
   methods: {
     tagPlus () {
       this.tagNumber++
