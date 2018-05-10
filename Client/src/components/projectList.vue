@@ -37,25 +37,29 @@
         .btn START
     section
       .menu
-        .title Project Name
-        .type Type
-        .credit Credit
+        .type TYPE
+        .date DATE
+        .credit CREDIT
       .project(@click="show")
-        .title Project1
-        .type Refine
+        .type D
+        .title 프로젝트 1234567
+        .date May 1. 2017
         .credit 100,000원
       .project(@click="show")
+        .type D
         .title Project1
-        .type Refine
-        .credit 200원
+        .date May 1. 2017
+        .credit 100,000원
       .project(@click="show")
+        .type D
         .title Project1
-        .type Refine
-        .credit 200원
+        .date May 1. 2017
+        .credit 100,000원
       .project(@click="show")
+        .type D
         .title Project1
-        .type Refine
-        .credit 200원
+        .date May 1. 2017
+        .credit 100,000원
       .pagination
         a(href="#") &laquo;
         a.active(href="#") 1
@@ -94,12 +98,99 @@
     margin: 10px;
   }
   .container > section {
-    background-color: #fff;
-    border: 1px solid rgba(211, 215, 219, 1.0);
-    border-radius: 4px;
-    padding: 20px;
-    margin: 20px;
+    border-top: 1px solid rgba(211, 215, 219, 1.0);
   }
+  .menu {
+    border-top: 1px solid rgba(211,215,219,1.0);
+    padding: 10px 20px;
+    margin-top: 50px;
+  }
+  .menu > .type {
+    text-align: center;
+    border-radius: 4px;
+    display: inline-block;
+    font-size: 14px;
+    color: #a7b3bf;
+  }
+  .menu > .credit {
+    display: inline-block;
+    float: right;
+    width: 85px;
+    margin-right: 50px;
+    font-size: 14px;
+    color: #a7b3bf;
+  }
+  .menu > .date {
+    display:inline-block;
+    float: right;
+    width: 80px;
+    margin-right: 20px;
+    font-size: 14px;
+    color: #a7b3bf;
+  }
+  .project {
+    background-color: #fff;
+    padding: 18px 20px;
+    border-radius: 2px;
+    margin: 3px 0;
+    transition: all 0.3s;
+  }
+  .project:hover {
+    box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
+  }
+  .project > .type {
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border-radius: 4px;
+    display: inline-block;
+    background-color: #c1d9f1;
+    color: #2e76b1;
+    font-weight: 900;
+    font-size: 14px;
+    line-height: 35px;
+  }
+  .project > .title {
+    display: inline-block;
+    padding: 0 20px;
+    line-height: 35px;
+    font-weight: bold;
+  }
+  .project > .credit {
+    width: 100px;
+    line-height: 35px;
+    font-size: 14px;
+    text-align: right;
+    float: right;
+    margin-right: 50px;
+  }
+  .project > .date {
+    line-height: 35px;
+    font-size: 14px;
+    width: 100px;
+    text-align: right;
+    float: right;
+    margin-right: 20px;
+  }
+  .pagination {
+    text-align: center;
+    padding: 10px 0;
+  }
+  .pagination > a {
+    display: inline-block;
+    border-radius: 8px;
+    padding: 8px 16px;
+    text-decoration: none;
+  }
+  .pagination a.active {
+    background-color: #4e4e4e;
+    color: white;
+  }
+  .pagination a:hover:not(.active) {
+    background-color: #ddd;
+  }
+
   .modal-container {
     padding: 50px 20px;
     text-align: center;
@@ -137,55 +228,6 @@
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
-  }
-  .menu {
-    display: flex;
-    padding: 10px 0;
-  }
-  .menu > .title {
-
-  }
-  .menu > .type {
-    margin-left: auto;
-    width: 120px;
-  }
-  .menu > .credit {
-    width: 120px;
-  }
-  .project {
-    display: flex;
-    padding: 15px 0;
-    border-bottom: 1px solid #eee;
-  }
-  .project:hover {
-    background-color: #eee;
-  }
-  .project > .title {
-
-  }
-  .project > .type {
-    margin-left: auto;
-    width: 120px;
-  }
-  .project > .credit {
-    width: 120px;
-  }
-  .pagination {
-    text-align: center;
-    padding: 10px 0;
-  }
-  .pagination > a {
-    display: inline-block;
-    border-radius: 8px;
-    padding: 8px 16px;
-    text-decoration: none;
-  }
-  .pagination a.active {
-    background-color: #4e4e4e;
-    color: white;
-  }
-  .pagination a:hover:not(.active) {
-    background-color: #ddd;
   }
   @media only screen and (max-width: 1080px) {
     .container {

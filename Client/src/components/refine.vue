@@ -1,14 +1,18 @@
 <template lang="pug">
   .container
     section
-      .sequence {{nowSequence}} / {{totalSequence}}
-      .imgWrap
-        img(src='../assets/profileImg1.jpg')
-      .problemWrap.text(v-if="dataType === 'text'")
-        p.title 위의 그림이 나타내는 것을 적어주세요.
+      .sequence-wrap
+        .now-sequence {{nowSequence}}
+        .total-sequence / {{totalSequence}}
+      .project-wrap
+        .project-title 프로젝트 01
+      .problem-wrap
+        .img-wrap
+          img(src='../assets/profileImg1.jpg')
+        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+      .refine-wrap.text(v-if="dataType === 'text'")
         input(type="text" placeholder="정답을 입력해주세요")
-      .problemWrap.checkbox(v-if="dataType === 'checkbox'")
-        p.title 위의 그림이 나타내는 것을 적어주세요.
+      .refine-wrap.checkbox(v-if="dataType === 'checkbox'")
         label.inputWrap a
           input(type="checkbox", name="checkbox", value="a")
           span.checkmark
@@ -18,8 +22,7 @@
         label.inputWrap c
           input(type="checkbox", name="checkbox", value="c")
           span.checkmark
-      .problemWrap.radio(v-if="dataType === 'radio'")
-        p.title 위의 그림이 나타내는 것을 적어주세요.
+      .refine-wrap.radio(v-if="dataType === 'radio'")
         label.inputWrap 가
           input(type="radio", name="radio", value="가")
           span.radiomark
@@ -39,56 +42,82 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'checkbox',
+      dataType: 'radio',
       totalSequence: 20,
       nowSequence: 1
     }
+  },
+  created () {
+    console.log(this.$route.params.projectId)
   }
 }
 </script>
 
 <style scoped>
   .container {
-    margin-left: 250px;
-    margin-top: 60px;
+    width: 1170px;
+    margin: 150px auto 0;
     overflow: hidden;
+    text-align: center;
   }
   section {
     background-color: #fff;
-    border: 1px solid rgba(211, 215, 219, 1.0);
-    border-radius: 4px;
+    border-radius: 2px;
+    margin: 40px auto;
+    max-width: 500px;
+    text-align: center;
+  }
+  .sequence-wrap {
+    display: flex;
+    position: fixed;
+    bottom: 30px; right: 50px;
+  }
+  .sequence > .now-sequence {
+    font-size: 30px;
+    font-weight: 900;
+    margin-right: 10px;
+  }
+  .sequence > .total-sequence {
+    font-size: 30px;
+    font-weight: 900;
+    color: #a7b3bf;
+  }
+  .project-wrap {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+  }
+  .project-wrap > .project-title {
+    color: #2979ff;
+    padding: 10px 0;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .problem-wrap {
+    background-color: #f5f5f5;
     padding: 20px;
-    margin: 20px;
+  }
+  .problem-wrap > .problem-title {
+    font-size: 16px;
+    text-align: left;
+    padding-top: 20px;
+  }
+  .img-wrap {
     text-align: center;
   }
-  section > .sequence {
-    display: inline-block;
-    color: #333333;
-    padding: 10px;
-    border-radius: 20px;
-    float: right;
-  }
-  .imgWrap {
-    text-align: center;
-    margin-top: 45px;
-  }
-  .imgWrap > img {
+  .img-wrap > img {
     width: 100%;
-    max-width: 350px;
   }
-  .problemWrap {
+  .refine-wrap {
     display: inline-block;
     text-align: left;
     width: 100%;
-    max-width: 400px;
-    margin-top: 15px;
-    margin-bottom: 40px;
   }
-  .problemWrap > .title {
+  .refine-wrap > .title {
     font-size: 18px;
     margin-bottom: 15px;
   }
-  .problemWrap.text > input {
+  .refine-wrap.text > input {
     display: inline-block;
     width: 100%;
     padding: 10px;
@@ -97,11 +126,12 @@ export default {
   }
 
   /* 체크박스 */
-  .problemWrap.checkbox > .inputWrap{
+  .refine-wrap.checkbox > .inputWrap{
     display: block;
+    border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 35px;
-    margin-bottom: 12px;
+    padding: 20px;
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
@@ -109,15 +139,17 @@ export default {
     -ms-user-select: none;
     user-select: none;
   }
-  .problemWrap.checkbox > .inputWrap > input {
+  .refine-wrap.checkbox > .inputWrap:hover {
+    background-color: #a7b3bf;
+  }
+  .refine-wrap.checkbox > .inputWrap > input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
   }
   .checkmark {
     position: absolute;
-    top: 0;
-    left: 0;
+    left: 45px;
     height: 25px;
     width: 25px;
     background-color: #eee;
@@ -145,7 +177,7 @@ export default {
   }
 
   /* 라디오버튼 */
-  .problemWrap.radio > .inputWrap{
+  .refine-wrap.radio > .inputWrap{
     display: block;
     position: relative;
     padding-left: 35px;
@@ -157,7 +189,7 @@ export default {
     -ms-user-select: none;
     user-select: none;
   }
-  .problemWrap.radio > .inputWrap > input {
+  .refine-wrap.radio > .inputWrap > input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
@@ -192,15 +224,16 @@ export default {
   section > .btnWrap {
     display: flex;
     padding: 0 20px;
+    justify-content: center;
   }
   section > .btnWrap > .btn {
     padding: 10px 40px;
-    background-color: #2E76B1;
+    margin: 10px;
     border: 0;
     color: #fff;
+    background-color: #2979ff;
   }
   section > .btnWrap > .next {
-    margin-left: auto;
   }
 
   @media only screen and (max-width:1080px) {

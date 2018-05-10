@@ -2,166 +2,87 @@
 div.container
   .title Dash Board
   .btn-wrap
-    router-link.btn(to='/refine') 과제풀기
+    router-link.btn(to='/list') 과제풀기
     router-link.btn(to='/upload') 과제등록
-  modal(name="charge-modal" width="450" height="auto" scrollable="ture")
+  modal(name="charge-modal" width="450" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
         .title 충전할 크레딧
         .sep :
         .description
-          input(type="tel")
+          input(type="tel" v-model="chargeCredit")
           | 원
-      .btn 크레딧 충전
-  modal(name="withdraw-modal" width="450" height="auto" scrollable="ture")
+      a.btn(@click="charge") 크레딧 충전
+  modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
         .title 은행명
         .sep :
-        .description 국민은행
+        .description {{bank}}
       .box
         .title 계좌번호
         .sep :
-        .description 7051231231231
+        .description {{bankAccount}}
       .box
         .title 예금주
         .sep :
-        .description 박성준
+        .description {{username}}
       .box
         .title 총 크레딧
         .sep :
-        .description 2500원
+        .description {{usableCredit}}원
       .box
         .title 출금할 크레딧
         .sep :
         .description
-          input(type="tel")
+          input(type="tel" v-model="amountWithdraw")
           | 원
-      .btn 크레딧 출금
-  modal(name="project-modal" height="auto" scrollable="true")
+      a.btn(@click="withdraw") 크레딧 출금
+  modal(name="project-modal" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
         .title 프로젝트 이름
         .sep :
-        input(value="프로젝트 123")
+        .description {{modalProject.projectName}}
       .box
         .title 프로젝트 설명
         .sep :
-        .description
-          | 이 프로젝트는
-          br
-          | 테스트를 위한
-          br
-          | 프로젝트입니다
-          br
-          | 감사합니다
+        .description {{modalProject.description}}
       .box
         .title 프로젝트 타입
         .sep :
-        .description Refine
+        .description {{modalProject.projectType}}
       .box
         .title 데이터 타입
         .sep :
-        .description Image
+        .description {{modalProject.dataType}}
       .box
         .title 적립금
         .sep :
         .description
-          | 8000원 (프로젝트 완료시)
+          | {{modalProject.credit}}원 (프로젝트 완료시)
           br
           | 100원 (대상 초과시)
       .btn 다운로드
-  carousel.project(per-page=3, scroll-per-page=true, pagination-color='#fff', pagination-padding=5, pagination-active-color='#666')
-    slide
-      .project-wrap(@click="showProject")
-        .title Project1
-        .sub.title #231
+  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
+    slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
+      .project-wrap(@click="showProject(projectInfo)")
+        .title {{projectInfo.projectName}}
+        .sub.title {{projectInfo.projectType}}
         .problem-wrap
           .total
-            .num 8,421
-            .text Total Problem
+            .num {{projectInfo.blockNo}}
+            .text Total Block
           .solved
-            .num 341
-            .text Solved Problem
+            .num {{projectInfo.completedBlock}}
+            .text Solved Block
         .col-xs-6
           .inner-content.text-center
-            .c100.p33.center
-              span 33%
-              .slice
-                .bar
-                .fill
-    slide
-      .project-wrap
-        .title Project1
-        .sub.title #231
-        .problem-wrap
-          .total
-            .num 8,421
-            .text Total Problem
-          .solved
-            .num 341
-            .text Solved Problem
-        .col-xs-6
-          .inner-content.text-center
-            .c100.p62.center
-              span 62%
-              .slice
-                .bar
-                .fill
-    slide
-      .project-wrap
-        .title Project1
-        .sub.title #231
-        .problem-wrap
-          .total
-            .num 8,421
-            .text Total Problem
-          .solved
-            .num 341
-            .text Solved Problem
-        .col-xs-6
-          .inner-content.text-center
-            .c100.p10.center
-              span 10%
-              .slice
-                .bar
-                .fill
-    slide
-      .project-wrap
-        .title Project1
-        .sub.title #231
-        .problem-wrap
-          .total
-            .num 8,421
-            .text Total Problem
-          .solved
-            .num 341
-            .text Solved Problem
-        .col-xs-6
-          .inner-content.text-center
-            .c100.p33.center
-              span 33%
-              .slice
-                .bar
-                .fill
-    slide
-      .project-wrap
-        .title Project1
-        .sub.title #231
-        .problem-wrap
-          .total
-            .num 8,421
-            .text Total Problem
-          .solved
-            .num 341
-            .text Solved Problem
-        .col-xs-6
-          .inner-content.text-center
-            .c100.p33.center
-              span 33%
+            .c100.center(:class="percent(projectInfo.completedBlock / projectInfo.blockNo * 100)")
+              span {{Math.round(projectInfo.completedBlock / projectInfo.blockNo * 100)}}%
               .slice
                 .bar
                 .fill
@@ -170,10 +91,10 @@ div.container
     .credit-wrap
       .available
         .text 사용가능 포인트
-        .point 3230원
+        .point {{usableCredit}}원
       .expected
         .text 적립예정 포인트
-        .point 300원
+        .point {{prearrangedCredit}}원
       .btn-wrap
         a.btn(@click="showCharge") 충전
         a.btn(@click="showWithdraw") 출금
@@ -184,28 +105,61 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      username: null
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      perpage: 2,
+      bank: '은행 이름',
+      username: '유저 이름',
+      bankAccount: '계좌번호',
+      usableCredit: 1000,
+      prearrangedCredit: 100,
+      amountWithdraw: 0,
+      chargeCredit: 0,
+      projectNo: 0,
+      projectsInfoList: []
     }
   },
   created () {
     this.$http.get('/api/dashboard').then((res) => {
-      this.username = res.data.decode.userId
+      this.username = res.data.userInfo.username
+      this.bank = res.data.userInfo.bank
+      this.bankAccount = res.data.userInfo.bankAccount
+      this.usableCredit = res.data.userInfo.usableCredit
+      this.prearrangedCredit = res.data.userInfo.prearrangedCredit
+      this.projectNo = res.data.projectsInfoList.length
+      this.projectsInfoList = res.data.projectsInfoList
+      if (this.projectNo === 0 || window.innerWidth < 1050) {
+        this.perpage = 1
+      } else if (this.projectNo > 3) {
+        this.perpage = 3
+      } else {
+        this.perpage = this.projectNo
+      }
     })
   },
   methods: {
+    percent (percent) {
+      return 'p' + Math.round(percent)
+    },
     showCharge () {
-      this.$modal.show('charge-modal');
+      this.$modal.show('charge-modal')
     },
-    showWithdraw() {
-      this.$modal.show('withdraw-modal');
+    showWithdraw () {
+      this.$modal.show('withdraw-modal')
     },
-    showProject() {
-      this.$modal.show('project-modal');
+    showProject (modalProject) {
+      this.modalProject = modalProject
+      this.$modal.show('project-modal')
     },
     hide () {
-      this.$modal.hide('charge-modal');
-      this.$modal.hide('withdraw-modal');
-      this.$modal.hide('project-modal');
+      this.$modal.hide('charge-modal')
+      this.$modal.hide('withdraw-modal')
+      this.$modal.hide('project-modal')
+    },
+    withdraw () {
+
+    },
+    charge () {
+
     }
   }
 
@@ -214,8 +168,8 @@ export default {
 
 <style scoped>
   .container {
-    margin-left: 250px;
-    margin-top: 60px;
+    width: 1170px;
+    margin: 150px auto 0;
     overflow: hidden;
   }
   .container > .btn-wrap {
@@ -373,10 +327,5 @@ export default {
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
-  }
-  @media only screen and (max-width: 1080px) {
-    .container {
-      margin-left: 0;
-    }
   }
 </style>

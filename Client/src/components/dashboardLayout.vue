@@ -2,20 +2,17 @@
   div.dashboardLayout
     navbar
     menubar
-
 </template>
 
 <script>
 import dashboardNavbar from './dashboardNavbar'
 import dashboardMenubar from './dashboardMenubar'
-import dashboardType from './dashboardType'
 
 export default {
   name: 'dashboardLayout',
   components: {
-    navbar: dashboardNavbar,
-    menubar: dashboardMenubar,
-    type: dashboardType
+    navbar: dashboardNavbar
+    // menubar: dashboardMenubar
   }
 }
 </script>

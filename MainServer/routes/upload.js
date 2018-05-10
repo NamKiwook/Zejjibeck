@@ -25,7 +25,7 @@ router.post('/', async function(req,res, next){
   var project = new projectSchema({
     projectName: req.body.projectName,
     projectType: req.body.projectType,
-
+    dataType: req.body.dataType,
     uploadTime: currentTime,
 
     description: req.body.description,
@@ -58,7 +58,7 @@ router.post('/', async function(req,res, next){
     var fileNo = fileNames.length;
     var blockSize = parseInt(req.body.blockSize);
     var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
-
+    project.credit = Math.floor(project.totalCredit / blockNo);
     project.blockNo = blockNo;
     project.blocks = [];
 
