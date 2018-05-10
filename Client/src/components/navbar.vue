@@ -3,15 +3,29 @@ nav(v-bind:class="{scrolled : isScrolled}")
   .container
     router-link.logoImage(to="/")
     .menu
-      a.mobileHidden(href="#home" v-scroll-to="'#home'") HOME
-      a.mobileHidden(href="#about" v-scroll-to="'#about'") ABOUT
-      a.mobileHidden(href="#team" v-scroll-to="'#member'") MEMBER
-      router-link(to="/login") SIGN IN
+      a.mobileHidden(href="#home" v-scroll-to="'#home'" v-if="!isLoginPage") HOME
+      a.mobileHidden(href="#about" v-scroll-to="'#about'" v-if="!isLoginPage") ABOUT
+      a.mobileHidden(href="#team" v-scroll-to="'#member'" v-if="!isLoginPage") MEMBER
+      router-link(to="/login" v-if="!isLoginPage") SIGN IN
 </template>
 
 <script>
 export default {
   name: 'navbar',
+  data () {
+    return {
+      isLoginPage : false
+    }
+  },
+  watch: {
+    $route () {
+      if (window.location.pathname === '/login') {
+        this.isLoginPage = true
+      } else {
+        this.isLoginPage = false
+      }
+    }
+  },
   computed: {
     isScrolled () {
       return this.$store.getters.getScrolled

@@ -8,13 +8,7 @@
       textarea.text#description(v-model="description")
     section.textWrap
       .title Credit
-      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0", style="ime-mode:disabled;")
-    section.textWrap
-      .title Minimum Number of Refine
-      input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0", style="ime-mode:disabled;")
-    section.textWrap
-      .title Block Size (Basic = 10)
-      input.text#blockSize(type='text', v-model="blockSize")
+      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
     section.typeWrap
       p.title Project Type
       label.radioWrap Only Data
@@ -37,7 +31,7 @@
       label.radioWrap Text
         input.type(type="radio", name="dataType", value="Text", v-model="dataType")
         span.radiomark
-    section.tagTypeWrap
+    section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       p.title Refine Type
       label.radioWrap Radio
         input.tagType#radioTag(type="radio", name="refineType", value="Radio", v-model="refineType")
@@ -48,10 +42,19 @@
       label.radioWrap Text
         input.tagType(type="radio", name="refineType", value="Text", v-model="refineType")
         span.radiomark
-      label.radioWrap#dragType(v-bind:style="isImg") Drag
+      label.radioWrap#dragType(v-if="dataType === 'Image' && (projectType === 'Refine' || projectType === 'Refine&Collect')") Drag
         input.tagType(type="radio", name="refineType", value="Drag", v-model="refineType")
         span.radiomark
-    section.tagValue(v-bind:style="isBox")
+    section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
+      .title Maximum Number of Data
+      input.text(type='text', v-model="maxCollect", placeholder="0")
+    section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
+      .title Block Size (Basic = 10)
+      input.text#blockSize(type='text', v-model="blockSize", placeholder="10")
+    section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
+      .title Minimum Number of Refine
+      input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
+    section.tagValue(v-if="(refineType === 'Radio' || refineType === 'Checkbox') && (projectType === 'Refine' || projectType === 'Refine&Collect')")
       .title Tag Value
       .valueWrap
         .textWrap#valueField
@@ -74,7 +77,7 @@ export default {
       minimumRefine: null,
       totalCredit: null,
       description: null,
-      blockSize: 10,
+      blockSize: null,
       projectType: null,
       refineType: null,
       dataType: null,
@@ -82,7 +85,8 @@ export default {
       fileNames: [],
       refineList: [],
       tagNumber: 1,
-      fileList: []
+      fileList: [],
+      maxCollect: null
     }
   },
   watch: {
@@ -106,14 +110,18 @@ export default {
       } else {
         this.blockSize = 0
       }
+    },
+    maxCollect: function () {
+      if (this.maxCollect) {
+        this.maxCollect = Number.parseInt(this.maxCollect.toString().replace(/[^0-9]/g, ''))
+      } else {
+        this.maxCollect = 0
+      }
     }
   },
   methods: {
     tagPlus () {
-      var maxFields = 5
-      if (this.tagNumber < maxFields) {
-        this.tagNumber++
-      }
+      this.tagNumber++
     },
     submit () {
       if (this.projectType === 1) {
@@ -130,6 +138,7 @@ export default {
         projectType: this.projectType,
         refineType: this.refineType,
         dataType: this.dataType,
+        maxCollect: this.maxCollect,
         minimumRefine: this.minimumRefine,
         state: this.state,
         description: this.description,
@@ -175,30 +184,6 @@ export default {
           }
         }
       })
-    }
-  },
-  computed: {
-    isImg () {
-      if (this.dataType === 'image') {
-        return {
-          display: 'inline-block'
-        }
-      } else {
-        return {
-          display: 'none'
-        }
-      }
-    },
-    isBox () {
-      if (this.refineType === 'radio' || this.refineType === 'checkbox') {
-        return {
-          display: 'flex'
-        }
-      } else {
-        return {
-          display: 'none'
-        }
-      }
     }
   }
 }
@@ -268,7 +253,7 @@ export default {
     width: 100%;
   }
   section > #dragType {
-    display: none;
+    display: inline-block;
   }
   input.text {
     padding: 10px;
@@ -289,7 +274,7 @@ export default {
   }
 
   .tagValue {
-    display: none;
+    display: block;
     flex-flow: column;
   }
   .tagValue > .valueWrap {
