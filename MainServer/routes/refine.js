@@ -3,13 +3,31 @@ var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
 var router = express.Router();
 
+var bodyParser = require('body-parser');
+
+router.use(bodyParser.urlencoded({extended:true}));
+router.use(bodyParser.json());
+
 var AWS = require('aws-sdk');
-
 var s3 = new AWS.S3({region:'ap-northeast-2'});
-
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 
 router.post('/', async function(req,res,next){
+  try{
+    var answerList = req.body.refineList;
+    var block = await blockSchema.findOne({_id:req.body.blockId});
+
+    block.running = parseInt(block.running) - 1;
+    block.finished = parseInt(block.finished) + 1;
+    block.AnswerLists.push(answerList);
+    block.save();
+    res.send({"success":true});
+  }
+  catch(err){
+    console.log("fail to update database");
+    console.log(err);
+    res.send({"success":false});
+  }
 });
 
 router.get('/', async function(req,res,next) {
@@ -35,6 +53,7 @@ router.get('/', async function(req,res,next) {
         breakingFlag = 1;
 
         block.running = parseInt(block.running) + 1;
+        block.lastAssignTime = Date().getTime();
         block.save();
 
         var startFileNo = i * project.blockSize;
@@ -74,7 +93,5 @@ function makeLeadingZero(number, digits){
 
   return strNumber;
 }
-
-//function downloadUrl(var )
 
 module.exports = router;

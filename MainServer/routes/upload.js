@@ -20,8 +20,6 @@ router.post('/', async function(req,res, next){
   var fileNames = req.body.fileNames;
   var currentTime = new Date().getTime();
 
- // fileNames = JSON.parse(fileNames);
-
   try{
     var user = await userSchema.findOne({
         userId: req.decoded.userId

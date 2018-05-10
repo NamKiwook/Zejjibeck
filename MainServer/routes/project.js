@@ -32,5 +32,6 @@ router.get('/list', async function(req,res,next){
       totalPage: 0,
     })
   }
-});``
+});
+
 module.exports = router;
