@@ -10,11 +10,9 @@ router.get('/',async function(req, res, next) {
 
   const secret = 'zejjibeck';
   try {
-    var compare = await
-    userSchema.findOne({userId: userId, password: password});
-    if (compare.toString()) {
-      var userToken = await
-      jwt.sign(
+    var user = await userSchema.findOne({userId: userId, password: password});
+    if (user.toString()) {
+      var userToken = await jwt.sign(
         {
           userId: userId
         },
@@ -23,14 +21,15 @@ router.get('/',async function(req, res, next) {
           expiresIn: '7d'
         })
       res.send({
-        pass: 'yes',
-        token: userToken
+        success: true,
+        token: userToken,
+        userInfo: user
       });
     }
     else
-      res.send({pass: 'no'});
+      res.send({success: false});
   }catch (err){
-    res.send({pass:'no'});
+    res.send({success: false});
   }
 })
 

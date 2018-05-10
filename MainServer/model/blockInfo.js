@@ -14,6 +14,7 @@ var blockInfoSchema = new Schema({
     users : Array,
     finished: Number,
     running: Number,
+    runningId: Array,
     lastAssignTime: Number,
 });
 

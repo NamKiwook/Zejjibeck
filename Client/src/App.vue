@@ -27,7 +27,9 @@ export default {
     cursor: pointer;
     text-decoration: none;
   }
-
+  body {
+    background-color: #fbfbfb;
+  }
   .btn {
     display: inline-block;
     color: #fff;
@@ -341,6 +343,7 @@ export default {
     line-height: 5em;
     font-size: 0.2em;
     color: #cccccc;
+    cursor: pointer;
     display: block;
     text-align: center;
     white-space: nowrap;
@@ -1086,70 +1089,9 @@ export default {
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
   }
-  .c100:hover {
-    cursor: default;
-  }
-  .c100:hover > span {
-    width: 3.33em;
-    line-height: 3.33em;
-    font-size: 0.3em;
-    color: #4e4e4e;
-  }
-  .c100:hover:after {
-    top: 0.04em;
-    left: 0.04em;
-    width: 0.92em;
-    height: 0.92em;
-  }
-  .c100.dark {
-    background-color: #777777;
-  }
-  .c100.dark .bar,
-  .c100.dark .fill {
-    border-color: #c6ff00 !important;
-  }
-  .c100.dark > span {
-    color: #777777;
-  }
-  .c100.dark:after {
-    background-color: #666666;
-  }
-  .c100.dark:hover > span {
-    color: #c6ff00;
-  }
-  .c100.green .bar,
-  .c100.green .fill {
-    border-color: #4db53c !important;
-  }
-  .c100.green:hover > span {
-    color: #4db53c;
-  }
-  .c100.green.dark .bar,
-  .c100.green.dark .fill {
-    border-color: #5fd400 !important;
-  }
-  .c100.green.dark:hover > span {
-    color: #5fd400;
-  }
-  .c100.orange .bar,
-  .c100.orange .fill {
-    border-color: #dd9d22 !important;
-  }
-  .c100.orange:hover > span {
-    color: #dd9d22;
-  }
-  .c100.orange.dark .bar,
-  .c100.orange.dark .fill {
-    border-color: #e08833 !important;
-  }
-  .c100.orange.dark:hover > span {
-    color: #e08833;
-  }
-
   body {
     background-color: rgba(235,237,239,1.0)
   }
-
   #app {
     height: 100%;
   }

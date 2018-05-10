@@ -22,7 +22,6 @@ router.post('/', async function(req,res, next){
 
  // fileNames = JSON.parse(fileNames);
 
-
   try{
     var user = await userSchema.findOne({
         userId: req.decoded.userId
@@ -62,12 +61,18 @@ router.post('/', async function(req,res, next){
     var blockSize = parseInt(req.body.blockSize);
     var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
+    console.log(fileNo);
+    console.log(blockSize);
+    console.log(((fileNo + blockSize - 1) / blockSize));
+    console.log(blockNo);
+
+    project.credit = Math.floor(project.totalCredit / blockNo);
     project.blockNo = blockNo;
     project.blocks = [];
 
     for(var i = 0 ; i < blockNo ; i++){
       var newBlock = new blockSchema();
-      newBlock.isValidate = 0;
+      newBlock.isValidate = "Not Validate";
       newBlock.finished = 0;
       newBlock.running = 0;
       newBlock.lastAssignTime = 0;
@@ -92,11 +97,20 @@ router.post('/', async function(req,res, next){
   }
 });
 
-router.get('/url', function(req,res){
+router.get('/url', async function(req,res){
   var userId = req.decoded.userId;
   var projectName = req.query.projectName;
   var extension = getExtension(req.query.fileName);
   var fileNo = setLeadingZero(req.query.fileNo);
+
+  if(req.query.fileNo == 0){
+    var project = await projectSchema.findOne({
+      projectName:projectName,
+      owner:userId
+    })
+    project.fileExtension = extension;
+    project.save();
+  }
 
   params.Key = "rawData/" + userId + "/" + projectName + "/" + fileNo + extension;
 
