@@ -8,7 +8,7 @@
         .project-title 프로젝트 01
       .problem-wrap
         .img-wrap
-          img(src='../assets/profileImg1.jpg')
+          img(src='../assets/login-img.jpg')
         .problem-title 위의 그림이 나타내는 것을 적어주세요.
       .refine-wrap.text(v-if="dataType === 'text'")
         input(type="text" placeholder="정답을 입력해주세요")
@@ -58,7 +58,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'text',
+      dataType: 'radio',
       totalSequence: 20,
       nowSequence: 1
     }

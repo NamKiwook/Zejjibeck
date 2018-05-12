@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboardNavbar.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboardNavbar.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/refine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/refine.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
@@ -48,8 +46,8 @@
       <file leaf-file-name="refine.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="630">
-              <caret line="95" column="18" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+            <state relative-caret-position="540">
+              <caret line="60" column="22" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
             </state>
           </provider>
         </entry>
@@ -259,25 +257,25 @@
       <workItem from="1525829906597" duration="1723000" />
       <workItem from="1525835338674" duration="1578000" />
       <workItem from="1525938599838" duration="8707000" />
-      <workItem from="1526107344387" duration="4600000" />
+      <workItem from="1526107344387" duration="4791000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="92511000" />
+    <option name="totallyTimeSpent" value="92702000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="56" y="0" width="1348" height="1158" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36356822" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.36356822" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5006784" side_tool="true" weight="0.29973823" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.1829502" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.1829502" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -524,8 +522,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="95" column="18" selection-start-line="95" selection-start-column="18" selection-end-line="95" selection-end-column="18" />
+        <state relative-caret-position="540">
+          <caret line="60" column="22" selection-start-line="60" selection-start-column="22" selection-end-line="60" selection-end-column="22" />
         </state>
       </provider>
     </entry>
