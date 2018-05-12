@@ -82,10 +82,10 @@ export default {
   nav > .section {
     display: flex;
     align-items: center;
-    width: 1170px;
+    width: 100%;
+    max-width: 880px;
     height: 49px;
     margin: 0 auto;
-    padding: 0 50px;
   }
   nav > .section > .title {
     height: 100%;
