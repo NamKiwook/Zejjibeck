@@ -34,7 +34,7 @@
           span.mark
       .btnWrap
         .prev.btn PREV
-        .next.btn NEXT
+        .next.btn.disable NEXT
     section.user-info
       .profile-wrap
         .profile-img
@@ -117,17 +117,18 @@ export default {
     padding: 0 20px;
   }
   .project-wrap > .project-title {
-    color: #2979ff;
+    color: #8492a6;
     padding: 10px 0;
     font-size: 14px;
     font-weight: bold;
   }
   .problem-wrap {
-    background-color: #f5f5f5;
+    background-color: #eee;
     padding: 20px;
   }
   .problem-wrap > .problem-title {
     font-size: 16px;
+    font-weight: bold;
     text-align: left;
     padding-top: 20px;
   }
@@ -201,7 +202,6 @@ export default {
     margin: 10px;
     border: 0;
     color: #fff;
-    background-color: #2979ff;
   }
   .user-info {
     display: inline-block;
