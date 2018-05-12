@@ -2,23 +2,21 @@ var express = require('express');
 var router = express.Router();
 var projectSchema = require('../model/project');
 var userSchema = require('../model/user');
-/* GET home page. */
+
 router.get('/', async function(req, res, next) {
 
   var Id = req.decoded.userId;
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;
   var projectList = [];
-  for(var i =tempList.length-1; i>=0; i--){
+  for(var i = tempList.length-1; i>=0; i--){
     var project = await projectSchema.findOne({_id : tempList[i].project_dbid});
     projectList.push(project);
   }
 
-  console.log(projectList);
   res.send({
-      username: userInfo.username,
-      credit : userInfo.credit,
-      projectsInfoList: projectList,
+      userInfo: userInfo,
+      projectsInfoList: projectList
   });
 });
 

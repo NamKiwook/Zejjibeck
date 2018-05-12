@@ -9,6 +9,7 @@ import dashboard from '../components/dashboard'
 import dashboardLayout from '../components/dashboardLayout'
 import upload from '../components/upload'
 import refine from '../components/refine'
+import projectList from '../components/projectList'
 
 import VueScrollTo from 'vue-scrollto'
 
@@ -75,9 +76,17 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/refine',
+      path: '/refine/:projectId',
       components: {
         default: refine,
+        nav: dashboardLayout
+      },
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/list/:page?/:filter?/:category?',
+      components: {
+        default: projectList,
         nav: dashboardLayout
       },
       beforeEnter: requireAuth

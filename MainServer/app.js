@@ -14,16 +14,15 @@ var dashboard = require('./routes/dashboard');
 var upload = require('./routes/upload');
 var userInfo = require('./routes/userInfo');
 var project = require('./routes/project');
+var refine = require('./routes/refine');
 var app = express();
-
-
 
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
-    console.log('mongodb connection OK.');
+  console.log('mongodb connection OK.');
 });
 
 // view engine setup
@@ -37,7 +36,7 @@ app.set('view engine', 'pug');
 //app.use(connectHistory);
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({extended:false}));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -50,6 +49,7 @@ app.use('/api/dashboard',dashboard);
 app.use('/api/upload',upload);
 app.use('/api/userInfo',userInfo);
 app.use('/api/project',project);
+app.use('/api/refine',refine);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
