@@ -73,7 +73,7 @@ export default {
   .container {
     margin: 150px auto 0;
     width: 100%;
-    max-width: 880px;
+    max-width: 950px;
     overflow: hidden;
     text-align: center;
     padding: 40px 0;
