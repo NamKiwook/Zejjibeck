@@ -10,11 +10,8 @@ var blockInfoSchema = new Schema({
     maxCollect: Number, // collect -> collect
 
     isValidate: String, // Not Validate, Done -> for refine
-    AnswerLists: Array,
-    users : Array,
-    finished: Number, // refine, collect
-    running: Number, // refine
-    lastAssignTime: Number,
+    finished: Array, // refine, collect {userId, AssignTime, finishedTime, answerList}
+    running: Array // {userId, AssignTime}
 });
 
 module.exports = mongoose.model('blockInfo', blockInfoSchema);
