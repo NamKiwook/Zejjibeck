@@ -24,8 +24,10 @@ var projectSchema = new Schema({
 
   blockNo:  {type: Number, default: 1},
   blockSize: Number,
-  blocks: Array,
+  refineBlocks: Array,
+  collectBlock: String,
 
+  projectState : {type: String, default: "Collect"}, // Collect, Refine, finished
   completedBlock: {type: Number, default: 0},
 });
 module.exports = mongoose.model('project', projectSchema);

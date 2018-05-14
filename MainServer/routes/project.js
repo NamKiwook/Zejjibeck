@@ -1,6 +1,41 @@
 var express = require('express');
 var router = express.Router();
 var projectSchema = require('../model/project');
+router.get('/', async function(req,res,err){
+  var projectId = req.query.projectId;
+  try{
+    var project = await projectSchema.findOne({_id: projectId});
+    res.send({projectInfo : project});
+  } catch (err){
+    res.send({projectInfo: "none"});
+  }
+
+});
+router.put('/', async function(req,res,err){
+  var description = req.body.description;
+  var projectName = req.body.projectName;
+  var projectId = req.body.projectId;
+  var Id = req.decoded.userId;
+  try{
+    var temp = await projectSchema.findOne({projectName : projectName, owner: Id});
+    var compare = false;
+
+    if(temp && temp._id != projectId)
+      compare = true;
+    if(compare){
+      res.send({success: false});
+    }
+    else {
+      var project = await projectSchema.findOne({_id: projectId});
+      project.description = description;
+      project.projectName = projectName;
+      await project.save();
+      res.send({success: true});
+    }
+  } catch(err){
+    res.send({success: false});
+  }
+});
 
 router.get('/list', async function(req,res,next){
   try {
@@ -33,29 +68,5 @@ router.get('/list', async function(req,res,next){
     })
   }
 });
-router.put('/', async function(req,res,err){
-  var description = req.body.description;
-  var projectName = req.body.projectName;
-  var projectId = req.body.projectId;
-  var Id = req.decoded.userId;
-  try{
-    var temp = await projectSchema.findOne({projectName : projectName, owner: Id});
-    var compare = false;
 
-    if(temp && temp._id != projectId)
-      compare = true;
-    if(compare){
-      res.send({success: false});
-    }
-    else {
-      var project = await projectSchema.findOne({_id: projectId});
-      project.description = description;
-      project.projectName = projectName;
-      await project.save();
-      res.send({success: true});
-    }
-  } catch(err){
-    res.send({success: false});
-  }
-});
 module.exports = router;

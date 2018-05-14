@@ -43,55 +43,68 @@ router.post('/', async function(req,res, next){
       totalCredit: req.body.totalCredit,
 
       blockSize: req.body.blockSize,
-
       completedBlock: 0,
     });
-
+    if(req.body.projectType == "Refine")
+      project.projectState = "Refine";
     var userProjects = user.projects;
 
     for(var i = 0 ; i < userProjects.length ; i++)
       if (userProjects[i].projectName == req.body.projectName) {
-        res.send({pass: 'dup'});
+        res.send({success: false, errorMessage: "Duplicated project name!"});
         return;
       }
+    if(req.body.projectType != "Collect") {
+      var fileNo = fileNames.length;
+      var blockSize = parseInt(req.body.blockSize);
+      var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
-    var fileNo = fileNames.length;
-    var blockSize = parseInt(req.body.blockSize);
-    var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
+      console.log(fileNo);
+      console.log(blockSize);
+      console.log(((fileNo + blockSize - 1) / blockSize));
+      console.log(blockNo);
 
-    console.log(fileNo);
-    console.log(blockSize);
-    console.log(((fileNo + blockSize - 1) / blockSize));
-    console.log(blockNo);
+      project.credit = Math.floor(project.totalCredit / blockNo);
+      project.blockNo = blockNo;
+      project.refineblocks = [];
 
-    project.credit = Math.floor(project.totalCredit / blockNo);
-    project.blockNo = blockNo;
-    project.blocks = [];
-
-    for(var i = 0 ; i < blockNo ; i++){
+      for (var i = 0; i < blockNo; i++) {
+        var newBlock = new blockSchema();
+        newBlock.isValidate = "Not Validate";
+        newBlock.finished = 0;
+        newBlock.running = 0;
+        newBlock.lastAssignTime = 0;
+        newBlock.AnswerLists = [];
+        newBlock.users = [];
+        newBlock.property = "Refine";
+        var blockId = await newBlock.save();
+        project.refineblocks.push(blockId._id);
+      }
+    }
+    if(req.body.projectType != "Refine"){
       var newBlock = new blockSchema();
+      newBlock.property = "Collect";
+      newBlock.total = req.body.fileNo;
       newBlock.isValidate = "Not Validate";
       newBlock.finished = 0;
-      newBlock.running = 0;
-      newBlock.lastAssignTime = 0;
+      newBlock.lastAssignTime=0;
       newBlock.AnswerLists = [];
-      newBlock.users = [];
-      var blockId= await newBlock.save();
-      project.blocks.push(blockId._id);
+      newBlock.users =[];
+      var BlockId = await newBlock.save();
+      project.collectBlock = BlockId._id;
     }
-
     var projectUpload = await project.save();
 
     user.projects.push({
-        projectName:req.body.projectName,
-        project_dbid:projectUpload._id,
+      projectName: req.body.projectName,
+      project_dbid: projectUpload._id,
     });
 
     var userUpdate = await user.save();
 
-    res.send({pass:'ok'});
+    res.send({success:true});
   } catch(err){
-    res.send({pass:'no'});
+    res.send({success: false, errorMessage : " DB error!"});
   }
 });
 
