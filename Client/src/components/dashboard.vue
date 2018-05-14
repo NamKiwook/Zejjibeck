@@ -1,8 +1,5 @@
 <template lang="pug">
 div.container
-  .btn-wrap
-    router-link.btn(to='/list') 과제풀기
-    router-link.btn(to='/upload') 과제등록
   modal(name="charge-modal" width="450" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
@@ -91,9 +88,9 @@ div.container
       .profile-title 박성준
       .rating 다이아
     .credit-wrap
-      .title
+      .wrap
         .dot
-        | 총 획득 크레딧
+        .name 총 획득 크레딧
       .point 2100
       .wrap
         .title 사용 가능
@@ -102,6 +99,19 @@ div.container
       .wrap
         .title 적립 예정
         .point 100
+    .credit-wrap
+      .wrap
+        .dot
+        .name 총 참여 프로젝트
+      .point 10
+      .wrap
+        .title 완료된 프로젝트
+        .point 8
+      .sep
+      .wrap
+        .title 진행중인 프로젝트
+        .point 2
+  .sep
     <!--.title Credit-->
     <!--.credit-wrap-->
       <!--.available-->
@@ -188,19 +198,8 @@ export default {
     margin: 5px 0;
   }
   .container {
-    width: 1170px;
     margin: 150px auto 0;
     overflow: hidden;
-  }
-  .container > .btn-wrap {
-    display: flex;
-    width: 100%;
-    padding: 10px 10px 20px;
-  }
-  .container > .btn-wrap > .btn {
-    flex: 1;
-    margin: 0 10px;
-    padding: 20px;
   }
   .project-wrap {
     height: 400px;
@@ -254,13 +253,16 @@ export default {
     font-size: 14px;
   }
   .credit {
-    background-color: #fff;
+    width: 880px;
     display: flex;
     padding: 15px;
-    margin: 20px;
+    margin: 20px auto;
   }
   .credit > .profile-wrap {
-    padding: 30px 150px 30px 0;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    flex: 1;
   }
   .credit > .profile-wrap > .profile-img {
     display: inline-block;
@@ -275,13 +277,22 @@ export default {
     margin-top: 10px;
   }
   .credit > .profile-wrap > .profile-title {
-    margin-top: 10px;
+    margin-top: 15px;
     font-weight: bold;
   }
-  .credit > .credit-wrap {
-    width: 250px;
+  .credit > .profile-wrap > .rating {
+    margin-top: 8px;
+    font-size: 14px;
   }
-  .credit > .credit-wrap > .title > .dot {
+  .credit > .credit-wrap {
+    flex: 1;
+    margin: 0 50px;
+  }
+  .credit > .credit-wrap > .wrap {
+    display: flex;
+    align-items: center;
+  }
+  .credit > .credit-wrap > .wrap > .dot {
     display: inline-block;
     width: 20px;
     height: 20px;
@@ -289,22 +300,31 @@ export default {
     background-color: #2979ff;
     margin-right: 10px;
   }
-  .credit > .credit-wrap > .title {
-
+  .credit > .credit-wrap > .wrap > .name {
+    font-size: 18px;
+    font-weight: bold;
   }
   .credit > .credit-wrap > .point {
     font-size: 40px;
     font-weight: bold;
     padding: 20px 0;
   }
-  .credit > .credit-wrap > .wrap {
-    display: flex;
-  }
   .credit > .credit-wrap > .wrap > .title {
     font-size: 14px;
   }
   .credit> .credit-wrap > .wrap > .point {
     margin-left: auto;
+  }
+  .credit > .btn-wrap {
+    display: flex;
+    flex-flow: column;
+    width: 150px;
+    align-items: center;
+    justify-content: center;
+  }
+  .credit > .btn-wrap > .btn {
+    width: 100%;
+    margin: 10px 0;
   }
   /*.credit > .title {*/
     /*font-size: 18px;*/
