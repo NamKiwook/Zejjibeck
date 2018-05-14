@@ -76,7 +76,7 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/refine/:projectId',
+      path: '/refine/:projectId?',
       components: {
         default: refine,
         nav: dashboardLayout
