@@ -1,0 +1,54 @@
+<template lang="html">
+  <div class="container">
+    <section>
+      <div class="sequence-wrap">
+        <div class="now-sequence"> {{nowSequence}}</div>
+        <div class="total=sequence"> / {{totalSequence}}</div>
+      </div>
+      <div class="project-wrap">
+        <div class="project-title"> 프로젝트 01 </div>
+      </div>
+      <div class="problem-wrap">
+        <div class="img-wrap">
+          <img src="../assets/profileImg1.jgp">
+        </div>
+        <div class="problem-title"> 위의 그림이 나타내는 것을 적어주세요. </div>
+      </div>
+      <div class="refine-wrap text" v-if="dataType === 'text'">
+        <input type="text" placeholder="정답을 입력해주세요">
+      </div>
+      <div class="refine-wrap checkbox" v-if="dataType === 'checkbox'">
+        <label class="inputWrap"> a
+          <input type="checkbox", name="checkbox", value="a">
+          <span class="checkmark"></span>
+        </label>
+        <label class="inputWrap"> b
+          <input type="checkbox", name="checkbox", value="b">
+          <span class="checkmark"></span>
+        </label>
+        <label class="inputWrap"> c
+          <input type="checkbox", name="checkbox", value="c">
+          <span class="checkmark"></span>
+        </label>
+      </div>
+      <div class="refine-wrap radio" v-if="dataType === 'radio'">
+        <label class="inputWrap">
+          <input type="radio", name="radio", value="가">
+          <span class="radiomark"></span>
+        </label>
+        <label class="inputWrap">
+          <input type="radio", name="radio", value="나">
+          <span class="radiomark"></span>
+        </label>
+        <label class="inputWrap">
+          <input type="radio", name="radio", value="다">
+          <span class="radiomark"></span>
+        </label>
+      </div>
+      <div class="btnWrap">
+        <div class="prev btn"> PREV </div>
+        <div class="next btn"> NEXT </div>
+      </div>
+    </section>
+  </div>
+</template>

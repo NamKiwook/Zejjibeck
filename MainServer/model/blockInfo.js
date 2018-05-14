@@ -9,12 +9,11 @@ var blockInfoSchema = new Schema({
 
     total: Number, // collect -> collect
 
-    isValidate: String, // 0:Not Validate, 1:Validating, 2:Done -> for refine
+    isValidate: String, // Not Validate, Done -> for refine
     AnswerLists: Array,
     users : Array,
-    finished: Number,
-    running: Number,
-    runningId: Array,
+    finished: Number, // refine, collect
+    running: Number, // refine
     lastAssignTime: Number,
 });
 

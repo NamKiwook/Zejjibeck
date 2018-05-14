@@ -20,6 +20,7 @@ router.post('/', async function(req,res,next){
     block.running = parseInt(block.running) - 1;
     block.finished = parseInt(block.finished) + 1;
     block.AnswerLists.push(answerList);
+    block.users.push(req.decoded.userId);
     block.save();
     res.send({"success":true});
   }

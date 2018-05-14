@@ -18,9 +18,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', function(req, res, next){
-  clearInterval(flagVerification);
-  var unit = 1 * 60 * 60; // second
-  flagVerification = setInterval(verification(), unit * 600);
+  console.log("!!");
+//  clearInterval(flagVerification);
+  var unit = 600; // second
+  console.log("111");
+  flagVerification = setInterval(verification, unit * 5);
+
+  res.send("EEE");
 })
 
 router.get('/off', function(req, res, next){
@@ -42,40 +46,8 @@ function getSignedUrl(userName, projectName, fileNo, extension) {
     return url;
   })
 }
-//test !!
+
 async function verification(){
-  console.log("verification start");
-
-  var projects = await projectSchema.find();
-
-  for(var i = 0 ; i < projects.length ; i++){
-    var blockSize = projects[i].blockSize;
-
-    if(projects[i].projectState == "collect"){
-      var block = await blockSchema.find({_id:projects[i].blocks[0]});
-      if(block.total == block.finished){
-        // TODO: download & validate duplicate data
-        // s3://zejjibeck/rawData/userId/projectName/000001.
-        var path = '/verification/';
-        // delete files
-        if(!fs.existsSync(path)){
-          fs.mkdir(path, function(err){
-            if(err){
-              console.log("fail to make directory", err);
-            }
-          });
-        }
-        //
-      }
-    }
-    else if(projects[i].projectState == "refine"){
-      for(var j = 0 ; j < projects[i].blocks.length ; j++){
-        var block = await blockSchema.find({_id:projects[i].blocks[j]});
-        // TODO: check is it finished & validate
-      }
-    }
-  }
-  console.log("verification end");
 }
 
 function downloads(url){
