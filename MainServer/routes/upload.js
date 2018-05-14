@@ -87,10 +87,8 @@ router.post('/', async function(req,res, next){
       newBlock.property = "Collect";
       newBlock.maxCollect = req.body.maxCollect;
       newBlock.isValidate = "Not Validate";
-      newBlock.finished = 0;
-      newBlock.lastAssignTime=0;
+      newBlock.finished = [];
       newBlock.AnswerLists = [];
-      newBlock.users =[];
       var BlockId = await newBlock.save();
       project.collectBlock = BlockId._id;
     }

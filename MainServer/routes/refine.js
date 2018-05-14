@@ -54,6 +54,7 @@ router.get('/', async function(req,res,next) {
         breakingFlag = 1;
 
         block.running = parseInt(block.running) + 1;
+
         block.lastAssignTime = Date().getTime();
         block.save();
 

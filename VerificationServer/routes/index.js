@@ -48,6 +48,7 @@ function getSignedUrl(userName, projectName, fileNo, extension) {
 }
 
 async function verification(){
+  console.log("verification start");
 }
 
 function downloads(url){

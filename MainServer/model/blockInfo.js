@@ -2,20 +2,16 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var blockInfoSchema = new Schema({
-    // collect or refine
-    // before name-> current name
-
     property : String, // collect or refine
-
     maxCollect: Number, // collect -> collect
-
     isValidate: String, // Not Validate, Done -> for refine
-    AnswerLists: Array,
-    users : Array,
-    finished: Number, // refine, collect
-    running: Number, // refine
-    lastAssignTime: Number,
+    finished: Array, // upload files Data
+    running: Array, // refine
+
+  //user id, assignTime,
 });
+
+//users 없애고 finished 리스트로
 
 module.exports = mongoose.model('blockInfo', blockInfoSchema);
 

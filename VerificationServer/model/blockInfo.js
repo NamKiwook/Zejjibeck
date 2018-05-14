@@ -12,9 +12,8 @@ var blockInfoSchema = new Schema({
     isValidate: String, // 0:Not Validate, 1:Validating, 2:Done -> for refine
     AnswerLists: Array,
     users : Array,
-    finished: Number,
-    running: Number,
-    lastAssignTime: Number,
+    finished: Number, // id, assigntime, finishedtime
+    running: 1,
 });
 
 module.exports = mongoose.model('blockInfo', blockInfoSchema);
