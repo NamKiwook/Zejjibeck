@@ -61,7 +61,7 @@
           input.text(type='text', v-for="n in tagNumber", v-model="refineList[n-1]")
         .btnWrap
           a#plus.btn(@click="tagPlus") +
-    section.upload.active
+    section.upload.active(v-if="projectType === 'Refine'")
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
         input#ajaxFile(type="file", multiple="multiple", ref="files")

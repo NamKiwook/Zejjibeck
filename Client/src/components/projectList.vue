@@ -52,7 +52,7 @@ export default {
       currentPage: 1,
       totalPage: 1,
       filter: 'recent',
-      category: 'all',
+      category: 'ALL',
       startNavigator: 1,
       endNavigator: 1
     }
@@ -80,7 +80,8 @@ export default {
         page: this.currentPage,
         filter: this.filter,
         category: this.category,
-        listNumber: 10
+        listNo: 10,
+        sortedBy: 'dec'
       }}).then((res) => {
         this.projectList = res.data.projectList
         this.totalPage = res.data.totalPage
