@@ -11,7 +11,7 @@ var projectSchema = new Schema({
   outputInfo: String,
 
   description: String,
-  fileNo: Number,
+  fileNo: Number, // upload 된 파일 수
   fileExtension: {type:String, default:""},
 
   refineType: String, //RadioBox, CheckBox, Drag, Text
@@ -27,7 +27,8 @@ var projectSchema = new Schema({
   refineBlocks: Array,
   collectBlock: String,
 
-  projectState : {type: String, default: "Collect"}, // Collect, Refine, finished
+  projectState : {type: String, default: "Collect"}, // Collect, CollectValidation, Refine, finished
   completedBlock: {type: Number, default: 0},
+  maxCollect : Number,
 });
 module.exports = mongoose.model('project', projectSchema);

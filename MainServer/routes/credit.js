@@ -31,11 +31,9 @@ router.get('/withdraw', async function(req,res,next){
       errorMessage: "DB error"
     })
   }
-
 });
 
 router.get('/charge', async function(req,res,next){
-
   var charge = req.query.chargeCredit;
   var id = req.decoded.userId;
   try{

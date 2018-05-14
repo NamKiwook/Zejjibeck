@@ -15,18 +15,25 @@ var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 router.post('/', async function(req,res,next){
   try{
     var answerList = req.body.refineList;
+    var id = req.decoded.userId;
     var block = await blockSchema.findOne({_id:req.body.blockId});
 
-    block.running = parseInt(block.running) - 1;
-    block.finished = parseInt(block.finished) + 1;
-    block.AnswerLists.push(answerList);
-    block.save();
-    res.send({"success":true});
+    for(var i = 0; i < block.running.length; i ++){
+      if(block.running[i].userId == id){
+        var time = new Date().getTime();
+        block.finished.push({userId : id, assignTime : block.running[i].assignTime, finishedTime: time, answerList : answerList});
+        block.running.splice(i,1);
+        await block.save();
+        res.send({success: true});
+        return;
+      }
+    }
+    res.send({success:false});
   }
   catch(err){
     console.log("fail to update database");
     console.log(err);
-    res.send({"success":false});
+    res.send({success:false});
   }
 });
 
@@ -48,13 +55,13 @@ router.get('/', async function(req,res,next) {
       var block = await blockSchema.findOne({_id: project.blocks[i]});
 
       if(block.isValidate == "Not Validate" && breakingFlag == 0){
-        if(parseInt(project.minimumRefine) == parseInt(block.running) + parseInt(block.finished)) continue;
+        if(parseInt(project.minimumRefine) == block.running.length + block.finished.length ) continue;
 
         breakingFlag = 1;
 
-        block.running = parseInt(block.running) + 1;
-        block.lastAssignTime = Date().getTime();
-        block.save();
+        var time = new Date().getTime();
+        block.running.push({userId : userId, assignTime : time});
+        await block.save();
 
         var startFileNo = i * project.blockSize;
         var blockListSize = project.blockSize;

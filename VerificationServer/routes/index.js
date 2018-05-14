@@ -3,9 +3,9 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 var fs = require('fs');
 
-var userSchema = require('../model/user');
-var projectSchema = require('../model/project');
-var blockSchema = require('../model/blockInfo');
+var userSchema = require('../../MainServer/model/user');
+var projectSchema = require('../../MainServer/model/project');
+var blockSchema = require('../../MainServer/model/blockInfo');
 
 var flagVerification;
 
@@ -18,9 +18,13 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', function(req, res, next){
-  clearInterval(flagVerification);
-  var unit = 1 * 60 * 60; // second
-  flagVerification = setInterval(verification(), unit * 600);
+  console.log("!!");
+//  clearInterval(flagVerification);
+  var unit = 600; // second
+  console.log("111");
+  flagVerification = setInterval(runningVerification, unit * 5);
+
+  res.send("EEE");
 })
 
 router.get('/off', function(req, res, next){
@@ -42,42 +46,41 @@ function getSignedUrl(userName, projectName, fileNo, extension) {
     return url;
   })
 }
-//test !!
-async function verification(){
-  console.log("verification start");
 
-  var projects = await projectSchema.find();
-
-  for(var i = 0 ; i < projects.length ; i++){
-    var blockSize = projects[i].blockSize;
-
-    if(projects[i].projectState == "collect"){
-      var block = await blockSchema.find({_id:projects[i].blocks[0]});
-      if(block.total == block.finished){
-        // TODO: download & validate duplicate data
-        // s3://zejjibeck/rawData/userId/projectName/000001.
-        var path = '/verification/';
-        // delete files
-        if(!fs.existsSync(path)){
-          fs.mkdir(path, function(err){
-            if(err){
-              console.log("fail to make directory", err);
+async function runningVerification(){
+  var projects = await projectSchema.find({projectType : { $not : "finished"}});
+  for(var i=0; i< projects.length; i++){
+    if(projects[i].projectState == "Refine"){
+      var blockList = projects[i].refineBlocks;
+      for(var j =0; j<blockList.length; j++){
+        var block = blockList[j];
+        if(block.finished.length + block.running.length >= block.total && block.running.length>0) {
+          var time = new Date().getTime();
+          var deleteList = [];
+          for (var k = 0; k < running.length; k++){
+            if(parseInt(running[k].assignTime) + 1000 * 60 * 15 > time){
+              deleteList.push(k);
             }
-          });
+          }
+          for(var k =deleteList.length-1; k>=0; k--){
+            block.running.splice(deleteList[k],1);
+          }
         }
-        //
       }
     }
-    else if(projects[i].projectState == "refine"){
-      for(var j = 0 ; j < projects[i].blocks.length ; j++){
-        var block = await blockSchema.find({_id:projects[i].blocks[j]});
-        // TODO: check is it finished & validate
-      }
+    else {
+      /*TODO: collect upload 정의한 후 하자! 수집이 완료되었는지 검사 finished의 저장된 정보가 제대로 올라왔는지 검사하고, 그 수가 maxCollect보다 작을 시
+        TODO: 정보수정하고 projectState를 변경해줌
+      */
     }
   }
-  console.log("verification end");
 }
-
+async function duplicateVerification(){
+  //TODO: 수집이 완료된 애들을 끌어와서 중복 검사후 isvalidate를 done으로 바꿈
+}
+async function refineVerification(){
+  //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
+}
 function downloads(url){
 }
 
