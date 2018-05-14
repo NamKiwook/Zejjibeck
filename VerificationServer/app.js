@@ -4,8 +4,9 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-//var mongoose = require('mongoose');
-//var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
+
+var mongoose = require('mongoose');
+var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -23,7 +24,6 @@ socket.on('disconnect', function(){
 });
 
 
-/*
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoUrl);
 var db = mongoose.connection;
@@ -31,7 +31,6 @@ db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
   console.log('mongodb connection OK.');
 });
-*/
 
 
 // view engine setup

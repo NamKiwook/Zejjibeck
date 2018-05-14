@@ -2,11 +2,19 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var blockInfoSchema = new Schema({
-    isValidate: Number, // 0:Not Validate, 1:Validating, 2:Done
+    // collect or refine
+    // before name-> current name
+
+    property : String, // collect or refine
+
+    total: Number, // collect -> collect
+
+    isValidate: String, // 0:Not Validate, 1:Validating, 2:Done -> for refine
     AnswerLists: Array,
     users : Array,
     finished: Number,
     running: Number,
+    runningId: Array,
     lastAssignTime: Number,
 });
 

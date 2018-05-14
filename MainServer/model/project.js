@@ -2,16 +2,18 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var projectSchema = new Schema({
+  owner: String,
   projectName: String,
   projectType: String, // 'Refine' 'Collect' 'Refine&Collect'
   dataType: String, // 'Image' 'Audio' 'Text'
-
   uploadTime: Number,
 
   outputInfo: String,
 
   description: String,
   fileNo: Number,
+  fileExtension: {type:String, default:""},
+
   refineType: String, //RadioBox, CheckBox, Drag, Text
   refineList: Array,
 

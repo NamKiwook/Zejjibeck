@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var projectSchema = require('../model/project');
 var userSchema = require('../model/user');
-/* GET home page. */
+
 router.get('/', async function(req, res, next) {
 
   var Id = req.decoded.userId;

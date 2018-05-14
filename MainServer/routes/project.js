@@ -3,19 +3,35 @@ var router = express.Router();
 var projectSchema = require('../model/project');
 
 router.get('/list', async function(req,res,next){
-  var page = req.query.page;
+  try {
+    var page = req.query.page;
+    var unit = parseInt(req.query.listNo);
+    var sortedBy = (req.query.sortedBy == "dec") ? -1 : 1;
+    var category = req.query.category;
+    var filter = req.query.filter;
+    var query = {};
+    var sortQuery = {};
 
-  // TODO things..
-  // var filter;
+    if (category != "ALL") query.projectType = category;
 
-  var unit = 10;
-  var projectList = await projectSchema.find().sort({"uploadTime":-1}).skip((page-1)*unit).limit(unit);
-  var totalPage = Math.ceil(await projectSchema.find().count() / unit);
+    if(filter == "credit") sortQuery.credit = sortedBy;
+    else sortQuery.uploadTime = sortedBy;
 
-  //TODO: SEND ONLY JSON TYPE
-  res.send({
-    projectList: projectList,
-    totalPage: totalPage,
-  });
-});``
+    var projectList = await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit);
+    var totalPage = Math.ceil(await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit).count() / unit);
+
+    await res.send({
+      projectList: projectList,
+      totalPage: totalPage,
+    });
+  }
+  catch(err){
+    console.log(err);
+    await res.send({
+      projectList: [],
+      totalPage: 0,
+    })
+  }
+});
+
 module.exports = router;
