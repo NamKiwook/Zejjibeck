@@ -1,7 +1,6 @@
 <template lang="pug">
   div.container
-    .title Project List
-    modal(name="project" height="auto" scrollable=true)
+    modal(name="project" height="auto" scrollable="ture")
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -30,9 +29,18 @@
         a.btn(@click="selectProject(modalProject)") START
     section
       .menu
-        .title Project Name
-        .type Type
-        .credit Credit
+        .title PROJECT
+        a.type.active TYPE
+          .filter-arrow
+            .down
+          .dropdown-box
+            a all
+            a refine
+            a collect
+        a.credit CREDIT
+          .filter-arrow
+            .up
+            .down
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
         .type {{project.projectType.charAt(0)}}
@@ -123,6 +131,30 @@ export default {
 }
 </script>
 <style scoped>
+  .filter-arrow {
+    margin-left: 5px;
+    margin-top: 2px;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .filter-arrow > .up {
+    background-image: url("../assets/up-arrow.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 6px;
+    height: 6px;
+  }
+  .filter-arrow > .down {
+    background-image: url("../assets/down-arrow.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    width: 6px;
+    height: 6px;
+  }
   .container {
     margin-top: 150px;
     overflow: hidden;
@@ -136,14 +168,13 @@ export default {
     margin: 10px;
   }
   .container > section {
-    border-top: 1px solid rgba(211, 215, 219, 1.0);
+    width: 880px;
+    margin: 20px auto;
   }
   .menu {
-    border-top: 1px solid rgba(211,215,219,1.0);
-    padding: 10px 20px;
-    margin-top: 50px;
+    padding: 15px 20px;
   }
-  .menu > .type {
+  .menu > .title {
     text-align: center;
     border-radius: 4px;
     display: inline-block;
@@ -151,20 +182,47 @@ export default {
     color: #a7b3bf;
   }
   .menu > .credit {
-    display: inline-block;
+    display:flex;
+    align-items: center;
     float: right;
-    width: 85px;
+    width: 65px;
     margin-right: 50px;
     font-size: 14px;
     color: #a7b3bf;
   }
-  .menu > .date {
-    display:inline-block;
+  .menu > .type {
+    display:flex;
+    justify-content: center;
+    align-items: center;
     float: right;
     width: 80px;
+    position: relative;
     margin-right: 20px;
     font-size: 14px;
     color: #a7b3bf;
+  }
+  .menu > .type > .dropdown-box {
+    display: none;
+    flex-flow: column;
+    position: absolute;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee;
+    top: 20px;
+  }
+  .menu > .type.active > .dropdown-box {
+    display: flex;
+  }
+  .menu > .type > .dropdown-box > a {
+    padding: 5px 10px;
+  }
+  .menu > .type > .dropdown-box > a:hover {
+    background-color: #eee;
+  }
+  .menu > .type > .dropdown {
+    color: #a7b3bf;
+    font-size: 12px;
+    margin-left: auto;
   }
   .project {
     background-color: #fff;
@@ -176,22 +234,8 @@ export default {
   .project:hover {
     box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
   }
-  .project > .type {
-    display: inline-block;
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    border-radius: 4px;
-    display: inline-block;
-    background-color: #c1d9f1;
-    color: #2e76b1;
-    font-weight: 900;
-    font-size: 14px;
-    line-height: 35px;
-  }
   .project > .title {
     display: inline-block;
-    padding: 0 20px;
     line-height: 35px;
     font-weight: bold;
   }
@@ -203,13 +247,22 @@ export default {
     float: right;
     margin-right: 50px;
   }
-  .project > .date {
+  .project > .type {
+    background-color: #2979ff;
+    color: #fff;
     line-height: 35px;
-    font-size: 14px;
-    width: 100px;
-    text-align: right;
+    font-size: 12px;
+    text-align: center;
+    width: 80px;
+    border-radius: 20px;
     float: right;
     margin-right: 20px;
+  }
+  .project > .type.refine {
+    background-color: #5991ee;
+  }
+  .project > .type.collect {
+    background-color: #62ce8d;
   }
   .pagination {
     text-align: center;
@@ -217,18 +270,14 @@ export default {
   }
   .pagination > a {
     display: inline-block;
-    border-radius: 8px;
-    padding: 8px 16px;
+    border-radius: 50%;
+    padding: 8px 15px;
     text-decoration: none;
   }
   .pagination a.active {
     background-color: #4e4e4e;
     color: white;
   }
-  .pagination a:hover:not(.active) {
-    background-color: #ddd;
-  }
-
   .modal-container {
     padding: 50px 20px;
     text-align: center;

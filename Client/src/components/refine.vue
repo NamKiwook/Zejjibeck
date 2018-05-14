@@ -110,6 +110,7 @@ export default {
     background-color: #fff;
     border-radius: 2px;
     max-width: 630px;
+    width: 100%;
     text-align: center;
   }
   .sequence-wrap {
