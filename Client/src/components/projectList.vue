@@ -85,8 +85,7 @@
 </script>
 <style scoped>
   .container {
-    margin-left: 250px;
-    margin-top: 60px;
+    margin-top: 150px;
     overflow: hidden;
   }
   .container > .title {

@@ -58,7 +58,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'radio',
+      dataType: 'checkbox',
       totalSequence: 20,
       nowSequence: 1
     }
@@ -170,6 +170,7 @@ export default {
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-size: 16px;
   }
   .refine-wrap.select > .inputWrap:hover {
     background-color: #eff4ff;
@@ -229,6 +230,7 @@ export default {
   }
   .user-info > .profile-wrap > .profile-title {
     margin-top: 10px;
+    font-weight: bold;
   }
   .user-info > .rating-wrap {
     border-bottom: 1px solid #eee;
