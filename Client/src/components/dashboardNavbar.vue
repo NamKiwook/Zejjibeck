@@ -92,6 +92,9 @@ export default {
     line-height: 49px;
     margin-right: 20px;
   }
+  nav > .section > .title:hover {
+    border-bottom: 3px solid #e4e4e4;
+  }
   nav > .section > .title.active {
     border-bottom: 3px solid #2979ff;
   }
