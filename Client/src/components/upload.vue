@@ -69,7 +69,7 @@
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
         input#ajaxFile(type="file", multiple="multiple", ref="files")
-        input.btn.register(type="button", @click="submit", value="REGISTER")
+    input.btn.register(type="button", @click="submit", value="REGISTER")
 </template>
 
 <script>

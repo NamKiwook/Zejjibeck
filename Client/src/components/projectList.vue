@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="project" height="auto" scrollable="ture")
+    modal(name="project" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -43,7 +43,7 @@
             .down
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
-        .type {{project.projectType.charAt(0)}}
+        .type(:class="project.projectState") {{project.projectState}}
         .credit {{project.credit}}원
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;
@@ -258,10 +258,10 @@ export default {
     float: right;
     margin-right: 20px;
   }
-  .project > .type.refine {
+  .project > .type.Refine {
     background-color: #5991ee;
   }
-  .project > .type.collect {
+  .project > .type.Collect {
     background-color: #62ce8d;
   }
   .pagination {
