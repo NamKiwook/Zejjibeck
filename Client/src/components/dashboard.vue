@@ -86,7 +86,7 @@ div.container
     .title Credit
     .credit-wrap
       .wrap
-        .dot
+        .dot.blue
         .name 총 획득 크레딧
       .point {{usableCredit + prearrangedCredit}}
       .wrap
@@ -98,7 +98,7 @@ div.container
         .point {{prearrangedCredit}}
     .credit-wrap
       .wrap
-        .dot
+        .dot.green
         .name 총 참여 프로젝트
       .point 10
       .wrap
@@ -109,17 +109,6 @@ div.container
         .title 진행중인 프로젝트
         .point 2
   .sep
-    <!--.title Credit-->
-    <!--.credit-wrap-->
-      <!--.available-->
-        <!--.text 사용가능 포인트-->
-        <!--.point {{usableCredit}}원-->
-      <!--.expected-->
-        <!--.text 적립예정 포인트-->
-        <!--.point {{prearrangedCredit}}원-->
-      <!--.btn-wrap-->
-        <!--a.btn(@click="showCharge") 충전-->
-        <!--a.btn(@click="showWithdraw") 출금-->
 </template>
 
 <script>
@@ -201,6 +190,24 @@ export default {
 </script>
 
 <style scoped>
+  .dot {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    margin-right: 10px;
+  }
+  .dot.blue {
+    background-image: linear-gradient( 135deg, #08f 10%, #6bd1ef 100%);
+  }
+  .dot.green {
+    background-image: linear-gradient(313deg,#00a1ff,#26d06b);
+  }
+  .sep {
+    height: 1px;
+    background-color: #eee;
+    margin: 5px 0;
+  }
   .container {
     margin: 150px auto 0;
     overflow: hidden;
@@ -297,14 +304,6 @@ export default {
   .credit > .credit-wrap > .wrap {
     display: flex;
     align-items: center;
-  }
-  .credit > .credit-wrap > .wrap > .dot {
-    display: inline-block;
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    background-color: #2979ff;
-    margin-right: 10px;
   }
   .credit > .credit-wrap > .wrap > .name {
     font-size: 18px;
