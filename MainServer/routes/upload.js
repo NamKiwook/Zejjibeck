@@ -72,11 +72,8 @@ router.post('/', async function(req,res, next){
       for (var i = 0; i < blockNo; i++) {
         var newBlock = new blockSchema();
         newBlock.isValidate = "Not Validate";
-        newBlock.finished = 0;
-        newBlock.running = 0;
-        newBlock.lastAssignTime = 0;
-        newBlock.AnswerLists = [];
-        newBlock.users = [];
+        newBlock.finished = [];
+        newBlock.running = [];
         newBlock.property = "Refine";
         var blockId = await newBlock.save();
         project.refineblocks.push(blockId._id);
@@ -88,7 +85,6 @@ router.post('/', async function(req,res, next){
       newBlock.maxCollect = req.body.maxCollect;
       newBlock.isValidate = "Not Validate";
       newBlock.finished = [];
-      newBlock.AnswerLists = [];
       var BlockId = await newBlock.save();
       project.collectBlock = BlockId._id;
     }
@@ -119,14 +115,14 @@ router.get('/url', async function(req,res){
       owner:userId
     })
     project.fileExtension = extension;
-    project.save();
+    await project.save();
   }
 
   params.Key = "rawData/" + userId + "/" + projectName + "/" + fileNo + extension;
 
-  s3.getSignedUrl('putObject', params, function(err, url){
-    res.send({url: url});
-  });
+  var url = await s3.getSignedUrl('putObject', params);
+  res.send({url: url});
+
 });
 
 function setLeadingZero(fileNo){

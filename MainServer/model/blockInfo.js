@@ -5,10 +5,8 @@ var blockInfoSchema = new Schema({
     property : String, // collect or refine
     maxCollect: Number, // collect -> collect
     isValidate: String, // Not Validate, Done -> for refine
-    finished: Array, // upload files Data
-    running: Array, // refine
-
-  //user id, assignTime,
+    finished: Array, // refine, collect {userId, AssignTime, finishedTime, answerList}
+    running: Array // {userId, AssignTime}
 });
 
 //users 없애고 finished 리스트로

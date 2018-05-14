@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.a9de682f3dd64171303e.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.a9de682f3dd64171303e.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/vendor.b30240cfe4c62db4d800.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/vendor.b30240cfe4c62db4d800.js.map" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/MainServer/model/blockInfo.js" afterPath="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/model/project.js" afterPath="$PROJECT_DIR$/MainServer/model/project.js" />
       <change beforePath="$PROJECT_DIR$/MainServer/routes/refine.js" afterPath="$PROJECT_DIR$/MainServer/routes/refine.js" />
       <change beforePath="$PROJECT_DIR$/MainServer/routes/upload.js" afterPath="$PROJECT_DIR$/MainServer/routes/upload.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" afterPath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" />
       <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,11 +23,31 @@
     <splitter split-orientation="horizontal" split-proportion="0.5">
       <split-first>
         <leaf>
-          <file leaf-file-name="blockInfo.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="refine.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-90">
+                  <caret line="64" column="8" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="blockInfo.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="126">
-                  <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="12" />
+                <state relative-caret-position="162">
+                  <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="signUp.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/MainServer/routes/signUp.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="72">
+                  <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
                   <folding />
                 </state>
               </provider>
@@ -44,11 +67,31 @@
       </split-first>
       <split-second>
         <leaf>
-          <file leaf-file-name="project.js" pinned="false" current-in-tab="true">
+          <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="594">
-                  <caret line="33" column="58" lean-forward="true" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+                <state relative-caret-position="522">
+                  <caret line="29" column="100" lean-forward="false" selection-start-line="29" selection-start-column="100" selection-end-line="29" selection-end-column="100" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="upload.js" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="646">
+                  <caret line="143" column="24" lean-forward="true" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="-106">
+                  <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
                   <folding />
                 </state>
               </provider>
@@ -144,12 +187,12 @@
         <option value="$PROJECT_DIR$/MainServer/app.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/credit.js" />
         <option value="$PROJECT_DIR$/VerificationServer/views/index.jade" />
-        <option value="$PROJECT_DIR$/VerificationServer/routes/index.js" />
         <option value="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" />
+        <option value="$PROJECT_DIR$/MainServer/model/project.js" />
+        <option value="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
+        <option value="$PROJECT_DIR$/VerificationServer/routes/index.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/upload.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
-        <option value="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
-        <option value="$PROJECT_DIR$/MainServer/model/project.js" />
       </list>
     </option>
   </component>
@@ -377,12 +420,12 @@
       <workItem from="1525948919237" duration="540000" />
       <workItem from="1525922133274" duration="25619000" />
       <workItem from="1526276508063" duration="271000" />
-      <workItem from="1526276834010" duration="16876000" />
+      <workItem from="1526276834010" duration="17167000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="199619000" />
+    <option name="totallyTimeSpent" value="199910000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
@@ -513,13 +556,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="507" lean-forward="false" selection-start-line="0" selection-start-column="507" selection-end-line="0" selection-end-column="507" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/signUp.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
         </state>
       </provider>
     </entry>
@@ -658,34 +694,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1134">
-          <caret line="63" column="0" lean-forward="true" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="20" column="41" lean-forward="true" selection-start-line="20" selection-start-column="41" selection-end-line="20" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/model/blockInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
           <caret line="14" column="49" lean-forward="false" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="414">
-          <caret line="23" column="21" lean-forward="true" selection-start-line="23" selection-start-column="21" selection-end-line="23" selection-end-column="21" />
           <folding />
         </state>
       </provider>
@@ -698,18 +710,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
+    <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="7" column="12" lean-forward="false" selection-start-line="7" selection-start-column="4" selection-end-line="7" selection-end-column="12" />
+        <state relative-caret-position="468">
+          <caret line="26" column="2" lean-forward="false" selection-start-line="26" selection-start-column="2" selection-end-line="26" selection-end-column="22" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
+    <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="594">
-          <caret line="33" column="58" lean-forward="true" selection-start-line="33" selection-start-column="58" selection-end-line="33" selection-end-column="58" />
+        <state relative-caret-position="-106">
+          <caret line="49" column="22" lean-forward="false" selection-start-line="49" selection-start-column="22" selection-end-line="49" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="646">
+          <caret line="143" column="24" lean-forward="true" selection-start-line="143" selection-start-column="24" selection-end-line="143" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="9" column="3" lean-forward="true" selection-start-line="9" selection-start-column="3" selection-end-line="9" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/signUp.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="26" lean-forward="false" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-90">
+          <caret line="64" column="8" lean-forward="false" selection-start-line="64" selection-start-column="8" selection-end-line="64" selection-end-column="8" />
           <folding />
         </state>
       </provider>
