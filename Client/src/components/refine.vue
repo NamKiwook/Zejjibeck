@@ -6,13 +6,26 @@
         .total-sequence / {{totalSequence}}
       .project-wrap
         .project-title 프로젝트 01
-      .problem-wrap
+
+      .problem-wrap(v-if="dataType === 'Image'")
         .img-wrap
           img(src='../assets/login-img.jpg')
         .problem-title 위의 그림이 나타내는 것을 적어주세요.
-      .refine-wrap.text(v-if="dataType === 'text'")
+
+      .problem-wrap(v-if="dataType === 'Text'")
+        .img-wrap
+          img(src='../assets/login-img.jpg')
+        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+
+      .problem-wrap(v-if="dataType === 'Audio'")
+        .img-wrap
+          img(src='../assets/login-img.jpg')
+        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+
+      .refine-wrap.text(v-if="refineType === 'Text'")
         input(type="text" placeholder="정답을 입력해주세요")
-      .refine-wrap.select(v-if="dataType === 'checkbox'")
+
+      .refine-wrap.select(v-if="refineType === 'Checkbox'")
         label.inputWrap a
           input(type="checkbox", name="checkbox", value="a")
           span.mark
@@ -22,7 +35,8 @@
         label.inputWrap c
           input(type="checkbox", name="checkbox", value="c")
           span.mark
-      .refine-wrap.select(v-if="dataType === 'radio'")
+
+      .refine-wrap.select(v-if="refineType === 'Radio'")
         label.inputWrap 가
           input(type="radio", name="radio", value="가")
           span.mark
@@ -32,6 +46,7 @@
         label.inputWrap 다
           input(type="radio", name="radio", value="다")
           span.mark
+
       .btnWrap
         .prev.btn PREV
         .next.btn.disable NEXT
@@ -58,7 +73,8 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'checkbox',
+      dataType: 'Image',
+      refineType: 'Checkbox',
       totalSequence: 20,
       nowSequence: 1
     }

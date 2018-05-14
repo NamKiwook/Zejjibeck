@@ -7,6 +7,10 @@
       .title Project Description
       textarea.text#description(v-model="description")
     section.textWrap
+      .title Project Question
+      textarea.text#question(v-model="question")
+
+    section.textWrap
       .title Credit
       input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
     section.typeWrap
@@ -75,6 +79,7 @@ export default {
     return {
       projectName: null,
       minimumRefine: null,
+      question: null,
       totalCredit: null,
       description: null,
       blockSize: null,
@@ -137,6 +142,7 @@ export default {
         projectName: this.projectName,
         projectType: this.projectType,
         refineType: this.refineType,
+        question: this.question,
         dataType: this.dataType,
         maxCollect: this.maxCollect,
         minimumRefine: this.minimumRefine,

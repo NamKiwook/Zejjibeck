@@ -5,8 +5,8 @@ import index from '../components/index'
 import navbar from '../components/navbar'
 import login from '../components/login'
 import signUp from '../components/signUp'
+import loginedNavbar from '../components/loginedNavbar'
 import dashboard from '../components/dashboard'
-import dashboardLayout from '../components/dashboardLayout'
 import upload from '../components/upload'
 import refine from '../components/refine'
 import projectList from '../components/projectList'
@@ -64,7 +64,7 @@ export default new Router({
       path: '/dashboard',
       components: {
         default: dashboard,
-        nav: dashboardLayout
+        nav: loginedNavbar
       },
       beforeEnter: requireAuth
     },
@@ -72,7 +72,7 @@ export default new Router({
       path: '/upload',
       components: {
         default: upload,
-        nav: dashboardLayout
+        nav: loginedNavbar
       },
       beforeEnter: requireAuth
     },
@@ -80,7 +80,7 @@ export default new Router({
       path: '/refine/:projectId?',
       components: {
         default: refine,
-        nav: dashboardLayout
+        nav: loginedNavbar
       },
       beforeEnter: requireAuth
     },
@@ -88,7 +88,7 @@ export default new Router({
       path: '/collect/:projectId?',
       components: {
         default: collect,
-        nav: dashboardLayout
+        nav: loginedNavbar
       },
       beforeEnter: requireAuth
     },
@@ -96,7 +96,7 @@ export default new Router({
       path: '/list/:page?/:filter?/:category?',
       components: {
         default: projectList,
-        nav: dashboardLayout
+        nav: loginedNavbar
       },
       beforeEnter: requireAuth
     }

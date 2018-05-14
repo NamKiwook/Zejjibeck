@@ -115,78 +115,78 @@ div.container
 </template>
 
 <script>
-  export default {
-    name: 'dashboard',
-    data () {
-      return {
-        modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
-        perpage: 2,
-        bank: '은행 이름',
-        username: '유저 이름',
-        bankAccount: '계좌번호',
-        usableCredit: 1000,
-        prearrangedCredit: 100,
-        amountWithdraw: 0,
-        chargeCredit: 0,
-        projectNo: 0,
-        projectsInfoList: []
+export default {
+  name: 'dashboard',
+  data () {
+    return {
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      perpage: 2,
+      bank: '은행 이름',
+      username: '유저 이름',
+      bankAccount: '계좌번호',
+      usableCredit: 1000,
+      prearrangedCredit: 100,
+      amountWithdraw: 0,
+      chargeCredit: 0,
+      projectNo: 0,
+      projectsInfoList: []
+    }
+  },
+  created () {
+    this.$http.get('/api/dashboard').then((res) => {
+      this.username = res.data.userInfo.username
+      this.bank = res.data.userInfo.bank
+      this.bankAccount = res.data.userInfo.bankAccount
+      this.usableCredit = res.data.userInfo.usableCredit
+      this.prearrangedCredit = res.data.userInfo.prearrangedCredit
+      this.projectNo = res.data.projectsInfoList.length
+      this.projectsInfoList = res.data.projectsInfoList
+      this.carouselPerpage()
+    })
+  },
+  beforeMount () {
+    window.addEventListener('resize', this.carouselPerpage)
+  },
+  beforeDestroy () {
+    window.removeEventListener('resize', this.carouselPerpage)
+  },
+  methods: {
+    carouselPerpage () {
+      if (this.projectNo === 0 || window.innerWidth < 1050) {
+        this.perpage = 1
+      } else if (this.projectNo > 3) {
+        this.perpage = 3
+      } else {
+        this.perpage = this.projectNo
       }
     },
-    created () {
-      this.$http.get('/api/dashboard').then((res) => {
-        this.username = res.data.userInfo.username
-        this.bank = res.data.userInfo.bank
-        this.bankAccount = res.data.userInfo.bankAccount
-        this.usableCredit = res.data.userInfo.usableCredit
-        this.prearrangedCredit = res.data.userInfo.prearrangedCredit
-        this.projectNo = res.data.projectsInfoList.length
-        this.projectsInfoList = res.data.projectsInfoList
-        this.carouselPerpage()
-      })
+    download (project) {
+      console.log(project._id)
     },
-    beforeMount () {
-      window.addEventListener('resize', this.carouselPerpage)
+    percent (percent) {
+      return 'p' + Math.round(percent)
     },
-    beforeDestroy () {
-      window.removeEventListener('resize', this.carouselPerpage)
+    showCharge () {
+      this.$modal.show('charge-modal')
     },
-    methods: {
-      carouselPerpage () {
-        if (this.projectNo === 0 || window.innerWidth < 1050) {
-          this.perpage = 1
-        } else if (this.projectNo > 3) {
-          this.perpage = 3
-        } else {
-          this.perpage = this.projectNo
-        }
-      },
-      download (project) {
-        console.log(project._id)
-      },
-      percent (percent) {
-        return 'p' + Math.round(percent)
-      },
-      showCharge () {
-        this.$modal.show('charge-modal')
-      },
-      showWithdraw () {
-        this.$modal.show('withdraw-modal')
-      },
-      showProject (modalProject) {
-        this.modalProject = modalProject
-        this.$modal.show('project-modal')
-      },
-      hide () {
-        this.$modal.hide('charge-modal')
-        this.$modal.hide('withdraw-modal')
-        this.$modal.hide('project-modal')
-      },
-      withdraw () {
-      },
-      charge () {
-      }
+    showWithdraw () {
+      this.$modal.show('withdraw-modal')
+    },
+    showProject (modalProject) {
+      this.modalProject = modalProject
+      this.$modal.show('project-modal')
+    },
+    hide () {
+      this.$modal.hide('charge-modal')
+      this.$modal.hide('withdraw-modal')
+      this.$modal.hide('project-modal')
+    },
+    withdraw () {
+    },
+    charge () {
     }
   }
+}
 </script>
 
 <style scoped>

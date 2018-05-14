@@ -4,6 +4,7 @@ nav
     router-link.logo(to='/dashboard')
     .profile-wrap
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
+      .profileTitle {{username}}
   .sep
   .section
     router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
@@ -81,6 +82,10 @@ export default {
     margin-left: auto;
   }
   nav > .container > .profile-wrap > .profile-img {
+  }
+  nav > .container > .profile-wrap > .profileTitle {
+    display: inline-block;
+    margin-left: 8px;
   }
   nav > .sep {
     background-color: #eee;
