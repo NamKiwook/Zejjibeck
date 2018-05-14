@@ -43,6 +43,7 @@ router.post('/', async function(req,res, next){
       totalCredit: req.body.totalCredit,
 
       blockSize: req.body.blockSize,
+      maxCollect :req.body.maxCollect,
       completedBlock: 0,
     });
     if(req.body.projectType == "Refine")
@@ -84,7 +85,7 @@ router.post('/', async function(req,res, next){
     if(req.body.projectType != "Refine"){
       var newBlock = new blockSchema();
       newBlock.property = "Collect";
-      newBlock.total = req.body.fileNo;
+      newBlock.maxCollect = req.body.maxCollect;
       newBlock.isValidate = "Not Validate";
       newBlock.finished = 0;
       newBlock.lastAssignTime=0;

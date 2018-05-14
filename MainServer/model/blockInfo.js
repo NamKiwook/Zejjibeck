@@ -7,7 +7,7 @@ var blockInfoSchema = new Schema({
 
     property : String, // collect or refine
 
-    total: Number, // collect -> collect
+    maxCollect: Number, // collect -> collect
 
     isValidate: String, // Not Validate, Done -> for refine
     AnswerLists: Array,
