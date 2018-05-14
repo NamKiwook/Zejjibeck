@@ -1,40 +1,29 @@
 <template lang="pug">
   .container
     section.problem
-      .sequence-wrap
-        .now-sequence {{nowSequence}}
-        .total-sequence / {{totalSequence}}
       .project-wrap
         .project-title 프로젝트 01
       .problem-wrap
-        .img-wrap
-          img(src='../assets/login-img.jpg')
-        .problem-title 위의 그림이 나타내는 것을 적어주세요.
-      .refine-wrap.text(v-if="dataType === 'text'")
-        input(type="text" placeholder="정답을 입력해주세요")
-      .refine-wrap.select(v-if="dataType === 'checkbox'")
-        label.inputWrap a
-          input(type="checkbox", name="checkbox", value="a")
-          span.mark
-        label.inputWrap b
-          input(type="checkbox", name="checkbox", value="b")
-          span.mark
-        label.inputWrap c
-          input(type="checkbox", name="checkbox", value="c")
-          span.mark
-      .refine-wrap.select(v-if="dataType === 'radio'")
-        label.inputWrap 가
-          input(type="radio", name="radio", value="가")
-          span.mark
-        label.inputWrap 나
-          input(type="radio", name="radio", value="나")
-          span.mark
-        label.inputWrap 다
-          input(type="radio", name="radio", value="다")
-          span.mark
-      .btnWrap
-        .prev.btn PREV
-        .next.btn.disable NEXT
+        | 프로젝트 주의사항
+        br
+        | 프로젝트 설명
+        br
+        | 프로젝트 주의사항
+        br
+        | 프로젝트 설명
+        br
+        | 프로젝트 주의사항
+        br
+        | 프로젝트 설명
+        br
+        | 프로젝트 주의사항
+        br
+        | 프로젝트 설명
+        br
+      .submit-wrap
+        form#ajaxFrom(enctype="multipart/form-data")
+          input#ajaxFile(type="file", multiple="multiple", ref="files")
+          input.btn.register(type="button", @click="submit", value="REGISTER")
     section.user-info
       .profile-wrap
         .profile-img
@@ -54,19 +43,17 @@
 </template>
 
 <script>
-export default {
-  name: 'refine',
-  data () {
-    return {
-      dataType: 'checkbox',
-      totalSequence: 20,
-      nowSequence: 1
+  export default {
+    name: 'collect',
+    data () {
+      return {
+        dataType: 'text',
+      }
+    },
+    created () {
+      console.log(this.$route.params.projectId)
     }
-  },
-  created () {
-    console.log(this.$route.params.projectId)
   }
-}
 </script>
 
 <style scoped>
@@ -94,22 +81,8 @@ export default {
     background-color: #fff;
     border-radius: 2px;
     max-width: 630px;
+    width: 100%;
     text-align: center;
-  }
-  .sequence-wrap {
-    display: flex;
-    position: fixed;
-    bottom: 30px; right: 50px;
-  }
-  .sequence-wrap > .now-sequence {
-    font-size: 30px;
-    font-weight: 900;
-    margin-right: 10px;
-  }
-  .sequence-wrap > .total-sequence {
-    font-size: 30px;
-    font-weight: 900;
-    color: #a7b3bf;
   }
   .project-wrap {
     display: flex;
@@ -154,44 +127,6 @@ export default {
     border-bottom: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 2px;
     outline: none;
-  }
-
-  /* 셀렉트 */
-  .refine-wrap.select > .inputWrap{
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 35px;
-    padding: 20px 30px;
-    cursor: pointer;
-    font-size: 22px;
-     -webkit-user-select: none;
-     -moz-user-select: none;
-     -ms-user-select: none;
-    user-select: none;
-    font-size: 16px;
-  }
-  .refine-wrap.select > .inputWrap:hover {
-    background-color: #eff4ff;
-  }
-  .refine-wrap.select > .inputWrap > input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .mark {
-    background-image: url("../assets/check.png");
-    background-repeat: no-repeat;
-    background-size: 20px;
-    background-position: center;
-    display:inline-block;
-    width: 20px;
-    height: 20px;
-    margin-left: auto;
-  }
-  .inputWrap > input:checked ~ .mark {
-    background-image: url("../assets/check-active.png");
   }
   .btnWrap {
     display: flex;
