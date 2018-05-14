@@ -15,6 +15,7 @@ var upload = require('./routes/upload');
 var userInfo = require('./routes/userInfo');
 var project = require('./routes/project');
 var refine = require('./routes/refine');
+var credit = require('./routes/credit');
 var app = express();
 
 mongoose.Promise = global.Promise;
@@ -50,6 +51,7 @@ app.use('/api/upload',upload);
 app.use('/api/userInfo',userInfo);
 app.use('/api/project',project);
 app.use('/api/refine',refine);
+app.use('/api/credit',credit);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
