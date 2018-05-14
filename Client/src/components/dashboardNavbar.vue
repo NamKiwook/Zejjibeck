@@ -6,9 +6,9 @@ nav
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
   .sep
   .section
-    router-link.title.active(to='/dashboard') Dashboard
-    router-link.title(to='/list') Project
-    router-link.title(to='upload') Upload
+    router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
+    router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
+    router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
   <!--.menu(@click="menuToggle")-->
   <!--router-link.logo(to='/dashboard') DATAG-->
   <!--.btn.profileWrap(@click="profileToggle")-->
@@ -26,11 +26,18 @@ export default {
   data () {
     return {
       profileIsVisible: false,
-      username: 'temp_username'
+      username: 'temp_username',
+      pathname: null
+    }
+  },
+  watch: {
+    $route () {
+      this.pathname = window.location.pathname
     }
   },
   created () {
     this.username = this.$store.getters.getUsername
+    this.pathname = window.location.pathname
   },
   methods: {
     profileToggle () {

@@ -35,7 +35,7 @@
         .credit Credit
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
-        .type {{project.projectType}}
+        .type {{project.projectType.charAt(0)}}
         .credit {{project.credit}}원
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;

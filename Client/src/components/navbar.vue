@@ -14,7 +14,7 @@ export default {
   name: 'navbar',
   data () {
     return {
-      isLoginPage : false
+      isLoginPage: false
     }
   },
   watch: {
@@ -32,6 +32,11 @@ export default {
     }
   },
   created () {
+    if (window.location.pathname === '/login') {
+      this.isLoginPage = true
+    } else {
+      this.isLoginPage = false
+    }
     return this.isScrolled
   }
 }

@@ -6,7 +6,7 @@
 
 <script>
 import dashboardNavbar from './dashboardNavbar'
-import dashboardMenubar from './dashboardMenubar'
+// import dashboardMenubar from './dashboardMenubar'
 
 export default {
   name: 'dashboardLayout',
