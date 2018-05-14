@@ -1,6 +1,5 @@
 <template lang="pug">
 div.container
-  .title Dash Board
   .btn-wrap
     router-link.btn(to='/list') 과제풀기
     router-link.btn(to='/upload') 과제등록
@@ -87,17 +86,33 @@ div.container
                 .bar
                 .fill
   section.credit
-    .title Credit
+    .profile-wrap
+      .profile-img
+      .profile-title 박성준
+      .rating 다이아
     .credit-wrap
-      .available
-        .text 사용가능 포인트
-        .point {{usableCredit}}원
-      .expected
-        .text 적립예정 포인트
-        .point {{prearrangedCredit}}원
-      .btn-wrap
-        a.btn(@click="showCharge") 충전
-        a.btn(@click="showWithdraw") 출금
+      .title
+        .dot
+        | 총 획득 크레딧
+      .point 2100
+      .wrap
+        .title 사용 가능
+        .point 2000
+      .sep
+      .wrap
+        .title 적립 예정
+        .point 100
+    <!--.title Credit-->
+    <!--.credit-wrap-->
+      <!--.available-->
+        <!--.text 사용가능 포인트-->
+        <!--.point {{usableCredit}}원-->
+      <!--.expected-->
+        <!--.text 적립예정 포인트-->
+        <!--.point {{prearrangedCredit}}원-->
+      <!--.btn-wrap-->
+        <!--a.btn(@click="showCharge") 충전-->
+        <!--a.btn(@click="showWithdraw") 출금-->
 </template>
 
 <script>
@@ -179,6 +194,11 @@ export default {
 </script>
 
 <style scoped>
+  .sep {
+    height: 0.5px;
+    background-color: #eee;
+    margin: 5px 0;
+  }
   .container {
     width: 1170px;
     margin: 150px auto 0;
@@ -193,14 +213,6 @@ export default {
     flex: 1;
     margin: 0 10px;
     padding: 20px;
-  }
-  .container > .title {
-    display: inline-block;
-    width: 100%;
-    font-weight: 800;
-    font-size: 32px;
-    padding: 10px;
-    margin: 10px;
   }
   .project-wrap {
     height: 400px;
@@ -255,46 +267,93 @@ export default {
   }
   .credit {
     background-color: #fff;
+    display: flex;
     padding: 15px;
-    border: 1px solid rgba(211, 215, 219, 1.0);
     margin: 20px;
   }
-  .credit > .title {
-    font-size: 18px;
-    font-weight: 600;
+  .credit > .profile-wrap {
+    padding: 30px 150px 30px 0;
+  }
+  .credit > .profile-wrap > .profile-img {
+    display: inline-block;
+    background-image: url("../assets/default-user.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid #eee;
+    border-radius: 50px;
+    width: 70px;
+    height: 70px;
+    margin-top: 10px;
+  }
+  .credit > .profile-wrap > .profile-title {
+    margin-top: 10px;
+    font-weight: bold;
   }
   .credit > .credit-wrap {
+    width: 250px;
+  }
+  .credit > .credit-wrap > .title > .dot {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #2979ff;
+    margin-right: 10px;
+  }
+  .credit > .credit-wrap > .title {
+
+  }
+  .credit > .credit-wrap > .point {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 20px 0;
+  }
+  .credit > .credit-wrap > .wrap {
     display: flex;
-    flex-flow: row;
-    text-align: center;
-    margin-top: 20px;
   }
-  .credit > .credit-wrap > .available {
-    flex: 3;
-    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  .credit > .credit-wrap > .wrap > .title {
+    font-size: 14px;
   }
-  .credit > .credit-wrap > .expected {
-    flex: 2;
-    border-right: 1px solid rgba(211, 215, 219, 1.0);
+  .credit> .credit-wrap > .wrap > .point {
+    margin-left: auto;
   }
-  .credit > .credit-wrap > div > .text {
-    font-size: 16px;
-    font-weight: 600;
-    color: #a7b3bf;
-    margin-top: 10px;
-  }
-  .credit > .credit-wrap > div > .point {
-    font-size: 32px;
-    margin-top: 10px;
-  }
-  .credit > .credit-wrap > .btn-wrap {
-    flex: 2;
-  }
-  .credit > .credit-wrap > .btn-wrap > .btn {
-    width: 60%;
-    margin: 5px;
-    padding: 10px;
-  }
+  /*.credit > .title {*/
+    /*font-size: 18px;*/
+    /*font-weight: 600;*/
+  /*}*/
+  /*.credit > .credit-wrap {*/
+    /*display: flex;*/
+    /*flex-flow: row;*/
+    /*text-align: center;*/
+    /*margin-top: 20px;*/
+  /*}*/
+  /*.credit > .credit-wrap > .available {*/
+    /*flex: 3;*/
+    /*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
+  /*}*/
+  /*.credit > .credit-wrap > .expected {*/
+    /*flex: 2;*/
+    /*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
+  /*}*/
+  /*.credit > .credit-wrap > div > .text {*/
+    /*font-size: 16px;*/
+    /*font-weight: 600;*/
+    /*color: #a7b3bf;*/
+    /*margin-top: 10px;*/
+  /*}*/
+  /*.credit > .credit-wrap > div > .point {*/
+    /*font-size: 32px;*/
+    /*margin-top: 10px;*/
+  /*}*/
+  /*.credit > .credit-wrap > .btn-wrap {*/
+    /*flex: 2;*/
+  /*}*/
+  /*.credit > .credit-wrap > .btn-wrap > .btn {*/
+    /*width: 60%;*/
+    /*margin: 5px;*/
+    /*padding: 10px;*/
+  /*}*/
   .modal-container {
     padding: 50px 20px;
     text-align: center;

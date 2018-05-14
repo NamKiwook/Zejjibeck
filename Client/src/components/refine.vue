@@ -1,6 +1,6 @@
 <template lang="pug">
   .container
-    section
+    section.problem
       .sequence-wrap
         .now-sequence {{nowSequence}}
         .total-sequence / {{totalSequence}}
@@ -8,33 +8,49 @@
         .project-title 프로젝트 01
       .problem-wrap
         .img-wrap
-          img(src='../assets/profileImg1.jpg')
+          img(src='../assets/login-img.jpg')
         .problem-title 위의 그림이 나타내는 것을 적어주세요.
       .refine-wrap.text(v-if="dataType === 'text'")
         input(type="text" placeholder="정답을 입력해주세요")
-      .refine-wrap.checkbox(v-if="dataType === 'checkbox'")
+      .refine-wrap.select(v-if="dataType === 'checkbox'")
         label.inputWrap a
           input(type="checkbox", name="checkbox", value="a")
-          span.checkmark
+          span.mark
         label.inputWrap b
           input(type="checkbox", name="checkbox", value="b")
-          span.checkmark
+          span.mark
         label.inputWrap c
           input(type="checkbox", name="checkbox", value="c")
-          span.checkmark
-      .refine-wrap.radio(v-if="dataType === 'radio'")
+          span.mark
+      .refine-wrap.select(v-if="dataType === 'radio'")
         label.inputWrap 가
           input(type="radio", name="radio", value="가")
-          span.radiomark
+          span.mark
         label.inputWrap 나
           input(type="radio", name="radio", value="나")
-          span.radiomark
+          span.mark
         label.inputWrap 다
           input(type="radio", name="radio", value="다")
-          span.radiomark
+          span.mark
       .btnWrap
         .prev.btn PREV
-        .next.btn NEXT
+        .next.btn.disable NEXT
+    section.user-info
+      .profile-wrap
+        .profile-img
+        .profile-title 박성준
+      .rating-wrap
+        .title 나의 등급
+        .rating 다이아
+      .credit-wrap
+        .wrap
+          .dot
+          .title 사용가능
+          .credit 2000
+        .wrap
+          .dot
+          .title 적립예정
+          .credit 100
 </template>
 
 <script>
@@ -55,16 +71,29 @@ export default {
 
 <style scoped>
   .container {
-    width: 1170px;
     margin: 150px auto 0;
+    width: 100%;
+    max-width: 950px;
     overflow: hidden;
     text-align: center;
+    padding: 40px 0;
+  }
+  .dot {
+    display: inline-block;
+    width: 5px;
+    height: 5px;
+    background-color: #2e76b1;
+    border-radius: 50%;
+    margin-right: 8px;
   }
   section {
+    box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);
+  }
+  section.problem {
+    display: inline-block;
     background-color: #fff;
     border-radius: 2px;
-    margin: 40px auto;
-    max-width: 500px;
+    max-width: 630px;
     text-align: center;
   }
   .sequence-wrap {
@@ -88,17 +117,18 @@ export default {
     padding: 0 20px;
   }
   .project-wrap > .project-title {
-    color: #2979ff;
+    color: #8492a6;
     padding: 10px 0;
     font-size: 14px;
     font-weight: bold;
   }
   .problem-wrap {
-    background-color: #f5f5f5;
+    background-color: #eee;
     padding: 20px;
   }
   .problem-wrap > .problem-title {
     font-size: 16px;
+    font-weight: bold;
     text-align: left;
     padding-top: 20px;
   }
@@ -120,40 +150,37 @@ export default {
   .refine-wrap.text > input {
     display: inline-block;
     width: 100%;
-    padding: 10px;
-    border: 1px solid rgba(211, 215, 219, 1.0);
+    padding: 20px 30px;
+    border-bottom: 1px solid rgba(211, 215, 219, 1.0);
     border-radius: 2px;
+    outline: none;
   }
 
-  /* 체크박스 */
-  .refine-wrap.checkbox > .inputWrap{
-    display: block;
+  /* 셀렉트 */
+  .refine-wrap.select > .inputWrap{
+    display: flex;
+    align-items: center;
     border-bottom: 1px solid #eee;
     position: relative;
     padding-left: 35px;
-    padding: 20px;
+    padding: 20px 30px;
     cursor: pointer;
     font-size: 22px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
+    font-size: 16px;
   }
-  .refine-wrap.checkbox > .inputWrap:hover {
-    background-color: #a7b3bf;
+  .refine-wrap.select > .inputWrap:hover {
+    background-color: #eff4ff;
   }
-  .refine-wrap.checkbox > .inputWrap > input {
+  .refine-wrap.select > .inputWrap > input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
   }
-  .checkmark {
-    /*position: absolute;*/
-    /*left: 45px;*/
-    /*height: 25px;*/
-    /*width: 25px;*/
-    /*background-color: #eee;*/
-    /*border-radius: 4px;*/
+  .mark {
     background-image: url("../assets/check.png");
     background-repeat: no-repeat;
     background-size: 20px;
@@ -161,77 +188,80 @@ export default {
     display:inline-block;
     width: 20px;
     height: 20px;
+    margin-left: auto;
   }
-  .inputWrap > input:checked ~ .checkmark {
+  .inputWrap > input:checked ~ .mark {
     background-image: url("../assets/check-active.png");
   }
-
-  /* 라디오버튼 */
-  .refine-wrap.radio > .inputWrap{
-    display: block;
-    position: relative;
-    padding-left: 35px;
-    margin-bottom: 12px;
-    cursor: pointer;
-    font-size: 22px;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-  }
-  .refine-wrap.radio > .inputWrap > input {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-  }
-  .radiomark {
-    position: absolute;;
-    top: 0;
-    left: 0;
-    height: 25px;
-    width: 25px;
-    background-color: #eee;
-    border-radius: 50%;
-  }
-  .inputWrap > input:checked ~ .radiomark {
-    background-color: #2E76B1;
-  }
-  .inputWrap > .radiomark:after {
-    content: "";
-    position: absolute;
-    display: none;
-    width: 8px;
-    height: 8px;
-    top: 9px;
-    left: 9px;
-    border-radius: 50%;
-    background-color: #fff;
-  }
-  .inputWrap > input:checked ~ .radiomark:after {
-    display: block;
-  }
-
-  section > .btnWrap {
+  .btnWrap {
     display: flex;
-    padding: 0 20px;
+    padding: 10px 20px;
     justify-content: center;
   }
-  section > .btnWrap > .btn {
+  .btnWrap > .btn {
     padding: 10px 40px;
     margin: 10px;
     border: 0;
     color: #fff;
-    background-color: #2979ff;
   }
-  section > .btnWrap > .next {
+  .user-info {
+    display: inline-block;
+    width: 230px;
+    background-color: #fff;
+    border-radius: 2px;
+    margin-left: 20px;
+    vertical-align: top;
   }
-
+  .user-info > .profile-wrap {
+    border-bottom: 1px solid #eee;
+    padding: 20px 0;
+  }
+  .user-info > .profile-wrap > .profile-img {
+    display: inline-block;
+    background-image: url("../assets/default-user.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: 1px solid #eee;
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    margin-top: 10px;
+  }
+  .user-info > .profile-wrap > .profile-title {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .user-info > .rating-wrap {
+    border-bottom: 1px solid #eee;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+  }
+  .user-info > .rating-wrap > .title {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .user-info > .rating-wrap > .rating {
+    font-size: 14px;
+    margin-left: auto;
+  }
+  .user-info > .credit-wrap {
+    padding: 20px;
+  }
+  .user-info > .credit-wrap > .wrap {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+  }
+  .user-info > .credit-wrap > .wrap > .title {
+    font-size: 12px;
+    font-weight: bold;
+  }
+  .user-info > .credit-wrap > .wrap > .credit {
+    margin-left: auto;
+  }
   @media only screen and (max-width:1080px) {
-    .container {
-      margin-left: 0;
-    }
-    section > .btnWrap {
-      padding: 0;
-    }
+
   }
 </style>

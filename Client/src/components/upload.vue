@@ -266,8 +266,7 @@ export default {
     padding-bottom: 60px;
     margin: 20px;
     position: absolute;
-    left: 250px;
-    top: 60px;
+    top: 150px;
   }
 
   section {
@@ -327,11 +326,5 @@ export default {
   .btn.register {
     margin-top: 30px;
     float: right;
-  }
-  @media only screen and (max-width: 1080px) {
-    .container {
-      left: 0;
-      margin: 0;
-    }
   }
 </style>

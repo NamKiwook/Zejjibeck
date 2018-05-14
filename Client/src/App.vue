@@ -33,7 +33,7 @@ export default {
   .btn {
     display: inline-block;
     color: #fff;
-    background-color: #2E76B1;
+    background-color: #2979ff;
     text-align: center;
     border-radius: 2px;
     border-width: 0px;
@@ -43,25 +43,24 @@ export default {
     user-select: none;
     font-size: 14px;
   }
-
   .btn::after {
     display: block;
     position: absolute;
     left: 0; top: 0; right: 0; bottom: 0;
   }
-
   .btn:hover::after {
     content: "";
     background-color: #fff;
     opacity: 0.08;
   }
-
   .btn:active::after {
     content: "";
     background-color: #000;
     opacity: 0.16;
   }
-
+  .btn.disable {
+    background-color: #e0e0e0;
+  }
   .btn.white {
     background-color: #fff;
     border-width: 1px;
@@ -1088,9 +1087,6 @@ export default {
     -ms-transform: rotate(360deg);
     -o-transform: rotate(360deg);
     transform: rotate(360deg);
-  }
-  body {
-    background-color: rgba(235,237,239,1.0)
   }
   #app {
     height: 100%;

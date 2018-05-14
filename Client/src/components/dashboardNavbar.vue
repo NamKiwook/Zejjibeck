@@ -6,9 +6,9 @@ nav
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
   .sep
   .section
-    a.title.active Dashboard
-    a.title Project
-    a.title Upload
+    router-link.title.active(to='/dashboard') Dashboard
+    router-link.title(to='/list') Project
+    router-link.title(to='upload') Upload
   <!--.menu(@click="menuToggle")-->
   <!--router-link.logo(to='/dashboard') DATAG-->
   <!--.btn.profileWrap(@click="profileToggle")-->
@@ -46,7 +46,7 @@ export default {
 <style scoped>
   nav {
     background-color: #fff;
-    border-bottom: 1px solid #eee;
+    box-shadow: 0 1px 0 0 rgba(0,0,0,.11);
     position: absolute;
     left:0; top: 0; right: 0;
   }
@@ -82,10 +82,10 @@ export default {
   nav > .section {
     display: flex;
     align-items: center;
-    width: 1170px;
+    width: 100%;
+    max-width: 880px;
     height: 49px;
     margin: 0 auto;
-    padding: 0 50px;
   }
   nav > .section > .title {
     height: 100%;
