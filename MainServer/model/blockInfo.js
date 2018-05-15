@@ -7,6 +7,11 @@ var blockInfoSchema = new Schema({
     isValidate: String, // Not Validate, Done -> for refine
     finished: Array, // refine, collect {userId, AssignTime, finishedTime, answerList}
     running: Array // {userId, AssignTime}
+
+
+  //asdf, 0 compleete! --> 1's url
+
+  //running-> {0, asdf}, {1,asdf}, {2,asdf},
 });
 
 //users 없애고 finished 리스트로

@@ -152,11 +152,9 @@ export default {
         refineList: this.refineList,
         fileNames: this.fileNames,
         blockSize: this.blockSize}).then(async (res) => {
-        if (res.data.pass === 'no') {
-          alert('fail')
-        } else if (res.data.pass === 'dup') {
-          alert('Already exist project Name!')
-        } else if (res.data.pass === 'ok') {
+        if (res.data.success === false) {
+          alert(res.data.errorMessage);
+        } else {
           for (var i = 0; i < this.fileList.length; i++) {
             var file = this.fileList[i]
             var uploadCount = 0
