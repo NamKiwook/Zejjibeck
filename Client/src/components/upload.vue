@@ -134,9 +134,13 @@ export default {
       } else {
         this.state = '0'
       }
-      this.fileList = this.$refs.files.files
-      for (var i = 0; i < this.fileList.length; i++) {
-        this.fileNames[i] = this.fileList[i].name
+      if (this.$refs.files != null) {
+        this.fileList = this.$refs.files.files
+        for (var i = 0; i < this.fileList.length; i++) {
+          this.fileNames[i] = this.fileList[i].name
+        }
+      } else {
+        this.fileList = null
       }
       this.$http.post('/api/upload', {
         projectName: this.projectName,
@@ -148,43 +152,48 @@ export default {
         minimumRefine: this.minimumRefine,
         state: this.state,
         description: this.description,
+        blockSize: this.blockSize,
         totalCredit: this.totalCredit,
         refineList: this.refineList,
         fileNames: this.fileNames,
-        blockSize: this.blockSize}).then(async (res) => {
+        end: this.fileNames}).then(async (res) => { // TODO: DELETE THIS, 'end' IS DUMMY!
         if (res.data.success === false) {
-          alert(res.data.errorMessage);
+          alert(res.data.errorMessage)
         } else {
-          for (var i = 0; i < this.fileList.length; i++) {
-            var file = this.fileList[i]
-            var uploadCount = 0
-
-            this.$http.get('/api/upload/url', {
-              params:
-                {
-                  projectName: this.projectName,
-                  fileName: this.fileNames[i],
-                  fileNo: i.toString()
-                }
-            }).then((res) => {
-              this.$http({
-                method: 'put',
-                url: res.data.url,
-                contentType: false,
-                processData: false,
-                data: file
+          if (this.$refs.files != null) {
+            for (var i = 0; i < this.fileList.length; i++) {
+              var file = this.fileList[i]
+              var uploadCount = 0
+              this.$http.get('/api/upload/url', {
+                params:
+                  {
+                    projectName: this.projectName,
+                    fileName: this.fileNames[i],
+                    fileNo: i.toString()
+                  }
               }).then((res) => {
-                uploadCount = uploadCount + 1
-                if (uploadCount === this.fileList.length) {
-                  alert('complete' + this.fileList.length)
-                  this.$router.push('/dashboard')
-                }
+                this.$http({
+                  method: 'put',
+                  url: res.data.url,
+                  contentType: false,
+                  processData: false,
+                  data: file
+                }).then((res) => {
+                  uploadCount = uploadCount + 1
+                  if (uploadCount === this.fileList.length) {
+                    alert('complete' + this.fileList.length)
+                    this.$router.push('/dashboard')
+                  }
+                }).catch((err) => {
+                  alert('data upload err' + err)
+                })
               }).catch((err) => {
-                alert('data upload err' + err)
+                alert('get upload url err' + err)
               })
-            }).catch((err) => {
-              alert('get upload url err' + err)
-            })
+            }
+          } else {
+            alert('complete')
+            this.$router.push('/dashboard')
           }
         }
       })
