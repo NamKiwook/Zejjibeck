@@ -63,7 +63,11 @@ router.post('/', async function(req,res, next){
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
-      project.credit = Math.floor(project.totalCredit / blockNo);
+      console.log(fileNo);
+
+
+
+      project.credit = Math.floor(parseInt(project.totalCredit) / blockNo);
       project.blockNo = blockNo;
       project.refineblocks = [];
 
@@ -78,7 +82,6 @@ router.post('/', async function(req,res, next){
       }
     }
     if(req.body.projectType != "Refine"){
-      console.log("bef this");
 
       var newBlock = new blockSchema();
       newBlock.property = "Collect";
@@ -109,6 +112,7 @@ router.post('/', async function(req,res, next){
 
     res.send({success:true});
   } catch(err){
+    console.log(err);
     res.send({success: false, errorMessage : " DB error!"});
   }
 });
