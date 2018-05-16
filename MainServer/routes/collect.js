@@ -114,7 +114,7 @@ router.put('/urlAck', async function(req,res,err) {
   } catch (err){
     res.send({success: false, errorMessage:"database error"});
   }
-}
+});
 
 function setLeadingZero(fileNo){
   while(fileNo.length < digits){

@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var AWS = require('aws-sdk');
 var fs = require('fs');
+var Downloader = require('node-url-downloader');
+var download = new Downloader();
 
 var userSchema = require('../../MainServer/model/user');
 var projectSchema = require('../../MainServer/model/project');
@@ -18,18 +20,21 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', function(req, res, next){
-  console.log("!!");
 //  clearInterval(flagVerification);
   var unit = 600; // second
-  console.log("111");
   flagVerification = setInterval(runningVerification, unit * 5);
-
-  res.send("EEE");
 })
 
 router.get('/off', function(req, res, next){
   clearInterval(flagVerification);
   console.log("verification off");
+})
+
+router.get('/url', function(req, res, next){
+  url = [];
+  url.push(req.query.url);
+  downloads(url, './temporary/');
+  res.send("EEE");
 })
 
 function getSignedUrl(userName, projectName, fileNo, extension) {
@@ -81,7 +86,14 @@ async function duplicateVerification(){
 async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
 }
-function downloads(url){
+
+async function downloads(url, downloadPath){
+  for(var i = 0 ; i < url.length ; i++){
+    await download.get(url[i], downloadPath);
+    await download.on('done', (dst) => {
+      console.log("download complete : " + dst);
+    });
+  }
 }
 
 module.exports = router;
