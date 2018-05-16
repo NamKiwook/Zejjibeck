@@ -30,7 +30,7 @@
     section
       .menu
         .title PROJECT
-        a.type.active TYPE
+        a.type TYPE
           .filter-arrow
             .down
           .dropdown-box

@@ -209,7 +209,7 @@ export default {
     padding-left: 25px;
     padding-top: 3px;
     cursor: pointer;
-    width: 100px;
+    width: 120px;
     margin-right: 50px;
     -webkit-user-select: none;
     -moz-user-select: none;
@@ -249,14 +249,10 @@ export default {
   }
 
   .container {
-    background-color: #fff;
-    border: 1px solid rgba(211, 215, 219, 1.0);
-    border-radius: 4px;
     padding: 20px;
     padding-bottom: 60px;
-    margin: 20px;
-    position: absolute;
-    top: 150px;
+    margin: 150px auto 50px;
+    width: 880px;
   }
 
   section {

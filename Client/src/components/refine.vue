@@ -8,19 +8,22 @@
         .project-title 프로젝트 01
 
       .problem-wrap(v-if="dataType === 'Image'")
-        .img-wrap
+        .content
           img(src='../assets/login-img.jpg')
         .problem-title 위의 그림이 나타내는 것을 적어주세요.
 
       .problem-wrap(v-if="dataType === 'Text'")
-        .img-wrap
-          img(src='../assets/login-img.jpg')
-        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+        .content
+          .text
+            | 안녕하세요 제 이름은 박성준입니다.
+            br
+            | 만나서 반갑습니다.
+        .problem-title 위의 글이 나타내는 것을 적어주세요.
 
       .problem-wrap(v-if="dataType === 'Audio'")
-        .img-wrap
-          img(src='../assets/login-img.jpg')
-        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+        .content
+          audio(controls controlsList="nodownload" src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga")
+        .problem-title 위의 소리가 나타내는 것을 적어주세요.
 
       .refine-wrap.text(v-if="refineType === 'Text'")
         input(type="text" placeholder="정답을 입력해주세요")
@@ -73,7 +76,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'Image',
+      dataType: 'Audio',
       refineType: 'Checkbox',
       totalSequence: 20,
       nowSequence: 1
@@ -149,11 +152,21 @@ export default {
     text-align: left;
     padding-top: 20px;
   }
-  .img-wrap {
+  .content {
     text-align: center;
   }
-  .img-wrap > img {
+  .content > img {
     width: 100%;
+  }
+  .content > .text {
+    font-size: 24px;
+    font-weight: bold;
+    color: #000;
+    padding: 20px 0;
+    line-height: 1.6;
+  }
+  .content > audio {
+    margin: 20px 0;
   }
   .refine-wrap {
     display: inline-block;

@@ -2,23 +2,23 @@
 nav
   .container
     router-link.logo(to='/dashboard')
-    .profile-wrap
+    .profile-wrap(@click="profileToggle")
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
-      .profileTitle {{username}}
+      <!--.profile-title {{username}} //유저네임 넣어주는게 더 나은것같으면 주석해제-->
+      .profile-dropdown(v-bind:class="{visible : profileIsVisible}")
+        .img-wrap
+          .profile
+            .cover
+              .name {{username}}
+        a PROFILE
+        a SETTING
+        a.logout LOGOUT
   .sep
   .section
     router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
     router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
     router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
-  <!--.menu(@click="menuToggle")-->
-  <!--router-link.logo(to='/dashboard') DATAG-->
-  <!--.btn.profileWrap(@click="profileToggle")-->
-    <!--img.profileImg(src="../assets/default-user.png", width="30", height="30")-->
-    <!--.profileTitle {{username}}-->
-    <!--.dropdownMenu(v-bind:class="{visible : profileIsVisible}")-->
-      <!--a.btn Profile-->
-      <!--a.btn Setting-->
-      <!--a.btn Logout-->
+
 </template>
 
 <script>
@@ -80,12 +80,70 @@ export default {
   }
   nav > .container > .profile-wrap {
     margin-left: auto;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
   }
   nav > .container > .profile-wrap > .profile-img {
   }
-  nav > .container > .profile-wrap > .profileTitle {
+  nav > .container > .profile-wrap > .profile-title {
     display: inline-block;
     margin-left: 8px;
+  }
+  .profile-dropdown {
+    display: flex;
+    flex-flow: column;
+    position: fixed;
+    top: 60px; right: 0;
+    visibility: hidden;
+    z-index: 999;
+    background-color: #262931;
+    box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);
+    border-radius: 5px;
+    width: 200px;
+  }
+  .profile-dropdown.visible {
+    visibility: visible;
+  }
+  .profile-dropdown > .img-wrap {
+  }
+  .profile-dropdown > .img-wrap > .profile {
+    background-image: url("../assets/default-user.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 200px;
+    width: 200px;
+    height: 200px;
+    position: relative;
+  }
+  .profile-dropdown > .img-wrap > .profile > .cover {
+    background-color: rgba(11, 17, 31, 0.5);
+    border-radius: 5px 5px 0 0;
+    position:absolute;
+    top:0; left:0; right:0; bottom:0;
+  }
+  .profile-dropdown > .img-wrap > .profile > .cover > .name {
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+    margin-top: 150px;
+  }
+  .profile-dropdown > .img-wrap > .title {
+    text-align: center;
+  }
+  .profile-dropdown > a {
+    text-align: left;
+    border: 0;
+    color: #b9b9b9;
+    width: 100%;
+    padding: 20px 30px;
+    font-size: 13px;
+  }
+  .profile-dropdown > a:hover {
+    color: #fff;
+  }
+  .profile-dropdown > .logout {
+    border-top: 1px solid #4e4e4e;
   }
   nav > .sep {
     background-color: #eee;
