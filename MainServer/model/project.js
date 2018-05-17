@@ -8,6 +8,8 @@ var projectSchema = new Schema({
   dataType: String, // 'Image' 'Audio' 'Text'
   uploadTime: Number,
 
+  question: String,
+
   outputInfo: String,
 
   description: String,

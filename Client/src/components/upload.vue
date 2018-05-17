@@ -163,32 +163,26 @@ export default {
           if (this.$refs.files != null) {
             for (var i = 0; i < this.fileList.length; i++) {
               var file = this.fileList[i]
-              var uploadCount = 0
-              await this.$http.get('/api/upload/url', {
+              var response = await
+              this.$http.get('/api/upload/url', {
                 params:
                   {
                     projectName: this.projectName,
                     fileName: this.fileNames[i],
                     fileNo: i.toString()
                   }
-              }).then((res) => {
-                this.$http({
-                  method: 'put',
-                  url: res.data.url,
-                  contentType: false,
-                  processData: false,
-                  data: file
-                }).then((res) => {
-                  if (i === this.fileList.length - 1) {
-                    alert('complete' + this.fileList.length)
-                    this.$router.push('/dashboard')
-                  }
-                }).catch((err) => {
-                  alert('data upload err' + err)
-                })
-              }).catch((err) => {
-                alert('get upload url err' + err)
               })
+              await this.$http({
+                method: 'put',
+                url: response.data.url,
+                contentType: false,
+                processData: false,
+                data: file
+              })
+              if (i === this.fileList.length - 1) {
+                alert('complete' + this.fileList.length)
+                this.$router.push('/dashboard')
+              }
             }
           } else {
             alert('complete')
