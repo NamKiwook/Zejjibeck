@@ -5,6 +5,7 @@ var userSchema = require('../model/user');
 
 router.get('/', async function(req, res, next) {
 
+  console.log("??");
   var Id = req.decoded.userId;
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;
@@ -14,6 +15,9 @@ router.get('/', async function(req, res, next) {
     projectList.push(project);
   }
 
+  console.log(projectList);
+
+
   res.send({
       userInfo: userInfo,
       projectsInfoList: projectList
@@ -21,6 +25,8 @@ router.get('/', async function(req, res, next) {
 });
 
 router.get('/getMyProjectList', async function(req,res,next){
+
+  console.log("!!");
 
   var page = req.query.page;
   var unit = 10;

@@ -56,15 +56,41 @@ router.post('/', async function(req,res, next){
         res.send({success: false, errorMessage: "Duplicated project name!"});
         return;
       }
-    if(req.body.projectType != "Collect") {
+
+
+    if(req.body.projectType == "Collect"){
+
+      var newBlock = new blockSchema();
+      newBlock.property = "Collect";
+      newBlock.maxCollect = req.body.maxCollect;
+      newBlock.isValidate = "Not Validate";
+      newBlock.finished = [];
+
+      for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
+        newBlock.finished.push({
+          owner:"",
+          expireTime:"",
+          upload:false,
+        });
+      }
+
+      var BlockId = await newBlock.save();
+
+      project.collectBlock = BlockId._id;
+      project.collectCredit = Math.floor(parseInt(project.totalCredit)/parseInt(project.maxCollect));
+    }
+
+
+    else if(req.body.projectType == 'Refine') {
+
       var fileNo = fileNames.length;
       if(req.body.projectType != "Refine")
-        fileNo = req.body.maxCollect;
+        fileNo = parseInt(req.body.maxCollect);
 
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
-      project.credit = Math.floor(parseInt(project.totalCredit) / blockNo);
+      project.refineCredit = Math.floor(parseInt(project.totalCredit) / (fileNo * parseInt(req.body.minimumRefine)));
       project.blockNo = blockNo;
       project.refineblocks = [];
 
@@ -78,15 +104,15 @@ router.post('/', async function(req,res, next){
         project.refineblocks.push(blockId._id);
       }
     }
-    if(req.body.projectType != "Refine"){
-
+    else {
+      //collect
       var newBlock = new blockSchema();
       newBlock.property = "Collect";
       newBlock.maxCollect = req.body.maxCollect;
       newBlock.isValidate = "Not Validate";
       newBlock.finished = [];
 
-      for(var i = 0 ; i < req.body.maxCollect ; i++){
+      for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
         newBlock.finished.push({
           owner:"",
           expireTime:"",
@@ -96,6 +122,26 @@ router.post('/', async function(req,res, next){
 
       var BlockId = await newBlock.save();
       project.collectBlock = BlockId._id;
+      project.collectCredit = Math.floor(parseInt(project.totalCredit)/(2*parseInt(project.maxCollect)));
+
+      // refine
+      var maxCollect = parseInt(req.body.maxCollect);
+      var blockSize = parseInt(req.body.blockSize);
+      var blockNo = Math.floor((maxCollect + blockSize - 1) / blockSize);
+
+      project.refineCredit = Math.floor(parseInt(project.totalCredit) / (2*maxCollect * parseInt(req.body.minimumRefine)));
+      project.blockNo = blockNo;
+      project.refineblocks = [];
+
+      for (var i = 0; i < blockNo; i++) {
+        var newBlock = new blockSchema();
+        newBlock.isValidate = "Not Validate";
+        newBlock.finished = [];
+        newBlock.running = [];
+        newBlock.property = "Refine";
+        var blockId = await newBlock.save();
+        project.refineblocks.push(blockId._id);
+      }
     }
 
     var projectUpload = await project.save();
