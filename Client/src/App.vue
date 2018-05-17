@@ -187,7 +187,7 @@ export default {
   .c100.p99 .fill,
   .c100.p100 .fill {
     position: absolute;
-    border: 0.08em solid #4e4e4e;
+    border: 0.08em solid #2979ff;
     width: 0.84em;
     height: 0.84em;
     clip: rect(0em, 0.5em, 1em, 0em);

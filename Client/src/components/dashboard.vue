@@ -63,7 +63,38 @@ div.container
           br
           | 100원 (대상 초과시)
       .btn 다운로드
-  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
+  section.credit
+    .profile-wrap
+      .profile-img
+      .profile-title 박성준
+      .rating 다이아
+    .credit-wrap
+      .wrap
+        .dot.green
+        .name 총 참여 프로젝트
+      .point 10
+      .wrap
+        .title 완료된 프로젝트
+        .point 8
+      .sep
+      .wrap
+        .title 진행중인 프로젝트
+        .point 2
+    .credit-wrap
+      .detail
+      .wrap
+        .dot.blue
+        .name 총 획득 크레딧
+      .point {{usableCredit+prearrangedCredit}}
+      .wrap
+        .title 사용 가능
+        .point {{usableCredit}}
+      .sep
+      .wrap
+        .title 적립 예정
+        .point {{prearrangedCredit}}
+  .sep
+  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showProject(projectInfo)")
         .title {{projectInfo.projectName}}
@@ -82,36 +113,6 @@ div.container
               .slice
                 .bar
                 .fill
-  section.credit
-    .profile-wrap
-      .profile-img
-      .profile-title 박성준
-      .rating 다이아
-    .credit-wrap
-      .wrap
-        .dot.blue
-        .name 총 획득 크레딧
-      .point {{usableCredit+prearrangedCredit}}
-      .wrap
-        .title 사용 가능
-        .point {{usableCredit}}
-      .sep
-      .wrap
-        .title 적립 예정
-        .point {{prearrangedCredit}}
-    .credit-wrap
-      .wrap
-        .dot.green
-        .name 총 참여 프로젝트
-      .point 10
-      .wrap
-        .title 완료된 프로젝트
-        .point 8
-      .sep
-      .wrap
-        .title 진행중인 프로젝트
-        .point 2
-  .sep
 </template>
 
 <script>
@@ -209,8 +210,12 @@ export default {
   margin: 5px 0;
 }
 .container {
-  margin: 150px auto 0;
+  margin: 150px auto;
   overflow: hidden;
+}
+.project {
+  width: 950px;
+  margin: 0 auto;
 }
 .project-wrap {
   height: 400px;
@@ -228,7 +233,7 @@ export default {
   width: 3.33em;
   line-height: 3.33em;
   font-size: 0.3em;
-  color: #4e4e4e;
+  color: #2979ff;
 }
 .project-wrap:hover .c100:after {
   top: 0.04em;
@@ -266,7 +271,7 @@ export default {
 .credit {
   width: 880px;
   display: flex;
-  padding: 15px;
+  padding: 30px 15px 20px;
   margin: 20px auto;
 }
 .credit > .profile-wrap {
@@ -298,6 +303,24 @@ export default {
 .credit > .credit-wrap {
   flex: 1;
   margin: 0 50px;
+  position: relative;
+}
+.credit > .credit-wrap > .detail {
+  background-color: #fff;
+  background-image: url("../assets/magnifier.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);
+  border: 1px solid rgba(0,0,0,.05);
+  display: inline-block;
+  position: absolute;
+  top: -30px; right: -50px;
+  height: 45px;
+  width: 45px;
+  border-radius: 50px;
+  float: right;
+  cursor: pointer;
 }
 .credit > .credit-wrap > .wrap {
   display: flex;
@@ -329,42 +352,6 @@ export default {
   width: 100%;
   margin: 10px 0;
 }
-/*.credit > .title {*/
-/*font-size: 18px;*/
-/*font-weight: 600;*/
-/*}*/
-/*.credit > .credit-wrap {*/
-/*display: flex;*/
-/*flex-flow: row;*/
-/*text-align: center;*/
-/*margin-top: 20px;*/
-/*}*/
-/*.credit > .credit-wrap > .available {*/
-/*flex: 3;*/
-/*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
-/*}*/
-/*.credit > .credit-wrap > .expected {*/
-/*flex: 2;*/
-/*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
-/*}*/
-/*.credit > .credit-wrap > div > .text {*/
-/*font-size: 16px;*/
-/*font-weight: 600;*/
-/*color: #a7b3bf;*/
-/*margin-top: 10px;*/
-/*}*/
-/*.credit > .credit-wrap > div > .point {*/
-/*font-size: 32px;*/
-/*margin-top: 10px;*/
-/*}*/
-/*.credit > .credit-wrap > .btn-wrap {*/
-/*flex: 2;*/
-/*}*/
-/*.credit > .credit-wrap > .btn-wrap > .btn {*/
-/*width: 60%;*/
-/*margin: 5px;*/
-/*padding: 10px;*/
-/*}*/
 .modal-container {
   padding: 50px 20px;
   text-align: center;
