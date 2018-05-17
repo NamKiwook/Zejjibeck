@@ -56,26 +56,9 @@ router.post('/', async function(req,res, next){
         res.send({success: false, errorMessage: "Duplicated project name!"});
         return;
       }
-    if(req.body.projectType != "Collect") {
-      var fileNo = fileNames.length;
-      var blockSize = parseInt(req.body.blockSize);
-      var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
-      project.credit = Math.floor(parseInt(project.totalCredit) / blockNo);
-      project.blockNo = blockNo;
-      project.refineblocks = [];
 
-      for (var i = 0; i < blockNo; i++) {
-        var newBlock = new blockSchema();
-        newBlock.isValidate = "Not Validate";
-        newBlock.finished = [];
-        newBlock.running = [];
-        newBlock.property = "Refine";
-        var blockId = await newBlock.save();
-        project.refineblocks.push(blockId._id);
-      }
-    }
-    if(req.body.projectType != "Refine"){
+    if(req.body.projectType == "Collect"){
 
       var newBlock = new blockSchema();
       newBlock.property = "Collect";
@@ -92,7 +75,75 @@ router.post('/', async function(req,res, next){
       }
 
       var BlockId = await newBlock.save();
+
       project.collectBlock = BlockId._id;
+      project.collectCredit = Math.floor(parseInt(project.totalCredit)/parseInt(project.maxCollect));
+    }
+
+
+    else if(req.body.projectType == 'Refine') {
+
+      var fileNo = fileNames.length;
+      var blockSize = parseInt(req.body.blockSize);
+      var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
+
+      project.refineCredit = Math.floor(parseInt(project.totalCredit) / blockNo);
+      project.blockNo = blockNo;
+      project.refineblocks = [];
+
+      for (var i = 0; i < blockNo; i++) {
+        var newBlock = new blockSchema();
+        newBlock.isValidate = "Not Validate";
+        newBlock.finished = [];
+        newBlock.running = [];
+        newBlock.property = "Refine";
+        var blockId = await newBlock.save();
+        project.refineblocks.push(blockId._id);
+      }
+    }
+    else {
+      //collect
+      var newBlock = new blockSchema();
+      newBlock.property = "Collect";
+      newBlock.maxCollect = req.body.maxCollect;
+      newBlock.isValidate = "Not Validate";
+      newBlock.finished = [];
+
+      for(var i = 0 ; i < req.body.maxCollect ; i++){
+        newBlock.finished.push({
+          owner:"",
+          expireTime:"",
+          upload:false,
+        });
+      }
+
+      var BlockId = await newBlock.save();
+      project.collectCredit = Math.floor(parseInt(project.totalCredit)/(2*parseInt(project.maxCollect)));
+
+      // refine
+      var maxCollect = req.body.maxCollect;
+      var blockSize = parseInt(req.body.blockSize);
+      var blockNo = Math.floor((maxCollect + blockSize - 1) / blockSize);
+
+      project.refineCredit = Math.floor(parseInt(project.totalCredit) / (2*blockNo));
+      project.blockNo = blockNo;
+      project.refineblocks = [];
+
+      for (var i = 0; i < blockNo; i++) {
+        var newBlock = new blockSchema();
+        newBlock.isValidate = "Not Validate";
+        newBlock.finished = [];
+        newBlock.running = [];
+        newBlock.property = "Refine";
+        var blockId = await newBlock.save();
+        project.refineblocks.push(blockId._id);
+      }
+
+
+
+
+      project.collectBlock = BlockId._id;
+
     }
 
     var projectUpload = await project.save();
