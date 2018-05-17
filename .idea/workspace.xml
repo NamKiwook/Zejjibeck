@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
+      <change beforePath="$PROJECT_DIR$/VerificationServer/package-lock.json" afterPath="$PROJECT_DIR$/VerificationServer/package-lock.json" />
+      <change beforePath="$PROJECT_DIR$/VerificationServer/package.json" afterPath="$PROJECT_DIR$/VerificationServer/package.json" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,8 +17,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+            <state relative-caret-position="90">
+              <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -389,12 +389,12 @@
       <workItem from="1526369433950" duration="8564000" />
       <workItem from="1526381800070" duration="1928000" />
       <workItem from="1526428976201" duration="11912000" />
-      <workItem from="1526521086471" duration="5558000" />
+      <workItem from="1526521086471" duration="5972000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="218276000" />
+    <option name="totallyTimeSpent" value="218690000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="230" y="-4" width="1857" height="1092" extended-state="6" />
@@ -718,8 +718,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="34" column="40" lean-forward="false" selection-start-line="34" selection-start-column="40" selection-end-line="34" selection-end-column="40" />
+        <state relative-caret-position="90">
+          <caret line="5" column="34" lean-forward="false" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
           <folding />
         </state>
       </provider>

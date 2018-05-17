@@ -26,10 +26,8 @@
     "morgan": "~1.9.0",
     "node-url-downloader": "^0.1.9",
     "pug": "2.0.0-beta11",
-    "s3-download": "^1.0.0",
     "serve-favicon": "~2.4.5",
     "socket.io": "^2.1.0",
-    "socket.io-client": "^2.1.0",
-    "url-download": "0.0.8"
+    "socket.io-client": "^2.1.0"
   }
 }
