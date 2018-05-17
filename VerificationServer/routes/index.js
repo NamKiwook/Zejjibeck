@@ -2,8 +2,8 @@ var express = require('express');
 var router = express.Router();
 var AWS = require('aws-sdk');
 var fs = require('fs');
-var Downloader = require('node-url-downloader');
-var download = new Downloader();
+
+var downloadAPI = require('download-url');
 
 var userSchema = require('../../MainServer/model/user');
 var projectSchema = require('../../MainServer/model/project');
@@ -30,14 +30,27 @@ router.get('/off', function(req, res, next){
   console.log("verification off");
 })
 
-router.get('/url', function(req, res, next){
-  url = [];
-  url.push(req.query.url);
-  downloads(url, './temporary/');
-  res.send("EEE");
+router.get('/url', async function(req, res, next){
+  var url = await getDownloadUrl('a', 'logo', 1, '.png');
+
+  console.log(url);
+
+  var _d = new downloadAPI(url);
+
+  _d.setPath("./temporary").start('000002.png').then(function(result){
+
+    console.log('result: ', result);
+
+  },function(error){
+
+    console.log(error);
+  })
+
+  await downloads(url, './temporary/');
+  await res.send("EEE");
 })
 
-function getSignedUrl(userName, projectName, fileNo, extension) {
+async function getDownloadUrl(userName, projectName, fileNo, extension) {
 
   var strFileNo = fileNo.toString();
 
@@ -45,11 +58,13 @@ function getSignedUrl(userName, projectName, fileNo, extension) {
     strFileNo = "0" + strFileNo;
   }
 
-  params.Key = "/rawData/" + userName + "/" + projectName + "/" + strFileNo + "/" + extension;
+  params.Key = "rawData/" + userName + "/" + projectName + "/" + strFileNo + extension;
 
-  s3.getSignedUrl('getObject', params, function(err, url){
-    return url;
-  })
+  var url = await s3.getSignedUrl('getObject', params);
+
+  console.log("url: "+url);
+
+  return url;
 }
 
 async function runningVerification(){
@@ -88,12 +103,19 @@ async function refineVerification(){
 }
 
 async function downloads(url, downloadPath){
+  /*
   for(var i = 0 ; i < url.length ; i++){
-    await download.get(url[i], downloadPath);
-    await download.on('done', (dst) => {
-      console.log("download complete : " + dst);
-    });
-  }
+    var _d = new downloadAPI(url[i]);
+
+    _d.setPath("./temporary").start('000002.png').then(function(result){
+
+      console.log('result: ', result);
+
+    },function(error){
+
+      console.log(error);
+    })
+  }*/
 }
 
 module.exports = router;

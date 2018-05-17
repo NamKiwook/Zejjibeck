@@ -47,8 +47,6 @@ router.post('/', async function(req,res, next){
       completedBlock: 0,
     });
 
-    console.log(req.body);
-
     if(req.body.projectType == "Refine")
       project.projectState = "Refine";
     var userProjects = user.projects;
@@ -62,10 +60,6 @@ router.post('/', async function(req,res, next){
       var fileNo = fileNames.length;
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
-
-      console.log(fileNo);
-
-
 
       project.credit = Math.floor(parseInt(project.totalCredit) / blockNo);
       project.blockNo = blockNo;
