@@ -59,9 +59,7 @@ div.container
         .title 적립금
         .sep :
         .description
-          | {{modalProject.credit}}원 (프로젝트 완료시)
-          br
-          | 100원 (대상 초과시)
+          | {{modalProject.totalCredit}}원
       .btn 다운로드
   carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")

@@ -183,6 +183,7 @@ export default {
                 alert('complete' + this.fileList.length)
                 this.$router.push('/dashboard')
               }
+              console.log(i)
             }
           } else {
             alert('complete')

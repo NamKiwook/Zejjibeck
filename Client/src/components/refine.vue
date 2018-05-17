@@ -91,6 +91,20 @@ export default {
     }
   },
   methods: {
+    submit () {
+      this.$http.post('/api/refine', {
+        refineList: this.refineList,
+        blockId: this.blockId
+      }).then((res) => {
+        if (res.data.success) {
+          alert('성공')
+        } else {
+          alert('실패')
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+    },
     isNull () {
       if (this.refineList[this.nowSequence - 1] === null) {
         return true
@@ -106,19 +120,7 @@ export default {
       if (this.nowSequence < this.projectInfo.blockSize) {
         this.nowSequence++
       } else if (this.nowSequence === this.projectInfo.blockSize) {
-/*        this.$http.post('/api/refine', {
-          refineList: this.refineList,
-          blockId: this.blockId
-        }).then((res) => {
-          if (res.data.success) {
-            alert('성공')
-          } else {
-            alert('실패')
-          }
-        }).catch((err) => {
-          alert(err)
-        })*/
-        console.log(this.refineList)
+        submit()
       }
     }
   }
