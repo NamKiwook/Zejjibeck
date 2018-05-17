@@ -267,7 +267,7 @@ export default {
   background-color: #fff;
   margin: 20px 20px 0;
   padding: 15px;
-  border: 1px solid rgba(211, 215, 219, 1.0);
+  border: 1px solid #eee;
   border-radius: 4px;
   cursor: pointer;
 }
@@ -305,6 +305,9 @@ export default {
 }
 .register-project .type.Collect {
   background-color: #62ce8d;
+}
+.register-project .type.finish {
+  background-color: #3c4858;
 }
 .register-project .problem-wrap {
   display: flex;

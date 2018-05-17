@@ -36,11 +36,32 @@
             input(type="tel" v-model="amountWithdraw")
             | 원
         a.btn(@click="withdraw") 크레딧 출금
-    section
-      .btn(@click="showCharge") 입금하기
+    section.credit
+      .core.wrap
+        p 사용가능 크레딧
+        .credit 10,000
+          span 원
+      .wrap
+        p 적립예정 크레딧
+        .credit 8,000
+          span 원
+      .wrap
+        .btn(@click="showWithdraw") 출금
+        .btn(@click="showCharge") 입금
     .divider
-    section
-      .btn(@click="showWithdraw") 출금하기
+    section.list
+      .wrap
+        .title.plus 적립
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit + 400원
+      .wrap
+        .title.minus 사용
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit - 40원
 </template>
 
 <script>
@@ -74,6 +95,89 @@
   section {
     width: 880px;
     margin: 0 auto;
+    display: flex;
+  }
+  section.credit {
+    padding: 50px 10px 30px;
+    vertical-align: top;
+  }
+  section.credit > .core.wrap {
+    background-image: url("../assets/credit3.png");
+    background-repeat: no-repeat;
+    background-position: 0 center;
+    background-size: 60px;
+    width: 40%;
+    padding-left: 75px;
+    display: inline-block;
+    border: 0;
+    text-align: left;
+  }
+  section.credit > .wrap {
+    width: 30%;
+    height: 100px;
+    display: inline-block;
+    border-left: 1px solid #eee;
+    text-align: center;
+  }
+  section.credit > .wrap > p {
+    color: #a7b3bf;
+    font-weight: bold;
+    margin-top: 15px;
+  }
+  section.credit > .wrap > .credit {
+    font-size: 42px;
+    font-weight: bold;
+  }
+  section.credit > .wrap > .credit > span {
+    font-size: 28px;
+    font-weight: 500;
+  }
+  section.credit >.wrap > .btn {
+    width: 60%;
+    margin-top: 10px;
+    padding: 10px 0;
+  }
+  section.list {
+    flex-flow: column;
+  }
+  section.list > .wrap {
+    display: flex;
+    align-items: center;
+    padding: 30px 0;
+    border-bottom: 1px solid #eee;
+  }
+  section.list > .wrap > .title {
+    font-size: 18px;
+    height: 94px;
+    width: 94px;
+    line-height: 90px;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 50%;
+  }
+  section.list > .wrap >  .title.plus {
+    color: #2979ff;
+    border-color: #2979ff;
+  }
+  section.list > .wrap > .title.minus {
+    color: #d95555;
+    border-color: #d95555;
+  }
+  section.list > .wrap > .content {
+    margin-left: 30px;
+  }
+  section.list > .wrap > .content > .date {
+    font-size: 14px;
+    color: #8492a6;
+  }
+  section.list > .wrap > .content > p {
+    font-size: 18px;
+    margin-top: 5px;
+  }
+  section.list > .wrap > .credit {
+    margin-left: auto;
+    width: 100px;
+    text-align: right;
   }
   .modal-container {
     padding: 50px 20px;
