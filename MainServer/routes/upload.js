@@ -30,9 +30,9 @@ router.post('/', async function(req,res, next){
 
       projectName: req.body.projectName,
       projectType: req.body.projectType,
-
+      dataType: req.body.dataType,
       uploadTime: currentTime,
-
+      question: req.body.question,
       description: req.body.description,
       fileNo: fileNames.length,
       refineType: req.body.refineType,
@@ -92,7 +92,7 @@ router.post('/', async function(req,res, next){
 
       project.refineCredit = Math.floor(parseInt(project.totalCredit) / (fileNo * parseInt(req.body.minimumRefine)));
       project.blockNo = blockNo;
-      project.refineblocks = [];
+      project.refineBlocks = [];
 
       for (var i = 0; i < blockNo; i++) {
         var newBlock = new blockSchema();
@@ -101,7 +101,7 @@ router.post('/', async function(req,res, next){
         newBlock.running = [];
         newBlock.property = "Refine";
         var blockId = await newBlock.save();
-        project.refineblocks.push(blockId._id);
+        project.refineBlocks.push(blockId._id);
       }
     }
     else {

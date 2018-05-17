@@ -91,14 +91,14 @@ div.container
       .wrap
         .dot.blue
         .name 총 획득 크레딧
-      .point 2100
+      .point {{usableCredit+prearrangedCredit}}
       .wrap
         .title 사용 가능
-        .point 2000
+        .point {{usableCredit}}
       .sep
       .wrap
         .title 적립 예정
-        .point 100
+        .point {{prearrangedCredit}}
     .credit-wrap
       .wrap
         .dot.green
