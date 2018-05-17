@@ -43,7 +43,7 @@
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
-        .credit(v-if="project.projectState === 'Collect'") 데이터당 {{project.stateCredit}}원
+        .credit {{project.stateCredit}}원
 
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;
