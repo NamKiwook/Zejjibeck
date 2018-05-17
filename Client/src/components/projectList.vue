@@ -22,10 +22,8 @@
         .box
           .title 적립금
           .sep :
-          .description(v-if="modalProject.projectState === 'Refine'")
-            | 문제당 {{modalProject.refineCredit}}원
-          .description(v-if="modalProject.projectState === 'Collect'")
-            | 데이터당 {{modalProject.collectCredit}}원
+          .description
+            | 개당 {{modalProject.stateCredit}}원
         a.btn(@click="selectProject(modalProject)") START
 
     section
@@ -45,8 +43,7 @@
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
-        .credit(v-if="project.projectState === 'Collect'") 데이터당 {{project.collectCredit}}원
-        .credit(v-if="project.projectState === 'Refine'") 문제당 {{project.refineCredit}}원
+        .credit(v-if="project.projectState === 'Collect'") 데이터당 {{project.stateCredit}}원
 
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;
@@ -58,7 +55,7 @@ export default {
   name: 'projectList',
   data () {
     return {
-      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', stateCredit: 0, description: 'default', dataType: 'default'},
       projectList: [],
       currentPage: 1,
       totalPage: 1,

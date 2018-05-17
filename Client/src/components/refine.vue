@@ -22,7 +22,7 @@
 
       .problem-wrap(v-if="projectInfo.dataType === 'Audio'")
         .content
-          audio(controls controlsList="nodownload" src=urlSrc)
+          audio(controls controlsList="nodownload", :src="urlSrc")
         .problem-title {{projectInfo.question}}
 
       .refine-wrap.text(v-if="projectInfo.refineType === 'Text'")
@@ -65,7 +65,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default',refineType: 'Checkbox'},
+      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Checkbox'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
@@ -74,21 +74,21 @@ export default {
       nextButton: 'NEXT'
     }
   },
-   created() {
-      console.log(this.projectInfo)
-     this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
-       console.log(res.data)
-       this.projectInfo = res.data.projectInfo
-       this.urlList = res.data.urlList
-       this.blockId = res.data.blockId
-       this.urlSrc = this.urlList[0]
-     }).catch((err) => {
-       alert(err)
-     })
-   },
+  created () {
+    console.log(this.projectInfo)
+    this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
+      console.log(res.data)
+      this.projectInfo = res.data.projectInfo
+      this.urlList = res.data.urlList
+      this.blockId = res.data.blockId
+      this.urlSrc = this.urlList[0]
+    }).catch((err) => {
+      alert(err)
+    })
+  },
   watch: {
     nowSequence () {
-      this.urlSrc = this.urlList[this.nowSequence -1]
+      this.urlSrc = this.urlList[this.nowSequence - 1]
       if (this.nowSequence === this.projectInfo.blockSize) {
         this.nextButton = 'SUBMIT'
       } else {
@@ -125,12 +125,12 @@ export default {
       }
     },
     goToNext () {
-      if (!this.isNull &&this.nowSequence < this.projectInfo.blockSize) {
+      if (!this.isNull && this.nowSequence < this.projectInfo.blockSize) {
         this.nowSequence++
       } else if (!this.isNull && this.nowSequence === this.projectInfo.blockSize) {
-        submit()
-      } if(this.isNull) {
-        alert("값을 입력하세요!")
+        this.submit()
+      } else if (this.isNull) {
+        alert('값을 입력하세요!')
       }
     }
   }
