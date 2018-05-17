@@ -164,7 +164,7 @@ export default {
             for (var i = 0; i < this.fileList.length; i++) {
               var file = this.fileList[i]
               var uploadCount = 0
-              this.$http.get('/api/upload/url', {
+              await this.$http.get('/api/upload/url', {
                 params:
                   {
                     projectName: this.projectName,
@@ -179,8 +179,7 @@ export default {
                   processData: false,
                   data: file
                 }).then((res) => {
-                  uploadCount = uploadCount + 1
-                  if (uploadCount === this.fileList.length) {
+                  if (i === this.fileList.length - 1) {
                     alert('complete' + this.fileList.length)
                     this.$router.push('/dashboard')
                   }

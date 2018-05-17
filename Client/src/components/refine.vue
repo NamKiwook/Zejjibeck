@@ -1,58 +1,47 @@
 <template lang="pug">
-  .container
+  .container#problemTop
     section.problem
       .sequence-wrap
         .now-sequence {{nowSequence}}
-        .total-sequence / {{totalSequence}}
+        .total-sequence / {{projectInfo.blockSize}}
       .project-wrap
-        .project-title 프로젝트 01
+        .project-title {{projectInfo.projectName}}
 
-      .problem-wrap(v-if="dataType === 'Image'")
+      .problem-wrap(v-if="projectInfo.dataType === 'Image'")
         .content
-          img(src='../assets/login-img.jpg')
-        .problem-title 위의 그림이 나타내는 것을 적어주세요.
+          img(:src="urlSrc")
+        .problem-title {{projectInfo.question}}
 
-      .problem-wrap(v-if="dataType === 'Text'")
+      .problem-wrap(v-if="projectInfo.dataType === 'Text'")
         .content
           .text
             | 안녕하세요 제 이름은 박성준입니다.
             br
             | 만나서 반갑습니다.
-        .problem-title 위의 글이 나타내는 것을 적어주세요.
+        .problem-title {{projectInfo.question}}
 
-      .problem-wrap(v-if="dataType === 'Audio'")
+      .problem-wrap(v-if="projectInfo.dataType === 'Audio'")
         .content
-          audio(controls controlsList="nodownload" src="http://media.w3.org/2010/07/bunny/04-Death_Becomes_Fur.oga")
-        .problem-title 위의 소리가 나타내는 것을 적어주세요.
+          audio(controls controlsList="nodownload" src=urlSrc)
+        .problem-title {{projectInfo.question}}
 
-      .refine-wrap.text(v-if="refineType === 'Text'")
-        input(type="text" placeholder="정답을 입력해주세요")
+      .refine-wrap.text(v-if="projectInfo.refineType === 'Text'")
+        input(type="text" placeholder="정답을 입력해주세요" v-model="refineList[nowSequence-1]")
 
-      .refine-wrap.select(v-if="refineType === 'Checkbox'")
-        label.inputWrap a
-          input(type="checkbox", name="checkbox", value="a")
-          span.mark
-        label.inputWrap b
-          input(type="checkbox", name="checkbox", value="b")
-          span.mark
-        label.inputWrap c
-          input(type="checkbox", name="checkbox", value="c")
+      .refine-wrap.select(v-if="projectInfo.refineType === 'Checkbox'")
+        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
+          input(type="checkbox", name="checkbox", :value="tag" v-model="refineList[nowSequence-1]")
           span.mark
 
-      .refine-wrap.select(v-if="refineType === 'Radio'")
-        label.inputWrap 가
-          input(type="radio", name="radio", value="가")
-          span.mark
-        label.inputWrap 나
-          input(type="radio", name="radio", value="나")
-          span.mark
-        label.inputWrap 다
-          input(type="radio", name="radio", value="다")
+      .refine-wrap.select(v-if="projectInfo.refineType === 'Radio'")
+        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
+          input(type="radio", name="radio", :value="tag" v-model="refineList[nowSequence-1]")
           span.mark
 
       .btnWrap
-        .prev.btn PREV
-        .next.btn.disable NEXT
+        .prev.btn(@click="goToPrev()",  v-scroll-to="'#problemTop'") PREV
+        .next.btn(@click="goToNext()",  v-scroll-to="'#problemTop'") NEXT
+
     section.user-info
       .profile-wrap
         .profile-img
@@ -76,14 +65,62 @@ export default {
   name: 'refine',
   data () {
     return {
-      dataType: 'Audio',
-      refineType: 'Checkbox',
-      totalSequence: 20,
-      nowSequence: 1
+      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default',refineType: 'Checkbox'},
+      nowSequence: 1,
+      urlList: [],
+      blockId: null,
+      urlSrc: null,
+      refineList: []
     }
   },
-  created () {
-    console.log(this.$route.params.projectId)
+   created() {
+      console.log(this.projectInfo)
+     this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
+       console.log(res.data)
+       this.projectInfo = res.data.projectInfo
+       this.urlList = res.data.urlList
+       this.blockId = res.data.blockId
+       this.urlSrc = this.urlList[0]
+     }).catch((err) => {
+       alert(err)
+     })
+   },
+  watch: {
+    nowSequence () {
+      this.urlSrc = this.urlList[this.nowSequence -1]
+    }
+  },
+  methods: {
+    isNull () {
+      if (this.refineList[this.nowSequence - 1] === null) {
+        return true
+      }
+      return false
+    },
+    goToPrev () {
+      if (this.nowSequence > 1) {
+        this.nowSequence--
+      }
+    },
+    goToNext () {
+      if (this.nowSequence < this.projectInfo.blockSize) {
+        this.nowSequence++
+      } else if (this.nowSequence === this.projectInfo.blockSize) {
+/*        this.$http.post('/api/refine', {
+          refineList: this.refineList,
+          blockId: this.blockId
+        }).then((res) => {
+          if (res.data.success) {
+            alert('성공')
+          } else {
+            alert('실패')
+          }
+        }).catch((err) => {
+          alert(err)
+        })*/
+        console.log(this.refineList)
+      }
+    }
   }
 }
 </script>

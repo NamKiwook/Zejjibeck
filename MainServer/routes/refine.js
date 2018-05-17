@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3({region:'ap-northeast-2'});
-var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
+var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*15 };
 
 router.post('/', async function(req,res,next){
   try{
@@ -48,11 +48,11 @@ router.get('/', async function(req,res,next) {
     var lastBlockSize = parseInt(project.fileNo) - ((parseInt(project.blockNo) - 1) * blockSize);
 
     var userId = req.decoded.userId;
-    var downloadUrl = "/rawData/" + userId + "/" + project.projectName + "/";
+    var downloadUrl = "rawData/" + userId + "/" + project.projectName + "/";
     var urlList = [];
 
     for(var i = 0 ; i < parseInt(project.blockNo) ; i++){
-      var block = await blockSchema.findOne({_id: project.blocks[i]});
+      var block = await blockSchema.findOne({_id: project.refineBlocks[i]});
 
       if(block.isValidate == "Not Validate" && breakingFlag == 0){
         if(parseInt(project.minimumRefine) == block.running.length + block.finished.length ) continue;
@@ -72,7 +72,6 @@ router.get('/', async function(req,res,next) {
           var url = await s3.getSignedUrl('getObject', params);
           await urlList.push(url);
         }
-
         res.send({
           urlList : urlList,
           blockId : block._id,
@@ -87,6 +86,7 @@ router.get('/', async function(req,res,next) {
     }
   }
   catch (err){
+    console.log(err)
     res.send(err);
   }
 });

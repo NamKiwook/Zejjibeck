@@ -93,7 +93,7 @@ export default new Router({
       beforeEnter: requireAuth
     },
     {
-      path: '/list/:page?/:filter?/:category?',
+      path: '/list/:page?/:filter?/:category?/:sortedBy?',
       components: {
         default: projectList,
         nav: loginedNavbar

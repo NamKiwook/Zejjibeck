@@ -27,17 +27,18 @@
             br
             | 100원 (대상 초과시)
         a.btn(@click="selectProject(modalProject)") START
+
     section
       .menu
         .title PROJECT
-        a.type TYPE
+        a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
           .filter-arrow
             .down
           .dropdown-box
-            a all
-            a refine
-            a collect
-        a.credit CREDIT
+            a(@click="selectType('ALL')") All
+            a(@click="selectType('Refine')") Refine
+            a(@click="selectType('Collect')") Collect
+        a.credit(@click="creditClick") CREDIT
           .filter-arrow
             .up
             .down
@@ -62,19 +63,54 @@ export default {
       filter: 'recent',
       category: 'ALL',
       startNavigator: 1,
-      endNavigator: 1
+      endNavigator: 1,
+      isTypeClicked: false,
+      sortedBy: 'dec'
     }
   },
   watch: {
     $route () {
       this.loadList()
+    },
+    category () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    filter () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    currentPage () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    sortedBy () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
     }
   },
   created () {
     this.loadList()
   },
   methods: {
+    creditClick () {
+      if (this.filter === 'credit') {
+        if (this.sortedBy === 'dec') {
+          this.sortedBy = 'inc'
+        } else {
+          this.sortedBy = 'dec'
+        }
+      } else {
+        this.filter = 'credit'
+        this.sortedBy = 'dec'
+      }
+    },
+    selectType (category) {
+      this.category = category
+    },
+    typeClick () {
+      this.isTypeClicked = !this.isTypeClicked
+    },
     loadList () {
+      if (this.$route.params.sortedBy) {
+        this.sortedBy = this.$route.params.sortedBy
+      }
       if (this.$route.params.page) {
         this.currentPage = Number.parseInt(this.$route.params.page)
       }
@@ -89,7 +125,7 @@ export default {
         filter: this.filter,
         category: this.category,
         listNo: 10,
-        sortedBy: 'dec'
+        sortedBy: this.sortedBy
       }}).then((res) => {
         this.projectList = res.data.projectList
         this.totalPage = res.data.totalPage
@@ -114,7 +150,7 @@ export default {
       if (page <= 0) {
         page = 1
       }
-      this.$router.push({path: `/list/${page}/${this.filter}/${this.category}`})
+      this.currentPage = page
     },
     show (project) {
       this.modalProject = project

@@ -47,7 +47,8 @@ router.get('/list', async function(req,res,next){
     var query = {};
     var sortQuery = {};
 
-    if (category != "ALL") query.projectType = category;
+    if (category != "ALL") query.projectState = category;
+    else query.projectState = {"$in":["Refine","Collect"]};
 
     if(filter == "credit") sortQuery.credit = sortedBy;
     else sortQuery.uploadTime = sortedBy;
