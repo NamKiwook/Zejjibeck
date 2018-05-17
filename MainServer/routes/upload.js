@@ -58,6 +58,9 @@ router.post('/', async function(req,res, next){
       }
     if(req.body.projectType != "Collect") {
       var fileNo = fileNames.length;
+      if(req.body.projectType != "Refine")
+        fileNo = req.body.maxCollect;
+
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
