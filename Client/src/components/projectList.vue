@@ -42,9 +42,11 @@
             .up
             .down
       .project(@click="show(project)" v-for="project in projectList")
-        .title {{project.projectName}}
+        .title-wrap
+          .date 2018.01.01
+          .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
-        .credit {{project.credit}}원
+        .credit {{project.credit}}22323원
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;
         a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
@@ -209,6 +211,12 @@ export default {
   .menu {
     padding: 15px 20px;
   }
+  .menu > .date {
+    display: flex;
+    font-size: 14px;
+    color: #a7b3bf;
+    width: 100px;
+  }
   .menu > .title {
     text-align: center;
     border-radius: 4px;
@@ -269,14 +277,29 @@ export default {
   .project:hover {
     box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
   }
-  .project > .title {
-    display: inline-block;
+  .project > .date {
+    display: flex;
+    color: #8492a6;
+    font-size: 12px;
     line-height: 35px;
+    width: 100px;
+  }
+  .project > .title-wrap {
+    display: inline-block;
+    flex-flow: column;
+  }
+  .project > .title-wrap > .date {
+    font-size: 11px;
+    color: #8492a6;
+    margin-bottom: 5px;
+  }
+  .project > .title-wrap > .title {
+    display: inline-block;
     font-weight: bold;
   }
   .project > .credit {
     width: 100px;
-    line-height: 35px;
+    line-height: 40px;
     font-size: 14px;
     text-align: right;
     float: right;
@@ -289,8 +312,9 @@ export default {
     font-size: 12px;
     text-align: center;
     width: 80px;
+    float:right;
     border-radius: 20px;
-    float: right;
+    margin-top: 5px;
     margin-right: 20px;
   }
   .project > .type.Refine {
