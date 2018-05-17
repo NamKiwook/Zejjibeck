@@ -27,7 +27,6 @@
             br
             | 100원 (대상 초과시)
         a.btn(@click="selectProject(modalProject)") START
-
     section
       .menu
         .title PROJECT

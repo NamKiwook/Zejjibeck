@@ -1,41 +1,5 @@
 <template lang="pug">
 div.container
-  modal(name="charge-modal" width="450" height="auto" scrollable=true)
-    .modal-container
-      a.close-btn(@click="hide")
-      .box
-        .title 충전할 크레딧
-        .sep :
-        .description
-          input(type="tel" v-model="chargeCredit")
-          | 원
-      a.btn(@click="charge") 크레딧 충전
-  modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
-    .modal-container
-      a.close-btn(@click="hide")
-      .box
-        .title 은행명
-        .sep :
-        .description {{bank}}
-      .box
-        .title 계좌번호
-        .sep :
-        .description {{bankAccount}}
-      .box
-        .title 예금주
-        .sep :
-        .description {{username}}
-      .box
-        .title 총 크레딧
-        .sep :
-        .description {{usableCredit}}원
-      .box
-        .title 출금할 크레딧
-        .sep :
-        .description
-          input(type="tel" v-model="amountWithdraw")
-          | 원
-      a.btn(@click="withdraw") 크레딧 출금
   modal(name="project-modal" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
@@ -76,29 +40,29 @@ div.container
       .wrap
         .title 완료된 프로젝트
         .point 8
-      .sep
+      .divider
       .wrap
         .title 진행중인 프로젝트
         .point 2
     .credit-wrap
-      .detail
+      router-link.detail(to='/credit')
       .wrap
         .dot.blue
-        .name 총 획득 크레딧
+        .name 총 크레딧
       .point {{usableCredit+prearrangedCredit}}
       .wrap
         .title 사용 가능
         .point {{usableCredit}}
-      .sep
+      .divider
       .wrap
         .title 적립 예정
         .point {{prearrangedCredit}}
-  .sep
-  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
+  .divider
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showProject(projectInfo)")
+        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
         .title {{projectInfo.projectName}}
-        .sub.title {{projectInfo.projectType}}
         .problem-wrap
           .total
             .num {{projectInfo.blockNo}}
@@ -113,6 +77,7 @@ div.container
               .slice
                 .bar
                 .fill
+  section.project-list
 </template>
 
 <script>
@@ -167,19 +132,11 @@ export default {
     percent (percent) {
       return 'p' + Math.round(percent)
     },
-    showCharge () {
-      this.$modal.show('charge-modal')
-    },
-    showWithdraw () {
-      this.$modal.show('withdraw-modal')
-    },
     showProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('project-modal')
     },
     hide () {
-      this.$modal.hide('charge-modal')
-      this.$modal.hide('withdraw-modal')
       this.$modal.hide('project-modal')
     },
     withdraw () {
@@ -204,7 +161,7 @@ export default {
 .dot.green {
   background-image: linear-gradient(313deg,#00a1ff,#26d06b);
 }
-.sep {
+.divider {
   height: 1px;
   background-color: #eee;
   margin: 5px 0;
@@ -212,61 +169,6 @@ export default {
 .container {
   margin: 150px auto;
   overflow: hidden;
-}
-.project {
-  width: 950px;
-  margin: 0 auto;
-}
-.project-wrap {
-  height: 400px;
-  background-color: #fff;
-  margin: 20px 20px 0;
-  padding: 15px;
-  border: 1px solid rgba(211, 215, 219, 1.0);
-  border-radius: 4px;
-  cursor: pointer;
-}
-.project-wrap:hover .c100{
-  cursor: default;
-}
-.project-wrap:hover .c100 > span {
-  width: 3.33em;
-  line-height: 3.33em;
-  font-size: 0.3em;
-  color: #2979ff;
-}
-.project-wrap:hover .c100:after {
-  top: 0.04em;
-  left: 0.04em;
-  width: 0.92em;
-  height: 0.92em;
-}
-.project-wrap > .title {
-  font-size: 18px;
-  font-weight: 600;
-  display: inline-block;
-}
-.project-wrap > .sub {
-  color: #a7b3bf;
-  margin-left: 5px;
-}
-.problem-wrap {
-  display: flex;
-  padding: 20px 0;
-  margin: 10px 0 20px;
-}
-.problem-wrap > div {
-  flex: 1;
-  text-align: center;
-}
-.problem-wrap > div > .num {
-  font-weight: 800;
-  font-size: 20px;
-}
-.problem-wrap > div > .text {
-  color: #a7b3bf;
-  margin-top: 3px;
-  font-size: 14px;
 }
 .credit {
   width: 880px;
@@ -322,6 +224,9 @@ export default {
   float: right;
   cursor: pointer;
 }
+.credit > .credit-wrap > .detail:hover {
+  background-color: #fafafa;
+}
 .credit > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
@@ -351,6 +256,73 @@ export default {
 .credit > .btn-wrap > .btn {
   width: 100%;
   margin: 10px 0;
+}
+.register-project {
+  width: 950px;
+  padding-top: 15px;
+  margin: 0 auto;
+}
+.register-project .project-wrap {
+  height: 400px;
+  background-color: #fff;
+  margin: 20px 20px 0;
+  padding: 15px;
+  border: 1px solid rgba(211, 215, 219, 1.0);
+  border-radius: 4px;
+  cursor: pointer;
+}
+.register-project .project-wrap:hover .c100{
+  cursor: default;
+}
+.register-project .project-wrap:hover .c100 > span {
+  width: 3.33em;
+  line-height: 3.33em;
+  font-size: 0.3em;
+  color: #2979ff;
+}
+.register-project .project-wrap:hover .c100:after {
+  top: 0.04em;
+  left: 0.04em;
+  width: 0.92em;
+  height: 0.92em;
+}
+.register-project .project-wrap > .title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.register-project .project-wrap > .type {
+  background-color: #2979ff;
+  color: #fff;
+  line-height: 24px;
+  font-size: 12px;
+  text-align: center;
+  width: 60px;
+  border-radius: 20px;
+  float: right;
+}
+.register-project .type.Refine {
+  background-color: #5991ee;
+}
+.register-project .type.Collect {
+  background-color: #62ce8d;
+}
+.register-project .problem-wrap {
+  display: flex;
+  padding: 20px 0;
+  margin: 10px 0 20px;
+}
+.register-project .problem-wrap > div {
+  flex: 1;
+  text-align: center;
+}
+.register-project .problem-wrap > div > .num {
+  font-weight: 800;
+  font-size: 20px;
+}
+.register-project .problem-wrap > div > .text {
+  color: #a7b3bf;
+  margin-top: 3px;
+  font-size: 14px;
 }
 .modal-container {
   padding: 50px 20px;

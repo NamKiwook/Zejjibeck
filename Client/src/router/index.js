@@ -7,6 +7,7 @@ import login from '../components/login'
 import signUp from '../components/signUp'
 import loginedNavbar from '../components/loginedNavbar'
 import dashboard from '../components/dashboard'
+import credit from '../components/credit'
 import upload from '../components/upload'
 import refine from '../components/refine'
 import projectList from '../components/projectList'
@@ -64,6 +65,14 @@ export default new Router({
       path: '/dashboard',
       components: {
         default: dashboard,
+        nav: loginedNavbar
+      },
+      beforeEnter: requireAuth
+    },
+    {
+      path: '/credit',
+      components: {
+        default: credit,
         nav: loginedNavbar
       },
       beforeEnter: requireAuth

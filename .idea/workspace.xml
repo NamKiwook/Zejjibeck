@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/Client/src/components/credit.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/Client/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/App.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/App.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/projectList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/projectList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/router/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/router/index.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -25,8 +23,17 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="322" column="5" selection-start-line="322" selection-start-column="5" selection-end-line="322" selection-end-column="5" />
+            <state relative-caret-position="216">
+              <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="credit.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/credit.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="68" column="10" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="10" />
             </state>
           </provider>
         </entry>
@@ -34,8 +41,37 @@
       <file leaf-file-name="projectList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+            <state relative-caret-position="131">
+              <caret line="45" column="13" lean-forward="true" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/router/index.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="144">
+              <caret line="8" column="47" lean-forward="true" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/main.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="54">
+              <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="store.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/store.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-944">
+              <folding>
+                <element signature="e#0#21#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -61,20 +97,11 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>inputWrap</find>
-      <find>checkbox</find>
-      <find>rgba</find>
-      <find>img</find>
-      <find>btn</find>
-      <find>Collect</find>
-      <find>border-</find>
       <find>select</find>
       <find>active</find>
-      <find>sep</find>
       <find>menu</find>
       <find>10px</find>
       <find>section</find>
-      <find>type</find>
       <find>dot</find>
       <find>radioWrap</find>
       <find>profileTitle</find>
@@ -87,10 +114,19 @@
       <find>img-wrap</find>
       <find>text</find>
       <find>audio</find>
-      <find>.project</find>
       <find>.project-wrap</find>
       <find>carousel</find>
       <find>4e4e4e</find>
+      <find>credit-wrap</find>
+      <find>detail</find>
+      <find>project-list</find>
+      <find>project</find>
+      <find>.project</find>
+      <find>problem-wrap</find>
+      <find>sep</find>
+      <find>register</find>
+      <find>sub</find>
+      <find>type</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -117,7 +153,6 @@
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboardLayout.vue" />
-        <option value="$PROJECT_DIR$/Client/src/router/index.js" />
         <option value="$PROJECT_DIR$/Client/src/components/refine.html" />
         <option value="$PROJECT_DIR$/Client/src/components/collect.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboardNavbar.vue" />
@@ -126,6 +161,8 @@
         <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
         <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
+        <option value="$PROJECT_DIR$/Client/src/router/index.js" />
+        <option value="$PROJECT_DIR$/Client/src/components/credit.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
       </list>
     </option>
@@ -1810,6 +1847,13 @@
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="Client" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="router" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -1866,12 +1910,12 @@
       <workItem from="1525938599838" duration="8707000" />
       <workItem from="1526107344387" duration="6880000" />
       <workItem from="1526280194624" duration="20136000" />
-      <workItem from="1526541604299" duration="1831000" />
+      <workItem from="1526541604299" duration="5082000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117682000" />
+    <option name="totallyTimeSpent" value="120933000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-7" width="1488" height="878" extended-state="6" />
@@ -1984,21 +2028,7 @@
     <entry file="file://$PROJECT_DIR$/frontByVue/src/components/projectList.vue" />
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboardMenubar.vue" />
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboardLayout.vue" />
-    <entry file="file://$PROJECT_DIR$/Client/src/router/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="73" column="28" lean-forward="true" selection-start-line="73" selection-end-line="74" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/refine.html" />
-    <entry file="file://$PROJECT_DIR$/Client/src/main.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboardNavbar.vue" />
     <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
       <provider selected="true" editor-type-id="text-editor">
@@ -2049,13 +2079,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1548">
-          <caret line="95" column="20" selection-start-line="95" selection-start-column="20" selection-end-line="95" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="258">
@@ -2070,17 +2093,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/main.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="10" column="14" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/store.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-944">
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/router/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="47" lean-forward="true" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="3" lean-forward="true" selection-start-line="1" selection-start-column="3" selection-end-line="1" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/credit.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="68" column="10" selection-start-line="68" selection-start-column="10" selection-end-line="68" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="31" column="11" selection-start-line="31" selection-start-column="11" selection-end-line="31" selection-end-column="11" />
+        <state relative-caret-position="131">
+          <caret line="45" column="13" lean-forward="true" selection-start-line="45" selection-start-column="13" selection-end-line="45" selection-end-column="44" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="322" column="5" selection-start-line="322" selection-start-column="5" selection-end-line="322" selection-end-column="5" />
+        <state relative-caret-position="216">
+          <caret line="63" column="75" selection-start-line="63" selection-start-column="75" selection-end-line="63" selection-end-column="75" />
         </state>
       </provider>
     </entry>
