@@ -4,11 +4,10 @@ var Schema = mongoose.Schema;
 var projectSchema = new Schema({
   owner: String,
   projectName: String,
+  question: String,
   projectType: String, // 'Refine' 'Collect' 'Refine&Collect'
   dataType: String, // 'Image' 'Audio' 'Text'
   uploadTime: Number,
-
-  question: String,
 
   outputInfo: String,
 
@@ -23,6 +22,7 @@ var projectSchema = new Schema({
 
   totalCredit: Number,
 
+  stateCredit: {type:Number, default: 0},
   collectCredit: {type: Number, default: 0}, //블락당 크레딧
   refineCredit: {type: Number, default : 0}, //파일당 크레딧
 

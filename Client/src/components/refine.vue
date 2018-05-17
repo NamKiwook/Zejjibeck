@@ -40,7 +40,7 @@
 
       .btnWrap
         .prev.btn(@click="goToPrev()",  v-scroll-to="'#problemTop'") PREV
-        .next.btn(@click="goToNext()",  v-scroll-to="'#problemTop'") NEXT
+        .next.btn(:class="{disable : isNull}",@click="goToNext()",  v-scroll-to="'#problemTop'") {{nextButton}}
 
     section.user-info
       .profile-wrap
@@ -70,7 +70,8 @@ export default {
       urlList: [],
       blockId: null,
       urlSrc: null,
-      refineList: []
+      refineList: [],
+      nextButton: 'NEXT'
     }
   },
    created() {
@@ -88,14 +89,35 @@ export default {
   watch: {
     nowSequence () {
       this.urlSrc = this.urlList[this.nowSequence -1]
+      if (this.nowSequence === this.projectInfo.blockSize) {
+        this.nextButton = 'SUBMIT'
+      } else {
+        this.nextButton = 'NEXT'
+      }
+    }
+  },
+  computed: {
+    isNull () {
+      if (this.refineList[this.nowSequence - 1]) {
+        return false
+      }
+      return true
     }
   },
   methods: {
-    isNull () {
-      if (this.refineList[this.nowSequence - 1] === null) {
-        return true
-      }
-      return false
+    submit () {
+      this.$http.post('/api/refine', {
+        refineList: this.refineList,
+        blockId: this.blockId
+      }).then((res) => {
+        if (res.data.success) {
+          alert('성공')
+        } else {
+          alert('실패')
+        }
+      }).catch((err) => {
+        alert(err)
+      })
     },
     goToPrev () {
       if (this.nowSequence > 1) {
@@ -103,22 +125,12 @@ export default {
       }
     },
     goToNext () {
-      if (this.nowSequence < this.projectInfo.blockSize) {
+      if (!this.isNull &&this.nowSequence < this.projectInfo.blockSize) {
         this.nowSequence++
-      } else if (this.nowSequence === this.projectInfo.blockSize) {
-/*        this.$http.post('/api/refine', {
-          refineList: this.refineList,
-          blockId: this.blockId
-        }).then((res) => {
-          if (res.data.success) {
-            alert('성공')
-          } else {
-            alert('실패')
-          }
-        }).catch((err) => {
-          alert(err)
-        })*/
-        console.log(this.refineList)
+      } else if (!this.isNull && this.nowSequence === this.projectInfo.blockSize) {
+        submit()
+      } else if(this.isNull) {
+        alert("값을 입력하세요!")
       }
     }
   }

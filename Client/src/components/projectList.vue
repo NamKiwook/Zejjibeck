@@ -14,7 +14,7 @@
         .box
           .title 프로젝트 타입
           .sep :
-          .description {{modalProject.projectType}}
+          .description {{modalProject.projectState}}
         .box
           .title 데이터 타입
           .sep :
@@ -22,10 +22,10 @@
         .box
           .title 적립금
           .sep :
-          .description
-            | {{modalProject.credit}}원 (프로젝트 완료시)
-            br
-            | 100원 (대상 초과시)
+          .description(v-if="modalProject.projectState === 'Refine'")
+            | 문제당 {{modalProject.refineCredit}}원
+          .description(v-if="modalProject.projectState === 'Collect'")
+            | 데이터당 {{modalProject.collectCredit}}원
         a.btn(@click="selectProject(modalProject)") START
 
     section
@@ -45,7 +45,9 @@
       .project(@click="show(project)" v-for="project in projectList")
         .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
-        .credit {{project.credit}}원
+        .credit(v-if="project.projectState === 'Collect'") 데이터당 {{project.collectCredit}}원
+        .credit(v-if="project.projectState === 'Refine'") 문제당 {{project.refineCredit}}원
+
       .pagination
         a(@click="nextList(currentPage - 10)") &laquo;
         a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}

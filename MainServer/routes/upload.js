@@ -78,6 +78,7 @@ router.post('/', async function(req,res, next){
 
       project.collectBlock = BlockId._id;
       project.collectCredit = Math.floor(parseInt(project.totalCredit)/parseInt(project.maxCollect));
+      project.stateCredit = project.collectCredit;
     }
 
 
@@ -91,6 +92,7 @@ router.post('/', async function(req,res, next){
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
 
       project.refineCredit = Math.floor(parseInt(project.totalCredit) / (fileNo * parseInt(req.body.minimumRefine)));
+      project.stateCredit = project.refineCredit;
       project.blockNo = blockNo;
       project.refineBlocks = [];
 
@@ -123,6 +125,7 @@ router.post('/', async function(req,res, next){
       var BlockId = await newBlock.save();
       project.collectBlock = BlockId._id;
       project.collectCredit = Math.floor(parseInt(project.totalCredit)/(2*parseInt(project.maxCollect)));
+      project.stateCredit = project.collectCredit;
 
       // refine
       var maxCollect = parseInt(req.body.maxCollect);

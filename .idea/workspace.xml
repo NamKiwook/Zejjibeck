@@ -2,7 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/projectList.vue" afterPath="$PROJECT_DIR$/Client/src/components/projectList.vue" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/refine.vue" afterPath="$PROJECT_DIR$/Client/src/components/refine.vue" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/upload.vue" afterPath="$PROJECT_DIR$/Client/src/components/upload.vue" />
+      <change beforePath="$PROJECT_DIR$/MainServer/model/project.js" afterPath="$PROJECT_DIR$/MainServer/model/project.js" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.dd0c9dbc0c75c86b6116ecdad7a2a9c7.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.dd0c9dbc0c75c86b6116ecdad7a2a9c7.css.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.b3244cfc4165d06d888e.js" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.b3244cfc4165d06d888e.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" />
+      <change beforePath="$PROJECT_DIR$/MainServer/routes/project.js" afterPath="$PROJECT_DIR$/MainServer/routes/project.js" />
+      <change beforePath="$PROJECT_DIR$/MainServer/routes/upload.js" afterPath="$PROJECT_DIR$/MainServer/routes/upload.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -12,166 +26,48 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.68690956">
-      <split-first>
-        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding>
-                    <marker date="1526540345636" expanded="true" signature="98:936" ph="{&quot;owner&quot;: String...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="upload.vue" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="180">
-                  <caret line="171" column="40" lean-forward="false" selection-start-line="171" selection-start-column="40" selection-end-line="171" selection-end-column="40" />
-                  <folding>
-                    <marker date="1526541488915" expanded="true" signature="5823:5878" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="refine.vue" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-54">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding>
-                    <marker date="1526539794609" expanded="true" signature="2437:2453" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2653:2679" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2696:2782" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2795:3563" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="7927:7933" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="blockInfo.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="144">
-                  <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="29" />
-                  <folding>
-                    <marker date="1526373020460" expanded="true" signature="100:466" ph="{&quot;property&quot;: String...}" />
-                    <marker date="1526373020460" expanded="true" signature="561:716" ph="/*...*/" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="upload.js" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="810">
-                  <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-                  <folding>
-                    <marker date="1526539794677" expanded="true" signature="490:510" ph="/*...*/" />
-                    <marker date="1526539794677" expanded="true" signature="557:4793" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="645:4692" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="687:729" ph="{&quot;userId&quot;: req.decoded.userId...}" />
-                    <marker date="1526539794677" expanded="true" signature="769:1328" ph="{&quot;owner&quot;: user.userId...}" />
-                    <marker date="1526539794677" expanded="true" signature="1565:1668" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="1712:2296" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="1978:2101" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="2011:2091" ph="{&quot;owner&quot;: &quot;&quot;...}" />
-                    <marker date="1526539794677" expanded="true" signature="2345:3122" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="2825:3116" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="3132:4455" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="3413:3536" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="3446:3526" ph="{&quot;owner&quot;: &quot;&quot;...}" />
-                    <marker date="1526539794677" expanded="true" signature="4158:4449" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="4527:4614" ph="{&quot;projectName&quot;: req.body.projectName...}" />
-                    <marker date="1526539794677" expanded="true" signature="4703:4791" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="4839:5391" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="5048:5223" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="5096:5153" ph="{&quot;projectName&quot;: projectName...}" />
-                    <marker date="1526539794677" expanded="true" signature="5426:5510" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="5459:5491" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="5543:5719" ph="{...}" />
-                    <marker date="1526539794677" expanded="true" signature="5617:5697" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="refine.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="621">
-                  <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-                  <folding>
-                    <marker date="1526539794609" expanded="true" signature="474:1170" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="481:1053" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="676:1018" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="717:1012" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="1066:1168" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="1219:2852" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="1227:2791" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="1275:1313" ph="{&quot;_id&quot;: req.query.projectId...}" />
-                    <marker date="1526539794609" expanded="true" signature="1684:2707" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="1829:2660" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2320:2529" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2547:2650" ph="{&quot;urlList&quot;: urlList...}" />
-                    <marker date="1526539794609" expanded="true" signature="2734:2787" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2805:2850" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2896:3031" ph="{...}" />
-                    <marker date="1526539794609" expanded="true" signature="2970:3008" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-first>
-      <split-second>
-        <leaf>
-          <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="344">
-                  <caret line="95" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-                  <folding>
-                    <marker date="1526527238589" expanded="true" signature="479:499" ph="/*...*/" />
-                    <marker date="1526527238589" expanded="true" signature="541:589" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="635:768" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="814:887" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="945:1162" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1060:1134" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1202:2181" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1324:2179" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1370:1999" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1464:1993" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1598:1985" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1724:1858" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1797:1846" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="1911:1975" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2009:2175" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2017:2169" ph="/*...*/" />
-                    <marker date="1526527238589" expanded="true" signature="2220:2279" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2315:2359" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2423:2745" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2655:2697" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2713:2742" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="2819:3019" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="3048:3175" ph="{...}" />
-                    <marker date="1526527238589" expanded="true" signature="3115:3153" ph="{...}" />
-                  </folding>
-                </state>
-              </provider>
-            </entry>
-          </file>
-        </leaf>
-      </split-second>
-    </splitter>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="upload.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="124" column="42" lean-forward="true" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="324">
+              <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="13" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="refine.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1710">
+              <caret line="95" column="7" lean-forward="false" selection-start-line="95" selection-start-column="7" selection-end-line="95" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -255,21 +151,21 @@
         <option value="$PROJECT_DIR$/MainServer/public/index.html" />
         <option value="$PROJECT_DIR$/MainServer/routes/credit.js" />
         <option value="$PROJECT_DIR$/MainServer/app.js" />
-        <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
         <option value="$PROJECT_DIR$/Client/src/components/collect.vue" />
-        <option value="$PROJECT_DIR$/MainServer/routes/project.js" />
         <option value="$PROJECT_DIR$/Client/src/router/index.js" />
         <option value="$PROJECT_DIR$/Client/src/components/loginedNavbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/collect.js" />
         <option value="$PROJECT_DIR$/VerificationServer/routes/index.js" />
-        <option value="$PROJECT_DIR$/MainServer/routes/upload.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
-        <option value="$PROJECT_DIR$/MainServer/model/project.js" />
         <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
+        <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
+        <option value="$PROJECT_DIR$/MainServer/model/project.js" />
+        <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
+        <option value="$PROJECT_DIR$/MainServer/routes/upload.js" />
+        <option value="$PROJECT_DIR$/MainServer/routes/project.js" />
       </list>
     </option>
   </component>
@@ -382,18 +278,7 @@
               <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
               <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
               <item name="MainServer" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -538,12 +423,12 @@
       <workItem from="1526428976201" duration="11912000" />
       <workItem from="1526521086471" duration="5972000" />
       <workItem from="1526535218360" duration="2421000" />
-      <workItem from="1526539995237" duration="3174000" />
+      <workItem from="1526539995237" duration="6816000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="224369000" />
+    <option name="totallyTimeSpent" value="228011000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="230" y="-4" width="1857" height="1092" extended-state="6" />
@@ -556,7 +441,7 @@
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25856698" sideWeight="0.59892184" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30633438" sideWeight="0.59892184" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -786,13 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-33">
-          <caret line="40" column="7" lean-forward="true" selection-start-line="40" selection-start-column="7" selection-end-line="47" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/solveList.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="486">
@@ -814,39 +692,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="810">
-          <caret line="45" column="19" lean-forward="false" selection-start-line="45" selection-start-column="19" selection-end-line="45" selection-end-column="19" />
-          <folding>
-            <marker date="1526539794677" expanded="true" signature="490:510" ph="/*...*/" />
-            <marker date="1526539794677" expanded="true" signature="557:4793" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="645:4692" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="687:729" ph="{&quot;userId&quot;: req.decoded.userId...}" />
-            <marker date="1526539794677" expanded="true" signature="769:1328" ph="{&quot;owner&quot;: user.userId...}" />
-            <marker date="1526539794677" expanded="true" signature="1565:1668" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="1712:2296" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="1978:2101" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="2011:2091" ph="{&quot;owner&quot;: &quot;&quot;...}" />
-            <marker date="1526539794677" expanded="true" signature="2345:3122" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="2825:3116" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="3132:4455" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="3413:3536" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="3446:3526" ph="{&quot;owner&quot;: &quot;&quot;...}" />
-            <marker date="1526539794677" expanded="true" signature="4158:4449" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="4527:4614" ph="{&quot;projectName&quot;: req.body.projectName...}" />
-            <marker date="1526539794677" expanded="true" signature="4703:4791" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="4839:5391" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="5048:5223" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="5096:5153" ph="{&quot;projectName&quot;: projectName...}" />
-            <marker date="1526539794677" expanded="true" signature="5426:5510" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="5459:5491" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="5543:5719" ph="{...}" />
-            <marker date="1526539794677" expanded="true" signature="5617:5697" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="144">
@@ -854,20 +699,6 @@
           <folding>
             <marker date="1526373020460" expanded="true" signature="100:466" ph="{&quot;property&quot;: String...}" />
             <marker date="1526373020460" expanded="true" signature="561:716" ph="/*...*/" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-54">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1526539794609" expanded="true" signature="2437:2453" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2653:2679" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2696:2782" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2795:3563" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="7927:7933" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -888,81 +719,61 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1526540345636" expanded="true" signature="98:936" ph="{&quot;owner&quot;: String...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="344">
-          <caret line="95" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
-          <folding>
-            <marker date="1526527238589" expanded="true" signature="479:499" ph="/*...*/" />
-            <marker date="1526527238589" expanded="true" signature="541:589" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="635:768" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="814:887" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="945:1162" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1060:1134" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1202:2181" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1324:2179" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1370:1999" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1464:1993" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1598:1985" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1724:1858" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1797:1846" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="1911:1975" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2009:2175" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2017:2169" ph="/*...*/" />
-            <marker date="1526527238589" expanded="true" signature="2220:2279" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2315:2359" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2423:2745" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2655:2697" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2713:2742" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="2819:3019" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="3048:3175" ph="{...}" />
-            <marker date="1526527238589" expanded="true" signature="3115:3153" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="171" column="40" lean-forward="false" selection-start-line="171" selection-start-column="40" selection-end-line="171" selection-end-column="40" />
           <folding>
-            <marker date="1526541488915" expanded="true" signature="5823:5878" ph="{...}" />
+            <marker date="1526544160966" expanded="true" signature="5823:5878" ph="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="621">
-          <caret line="38" column="0" lean-forward="true" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <marker date="1526539794609" expanded="true" signature="474:1170" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="481:1053" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="676:1018" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="717:1012" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="1066:1168" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="1219:2852" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="1227:2791" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="1275:1313" ph="{&quot;_id&quot;: req.query.projectId...}" />
-            <marker date="1526539794609" expanded="true" signature="1684:2707" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="1829:2660" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2320:2529" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2547:2650" ph="{&quot;urlList&quot;: urlList...}" />
-            <marker date="1526539794609" expanded="true" signature="2734:2787" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2805:2850" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2896:3031" ph="{...}" />
-            <marker date="1526539794609" expanded="true" signature="2970:3008" ph="{...}" />
-          </folding>
+        <state relative-caret-position="581">
+          <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1478">
+          <caret line="95" column="0" lean-forward="false" selection-start-line="93" selection-start-column="0" selection-end-line="95" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1710">
+          <caret line="95" column="7" lean-forward="false" selection-start-line="95" selection-start-column="7" selection-end-line="95" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="24" column="13" lean-forward="false" selection-start-line="24" selection-start-column="2" selection-end-line="24" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="15" column="41" lean-forward="false" selection-start-line="15" selection-start-column="41" selection-end-line="15" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="124" column="42" lean-forward="true" selection-start-line="124" selection-start-column="42" selection-end-line="124" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>
