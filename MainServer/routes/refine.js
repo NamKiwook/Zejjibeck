@@ -51,25 +51,28 @@ router.get('/', async function(req,res,next) {
     var downloadUrl = "rawData/" + userId + "/" + project.projectName + "/";
     var urlList = [];
 
-    console.log("1");
 
     for(var i = 0 ; i < parseInt(project.blockNo) ; i++){
       var block = await blockSchema.findOne({_id: project.refineBlocks[i]});
 
-      console.log("2");
-      if(block.isValidate == "Not Validate" && breakingFlag == 0){
 
-        console.log("3");
-        if(parseInt(project.minimumRefine) == block.running.length + block.finished.length) continue;
+      if(block.isValidate == "Not Validate" && breakingFlag == 0) {
 
-        console.log("4");
+
+        if (parseInt(project.minimumRefine) == block.running.length + block.finished.length) continue;
+
+
         breakingFlag = 1;
 
-        console.log("5");
+
         var time = new Date().getTime();
-        block.running.push({userId : userId, assignTime : time});
+        block.running.push({userId: userId, assignTime: time});
+        if (block.running.length + block.finished.length == project.minimumRefine) {
+          project.projectState = "rValidate";
+          await project.save();
+        }
         await block.save();
-        console.log("6");
+
 
         var startFileNo = i * project.blockSize;
         var blockListSize = project.blockSize;

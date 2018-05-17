@@ -34,14 +34,16 @@ router.put('/check', async function(req,res,err){
         available++;
       }
     }
-
     if(available < fileNo){
       res.send({success:false, errorMessage:"No available files", available : available});
       return;
     }
     else{
       var userId = req.decoded.userId;
-
+      if(available == fileNo){
+        project.projectState = "cValidate";
+        await project.save();
+      }
       for(var i = 0 ; i < parseInt(collectBlock.maxCollect) ; i++){
         if(finished[i].owner == ""){
           finished[i].owner = userId;
@@ -109,6 +111,7 @@ router.put('/urlAck', async function(req,res,err) {
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
     collectBlock.finished[index].upload = true;
+
     await collectBlock.save();
     res.send({success: true});
   } catch (err){

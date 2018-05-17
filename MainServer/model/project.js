@@ -31,7 +31,7 @@ var projectSchema = new Schema({
   refineBlocks: Array,
   collectBlock: String,
 
-  projectState : {type: String, default: "Collect"}, // Collect, CollectValidation, Refine, finished
+  projectState : {type: String, default: "Collect"}, // Collect, Refine, cValidate, rValidate finished
   completedBlock: {type: Number, default: 0},
   maxCollect : Number,
 });
