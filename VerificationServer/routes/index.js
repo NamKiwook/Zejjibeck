@@ -30,42 +30,17 @@ router.get('/off', function(req, res, next){
   console.log("verification off");
 })
 
-router.get('/url', async function(req, res, next){
-  var url = await getDownloadUrl('a', 'logo', 1, '.png');
+router.get('/downloads', async function(req, res, next){
+  // test download function
+  var files = JSON.parse(req.query.files);
 
-  console.log(url);
+  for(var i = 0 ; i < files.length ; i++){
+    var download = await downloads('a', 'ckmoni', files[i], '.png');
+  }
 
-  var _d = new downloadAPI(url);
-
-  _d.setPath("./temporary").start('000002.png').then(function(result){
-
-    console.log('result: ', result);
-
-  },function(error){
-
-    console.log(error);
-  })
-
-  await downloads(url, './temporary/');
   await res.send("EEE");
 })
 
-async function getDownloadUrl(userName, projectName, fileNo, extension) {
-
-  var strFileNo = fileNo.toString();
-
-  while(strFileNo.length < 6){
-    strFileNo = "0" + strFileNo;
-  }
-
-  params.Key = "rawData/" + userName + "/" + projectName + "/" + strFileNo + extension;
-
-  var url = await s3.getSignedUrl('getObject', params);
-
-  console.log("url: "+url);
-
-  return url;
-}
 
 async function runningVerification(){
   var projects = await projectSchema.find({projectType : { $not : "finished"}});
@@ -102,20 +77,30 @@ async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
 }
 
-async function downloads(url, downloadPath){
-  /*
-  for(var i = 0 ; i < url.length ; i++){
-    var _d = new downloadAPI(url[i]);
+async function downloads(user, projectName, fileNo, extension){
+  var url = await getDownloadUrl('a', 'logo', 1, '.png');
+  var download = await new downloadAPI(url);
+  var fileName = strFileName(fileNo) + extension;
+  await download.setPath("./temporary").start(fileName).then(function(result){
+    console.log('result: ', result);
+  },function(error){
+    console.log(error);
+  })
+}
 
-    _d.setPath("./temporary").start('000002.png').then(function(result){
+async function getDownloadUrl(userName, projectName, fileNo, extension) {
+  var strFileNo = strFileName(fileNo);
+  params.Key = "rawData/" + userName + "/" + projectName + "/" + strFileNo + extension;
+  var url = await s3.getSignedUrl('getObject', params);
+  return url;
+}
 
-      console.log('result: ', result);
-
-    },function(error){
-
-      console.log(error);
-    })
-  }*/
+function strFileName(iName){
+  var strFileNo = iName.toString();
+  while(strFileNo.length < 6){
+    strFileNo = "0" + strFileNo;
+  }
+  return strFileNo;
 }
 
 module.exports = router;
