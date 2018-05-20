@@ -27,7 +27,7 @@ div.container
           br
           | 100원 (대상 초과시)
       .btn 다운로드
-  section.credit
+  section.credit-section
     .profile-wrap
       .profile-img
       .profile-title 박성준
@@ -77,7 +77,31 @@ div.container
               .slice
                 .bar
                 .fill
+  .divider
   section.project-list
+    .section-title 참여 가능 프로젝트
+    .menu
+      .title PROJECT
+      .type TYPE
+      .credit CREDIT
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Refine Refine
+      .credit 22323원
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Collect Collect
+      .credit 22323원
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Refine Refine
+      .credit 22323원
 </template>
 
 <script>
@@ -170,19 +194,25 @@ export default {
   margin: 150px auto;
   overflow: hidden;
 }
-.credit {
+.container > section {
   width: 880px;
-  display: flex;
-  padding: 30px 15px 20px;
   margin: 20px auto;
 }
-.credit > .profile-wrap {
+.section-title {
+  font-weight: bold;
+  padding: 10px 0 20px;
+}
+.credit-section {
+  display: flex;
+  padding: 30px 15px 20px;
+}
+.credit-section > .profile-wrap {
   display: flex;
   flex-flow: column;
   justify-content: center;
   flex: 1;
 }
-.credit > .profile-wrap > .profile-img {
+.credit-section > .profile-wrap > .profile-img {
   display: inline-block;
   background-image: url("../assets/default-user.png");
   background-repeat: no-repeat;
@@ -194,20 +224,20 @@ export default {
   height: 70px;
   margin-top: 10px;
 }
-.credit > .profile-wrap > .profile-title {
+.credit-section > .profile-wrap > .profile-title {
   margin-top: 15px;
   font-weight: bold;
 }
-.credit > .profile-wrap > .rating {
+.credit-section > .profile-wrap > .rating {
   margin-top: 8px;
   font-size: 14px;
 }
-.credit > .credit-wrap {
+.credit-section > .credit-wrap {
   flex: 1;
   margin: 0 50px;
   position: relative;
 }
-.credit > .credit-wrap > .detail {
+.credit-section > .credit-wrap > .detail {
   background-color: #fff;
   background-image: url("../assets/magnifier.png");
   background-size: 20px;
@@ -224,36 +254,36 @@ export default {
   float: right;
   cursor: pointer;
 }
-.credit > .credit-wrap > .detail:hover {
+.credit-section > .credit-wrap > .detail:hover {
   background-color: #fafafa;
 }
-.credit > .credit-wrap > .wrap {
+.credit-section > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
 }
-.credit > .credit-wrap > .wrap > .name {
+.credit-section > .credit-wrap > .wrap > .name {
   font-size: 18px;
   font-weight: bold;
 }
-.credit > .credit-wrap > .point {
+.credit-section > .credit-wrap > .point {
   font-size: 40px;
   font-weight: bold;
   padding: 20px 0;
 }
-.credit > .credit-wrap > .wrap > .title {
+.credit-section > .credit-wrap > .wrap > .title {
   font-size: 14px;
 }
-.credit> .credit-wrap > .wrap > .point {
+.credit-section> .credit-wrap > .wrap > .point {
   margin-left: auto;
 }
-.credit > .btn-wrap {
+.credit-section > .btn-wrap {
   display: flex;
   flex-flow: column;
   width: 150px;
   align-items: center;
   justify-content: center;
 }
-.credit > .btn-wrap > .btn {
+.credit-section > .btn-wrap > .btn {
   width: 100%;
   margin: 10px 0;
 }
@@ -326,6 +356,85 @@ export default {
   color: #a7b3bf;
   margin-top: 3px;
   font-size: 14px;
+}
+.project-list > .menu{
+  padding: 15px 20px;
+}
+
+.project-list > .menu > .title {
+  text-align: center;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .menu > .credit {
+  display: flex;
+  align-items: center;
+  float: right;
+  width: 65px;
+  margin-right: 50px;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .menu > .type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  width: 80px;
+  position: relative;
+  margin-right: 20px;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .project{
+  background-color: #fff;
+  padding: 18px 20px;
+  border-radius: 2px;
+  margin: 3px 0;
+  transition: all 0.3s;
+}
+.project-list > .project:hover {
+  box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
+}
+.project-list > .project > .title-wrap {
+  display:inline-block;
+}
+.project-list > .project > .title-wrap > .date {
+  font-size: 11px;
+  color: #8492a6;
+  margin-bottom: 5px;
+}
+.project-list > .project > .title-wrap > .title {
+  display: inline-block;
+  font-weight: bold;
+}
+.project-list > .project > .credit {
+  width: 100px;
+  line-height: 40px;
+  font-size: 14px;
+  text-align: right;
+  float: right;
+  margin-right: 50px;
+}
+.project-list > .project > .type {
+  background-color: #2979ff;
+  color: #fff;
+  line-height: 35px;
+  text-align: center;
+  font-size: 12px;
+  width: 80px;
+  float: right;
+  border-radius: 20px;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+.project-list > .project > .type.Refine {
+  background-color: #5991ee;
+}
+.project-list > .project > .type.Collect {
+  background-color: #62ce8d;
 }
 .modal-container {
   padding: 50px 20px;

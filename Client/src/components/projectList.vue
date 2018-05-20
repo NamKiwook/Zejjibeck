@@ -30,6 +30,8 @@
     section
       .menu
         .title PROJECT
+          .filter-arrow
+            .down
         a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
           .filter-arrow
             .down
@@ -209,18 +211,14 @@ export default {
     margin: 20px auto;
   }
   .menu {
-    padding: 15px 20px;
-  }
-  .menu > .date {
-    display: flex;
-    font-size: 14px;
-    color: #a7b3bf;
-    width: 100px;
+    padding: 20px;
+    height: 50px;
   }
   .menu > .title {
     text-align: center;
     border-radius: 4px;
-    display: inline-block;
+    display: flex;
+    float: left;
     font-size: 14px;
     color: #a7b3bf;
   }
@@ -286,7 +284,6 @@ export default {
   }
   .project > .title-wrap {
     display: inline-block;
-    flex-flow: column;
   }
   .project > .title-wrap > .date {
     font-size: 11px;
