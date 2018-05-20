@@ -7,17 +7,19 @@
       .project-wrap
         .project-title {{projectInfo.projectName}}
 
-      .problem-wrap(v-if="projectInfo.dataType === 'Image'")
+      .problem-wrap(v-if="projectInfo.dataType === 'Image' && projectInfo.refineType !== 'Drag'")
         .content
           img(:src="urlSrc")
         .problem-title {{projectInfo.question}}
 
+      .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
+        .content
+          canvas(ref="myCanvas", width="1000" height="1000", @mousedown="mousedown", @mouseup="mouseup")
+        .problem-title {{projectInfo.question}}
+
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
         .content
-          .text
-            | 안녕하세요 제 이름은 박성준입니다.
-            br
-            | 만나서 반갑습니다.
+          .text {{textData}}
         .problem-title {{projectInfo.question}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Audio'")
@@ -30,9 +32,8 @@
 
       .refine-wrap.select(v-if="projectInfo.refineType === 'Checkbox'")
         label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
-          input(type="checkbox", name="checkbox", :value="tag" v-model="refineList[nowSequence-1]")
+          input(type="checkbox", :value="tag", v-model="refineList[nowSequence-1]")
           span.mark
-
       .refine-wrap.select(v-if="projectInfo.refineType === 'Radio'")
         label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
           input(type="radio", name="radio", :value="tag" v-model="refineList[nowSequence-1]")
@@ -45,7 +46,7 @@
     section.user-info
       .profile-wrap
         .profile-img
-        .profile-title 박성준
+        .profile-title {{this.$store.getters.username}}
       .rating-wrap
         .title 나의 등급
         .rating 다이아
@@ -65,23 +66,48 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Checkbox'},
+      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
       urlSrc: null,
       refineList: [],
-      nextButton: 'NEXT'
+      nextButton: 'NEXT',
+      textData: 'defualt',
+      canvas: null,
+      ctx: null,
+      imageObj: new Image(),
+      preX: null,
+      preY: null,
+      curX: null,
+      curY: null
     }
   },
-  created () {
-    console.log(this.projectInfo)
+  mounted () {
     this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
-      console.log(res.data)
       this.projectInfo = res.data.projectInfo
       this.urlList = res.data.urlList
       this.blockId = res.data.blockId
       this.urlSrc = this.urlList[0]
+      if (this.projectInfo.refineType === 'Checkbox') {
+        for (var i = 0; i < this.projectInfo.blockSize; i++) {
+          this.refineList[i] = []
+        }
+      }
+      if (this.projectInfo.refineType === 'Text') {
+        this.loadTextData()
+      }
+      if (this.projectInfo.refineType === 'Drag') {
+        this.canvas = this.$refs.myCanvas
+        this.ctx = this.canvas.getContext('2d')
+        this.ctx.lineWidth = 5
+        this.ctx.strokeStyle = '#FF0000'
+        this.imageObj.onload = this.imageUpdate
+        this.imageObj.src = this.urlSrc
+        for (var j = 0; j < this.projectInfo.blockSize; j++) {
+          this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
+        }
+      }
     }).catch((err) => {
       alert(err)
     })
@@ -89,6 +115,12 @@ export default {
   watch: {
     nowSequence () {
       this.urlSrc = this.urlList[this.nowSequence - 1]
+      if (this.projectInfo.refineType === 'Drag') {
+        this.imageObj.src = this.urlSrc
+      }
+      if (this.projectInfo.dataType === 'Text') {
+        this.loadTextData()
+      }
       if (this.nowSequence === this.projectInfo.blockSize) {
         this.nextButton = 'SUBMIT'
       } else {
@@ -98,20 +130,60 @@ export default {
   },
   computed: {
     isNull () {
+      console.log(this.refineList)
+      console.log(this.curY)
       if (this.refineList[this.nowSequence - 1]) {
-        return false
+        if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
+          return false
+        } else if (this.refineList[this.nowSequence - 1].curY !== null && this.projectInfo.refineType !== 'Checkbox') {
+          return false
+        }
       }
       return true
     }
   },
   methods: {
+    getMousePos (canvas, evt) {
+      var rect = canvas.getBoundingClientRect()
+      return {
+        x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+        y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+      }
+    },
+    mousedown (event) {
+      var mousePos = this.getMousePos(this.canvas, event)
+      this.preX = mousePos.x
+      this.preY = mousePos.y
+    },
+    mouseup (event) {
+      var mousePos = this.getMousePos(this.canvas, event)
+      this.curX = mousePos.x
+      this.curY = mousePos.y
+      this.imageUpdate()
+      this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+      this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
+      this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
+      this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
+      this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+    },
+    imageUpdate () {
+      this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
+      if (this.refineList[this.nowSequence - 1].curY !== null) {
+        this.ctx.strokeRect(this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].prevY * this.canvas.height, this.refineList[this.nowSequence - 1].curX * this.canvas.width - this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].curY * this.canvas.height - this.refineList[this.nowSequence - 1].prevY * this.canvas.height)
+      }
+    },
+    loadTextData () {
+      this.$http.get(this.urlList[this.nowSequence - 1]).then((res) => {
+        this.textData = res.data
+      })
+    },
     submit () {
       this.$http.post('/api/refine', {
         refineList: this.refineList,
         blockId: this.blockId
       }).then((res) => {
         if (res.data.success) {
-          alert('성공')
+          this.$router.push('/dashboard')
         } else {
           alert('실패')
         }
@@ -206,6 +278,9 @@ export default {
   }
   .content > img {
     width: 100%;
+  }
+  canvas {
+    max-width: 100%;
   }
   .content > .text {
     font-size: 24px;
