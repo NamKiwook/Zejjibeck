@@ -55,24 +55,23 @@ router.get('/', async function(req,res,next) {
     for(var i = 0 ; i < parseInt(project.blockNo) ; i++){
       var block = await blockSchema.findOne({_id: project.refineBlocks[i]});
 
-
       if(block.isValidate == "Not Validate" && breakingFlag == 0) {
-
 
         if (parseInt(project.minimumRefine) == block.running.length + block.finished.length) continue;
 
-
         breakingFlag = 1;
 
-
         var time = new Date().getTime();
-        block.running.push({userId: userId, assignTime: time});
+        await block.running.push({userId: userId, assignTime: time});
         if (block.running.length + block.finished.length == project.minimumRefine) {
-          project.projectState = "rValidate";
-          await project.save();
+          var currentId = block._id;
+          var lastId = project.refineBlocks[project.refineBlocks.length - 1];
+          if(currentId.toString() == lastId.toString()) {
+            project.projectState = "rValidate";
+            await project.save();
+          }
         }
         await block.save();
-
 
         var startFileNo = i * project.blockSize;
         var blockListSize = project.blockSize;

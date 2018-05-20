@@ -9,7 +9,7 @@ router.get('/', async function(req, res, next) {
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;
   var projectList = [];
-  for(var i = tempList.length-1; i>=0; i--){x
+  for(var i = tempList.length-1; i>=0; i--){
     var project = await projectSchema.findOne({_id : tempList[i].project_dbid});
 
     if(project.projectState == "Refine"){
