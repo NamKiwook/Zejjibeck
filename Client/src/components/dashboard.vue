@@ -372,7 +372,7 @@ export default {
   align-items: center;
   float: right;
   width: 65px;
-  margin-right: 50px;
+  margin-right: 40px;
   font-size: 14px;
   color: #a7b3bf;
 }

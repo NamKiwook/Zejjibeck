@@ -64,7 +64,6 @@ export default {
     margin:auto;
     height: 100px;
     align-items: center;
-    overflow: hidden;
   }
   nav > .container > .logo {
     background-image: url("../assets/logo-black.png");
@@ -83,6 +82,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
   }
   nav > .container > .profile-wrap > .profile-img {
   }
@@ -93,8 +93,8 @@ export default {
   .profile-dropdown {
     display: flex;
     flex-flow: column;
-    position: fixed;
-    top: 60px; right: 0;
+    position: absolute;
+    top: 35px; right: 0;
     visibility: hidden;
     z-index: 999;
     background-color: #262931;
@@ -174,6 +174,12 @@ export default {
       padding: 0 10px;
     }
     nav > .section {
+    }
+  }
+  @media only screen and (max-width: 550px) {
+    nav > .container > .logo {
+      width: 100px;
+      background-size: 100px;
     }
   }
 </style>
