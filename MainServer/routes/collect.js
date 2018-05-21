@@ -9,6 +9,7 @@ var blockSchema = require('../model/blockInfo');
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
+var digits = 6;
 
 router.get('/', async function(req,res,err){
   var projectId = req.query.projectId;
@@ -21,12 +22,12 @@ router.get('/', async function(req,res,err){
 });
 
 router.put('/check', async function(req,res,err){
-  var projectId = req.query.projectId;
-  var fileNo = parseInt(req.query.fileNo);
+  var projectId = req.body.projectId;
+  var fileNo = parseInt(req.body.fileNo);
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-    var finished = collectBlock.finished;
+    var finished = JSON.parse(JSON.stringify(collectBlock.finished));
     var available = 0;
 
     for(var i = 0 ; i < parseInt(collectBlock.maxCollect); i++){
@@ -56,7 +57,6 @@ router.put('/check', async function(req,res,err){
     }
 
     collectBlock.finished = finished;
-
     await collectBlock.save();
 
     res.send({success:true});
@@ -74,11 +74,11 @@ router.get('/url', async function(req,res,err){
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-    var finished = collectBlock.finished;
+    var finished = JSON.parse(JSON.stringify(collectBlock.finished));
 
     for(var i = 0 ; i < finished.length;i++){
       if(finished[i].owner == userId && finished[i].upload == false){
-        finished[i].expire = new Date().getTime() + 300*1000;
+        finished[i].assignTime = new Date().getTime();
 
         var fileNo = setLeadingZero(i);
 
@@ -99,21 +99,32 @@ router.get('/url', async function(req,res,err){
     res.send({success: false, errorMessage: "no available block"});
 
   } catch (err){
+    console.log(err);
     res.send({success: false, errorMessage:"database error"});
   }
 });
 
 router.put('/urlAck', async function(req,res,err) {
-  var projectId = req.query.projectId;
-  var index = req.query.index;
+  var projectId = req.body.projectId;
+  var index = parseInt(req.body.index);
+  var userId = req.decoded.userId;
+
+  console.log(index);
 
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-    collectBlock.finished[index].upload = true;
+    console.log(collectBlock);
+    var finished = JSON.parse(JSON.stringify(collectBlock.finished));
 
-    await collectBlock.save();
-    res.send({success: true});
+    if(userId == finished[index].owner) {
+      finished[index].upload = true;
+      finished[index].finishedTime = new Date().getTime();
+      collectBlock.finished = finished;
+      await collectBlock.save();
+      res.send({success: true});
+    }
+    res.send({success: false, errorMessage: "time expired"});
   } catch (err){
     res.send({success: false, errorMessage:"database error"});
   }
