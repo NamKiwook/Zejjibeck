@@ -3,52 +3,52 @@
     .loading-bar
       .gaze
     section.textWrap
-      .title Project Name
+      .title 프로젝트 이름
       input.text#projectName(type='text', v-model="projectName")
     section.textWrap
-      .title Project Description
+      .title 프로젝트 설명
       textarea.text#description(v-model="description")
     section.textWrap
-      .title Project Question
+      .title 프로젝트 질문
       textarea.text#question(v-model="question")
 
     section.textWrap
-      .title Credit
+      .title 프로젝트 비용
       input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
     section.typeWrap
-      p.title Project Type
-      label.radioWrap Only Data
+      p.title 프로젝트 타입
+      label.radioWrap 데이터 수집
         input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
         span.radiomark
-      label.radioWrap Only Refine
+      label.radioWrap 데이터 정제
         input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
         span.radiomark
-      label.radioWrap Data/Refine
+      label.radioWrap 수집 및 정제
         input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
         span.radiomark
     section.typeWrap
-      p.title Data Type
-      label.radioWrap Image
+      p.title 데이터 타입
+      label.radioWrap 이미지
         input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
         span.radiomark
-      label.radioWrap Audio
+      label.radioWrap 오디오
         input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
         span.radiomark
-      label.radioWrap Text
+      label.radioWrap 텍스트
         input.type(type="radio", name="dataType", value="Text", v-model="dataType")
         span.radiomark
     section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      p.title Refine Type
-      label.radioWrap Radio
+      p.title 정제 타입
+      label.radioWrap 단수 선택
         input.tagType#radioTag(type="radio", name="refineType", value="Radio", v-model="refineType")
         span.radiomark
-      label.radioWrap Check box
+      label.radioWrap 복수 선택
         input.tagType#checkboxTag(type="radio", name="refineType", value="Checkbox", v-model="refineType")
         span.radiomark
-      label.radioWrap Text
+      label.radioWrap 텍스트
         input.tagType(type="radio", name="refineType", value="Text", v-model="refineType")
         span.radiomark
-      label.radioWrap#dragType(v-if="dataType === 'Image' && (projectType === 'Refine' || projectType === 'Refine&Collect')") Drag
+      label.radioWrap#dragType(v-if="dataType === 'Image' && (projectType === 'Refine' || projectType === 'Refine&Collect')") 영역선택
         input.tagType(type="radio", name="refineType", value="Drag", v-model="refineType")
         span.radiomark
     section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
@@ -58,7 +58,7 @@
       .title Block Size (Basic = 10)
       input.text#blockSize(type='text', v-model="blockSize", placeholder="10")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title Minimum Number of Refine
+      .title 문제당 최소 정제 횟수
       input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
     section.tagValue(v-if="(refineType === 'Radio' || refineType === 'Checkbox') && (projectType === 'Refine' || projectType === 'Refine&Collect')")
       .title Tag Value
@@ -207,6 +207,7 @@ export default {
     cursor: pointer;
     width: 120px;
     margin-right: 50px;
+    margin-bottom: 15px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -218,7 +219,8 @@ export default {
     cursor: pointer;
   }
   .radiomark {
-    position: absolute;;
+    position: absolute;
+    margin-top: 3px;
     top: 0;
     left: 0;
     height: 20px;
@@ -227,7 +229,7 @@ export default {
     border-radius: 50%;
   }
   .radioWrap > input:checked ~ .radiomark {
-    background-color: #2E76B1;
+    background-color: #2979ff;
   }
   .radioWrap > .radiomark:after {
     content: "";
@@ -245,10 +247,10 @@ export default {
   }
 
   .container {
-    padding: 20px;
-    padding-bottom: 60px;
+    padding: 20px 0 60px;
     margin: 150px auto 50px;
-    width: 880px;
+    max-width: 880px;
+    width: 90%;
   }
   .loading-bar {
     height: 2px;
@@ -260,7 +262,7 @@ export default {
     background-color: #2979ff;
     height: 100%;
     width: 20%;
-    transition: all 0.5s;
+    transition: all 0.4s;
   }
   section {
     margin: 15px 0;
@@ -313,7 +315,7 @@ export default {
     bottom: 11px;
     padding: 10px 15px;
     border: 0;
-    background-color: #2E76B1;
+    background-color: #2979ff;
     color: #fff;
   }
   .btn.register {

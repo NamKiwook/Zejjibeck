@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="charge-modal" width="450" height="auto" scrollable=true)
+    modal(name="charge-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -10,7 +10,7 @@
             input(type="tel" v-model="chargeCredit")
             | 원
         a.btn(@click="charge") 크레딧 충전
-    modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
+    modal(name="withdraw-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -93,8 +93,9 @@
     margin: 5px 0;
   }
   section {
-    width: 880px;
+    max-width: 880px;
     margin: 0 auto;
+    width: 90%;
     display: flex;
   }
   section.credit {

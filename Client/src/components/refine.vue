@@ -101,7 +101,7 @@ export default {
         this.canvas = this.$refs.myCanvas
         this.ctx = this.canvas.getContext('2d')
         this.ctx.lineWidth = 5
-        this.ctx.strokeStyle = '#FF0000'
+        this.ctx.strokeStyle = '#2979ff'
         this.imageObj.onload = this.imageUpdate
         this.imageObj.src = this.urlSrc
         for (var j = 0; j < this.projectInfo.blockSize; j++) {

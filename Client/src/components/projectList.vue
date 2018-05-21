@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="project" height="auto" scrollable=true)
+    modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
