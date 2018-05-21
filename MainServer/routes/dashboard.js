@@ -45,8 +45,6 @@ router.get('/', async function(req, res, next) {
     projectList.push(project);
   }
 
-  console.log(projectList);
-
   res.send({
       userInfo: userInfo,
       projectsInfoList: projectList

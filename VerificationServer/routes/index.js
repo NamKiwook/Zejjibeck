@@ -10,6 +10,7 @@ var projectSchema = require('../../MainServer/model/project');
 var blockSchema = require('../../MainServer/model/blockInfo');
 
 var flagVerification;
+var timeInterval = 1000 * 60 * 15;
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
@@ -53,7 +54,7 @@ async function runningVerification(){
           var time = new Date().getTime();
           var deleteList = [];
           for (var k = 0; k < running.length; k++){
-            if(parseInt(running[k].assignTime) + 1000 * 60 * 15 > time){
+            if(parseInt(running[k].assignTime) + timeInterval > time){
               deleteList.push(k);
             }
           }
@@ -75,6 +76,21 @@ async function duplicateVerification(){
 }
 async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
+  var projects = await projectSchema.find({projectState : "rValidate"});
+  var currentTime = new Date().getTime();
+  var averageAnswer = [];
+
+  for(var i = 0 ; i < projects.length ; i++){
+    for(var j = 0 ; j < projects[i].refineBlocks.length ; j++) {
+      var blockId = projects[i].refineBlocks[j];
+      var block = await blockSchema.findOne({_id: blockId});
+      if (block.running.length > 0) break;
+
+      for (var k = 0; k < block.finished.length; k++) {
+
+      }
+    }
+  }
 }
 
 async function downloads(user, projectName, fileNo, extension){
