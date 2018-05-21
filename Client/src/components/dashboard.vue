@@ -318,7 +318,7 @@ export default {
 .register-project .project-wrap > .title {
   font-size: 16px;
   font-weight: 600;
-  height: 20px;
+  height: 25px;
   overflow: hidden;
   text-overflow: ellipsis;
   padding-right: 10px;
