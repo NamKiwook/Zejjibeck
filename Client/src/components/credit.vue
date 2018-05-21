@@ -7,7 +7,7 @@
           .title 충전할 크레딧
           .sep :
           .description
-            input(type="tel" v-model="chargeCredit")
+            input(type="text" v-model="amountCharge")
             | 원
         a.btn(@click="charge") 크레딧 충전
     modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
@@ -33,7 +33,7 @@
           .title 출금할 크레딧
           .sep :
           .description
-            input(type="tel" v-model="amountWithdraw")
+            input(type="text" v-model="amountWithdraw")
             | 원
         a.btn(@click="withdraw") 크레딧 출금
     section.credit
@@ -87,10 +87,11 @@ export default {
     },
     withdraw () {
       this.$http.get('/api/credit/withdraw', {params: {
-          withdrawCredit: this.amountWithdraw
+          withdrawCredit: parseInt(this.amountWithdraw)
         }}).then((res) => {
         if(res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$modal.hide('withdraw-modal')
         } else {
           alert(res.data.errorMassage)
         }
@@ -99,11 +100,13 @@ export default {
       })
     },
     charge () {
+      console.log(this.amountCharge)
       this.$http.get('/api/credit/charge', {params: {
-          chargeCredit: this.amountCharge
+          chargeCredit: parseInt(this.amountCharge)
         }}).then((res) => {
         if(res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$modal.hide('charge-modal')
         } else {
           alert(res.data.errorMassage)
         }

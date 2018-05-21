@@ -54,8 +54,7 @@ div.container
   section.credit-section
     .profile-wrap
       .profile-img
-      .profile-title 박성준
-      .rating 다이아
+      .profile-title {{username}}
     .credit-wrap
       .wrap
         .dot.green
@@ -81,8 +80,8 @@ div.container
         .title 적립 예정
         .point {{prearrangedCredit}}
     router-link.detail(to='/credit')
-  .divider
-  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
+  .divider(v-if="projectsInfoList.length !== 0")
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect'")
         .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
@@ -160,6 +159,7 @@ export default {
       this.projectsInfoList = res.data.projectsInfoList
       this.carouselPerpage()
       this.loadList()
+      console.log(this.projectsInfoList)
     })
   },
   beforeMount () {

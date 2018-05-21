@@ -11,7 +11,6 @@ router.get('/', async function(req, res, next) {
   var projectList = [];
   for(var i = tempList.length-1; i>=0; i--){
     var project = await projectSchema.findOne({_id : tempList[i].project_dbid});
-
     if(project.projectState == "Refine"){
       project.totalBlock = project.refineBlocks.length;
       var currentBlock = 0;
@@ -45,7 +44,7 @@ router.get('/', async function(req, res, next) {
     projectList.push(project);
   }
 
-  console.log(projectList);
+  //console.log(projectList);
 
   res.send({
       userInfo: userInfo,
