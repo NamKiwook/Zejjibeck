@@ -1,7 +1,7 @@
 <template lang="pug">
   .container
     .loading-bar
-      .gaze
+      .gaze(:style="{ width: uploadPercent+'%' }")
     section.textWrap
       .title Project Name
       input.text#projectName(type='text', v-model="projectName")
@@ -93,7 +93,8 @@ export default {
       refineList: [],
       tagNumber: 1,
       fileList: [],
-      maxCollect: null
+      maxCollect: null,
+      uploadPercent: 0
     }
   },
   watch: {
@@ -182,13 +183,11 @@ export default {
                 data: file
               })
               if (i === this.fileList.length - 1) {
-                alert('complete' + this.fileList.length)
                 this.$router.push('/dashboard')
               }
-              console.log(i)
+              this.uploadPercent = parseInt((i/this.fileList.length) *100)
             }
           } else {
-            alert('complete')
             this.$router.push('/dashboard')
           }
         }
@@ -259,7 +258,6 @@ export default {
   .loading-bar > .gaze {
     background-color: #2979ff;
     height: 100%;
-    width: 20%;
     transition: all 0.5s;
   }
   section {

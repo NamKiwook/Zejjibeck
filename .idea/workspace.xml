@@ -3,9 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/credit.vue" afterPath="$PROJECT_DIR$/Client/src/components/credit.vue" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
-      <change beforePath="$PROJECT_DIR$/MainServer/routes/dashboard.js" afterPath="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/refine.vue" afterPath="$PROJECT_DIR$/Client/src/components/refine.vue" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/upload.vue" afterPath="$PROJECT_DIR$/Client/src/components/upload.vue" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -22,18 +21,58 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="161" column="23" lean-forward="false" selection-start-line="161" selection-start-column="23" selection-end-line="161" selection-end-column="23" />
+            <state relative-caret-position="162">
+              <caret line="161" column="29" lean-forward="false" selection-start-line="161" selection-start-column="28" selection-end-line="161" selection-end-column="29" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="5" />
+            <state relative-caret-position="-608">
+              <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="signUp.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="362">
+              <caret line="74" column="16" lean-forward="false" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="refine.vue" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="700">
+              <caret line="151" column="6" lean-forward="false" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="upload.vue" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3248">
+              <caret line="31" column="51" lean-forward="true" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="700">
+              <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
               <folding />
             </state>
           </provider>
@@ -42,7 +81,7 @@
       <file leaf-file-name="credit.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/credit.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-672">
+            <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
@@ -52,7 +91,7 @@
       <file leaf-file-name="credit.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/credit.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
+            <state relative-caret-position="700">
               <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
               <folding />
             </state>
@@ -64,13 +103,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding>
-                <marker date="1526886750807" expanded="true" signature="986:1030" ph="{...}" />
-                <marker date="1526886750807" expanded="true" signature="1136:1253" ph="//..." />
-                <marker date="1526886750807" expanded="true" signature="1255:1351" ph="//..." />
-                <marker date="1526886750807" expanded="true" signature="1977:2049" ph="{...}" />
-                <marker date="1526886750807" expanded="true" signature="2108:2354" ph="{...}" />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -87,8 +120,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>register</find>
-      <find>sub</find>
       <find>type</find>
       <find>rgba</find>
       <find>profile</find>
@@ -117,6 +148,8 @@
       <find>section</find>
       <find>detail</find>
       <find>chargeCredit</find>
+      <find>gaze</find>
+      <find>refine</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -144,18 +177,18 @@
         <option value="$PROJECT_DIR$/Client/src/components/dashboardNavbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Client/src/router/index.js" />
-        <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/navbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/loginedNavbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
         <option value="$PROJECT_DIR$/Client/index.html" />
         <option value="$PROJECT_DIR$/Client/src/components/credit.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
         <option value="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
+        <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
       </list>
     </option>
   </component>
@@ -313,24 +346,25 @@
       <workItem from="1526783104671" duration="11668000" />
       <workItem from="1526884964073" duration="1195000" />
       <workItem from="1526890998649" duration="2496000" />
+      <workItem from="1526894980884" duration="3685000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146631000" />
+    <option name="totallyTimeSpent" value="150316000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="82" y="-11" width="1849" height="1102" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19587053" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19587053" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29973823" sideWeight="0.5006784" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32664436" sideWeight="0.49932158" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32664436" sideWeight="0.49932158" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -341,6 +375,25 @@
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
+    <layout-to-restore>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.29973823" sideWeight="0.5006784" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32664436" sideWeight="0.49932158" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19587053" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -353,13 +406,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="56" column="13" lean-forward="false" selection-start-line="56" selection-start-column="7" selection-end-line="56" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/main.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="54">
@@ -472,14 +518,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3870">
-          <caret line="258" column="6" lean-forward="false" selection-start-line="258" selection-start-column="6" selection-end-line="258" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2550">
@@ -495,14 +533,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="6420">
-          <caret line="428" column="20" lean-forward="false" selection-start-line="428" selection-start-column="20" selection-end-line="428" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="5850">
@@ -511,30 +541,17 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="74" column="16" lean-forward="false" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/app.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1526886750807" expanded="true" signature="986:1030" ph="{...}" />
-            <marker date="1526886750807" expanded="true" signature="1136:1253" ph="//..." />
-            <marker date="1526886750807" expanded="true" signature="1255:1351" ph="//..." />
-            <marker date="1526886750807" expanded="true" signature="1977:2049" ph="{...}" />
-            <marker date="1526886750807" expanded="true" signature="2108:2354" ph="{...}" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/credit.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-672">
+        <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
@@ -542,24 +559,56 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/credit.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
+        <state relative-caret-position="700">
           <caret line="25" column="16" lean-forward="true" selection-start-line="25" selection-start-column="16" selection-end-line="25" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="362">
+          <caret line="74" column="16" lean-forward="false" selection-start-line="74" selection-start-column="16" selection-end-line="74" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="67" column="19" lean-forward="true" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3248">
+          <caret line="31" column="51" lean-forward="true" selection-start-line="31" selection-start-column="51" selection-end-line="31" selection-end-column="51" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="161" column="23" lean-forward="false" selection-start-line="161" selection-start-column="23" selection-end-line="161" selection-end-column="23" />
+        <state relative-caret-position="162">
+          <caret line="161" column="29" lean-forward="false" selection-start-line="161" selection-start-column="28" selection-end-line="161" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="252">
-          <caret line="42" column="5" lean-forward="false" selection-start-line="42" selection-start-column="4" selection-end-line="42" selection-end-column="5" />
+        <state relative-caret-position="-608">
+          <caret line="20" column="7" lean-forward="true" selection-start-line="20" selection-start-column="7" selection-end-line="20" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="700">
+          <caret line="151" column="6" lean-forward="false" selection-start-line="151" selection-start-column="5" selection-end-line="151" selection-end-column="6" />
           <folding />
         </state>
       </provider>

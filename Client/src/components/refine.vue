@@ -31,12 +31,12 @@
         input(type="text" placeholder="정답을 입력해주세요" v-model="refineList[nowSequence-1]")
 
       .refine-wrap.select(v-if="projectInfo.refineType === 'Checkbox'")
-        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
-          input(type="checkbox", :value="tag", v-model="refineList[nowSequence-1]")
+        label.inputWrap(v-for="(tag, index ) in projectInfo.refineList") {{tag}}
+          input(type="checkbox", :value="index", v-model="refineList[nowSequence-1]")
           span.mark
       .refine-wrap.select(v-if="projectInfo.refineType === 'Radio'")
-        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
-          input(type="radio", name="radio", :value="tag" v-model="refineList[nowSequence-1]")
+        label.inputWrap(v-for="(tag, index) in projectInfo.refineList") {{tag}}
+          input(type="radio", name="radio", :value="index" v-model="refineList[nowSequence-1]")
           span.mark
 
       .btnWrap
@@ -94,7 +94,7 @@ export default {
           this.refineList[i] = []
         }
       }
-      if (this.projectInfo.refineType === 'Text') {
+      if (this.projectInfo.dataType === 'Text') {
         this.loadTextData()
       }
       if (this.projectInfo.refineType === 'Drag') {
@@ -132,8 +132,8 @@ export default {
     isNull () {
       console.log(this.refineList)
       console.log(this.curY)
-      if (this.refineList[this.nowSequence - 1]) {
-        if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
+      if (this.refineList[this.nowSequence - 1].length !== 0) {
+        if (this.projectInfo.refineType !== 'Drag') {
           return false
         } else if (this.refineList[this.nowSequence - 1].curY !== null && this.projectInfo.refineType !== 'Checkbox') {
           return false
