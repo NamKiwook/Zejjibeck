@@ -89,12 +89,12 @@ export default {
     padding: 0 15px;
   }
   .main-section {
-    padding-top: 60px;
+    padding-top: 100px;
     background-color: #fbfbfb;
   }
   .main-section > .content {
     display: flex;
-    margin-top: 200px ;
+    margin-top: 160px ;
   }
   .main-left {
     width: 550px;
@@ -225,5 +225,72 @@ export default {
     padding-top: 140px;
     font-size: 18px;
     color: #c8c8c8;
+  }
+  @media only screen and (max-width: 1170px) {
+    .content {
+      width: 500px;
+    }
+    .main-section > .content {
+      flex-flow: column;
+    }
+    .main-section > .content > .main-left {
+      width: 100%;
+      text-align: center;
+    }
+    .main-section > .content > .main-left > .title {
+      font-size: 42px;
+    }
+    .main-section > .content > .main-left > .description {
+      font-size: 18px;
+    }
+    .main-section > .content > .main-left > .btn{
+      margin-bottom: 10px;
+    }
+    .main-section > .content > .main-right {
+      height: 400px;
+    }
+    .main-section > .content > .main-right > .main-img {
+      background-size: 100%;
+      width: 100%;
+    }
+    .description-section > .content > .title {
+      font-size: 42px;
+    }
+    .description-section > .content > .description {
+      font-size: 18px;
+      width: 100%;
+    }
+    .team-profile > .profile-wrap {
+      width: 100%;
+    }
+    .last-section {
+      background-position: center;
+    }
+    @media only screen and (max-width: 550px) {
+      .content {
+        width: 90%;
+      }
+      .main-section > .content > .main-left > .title {
+        font-size: 28px;
+      }
+      .main-section > .content > .main-left > .description {
+        font-size: 16px;
+      }
+      .main-section > .content > .main-right {
+        height: 300px;
+      }
+      .description-section > .content > .title {
+        font-size: 28px;
+      }
+      .description-section > .content > .description {
+        font-size: 16px;
+        width: 100%;
+      }
+      .team-profile > .profile-wrap > .profile-img {
+        width: 150px;
+        height: 150px;
+      }
+
+    }
   }
 </style>

@@ -1,6 +1,20 @@
 <template lang="pug">
 nav
   .container
+    modal(name="profile-setting" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
+      .modal-container
+        a.close-btn(@click="hide")
+        .box
+          .title 현재 비밀번호
+          .sep :
+          .description
+            input(type="password")
+        .box
+          .title 변경할 비밀번호
+          .sep :
+          .description
+            input(type="password")
+        a.btn(@click="charge") 변경사항 저장
     router-link.logo(to='/dashboard')
     .profile-wrap(@click="profileToggle")
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
@@ -11,7 +25,7 @@ nav
             .cover
               .name {{username}}
         a PROFILE
-        a SETTING
+        a(@click="showSetting") SETTING
         a.logout LOGOUT
   .sep
   .section
@@ -46,6 +60,12 @@ export default {
     },
     menuToggle () {
       this.$store.commit('menuToggle')
+    },
+    showSetting () {
+      this.$modal.show('profile-setting')
+    },
+    hide() {
+      this.$modal.hide('profile-setting')
     }
   }
 }
@@ -64,7 +84,6 @@ export default {
     margin:auto;
     height: 100px;
     align-items: center;
-    overflow: hidden;
   }
   nav > .container > .logo {
     background-image: url("../assets/logo-black.png");
@@ -83,6 +102,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
   }
   nav > .container > .profile-wrap > .profile-img {
   }
@@ -93,8 +113,8 @@ export default {
   .profile-dropdown {
     display: flex;
     flex-flow: column;
-    position: fixed;
-    top: 60px; right: 0;
+    position: absolute;
+    top: 35px; right: 0;
     visibility: hidden;
     z-index: 999;
     background-color: #262931;
@@ -108,10 +128,12 @@ export default {
   .profile-dropdown > .img-wrap {
   }
   .profile-dropdown > .img-wrap > .profile {
-    background-image: url("../assets/default-user.png");
+    background-image: url("../assets/profileImg1.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 200px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     width: 200px;
     height: 200px;
     position: relative;
@@ -152,7 +174,7 @@ export default {
   nav > .section {
     display: flex;
     align-items: center;
-    width: 100%;
+    width: 90%;
     max-width: 880px;
     height: 49px;
     margin: 0 auto;
@@ -168,103 +190,63 @@ export default {
   nav > .section > .title.active {
     border-bottom: 3px solid #2979ff;
   }
-  /*nav {*/
-    /*height: 60px;*/
-    /*background-color:#222;*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*position: fixed;*/
-    /*top:0; left:0; right:0;*/
-    /*z-index: 999;*/
-  /*}*/
-  /*nav .btn {*/
-    /*background-color: rgba(0,0,0,0);*/
-  /*}*/
-  /*nav > .menu {*/
-    /*background-image: url('../assets/iconmonstr-menu-1-240.png');*/
-    /*background-size: 18px;*/
-    /*background-repeat: no-repeat;*/
-    /*background-position: center;*/
-    /*display: none;*/
-    /*height: 100%;*/
-    /*border: 0;*/
-  /*}*/
-
-  /*nav > .logo {*/
-    /*font-size: 28px;*/
-    /*font-weight: 800;*/
-    /*color: #fff;*/
-    /*display: inline-block;*/
-    /*margin-left: 70px;*/
-  /*}*/
-
-  /*nav > .profileWrap {*/
-    /*display: flex;*/
-    /*align-items: center;*/
-    /*margin-left: auto;*/
-    /*height: 100%;*/
-    /*padding: 20px;*/
-    /*border: 0;*/
-  /*}*/
-
-  /*nav > .profileWrap > .profileImg {*/
-    /*border-radius: 50%;*/
-    /*!* padding: 0 15px; *!*/
-    /*!* border: 2px solid rgba(211, 215, 219, 1.0); *!*/
-  /*}*/
-
-  /*nav > .profileWrap > .profileTitle {*/
-    /*padding-top: 5px;*/
-    /*margin-left: 10px;*/
-    /*color: #fff;*/
-  /*}*/
-
-  /*nav > .profileWrap > .dropdownMenu {*/
-    /*display: flex;*/
-    /*flex-flow: column;*/
-    /*position: fixed;*/
-    /*top: 60px; right: 0;*/
-    /*background-color: #222;*/
-    /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
-    /*visibility: hidden;*/
-    /*z-index: 999;*/
-  /*}*/
-  /*nav > .profileWrap > .dropdownMenu.visible {*/
-    /*visibility: visible;*/
-  /*}*/
-  /*nav > .profileWrap > .dropdownMenu > a {*/
-    /*background-image: url("../assets/iconmonstr-power-on-off-8-240.png");*/
-    /*background-repeat: no-repeat;*/
-    /*background-size: 14px;*/
-    /*background-position: 15px center;*/
-    /*text-align: left;*/
-    /*border: 0;*/
-    /*color: #fff;*/
-    /*width: 150px;*/
-    /*padding: 10px 15px 10px 40px;*/
-  /*}*/
-  /*@media only screen and (max-width:1080px) {*/
-    /*nav > .menu {*/
-      /*display: inline-block;*/
-      /*width: 60px;*/
-    /*}*/
-
-    /*nav > .logo {*/
-      /*text-align: center;*/
-      /*flex: 1;*/
-      /*margin: 0;*/
-    /*}*/
-
-    /*nav > .profileWrap {*/
-      /*width: 60px;*/
-      /*margin: 0;*/
-      /*padding: 15px;*/
-    /*}*/
-
-    /*nav > .profileWrap > .profileTitle {*/
-      /*visibility: hidden;*/
-      /*width: 0;*/
-      /*margin: 0;*/
-    /*}*/
-  /*}*/
+  @media only screen and (max-width: 1170px) {
+    nav > .container {
+      width: 100%;
+      padding: 0 10px;
+    }
+    nav > .section {
+    }
+  }
+  .modal-container {
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .modal-container > .close-btn {
+    display: inline-block;
+    background-image: url("../assets/close.png");
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px; top: 10px;
+  }
+  .modal-container > .box {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .modal-container > .box > .title {
+    width: 100px;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .modal-container > .box > .sep {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  .modal-container > .box > .description {
+    font-size: 12px;
+    margin-left: auto;
+    width: calc(100% - 130px);
+  }
+  .modal-container > .box > .description > input {
+    border: 1px solid #eee;
+    border-radius : 2px;
+    width: 100%;
+  }
+  .modal-container > .btn {
+    margin-top: 20px;
+    padding: 15px 60px;
+  }
+  @media only screen and (max-width: 550px) {
+    nav > .container > .logo {
+      width: 100px;
+      background-size: 100px;
+    }
+  }
 </style>

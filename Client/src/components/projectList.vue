@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="project" height="auto" scrollable=true)
+    modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -25,10 +25,11 @@
           .description
             | 개당 {{modalProject.stateCredit}}원
         a.btn(@click="selectProject(modalProject)") START
-
     section
       .menu
         .title PROJECT
+          .filter-arrow
+            .down
         a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
           .filter-arrow
             .down
@@ -41,7 +42,9 @@
             .up
             .down
       .project(@click="show(project)" v-for="project in projectList")
-        .title {{project.projectName}}
+        .title-wrap
+          .date 2018.01.01
+          .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
         .credit {{project.stateCredit}}원
 
@@ -159,8 +162,11 @@ export default {
       this.$modal.hide('project')
     },
     selectProject (project) {
-      this.$modal.hide('project')
-      this.$router.push({path: `/refine/${project._id}`})
+      if (project.projectState === 'Refine') {
+        this.$router.push({path: `/refine/${project._id}`})
+      } else if (project.projectState === 'Collect') {
+        this.$router.push({path: `/collect/${project._id}`})
+      }
     }
   }
 }
@@ -203,16 +209,19 @@ export default {
     margin: 10px;
   }
   .container > section {
-    width: 880px;
+    max-width: 880px;
+    width: 90%;
     margin: 20px auto;
   }
   .menu {
-    padding: 15px 20px;
+    padding: 20px;
+    height: 50px;
   }
   .menu > .title {
     text-align: center;
     border-radius: 4px;
-    display: inline-block;
+    display: flex;
+    float: left;
     font-size: 14px;
     color: #a7b3bf;
   }
@@ -221,7 +230,7 @@ export default {
     align-items: center;
     float: right;
     width: 65px;
-    margin-right: 50px;
+    margin-right: 40px;
     font-size: 14px;
     color: #a7b3bf;
   }
@@ -269,14 +278,32 @@ export default {
   .project:hover {
     box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
   }
-  .project > .title {
-    display: inline-block;
+  .project > .date {
+    display: flex;
+    color: #8492a6;
+    font-size: 12px;
     line-height: 35px;
+    width: 100px;
+  }
+  .project > .title-wrap {
+    display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 300px);
+  }
+  .project > .title-wrap > .date {
+    font-size: 11px;
+    color: #8492a6;
+    margin-bottom: 5px;
+  }
+  .project > .title-wrap > .title {
+    display: inline-block;
     font-weight: bold;
   }
   .project > .credit {
     width: 100px;
-    line-height: 35px;
+    line-height: 40px;
     font-size: 14px;
     text-align: right;
     float: right;
@@ -289,8 +316,9 @@ export default {
     font-size: 12px;
     text-align: center;
     width: 80px;
+    float:right;
     border-radius: 20px;
-    float: right;
+    margin-top: 5px;
     margin-right: 20px;
   }
   .project > .type.Refine {
@@ -346,6 +374,7 @@ export default {
   }
   .modal-container > .box > .description {
     font-size: 12px;
+    width: calc(100% - 130px);
   }
   .modal-container > .btn {
     margin-top: 20px;
@@ -354,6 +383,20 @@ export default {
   @media only screen and (max-width: 1080px) {
     .container {
       margin-left: 0;
+    }
+    .menu > .credit {
+      margin-right: 20px;
+    }
+    .project {
+      height: 120px;
+    }
+    .project >  .title-wrap {
+      display: block;
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .project > .credit {
+      margin-right: 30px;
     }
   }
 </style>

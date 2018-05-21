@@ -3,7 +3,7 @@
     section.problem
       .sequence-wrap
         .now-sequence {{nowSequence}}
-        .total-sequence / {{projectInfo.blockSize}}
+        .total-sequence / {{urlList.length}}
       .project-wrap
         .project-title {{projectInfo.projectName}}
 
@@ -31,12 +31,12 @@
         input(type="text" placeholder="정답을 입력해주세요" v-model="refineList[nowSequence-1]")
 
       .refine-wrap.select(v-if="projectInfo.refineType === 'Checkbox'")
-        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
-          input(type="checkbox", :value="tag", v-model="refineList[nowSequence-1]")
+        label.inputWrap(v-for="(tag, index ) in projectInfo.refineList") {{tag}}
+          input(type="checkbox", :value="index", v-model="refineList[nowSequence-1]")
           span.mark
       .refine-wrap.select(v-if="projectInfo.refineType === 'Radio'")
-        label.inputWrap(v-for="tag in projectInfo.refineList") {{tag}}
-          input(type="radio", name="radio", :value="tag" v-model="refineList[nowSequence-1]")
+        label.inputWrap(v-for="(tag, index) in projectInfo.refineList") {{tag}}
+          input(type="radio", name="radio", :value="index" v-model="refineList[nowSequence-1]")
           span.mark
 
       .btnWrap
@@ -66,7 +66,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
+      projectInfo: { projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
@@ -90,23 +90,26 @@ export default {
       this.blockId = res.data.blockId
       this.urlSrc = this.urlList[0]
       if (this.projectInfo.refineType === 'Checkbox') {
-        for (var i = 0; i < this.projectInfo.blockSize; i++) {
+        for (var i = 0; i < this.urlList.length; i++) {
           this.refineList[i] = []
         }
       }
-      if (this.projectInfo.refineType === 'Text') {
+      if (this.projectInfo.dataType === 'Text') {
         this.loadTextData()
       }
       if (this.projectInfo.refineType === 'Drag') {
         this.canvas = this.$refs.myCanvas
         this.ctx = this.canvas.getContext('2d')
         this.ctx.lineWidth = 5
-        this.ctx.strokeStyle = '#FF0000'
+        this.ctx.strokeStyle = '#2979ff'
         this.imageObj.onload = this.imageUpdate
         this.imageObj.src = this.urlSrc
-        for (var j = 0; j < this.projectInfo.blockSize; j++) {
+        for (var j = 0; j < this.urlList.length; j++) {
           this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
         }
+      }
+      if (this.urlList.length === 1) {
+        this.nextButton = 'SUBMIT'
       }
     }).catch((err) => {
       alert(err)
@@ -121,7 +124,7 @@ export default {
       if (this.projectInfo.dataType === 'Text') {
         this.loadTextData()
       }
-      if (this.nowSequence === this.projectInfo.blockSize) {
+      if (this.nowSequence === this.urlList.length) {
         this.nextButton = 'SUBMIT'
       } else {
         this.nextButton = 'NEXT'
@@ -132,6 +135,9 @@ export default {
     isNull () {
       console.log(this.refineList)
       console.log(this.curY)
+      if (this.refineList[this.nowSequence - 1] === 0) {
+        return false
+      }
       if (this.refineList[this.nowSequence - 1]) {
         if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
           return false
@@ -159,12 +165,15 @@ export default {
       var mousePos = this.getMousePos(this.canvas, event)
       this.curX = mousePos.x
       this.curY = mousePos.y
-      this.imageUpdate()
+      this.clearCanvas()
       this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
       this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
       this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
       this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
       this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+    },
+    clearCanvas () {
+      this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
     },
     imageUpdate () {
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
@@ -197,9 +206,9 @@ export default {
       }
     },
     goToNext () {
-      if (!this.isNull && this.nowSequence < this.projectInfo.blockSize) {
+      if (!this.isNull && this.nowSequence < this.urlList.length) {
         this.nowSequence++
-      } else if (!this.isNull && this.nowSequence === this.projectInfo.blockSize) {
+      } else if (!this.isNull && this.nowSequence === this.urlList.length) {
         this.submit()
       } else if (this.isNull) {
         alert('값을 입력하세요!')
@@ -415,7 +424,28 @@ export default {
   .user-info > .credit-wrap > .wrap > .credit {
     margin-left: auto;
   }
-  @media only screen and (max-width:1080px) {
-
+  @media only screen and (max-width:1000px) {
+    .container {
+      padding: 40px 5%;
+    }
+    .sequence-wrap {
+      float: right;
+      margin-right: 10px;
+      position: initial;
+      padding-top: 7px;
+    }
+    .sequence-wrap > .now-sequence {
+      font-size: 18px;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+    .sequence-wrap > .total-sequence {
+      font-size: 18px;
+      font-weight: 900;
+      color: #a7b3bf;
+    }
+    .user-info {
+      display: none;
+    }
   }
 </style>
