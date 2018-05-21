@@ -16,26 +16,26 @@ router.get('/', async function(req, res, next) {
       project.totalBlock = project.refineBlocks.length;
       var currentBlock = 0;
 
-      for(var i = 0 ; i < project.refineBlocks.length ; i++){
-        var block = await blockSchema.find({_id:project.refineBlocks[i]});
+      for(var j = 0 ; j < project.refineBlocks.length ; j++){
+        var block = await blockSchema.findOne({_id:project.refineBlocks[j]});
         if(block.isValidate == "Done") currentBlock++;
       }
 
       project.currentBlock = currentBlock;
     }
     else if(project.projectState == "Collect"){
-      var block = await blockSchema.find({_id:project.collectBlock});
+      var block = await blockSchema.findOne({_id:project.collectBlock});
       var currentCollect = 0;
 
-      for(var i = 0 ; i < block.finished.length ; i++){
-        if(block.finished[i].upload == true) currentCollect++;
+      for(var j = 0 ; j < block.finished.length ; j++){
+        if(block.finished[j].upload == true) currentCollect++;
       }
 
-      project.currnetCollect = currentCollect;
+      project.currentCollect = currentCollect;
     }
     else { // Done
       if(project.projectType == "Collect"){
-        project.currnetCollect = project.maxCollect;
+        project.currentCollect = project.maxCollect;
       }
       else{
         project.totalBlock = project.refineBlocks.length;

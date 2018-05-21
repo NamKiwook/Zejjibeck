@@ -69,7 +69,6 @@ div.container
         .title 진행중인 프로젝트
         .point 2
     .credit-wrap
-      router-link.detail(to='/credit')
       .wrap
         .dot.blue
         .name 총 크레딧
@@ -81,6 +80,7 @@ div.container
       .wrap
         .title 적립 예정
         .point {{prearrangedCredit}}
+    router-link.detail(to='/credit')
   .divider
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
@@ -241,7 +241,8 @@ export default {
   overflow: hidden;
 }
 .container > section {
-  width: 880px;
+  max-width: 880px;
+  width: 90%;
   margin: 20px auto;
 }
 .section-title {
@@ -251,6 +252,7 @@ export default {
 .credit-section {
   display: flex;
   padding: 30px 15px 20px;
+  position: relative;
 }
 .credit-section > .profile-wrap {
   display: flex;
@@ -281,9 +283,8 @@ export default {
 .credit-section > .credit-wrap {
   flex: 1;
   margin: 0 50px;
-  position: relative;
 }
-.credit-section > .credit-wrap > .detail {
+.credit-section > .detail {
   background-color: #fff;
   background-image: url("../assets/magnifier.png");
   background-size: 20px;
@@ -293,14 +294,14 @@ export default {
   border: 1px solid rgba(0,0,0,.05);
   display: inline-block;
   position: absolute;
-  top: -30px; right: -50px;
+  top: 10px; right: 10px;
   height: 45px;
   width: 45px;
   border-radius: 50px;
   float: right;
   cursor: pointer;
 }
-.credit-section > .credit-wrap > .detail:hover {
+.credit-section > .detail:hover {
   background-color: #fafafa;
 }
 .credit-section > .credit-wrap > .wrap {
@@ -526,5 +527,30 @@ export default {
 .modal-container > .btn {
   margin-top: 20px;
   padding: 15px 60px;
+}
+@media only screen and (max-width: 1080px) {
+  .credit-section {
+    flex-flow: column-reverse;
+    padding: 0 10px;
+  }
+  .credit-section > .profile-wrap {
+    display: none;
+  }
+  .credit-section > .credit-wrap {
+    margin: 30px;
+  }
+  .project-list > .menu > .credit {
+    margin-right: 20px;
+  }
+  .project-list > .project {
+    height: 120px;
+  }
+  .project-list > .project > .title-wrap {
+    display: block;
+    margin-bottom: 10px;
+  }
+  .project-list > .project > .credit {
+    margin-right: 30px;
+  }
 }
 </style>
