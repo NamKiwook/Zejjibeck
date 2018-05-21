@@ -14,4 +14,14 @@ router.put('/', async function(req,res,next){
         res.send({success: false});
     }
 });
+
+router.get('/', async function(req,res,next){
+  var ID = req.decoded.userId;
+  try{
+    var user = await userSchema.findOne({userId : ID});
+    res.send({userInfo: user});
+  } catch(err){
+    res.send({userInfo: user});
+  }
+});
 module.exports = router;

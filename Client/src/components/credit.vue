@@ -16,19 +16,19 @@
         .box
           .title 은행명
           .sep :
-          .description {{bank}}
+          .description {{userInfo.bank}}
         .box
           .title 계좌번호
           .sep :
-          .description {{bankAccount}}
+          .description {{userInfo.bankAccount}}
         .box
           .title 예금주
           .sep :
-          .description {{username}}
+          .description {{userInfo.username}}
         .box
           .title 총 크레딧
           .sep :
-          .description {{usableCredit}}원
+          .description {{userInfo.usableCredit}}원
         .box
           .title 출금할 크레딧
           .sep :
@@ -39,11 +39,11 @@
     section.credit
       .core.wrap
         p 사용가능 크레딧
-        .credit 10,000
+        .credit {{userInfo.usableCredit}}
           span 원
       .wrap
         p 적립예정 크레딧
-        .credit 8,000
+        .credit {{userInfo.prearrangedCredit}}
           span 원
       .wrap
         .btn(@click="showWithdraw") 출금
@@ -65,21 +65,59 @@
 </template>
 
 <script>
-  export default {
-    name: "credit",
-    methods: {
-      showCharge () {
-        this.$modal.show('charge-modal')
-      },
-      showWithdraw () {
-        this.$modal.show('withdraw-modal')
-      },
-      hide() {
-        this.$modal.hide('charge-modal')
-        this.$modal.hide('withdraw-modal')
-      }
+export default {
+  name: "credit",
+  data () {
+    return {
+      userInfo : { usableCredit: 10000,prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
+      amountWithdraw : 0,
+      amountCharge : 0
     }
+  },
+  methods: {
+    showCharge () {
+      this.$modal.show('charge-modal')
+    },
+    showWithdraw () {
+      this.$modal.show('withdraw-modal')
+    },
+    hide () {
+      this.$modal.hide('charge-modal')
+      this.$modal.hide('withdraw-modal')
+    },
+    withdraw () {
+      this.$http.get('/api/credit/withdraw', {params: {
+          withdrawCredit: this.amountWithdraw
+        }}).then((res) => {
+        if(res.data.success) {
+          this.userInfo.usableCredit = res.data.credit
+        } else {
+          alert(res.data.errorMassage)
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    charge () {
+      this.$http.get('/api/credit/charge', {params: {
+          chargeCredit: this.amountCharge
+        }}).then((res) => {
+        if(res.data.success) {
+          this.userInfo.usableCredit = res.data.credit
+        } else {
+          alert(res.data.errorMassage)
+        }
+      }).catch((err) => {
+        alert(err)
+      })
+    }
+  },
+  created () {
+    this.$http.get('/api/userInfo').then((res) => {
+      this.userInfo = res.data.userInfo
+    })
   }
+}
 </script>
 
 <style scoped>

@@ -3,7 +3,7 @@
     section.problem
       .sequence-wrap
         .now-sequence {{nowSequence}}
-        .total-sequence / {{projectInfo.blockSize}}
+        .total-sequence / {{urlList.length}}
       .project-wrap
         .project-title {{projectInfo.projectName}}
 
@@ -66,7 +66,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {blockSize: 20, projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
+      projectInfo: { projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
@@ -90,7 +90,7 @@ export default {
       this.blockId = res.data.blockId
       this.urlSrc = this.urlList[0]
       if (this.projectInfo.refineType === 'Checkbox') {
-        for (var i = 0; i < this.projectInfo.blockSize; i++) {
+        for (var i = 0; i < this.urlList.length; i++) {
           this.refineList[i] = []
         }
       }
@@ -104,7 +104,7 @@ export default {
         this.ctx.strokeStyle = '#FF0000'
         this.imageObj.onload = this.imageUpdate
         this.imageObj.src = this.urlSrc
-        for (var j = 0; j < this.projectInfo.blockSize; j++) {
+        for (var j = 0; j < this.urlList.length; j++) {
           this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
         }
       }
@@ -121,7 +121,7 @@ export default {
       if (this.projectInfo.dataType === 'Text') {
         this.loadTextData()
       }
-      if (this.nowSequence === this.projectInfo.blockSize) {
+      if (this.nowSequence === this.urlList.length) {
         this.nextButton = 'SUBMIT'
       } else {
         this.nextButton = 'NEXT'
@@ -200,9 +200,9 @@ export default {
       }
     },
     goToNext () {
-      if (!this.isNull && this.nowSequence < this.projectInfo.blockSize) {
+      if (!this.isNull && this.nowSequence < this.urlList.length) {
         this.nowSequence++
-      } else if (!this.isNull && this.nowSequence === this.projectInfo.blockSize) {
+      } else if (!this.isNull && this.nowSequence === this.urlList.length) {
         this.submit()
       } else if (this.isNull) {
         alert('값을 입력하세요!')
