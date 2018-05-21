@@ -17,7 +17,7 @@ router.get('/', async function(req, res, next) {
       var currentBlock = 0;
 
       for(var j = 0 ; j < project.refineBlocks.length ; j++){
-        var block = await blockSchema.findOne({_id:project.refineBlocks[j]});
+        var block = await blockSchema.find({_id:project.refineBlocks[j]});
         if(block.isValidate == "Done") currentBlock++;
       }
 
@@ -31,11 +31,11 @@ router.get('/', async function(req, res, next) {
         if(block.finished[j].upload == true) currentCollect++;
       }
 
-      project.currentCollect = currentCollect;
+      project.currnetCollect = currentCollect;
     }
     else { // Done
       if(project.projectType == "Collect"){
-        project.currentCollect = project.maxCollect;
+        project.currnetCollect = project.maxCollect;
       }
       else{
         project.totalBlock = project.refineBlocks.length;
@@ -44,8 +44,6 @@ router.get('/', async function(req, res, next) {
     }
     projectList.push(project);
   }
-
-  console.log(projectList);
 
   res.send({
       userInfo: userInfo,
