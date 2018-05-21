@@ -1,6 +1,32 @@
 <template lang="pug">
 div.container
-  modal(name="project-modal" height="auto" scrollable=true)
+  modal(name="project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
+    .modal-container
+      a.close-btn(@click="hide")
+      .box
+        .title 프로젝트 이름
+        .sep :
+        .description {{modalProject.projectName}}
+      .box
+        .title 프로젝트 설명
+        .sep :
+        .description {{modalProject.description}}
+      .box
+        .title 프로젝트 타입
+        .sep :
+        .description {{modalProject.projectState}}
+      .box
+        .title 데이터 타입
+        .sep :
+        .description {{modalProject.dataType}}
+      .box
+        .title 적립금
+        .sep :
+        .description
+          | 개당 {{modalProject.stateCredit}}원
+      a.btn(@click="selectProject(modalProject)") START
+
+  modal(name="my-project-modal" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -28,8 +54,7 @@ div.container
   section.credit-section
     .profile-wrap
       .profile-img
-      .profile-title 박성준
-      .rating 다이아
+      .profile-title {{username}}
     .credit-wrap
       .wrap
         .dot.green
@@ -55,23 +80,40 @@ div.container
         .title 적립 예정
         .point {{prearrangedCredit}}
     router-link.detail(to='/credit')
-  .divider
-  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
+  .divider(v-if="projectsInfoList.length !== 0")
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
-      .project-wrap(@click="showProject(projectInfo)")
+      .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect'")
         .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
-            .num {{projectInfo.blockNo}}
-            .text Total Block
+            .num {{projectInfo.maxCollect}}
+            .text Total Collect
           .solved
-            .num {{projectInfo.completedBlock}}
-            .text Solved Block
+            .num {{projectInfo.currentCollect}}
+            .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.completedBlock / projectInfo.blockNo * 100)")
-              span {{Math.round(projectInfo.completedBlock / projectInfo.blockNo * 100)}}%
+            .c100.center(:class="percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)")
+              span {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+              .slice
+                .bar
+                .fill
+      .project-wrap(@click="showMyProject(projectInfo)" v-else)
+        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
+        .title {{projectInfo.projectName}}
+        .problem-wrap
+          .total
+            .num {{projectInfo.totalBlock}}
+            .text Total Refine Block
+          .solved
+            .num {{projectInfo.currentBlock}}
+            .text Current Refine Block
+        .col-xs-6
+          .inner-content.text-center
+            .c100.center(:class="percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)")
+              span {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
               .slice
                 .bar
                 .fill
@@ -82,24 +124,13 @@ div.container
       .title PROJECT
       .type TYPE
       .credit CREDIT
-    .project
+    .project(@click="showProject(project)" v-for="project in projectList")
       .title-wrap
         .date 2018.01.01
-        .title 안녕하세요
-      .type.Refine Refine
-      .credit 22323원
-    .project
-      .title-wrap
-        .date 2018.01.01
-        .title 안녕하세요
-      .type.Collect Collect
-      .credit 22323원
-    .project
-      .title-wrap
-        .date 2018.01.01
-        .title 안녕하세요
-      .type.Refine Refine
-      .credit 22323원
+        .title {{project.projectName}}
+      .type(:class="project.projectState") {{project.projectState}}
+      .credit {{project.stateCredit}}원
+
 </template>
 
 <script>
@@ -109,27 +140,26 @@ export default {
     return {
       modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       perpage: 2,
-      bank: '은행 이름',
       username: '유저 이름',
-      bankAccount: '계좌번호',
       usableCredit: 1000,
       prearrangedCredit: 100,
       amountWithdraw: 0,
       chargeCredit: 0,
       projectNo: 0,
-      projectsInfoList: []
+      projectsInfoList: [],
+      projectList: []
     }
   },
   created () {
     this.$http.get('/api/dashboard').then((res) => {
       this.username = res.data.userInfo.username
-      this.bank = res.data.userInfo.bank
-      this.bankAccount = res.data.userInfo.bankAccount
       this.usableCredit = res.data.userInfo.usableCredit
       this.prearrangedCredit = res.data.userInfo.prearrangedCredit
       this.projectNo = res.data.projectsInfoList.length
       this.projectsInfoList = res.data.projectsInfoList
       this.carouselPerpage()
+      this.loadList()
+      console.log(this.projectsInfoList)
     })
   },
   beforeMount () {
@@ -139,6 +169,19 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    loadList () {
+      this.$http.get('/api/project/list', {params: {
+          page: 1,
+          filter: 'credit',
+          category: 'ALL',
+          listNo: 3,
+          sortedBy: 'dec'
+        }}).then((res) => {
+        this.projectList = res.data.projectList
+      }).catch((err) => {
+        alert(err)
+      })
+    },
     carouselPerpage () {
       if (this.projectNo === 0 || window.innerWidth < 1050) {
         this.perpage = 1
@@ -154,16 +197,25 @@ export default {
     percent (percent) {
       return 'p' + Math.round(percent)
     },
+    showMyProject (modalProject) {
+      this.modalProject = modalProject
+      this.$modal.show('my-project-modal')
+    },
     showProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('project-modal')
     },
-    hide () {
+    selectProject (project) {
       this.$modal.hide('project-modal')
+      if (project.projectState === 'Refine') {
+        this.$router.push({path: `/refine/${project._id}`})
+      } else if (project.projectState === 'Collect') {
+        this.$router.push({path: `/collect/${project._id}`})
+      }
     },
-    withdraw () {
-    },
-    charge () {
+    hide () {
+      this.$modal.hide('my-project-modal')
+      this.$modal.hide('project-modal')
     }
   }
 }
@@ -318,6 +370,10 @@ export default {
 .register-project .project-wrap > .title {
   font-size: 16px;
   font-weight: 600;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
 }
 .register-project .project-wrap > .type {
   background-color: #2979ff;
@@ -372,7 +428,7 @@ export default {
   align-items: center;
   float: right;
   width: 65px;
-  margin-right: 50px;
+  margin-right: 40px;
   font-size: 14px;
   color: #a7b3bf;
 }
@@ -399,6 +455,10 @@ export default {
 }
 .project-list > .project > .title-wrap {
   display:inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: calc(100% - 300px);
 }
 .project-list > .project > .title-wrap > .date {
   font-size: 11px;
@@ -469,6 +529,7 @@ export default {
 .modal-container > .box > .description {
   font-size: 12px;
   margin-left: auto;
+  width: calc(100% - 130px);
 }
 .modal-container > .box > .description > input {
   border: 1px solid #eee;
@@ -480,7 +541,7 @@ export default {
   margin-top: 20px;
   padding: 15px 60px;
 }
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1000px) {
   .credit-section {
     flex-flow: column-reverse;
     padding: 0 10px;
@@ -500,6 +561,7 @@ export default {
   .project-list > .project > .title-wrap {
     display: block;
     margin-bottom: 10px;
+    width: 100%;
   }
   .project-list > .project > .credit {
     margin-right: 30px;

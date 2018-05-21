@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="project" height="auto" scrollable=true)
+    modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -162,8 +162,11 @@ export default {
       this.$modal.hide('project')
     },
     selectProject (project) {
-      this.$modal.hide('project')
-      this.$router.push({path: `/refine/${project._id}`})
+      if (project.projectState === 'Refine') {
+        this.$router.push({path: `/refine/${project._id}`})
+      } else if (project.projectState === 'Collect') {
+        this.$router.push({path: `/collect/${project._id}`})
+      }
     }
   }
 }
@@ -284,6 +287,10 @@ export default {
   }
   .project > .title-wrap {
     display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 300px);
   }
   .project > .title-wrap > .date {
     font-size: 11px;
@@ -367,6 +374,7 @@ export default {
   }
   .modal-container > .box > .description {
     font-size: 12px;
+    width: calc(100% - 130px);
   }
   .modal-container > .btn {
     margin-top: 20px;
@@ -385,6 +393,7 @@ export default {
     .project >  .title-wrap {
       display: block;
       margin-bottom: 10px;
+      width: 100%;
     }
     .project > .credit {
       margin-right: 30px;
