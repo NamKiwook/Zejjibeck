@@ -104,12 +104,12 @@
 
 <script>
 export default {
-  name: "credit",
+  name: 'credit',
   data () {
     return {
-      userInfo : { usableCredit: 10000,prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
-      amountWithdraw : 0,
-      amountCharge : 0
+      userInfo: {usableCredit: 10000, prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
+      amountWithdraw: 0,
+      amountCharge: 0
     }
   },
   methods: {
@@ -125,9 +125,9 @@ export default {
     },
     withdraw () {
       this.$http.get('/api/credit/withdraw', {params: {
-          withdrawCredit: parseInt(this.amountWithdraw)
-        }}).then((res) => {
-        if(res.data.success) {
+        withdrawCredit: parseInt(this.amountWithdraw)
+      }}).then((res) => {
+        if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
           this.$modal.hide('withdraw-modal')
         } else {
@@ -140,9 +140,9 @@ export default {
     charge () {
       console.log(this.amountCharge)
       this.$http.get('/api/credit/charge', {params: {
-          chargeCredit: parseInt(this.amountCharge)
-        }}).then((res) => {
-        if(res.data.success) {
+        chargeCredit: parseInt(this.amountCharge)
+      }}).then((res) => {
+        if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
           this.$modal.hide('charge-modal')
         } else {

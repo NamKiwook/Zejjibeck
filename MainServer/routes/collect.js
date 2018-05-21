@@ -70,7 +70,6 @@ router.get('/url', async function(req,res,err){
   var projectId = req.query.projectId;
   var extension = getExtension(req.query.fileName);
   var userId = req.decoded.userId;
-
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
@@ -99,7 +98,6 @@ router.get('/url', async function(req,res,err){
     res.send({success: false, errorMessage: "no available block"});
 
   } catch (err){
-    console.log(err);
     res.send({success: false, errorMessage:"database error"});
   }
 });
@@ -108,15 +106,11 @@ router.put('/urlAck', async function(req,res,err) {
   var projectId = req.body.projectId;
   var index = parseInt(req.body.index);
   var userId = req.decoded.userId;
-
-  console.log(index);
-
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-    console.log(collectBlock);
-    var finished = JSON.parse(JSON.stringify(collectBlock.finished));
 
+    var finished = JSON.parse(JSON.stringify(collectBlock.finished));
     if(userId == finished[index].owner) {
       finished[index].upload = true;
       finished[index].finishedTime = new Date().getTime();

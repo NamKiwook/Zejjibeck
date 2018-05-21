@@ -1,6 +1,6 @@
 <template lang="pug">
 div.container
-  modal(name="project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
+  modal(name="project-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -159,7 +159,6 @@ export default {
       this.projectsInfoList = res.data.projectsInfoList
       this.carouselPerpage()
       this.loadList()
-      console.log(this.projectsInfoList)
     })
   },
   beforeMount () {
@@ -171,12 +170,12 @@ export default {
   methods: {
     loadList () {
       this.$http.get('/api/project/list', {params: {
-          page: 1,
-          filter: 'credit',
-          category: 'ALL',
-          listNo: 3,
-          sortedBy: 'dec'
-        }}).then((res) => {
+        page: 1,
+        filter: 'credit',
+        category: 'ALL',
+        listNo: 3,
+        sortedBy: 'dec'
+      }}).then((res) => {
         this.projectList = res.data.projectList
       }).catch((err) => {
         alert(err)
