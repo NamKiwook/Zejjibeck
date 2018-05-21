@@ -88,15 +88,15 @@ div.container
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
-            .num {{projectInfo.totalCollect}}
+            .num {{projectInfo.maxCollect}}
             .text Total Collect
           .solved
             .num {{projectInfo.currentCollect}}
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.currentCollect / projectInfo.totalCollect * 100)")
-              span {{Math.round(projectInfo.currentCollect / projectInfo.totalCollect * 100)}}%
+            .c100.center(:class="percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)")
+              span {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
@@ -206,8 +206,12 @@ export default {
       this.$modal.show('project-modal')
     },
     selectProject (project) {
-      this.$modal.hide('project')
-      this.$router.push({path: `/refine/${project._id}`})
+      this.$modal.hide('project-modal')
+      if (project.projectState === 'Refine') {
+        this.$router.push({path: `/refine/${project._id}`})
+      } else if (project.projectState === 'Collect') {
+        this.$router.push({path: `/collect/${project._id}`})
+      }
     },
     hide () {
       this.$modal.hide('my-project-modal')

@@ -108,6 +108,9 @@ export default {
           this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
         }
       }
+      if (this.urlList.length === 1) {
+        this.nextButton = 'SUBMIT'
+      }
     }).catch((err) => {
       alert(err)
     })
@@ -132,8 +135,11 @@ export default {
     isNull () {
       console.log(this.refineList)
       console.log(this.curY)
-      if (this.refineList[this.nowSequence - 1].length !== 0) {
-        if (this.projectInfo.refineType !== 'Drag') {
+      if (this.refineList[this.nowSequence - 1] === 0) {
+        return false
+      }
+      if (this.refineList[this.nowSequence - 1]) {
+        if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
           return false
         } else if (this.refineList[this.nowSequence - 1].curY !== null && this.projectInfo.refineType !== 'Checkbox') {
           return false
