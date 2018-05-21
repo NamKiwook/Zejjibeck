@@ -42,7 +42,20 @@ router.get('/downloads', async function(req, res, next){
   await res.send("EEE");
 })
 
+// 정제 프로세스
+// 1. running -> 없애는거
+// 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
+// 3. refine 프로젝트에서 모든 블락이 완료되었을 경우 프로젝트 스테이트 변경
 
+// 수집 프로세스
+// 1. finished에서 시간이 초과된 것들 체크
+// 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
+//// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
+
+// collect일때는, finished 전부 미리 만듬
+// 리파인일때는 finished 들어올떄마다 하나씩 만듬
+
+// 정제 1 & 수집 1
 async function runningVerification(){
   var projects = await projectSchema.find({projectType : { $not : "finished"}});
   for(var i=0; i< projects.length; i++){
@@ -50,7 +63,7 @@ async function runningVerification(){
       var blockList = projects[i].refineBlocks;
       for(var j =0; j<blockList.length; j++){
         var block = blockList[j];
-        if(block.finished.length + block.running.length >= block.total && block.running.length>0) {
+        if(block.finished.length + block.running.length >= projects[i].minimumRefine && block.running.length>0) {
           var time = new Date().getTime();
           var deleteList = [];
           for (var k = 0; k < running.length; k++){
@@ -64,16 +77,24 @@ async function runningVerification(){
         }
       }
     }
-    else {
-      /*TODO: collect upload 정의한 후 하자! 수집이 완료되었는지 검사 finished의 저장된 정보가 제대로 올라왔는지 검사하고, 그 수가 maxCollect보다 작을 시
-        TODO: 정보수정하고 projectState를 변경해줌
-      */
+    else if(projects[i].projectState == "Collect"){
+      var block = blockSchema.findOne({_id:projects[i].collectBlock});
+      var time = new Date().getTime();
+
+      for(var j = 0 ; j < block.finished.length ; j++) {
+        if (block.finished[j].upload == false && time < parseInt(block.finished[j].assignTime) + timeInterval) {
+          block.finished[j].owner = "";
+        }
+      }
     }
   }
 }
 async function duplicateVerification(){
   //TODO: 수집이 완료된 애들을 끌어와서 중복 검사후 isvalidate를 done으로 바꿈
 }
+
+// 정제 2번
+// 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
 async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
   var projects = await projectSchema.find({projectState : "rValidate"});
@@ -84,10 +105,11 @@ async function refineVerification(){
     for(var j = 0 ; j < projects[i].refineBlocks.length ; j++) {
       var blockId = projects[i].refineBlocks[j];
       var block = await blockSchema.findOne({_id: blockId});
-      if (block.running.length > 0) break;
+      if (block.running.length + block.finished.length < block.total) continue;
+      if (block.running.length > 0) continue;
+
 
       for (var k = 0; k < block.finished.length; k++) {
-
       }
     }
   }

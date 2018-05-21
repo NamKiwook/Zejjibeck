@@ -10,7 +10,9 @@ router.get('/', async function(req, res, next) {
   var tempList = userInfo.projects;
   var projectList = [];
   for(var i = tempList.length-1; i>=0; i--){
-    var project = await projectSchema.findOne({_id : tempList[i].project_dbid});
+    var project2 = await projectSchema.findOne({_id : tempList[i].project_dbid});
+    var project3 = JSON.stringify(project2);
+    var project = JSON.parse(project3);
 
     if(project.projectState == "Refine"){
       project.totalBlock = project.refineBlocks.length;
@@ -31,11 +33,11 @@ router.get('/', async function(req, res, next) {
         if(block.finished[j].upload == true) currentCollect++;
       }
 
-      project.currnetCollect = currentCollect;
+      project.currentCollect = currentCollect;
     }
-    else { // Done
+    else {
       if(project.projectType == "Collect"){
-        project.currnetCollect = project.maxCollect;
+        project.currentCollect  = project.maxCollect;
       }
       else{
         project.totalBlock = project.refineBlocks.length;
