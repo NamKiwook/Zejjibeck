@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var AWS = require('aws-sdk');
 var fs = require('fs');
+var util = require('util');
 
 var downloadAPI = require('download-url');
 
@@ -20,15 +21,23 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/on', function(req, res, next){
+router.get('/on', async function(req, res, next){
+
+  console.log("!");
+//  var qq = await IdentityFile("1", "2", ".png");
+  await downloads('a', 'g', 1, '.png');
+
+
 //  clearInterval(flagVerification);
-  var unit = 600; // second
-  flagVerification = setInterval(runningVerification, unit * 5);
+  //await duplicateVerification();
+//  var unit = 600; // second
+//  flagVerification = setInterval(runningVerification, unit * 5);
 })
 
-router.get('/off', function(req, res, next){
-  clearInterval(flagVerification);
-  console.log("verification off");
+router.get('/off', async function(req, res, next){
+  await downloads('a', 'i', 1, '.png');
+//  clearInterval(flagVerification);
+//  console.log("verification off");
 })
 
 router.get('/downloads', async function(req, res, next){
@@ -54,12 +63,12 @@ router.get('/downloads', async function(req, res, next){
 
 // collect일때는, finished 전부 미리 만듬
 // 리파인일때는 finished 들어올떄마다 하나씩 만듬
-
 // 정제 1 & 수집 1
+
 async function runningVerification(){
   var projects = await projectSchema.find({projectType : { $not : "finished"}});
   for(var i=0; i< projects.length; i++){
-    if(projects[i].projectState == "Refine"){
+    if(projects[i].projectState == "rValidate"){
       var blockList = projects[i].refineBlocks;
       for(var j =0; j<blockList.length; j++){
         var block = blockList[j];
@@ -68,6 +77,7 @@ async function runningVerification(){
           var deleteList = [];
           for (var k = 0; k < running.length; k++){
             if(parseInt(running[k].assignTime) + timeInterval > time){
+              projects[i].projectState = "Refine";
               deleteList.push(k);
             }
           }
@@ -77,24 +87,89 @@ async function runningVerification(){
         }
       }
     }
-    else if(projects[i].projectState == "Collect"){
+    else if(projects[i].projectState == "cValidate"){
       var block = blockSchema.findOne({_id:projects[i].collectBlock});
       var time = new Date().getTime();
+      var saveFlag = 0;
 
       for(var j = 0 ; j < block.finished.length ; j++) {
         if (block.finished[j].upload == false && time < parseInt(block.finished[j].assignTime) + timeInterval) {
           block.finished[j].owner = "";
+          projects[i].projectState = "Collect";
+          saveFlag = 1;
         }
+      }
+      if(saveFlag == 1) {
+        await block.save();
       }
     }
   }
+  await projects.save();
 }
+
+
+// 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
+//// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
 async function duplicateVerification(){
   //TODO: 수집이 완료된 애들을 끌어와서 중복 검사후 isvalidate를 done으로 바꿈
+  var projects = await projectSchema.find({projectType : "cValidate"});
+
+  for(var i = 0 ; i < projects.length ; i++){
+    var block = await blockSchema.findOne({_id:projects[i].collectBlock});
+    var userId = projects[i].owner;
+    var projectName = projects[i].projectName;
+    var extension = projects[i].fileExtension;
+
+    for(var j = 0 ; j < block.finished.length ; j++){
+      await downloads(user, projectName, j, extension);
+    }
+
+    var duplicated = [];
+
+    for(var j = 0 ; j < block.finished.length ; j++)
+      duplicated.push(0);
+
+    for(var j = 0 ; j < block.finished.length ; j++){
+      if(duplicated[j] == 0) {
+        for (var k = j + 1; k < block.finished.length; k++) {
+          var isDuplicate = await IdentityFile(j,k,extension);
+          if(isDuplicate){
+            duplicated[k] = 1;
+          }
+        }
+      }
+    }
+
+    // erase duplicated things
+
+  }
 }
 
 // 정제 2번
 // 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
+
+async function IdentityFile(x, y, extension){
+  try {
+    var pathX = "./temporary/" + strFileName(x) + extension;
+    var pathY = "./temporary/" + strFileName(y) + extension;
+
+    var readFile = util.promisify(fs.readFile);
+    var fileX = await readFile(pathX);
+    var fileY = await readFile(pathY);
+
+    fileX = fileX.toString();
+    fileY = fileY.toString();
+
+    if (fileX == fileY) return true;
+    else return false;
+  }
+  catch(err){
+    console.log(err);
+    return false;
+  }
+}
+
+
 async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
   var projects = await projectSchema.find({projectState : "rValidate"});
@@ -116,18 +191,19 @@ async function refineVerification(){
 }
 
 async function downloads(user, projectName, fileNo, extension){
-  var url = await getDownloadUrl('a', 'logo', 1, '.png');
-  var download = await new downloadAPI(url);
-  var fileName = strFileName(fileNo) + extension;
-  await download.setPath("./temporary").start(fileName).then(function(result){
-    console.log('result: ', result);
-  },function(error){
-    console.log(error);
-  })
+  try{
+    var url = await getDownloadUrl(user, projectName, fileNo, extension);
+    var download = await new downloadAPI(url);
+    var fileName = strFileName(fileNo) + extension;
+    var result = await download.setPath("./temporary").start(fileName);
+  } catch (err){
+    console.log(err);
+  }
 }
 
 async function getDownloadUrl(userName, projectName, fileNo, extension) {
   var strFileNo = strFileName(fileNo);
+//  params.Key = "upload/" + userName + "/" + projectName + "/" + strFileNo + extension;
   params.Key = "rawData/" + userName + "/" + projectName + "/" + strFileNo + extension;
   var url = await s3.getSignedUrl('getObject', params);
   return url;
