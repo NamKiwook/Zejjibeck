@@ -284,6 +284,10 @@ export default {
   }
   .project > .title-wrap {
     display: inline-block;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: calc(100% - 300px);
   }
   .project > .title-wrap > .date {
     font-size: 11px;
@@ -367,6 +371,7 @@ export default {
   }
   .modal-container > .box > .description {
     font-size: 12px;
+    width: calc(100% - 130px);
   }
   .modal-container > .btn {
     margin-top: 20px;
@@ -385,6 +390,7 @@ export default {
     .project >  .title-wrap {
       display: block;
       margin-bottom: 10px;
+      width: 100%;
     }
     .project > .credit {
       margin-right: 30px;

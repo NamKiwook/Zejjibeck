@@ -85,7 +85,7 @@ div.container
     .project
       .title-wrap
         .date 2018.01.01
-        .title 안녕하세요
+        .title 안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요안녕하세요
       .type.Refine Refine
       .credit 22323원
     .project
@@ -318,6 +318,10 @@ export default {
 .register-project .project-wrap > .title {
   font-size: 16px;
   font-weight: 600;
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
 }
 .register-project .project-wrap > .type {
   background-color: #2979ff;
@@ -399,6 +403,10 @@ export default {
 }
 .project-list > .project > .title-wrap {
   display:inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: calc(100% - 300px);
 }
 .project-list > .project > .title-wrap > .date {
   font-size: 11px;
@@ -469,6 +477,7 @@ export default {
 .modal-container > .box > .description {
   font-size: 12px;
   margin-left: auto;
+  width: calc(100% - 130px);
 }
 .modal-container > .box > .description > input {
   border: 1px solid #eee;
@@ -480,7 +489,7 @@ export default {
   margin-top: 20px;
   padding: 15px 60px;
 }
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1000px) {
   .credit-section {
     flex-flow: column-reverse;
     padding: 0 10px;
@@ -500,6 +509,7 @@ export default {
   .project-list > .project > .title-wrap {
     display: block;
     margin-bottom: 10px;
+    width: 100%;
   }
   .project-list > .project > .credit {
     margin-right: 30px;
