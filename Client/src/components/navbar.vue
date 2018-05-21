@@ -92,12 +92,21 @@ export default {
   nav.scrolled .menu a {
     color: #fff;
   }
+  @media only screen and (max-width: 1170px) {
+    nav > .container {
+      padding: 0 15px;
+    }
+  }
   @media only screen and (max-width: 550px) {
+    nav > .container > .logoImage {
+      width: 100px;
+      background-size: 100px;
+    }
     nav > .container > .menu > a {
       padding: 0;
     }
     nav > .container > .menu > .mobileHidden {
-      visibility: hidden;
+      display: none;
     }
   }
 </style>
