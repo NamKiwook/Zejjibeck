@@ -9,8 +9,6 @@ var projectSchema = new Schema({
   dataType: String, // 'Image' 'Audio' 'Text'
   uploadTime: Number,
 
-  question: String,
-
   outputInfo: String,
 
   description: String,
@@ -24,6 +22,7 @@ var projectSchema = new Schema({
 
   totalCredit: Number,
 
+  stateCredit: {type:Number, default: 0},
   collectCredit: {type: Number, default: 0}, //블락당 크레딧
   refineCredit: {type: Number, default : 0}, //파일당 크레딧
 
@@ -32,7 +31,7 @@ var projectSchema = new Schema({
   refineBlocks: Array,
   collectBlock: String,
 
-  projectState : {type: String, default: "Collect"}, // Collect, CollectValidation, Refine, finished
+  projectState : {type: String, default: "Collect"}, // Collect, Refine, cValidate, rValidate finished
   completedBlock: {type: Number, default: 0},
   maxCollect : Number,
 });

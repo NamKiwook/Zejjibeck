@@ -50,7 +50,7 @@ router.get('/list', async function(req,res,next){
     if (category != "ALL") query.projectState = category;
     else query.projectState = {"$in":["Refine","Collect"]};
 
-    if(filter == "credit") sortQuery.credit = sortedBy;
+    if(filter == "credit") sortQuery.stateCredit = sortedBy;
     else sortQuery.uploadTime = sortedBy;
 
     var projectList = await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit);
