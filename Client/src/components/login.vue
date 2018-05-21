@@ -51,19 +51,17 @@ export default {
     border-radius: 4px;
     box-shadow: 0 0 20px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    height: 100vh;
     position: relative;
   }
   .container > .img-cover {
     width: 100%;
-    height: 100%;
     background-color: rgba(30,30,30,0.8);
     padding: 40px;
   }
   .container > .img-cover > .content {
     background-color: rgba(11, 17, 31, 0.5);
     border-radius: 4px;
-    margin: 20vh auto 0;
+    margin: 20vh auto;
     position: relative;
     width: 900px;
     height: 500px;
@@ -133,5 +131,24 @@ export default {
     font-size: 12px;
     margin-top: 20px;
     color: #4e4e4e;
+  }
+  @media only screen and (max-width: 1170px) {
+    .container > .img-cover > .content {
+      width: 400px;
+    }
+    .container > .img-cover > .content > .description-wrap {
+      display: none;
+    }
+  }
+  @media only screen and (max-width: 550px) {
+    .container > .img-cover {
+      padding: 40px 15px;
+    }
+    .container > .img-cover > .content {
+      width: 100%;
+    }
+    .container > .img-cover > .content > .login-wrap {
+      width: 100%;
+    }
   }
 </style>
