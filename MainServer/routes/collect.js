@@ -78,7 +78,7 @@ router.get('/url', async function(req,res,err){
 
     for(var i = 0 ; i < finished.length;i++){
       if(finished[i].owner == userId && finished[i].upload == false){
-        finished[i].expire = new Date().getTime() + 300*1000;
+        finished[i].assignTime = new Date().getTime();
 
         var fileNo = setLeadingZero(i);
 
@@ -106,14 +106,19 @@ router.get('/url', async function(req,res,err){
 router.put('/urlAck', async function(req,res,err) {
   var projectId = req.query.projectId;
   var index = req.query.index;
+  var userId = req.decoded.userId;
 
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-    collectBlock.finished[index].upload = true;
 
-    await collectBlock.save();
-    res.send({success: true});
+    if(userId == collectBlock.finished[index].owner) {
+      collectBlock.finished[index].upload = true;
+      collectBlock.finished[index].finishedTime = new Date().getTime();
+      await collectBlock.save();
+      res.send({success: true});
+    }
+    res.send({success: false, errorMessage: "time expired"});
   } catch (err){
     res.send({success: false, errorMessage:"database error"});
   }
