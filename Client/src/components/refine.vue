@@ -159,12 +159,15 @@ export default {
       var mousePos = this.getMousePos(this.canvas, event)
       this.curX = mousePos.x
       this.curY = mousePos.y
-      this.imageUpdate()
+      this.clearCanvas()
       this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
       this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
       this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
       this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
       this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+    },
+    clearCanvas () {
+      this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
     },
     imageUpdate () {
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
