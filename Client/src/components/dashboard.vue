@@ -1,6 +1,6 @@
 <template lang="pug">
 div.container
-  modal(name="project-modal" height="auto" scrollable=true)
+  modal(name="project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -370,6 +370,10 @@ export default {
 .register-project .project-wrap > .title {
   font-size: 16px;
   font-weight: 600;
+  height: 25px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 10px;
 }
 .register-project .project-wrap > .type {
   background-color: #2979ff;
@@ -424,7 +428,7 @@ export default {
   align-items: center;
   float: right;
   width: 65px;
-  margin-right: 50px;
+  margin-right: 40px;
   font-size: 14px;
   color: #a7b3bf;
 }
@@ -451,6 +455,10 @@ export default {
 }
 .project-list > .project > .title-wrap {
   display:inline-block;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: calc(100% - 300px);
 }
 .project-list > .project > .title-wrap > .date {
   font-size: 11px;
@@ -521,6 +529,7 @@ export default {
 .modal-container > .box > .description {
   font-size: 12px;
   margin-left: auto;
+  width: calc(100% - 130px);
 }
 .modal-container > .box > .description > input {
   border: 1px solid #eee;
@@ -532,7 +541,7 @@ export default {
   margin-top: 20px;
   padding: 15px 60px;
 }
-@media only screen and (max-width: 1080px) {
+@media only screen and (max-width: 1000px) {
   .credit-section {
     flex-flow: column-reverse;
     padding: 0 10px;
@@ -552,6 +561,7 @@ export default {
   .project-list > .project > .title-wrap {
     display: block;
     margin-bottom: 10px;
+    width: 100%;
   }
   .project-list > .project > .credit {
     margin-right: 30px;

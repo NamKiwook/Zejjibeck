@@ -1,6 +1,20 @@
 <template lang="pug">
 nav
   .container
+    modal(name="profile-setting" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
+      .modal-container
+        a.close-btn(@click="hide")
+        .box
+          .title 현재 비밀번호
+          .sep :
+          .description
+            input(type="password")
+        .box
+          .title 변경할 비밀번호
+          .sep :
+          .description
+            input(type="password")
+        a.btn(@click="charge") 변경사항 저장
     router-link.logo(to='/dashboard')
     .profile-wrap(@click="profileToggle")
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
@@ -11,7 +25,7 @@ nav
             .cover
               .name {{username}}
         a PROFILE
-        a SETTING
+        a(@click="showSetting") SETTING
         a.logout LOGOUT
   .sep
   .section
@@ -46,6 +60,12 @@ export default {
     },
     menuToggle () {
       this.$store.commit('menuToggle')
+    },
+    showSetting () {
+      this.$modal.show('profile-setting')
+    },
+    hide() {
+      this.$modal.hide('profile-setting')
     }
   }
 }
@@ -64,7 +84,6 @@ export default {
     margin:auto;
     height: 100px;
     align-items: center;
-    overflow: hidden;
   }
   nav > .container > .logo {
     background-image: url("../assets/logo-black.png");
@@ -83,6 +102,7 @@ export default {
     display: flex;
     align-items: center;
     cursor: pointer;
+    position: relative;
   }
   nav > .container > .profile-wrap > .profile-img {
   }
@@ -93,8 +113,8 @@ export default {
   .profile-dropdown {
     display: flex;
     flex-flow: column;
-    position: fixed;
-    top: 60px; right: 0;
+    position: absolute;
+    top: 35px; right: 0;
     visibility: hidden;
     z-index: 999;
     background-color: #262931;
@@ -108,10 +128,12 @@ export default {
   .profile-dropdown > .img-wrap {
   }
   .profile-dropdown > .img-wrap > .profile {
-    background-image: url("../assets/default-user.png");
+    background-image: url("../assets/profileImg1.jpg");
     background-repeat: no-repeat;
     background-position: center;
     background-size: 200px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     width: 200px;
     height: 200px;
     position: relative;
@@ -174,6 +196,57 @@ export default {
       padding: 0 10px;
     }
     nav > .section {
+    }
+  }
+  .modal-container {
+    padding: 50px 20px;
+    text-align: center;
+    position: relative;
+  }
+  .modal-container > .close-btn {
+    display: inline-block;
+    background-image: url("../assets/close.png");
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px; top: 10px;
+  }
+  .modal-container > .box {
+    display: flex;
+    text-align: left;
+    padding: 10px;
+    border-bottom: 1px solid #eeeeee;
+  }
+  .modal-container > .box > .title {
+    width: 100px;
+    font-weight: 800;
+    font-size: 12px;
+  }
+  .modal-container > .box > .sep {
+    font-size: 12px;
+    padding: 0 10px;
+  }
+  .modal-container > .box > .description {
+    font-size: 12px;
+    margin-left: auto;
+    width: calc(100% - 130px);
+  }
+  .modal-container > .box > .description > input {
+    border: 1px solid #eee;
+    border-radius : 2px;
+    width: 100%;
+  }
+  .modal-container > .btn {
+    margin-top: 20px;
+    padding: 15px 60px;
+  }
+  @media only screen and (max-width: 550px) {
+    nav > .container > .logo {
+      width: 100px;
+      background-size: 100px;
     }
   }
 </style>

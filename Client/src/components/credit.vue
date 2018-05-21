@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="charge-modal" width="450" height="auto" scrollable=true)
+    modal(name="charge-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -10,7 +10,7 @@
             input(type="text" v-model="amountCharge")
             | 원
         a.btn(@click="charge") 크레딧 충전
-    modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
+    modal(name="withdraw-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -37,6 +37,19 @@
             | 원
         a.btn(@click="withdraw") 크레딧 출금
     section.credit
+      .credit-wrap
+        .wrap
+          .name 총 크레딧
+        .point 2000
+          .btn(@click="showWithdraw") 출금
+          .btn(@click="showCharge") 충전
+        .wrap
+          .title 사용 가능
+          .point 1200
+        .divider
+        .wrap
+          .title 적립 예정
+          .point 800
       .core.wrap
         p 사용가능 크레딧
         .credit {{userInfo.usableCredit}}
@@ -62,6 +75,31 @@
           .date 2018. 05. 18
           p 적립 예정
         .credit - 40원
+      .wrap
+        .title.plus 적립
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit + 400원
+      .wrap
+        .title.minus 사용
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit - 40원
+      .wrap
+        .title.plus 적립
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit + 400원
+      .wrap
+        .title.minus 사용
+        .content
+          .date 2018. 05. 18
+          p 적립 예정
+        .credit - 40원
+      .more.btn + 더보기
 </template>
 
 <script>
@@ -134,13 +172,43 @@ export default {
     margin: 5px 0;
   }
   section {
-    width: 880px;
+    max-width: 880px;
     margin: 0 auto;
+    width: 90%;
     display: flex;
   }
   section.credit {
     padding: 50px 10px 30px;
     vertical-align: top;
+  }
+  section.credit > .credit-wrap {
+    flex: 1;
+    display: none;
+  }
+  section.credit > .credit-wrap > .wrap {
+    display: flex;
+    align-items: center;
+  }
+  section.credit > .credit-wrap > .wrap > .name {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  section.credit > .credit-wrap > .point {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 20px 0;
+  }
+  section.credit > .credit-wrap > .point > .btn {
+    float: right;
+    margin: 8px 0 0 8px;
+    border-radius: 30px;
+    padding: 10px 20px;
+  }
+  section.credit > .credit-wrap > .wrap > .title {
+    font-size: 14px;
+  }
+  section.credit > .credit-wrap > .wrap > .point {
+    margin-left: auto;
   }
   section.credit > .core.wrap {
     background-image: url("../assets/credit3.png");
@@ -180,6 +248,7 @@ export default {
   }
   section.list {
     flex-flow: column;
+    padding-bottom: 100px;
   }
   section.list > .wrap {
     display: flex;
@@ -219,6 +288,10 @@ export default {
     margin-left: auto;
     width: 100px;
     text-align: right;
+  }
+  section.list > .more.btn {
+    margin-top: 20px;
+    border-radius: 40px;
   }
   .modal-container {
     padding: 50px 20px;
@@ -264,5 +337,16 @@ export default {
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
+  }
+  @media only screen and (max-width:800px) {
+    section.credit > .credit-wrap {
+      display: inline-block;
+    }
+    section.credit > .core.wrap {
+      display: none;
+    }
+    section.credit > .wrap {
+      display: none;
+    }
   }
 </style>
