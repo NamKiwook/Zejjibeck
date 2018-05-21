@@ -1,5 +1,7 @@
 <template lang="pug">
   .container
+    .loading-bar
+      .gaze
     section.textWrap
       .title Project Name
       input.text#projectName(type='text', v-model="projectName")
@@ -248,7 +250,18 @@ export default {
     margin: 150px auto 50px;
     width: 880px;
   }
-
+  .loading-bar {
+    height: 2px;
+    z-index: 9999;
+    position:fixed;
+    top: 0; left: 0; right: 0;
+  }
+  .loading-bar > .gaze {
+    background-color: #2979ff;
+    height: 100%;
+    width: 20%;
+    transition: all 0.5s;
+  }
   section {
     margin: 15px 0;
     display: inline-block;

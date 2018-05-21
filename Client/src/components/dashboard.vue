@@ -1,41 +1,5 @@
 <template lang="pug">
 div.container
-  modal(name="charge-modal" width="450" height="auto" scrollable=true)
-    .modal-container
-      a.close-btn(@click="hide")
-      .box
-        .title 충전할 크레딧
-        .sep :
-        .description
-          input(type="tel" v-model="chargeCredit")
-          | 원
-      a.btn(@click="charge") 크레딧 충전
-  modal(name="withdraw-modal" width="450" height="auto" scrollable=true)
-    .modal-container
-      a.close-btn(@click="hide")
-      .box
-        .title 은행명
-        .sep :
-        .description {{bank}}
-      .box
-        .title 계좌번호
-        .sep :
-        .description {{bankAccount}}
-      .box
-        .title 예금주
-        .sep :
-        .description {{username}}
-      .box
-        .title 총 크레딧
-        .sep :
-        .description {{usableCredit}}원
-      .box
-        .title 출금할 크레딧
-        .sep :
-        .description
-          input(type="tel" v-model="amountWithdraw")
-          | 원
-      a.btn(@click="withdraw") 크레딧 출금
   modal(name="project-modal" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
@@ -61,11 +25,42 @@ div.container
         .description
           | {{modalProject.totalCredit}}원
       .btn 다운로드
-  carousel.project(:perPage="perpage", scroll-per-page=true, pagination-color='#fff', :paginationPadding=5, pagination-active-color='#666')
+  section.credit-section
+    .profile-wrap
+      .profile-img
+      .profile-title 박성준
+      .rating 다이아
+    .credit-wrap
+      .wrap
+        .dot.green
+        .name 총 참여 프로젝트
+      .point 10
+      .wrap
+        .title 완료된 프로젝트
+        .point 8
+      .divider
+      .wrap
+        .title 진행중인 프로젝트
+        .point 2
+    .credit-wrap
+      router-link.detail(to='/credit')
+      .wrap
+        .dot.blue
+        .name 총 크레딧
+      .point {{usableCredit+prearrangedCredit}}
+      .wrap
+        .title 사용 가능
+        .point {{usableCredit}}
+      .divider
+      .wrap
+        .title 적립 예정
+        .point {{prearrangedCredit}}
+  .divider
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled='true')
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showProject(projectInfo)")
+        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
         .title {{projectInfo.projectName}}
-        .sub.title {{projectInfo.projectType}}
         .problem-wrap
           .total
             .num {{projectInfo.blockNo}}
@@ -80,36 +75,31 @@ div.container
               .slice
                 .bar
                 .fill
-  section.credit
-    .profile-wrap
-      .profile-img
-      .profile-title 박성준
-      .rating 다이아
-    .credit-wrap
-      .wrap
-        .dot.blue
-        .name 총 획득 크레딧
-      .point {{usableCredit+prearrangedCredit}}
-      .wrap
-        .title 사용 가능
-        .point {{usableCredit}}
-      .sep
-      .wrap
-        .title 적립 예정
-        .point {{prearrangedCredit}}
-    .credit-wrap
-      .wrap
-        .dot.green
-        .name 총 참여 프로젝트
-      .point 10
-      .wrap
-        .title 완료된 프로젝트
-        .point 8
-      .sep
-      .wrap
-        .title 진행중인 프로젝트
-        .point 2
-  .sep
+  .divider
+  section.project-list
+    .section-title 참여 가능 프로젝트
+    .menu
+      .title PROJECT
+      .type TYPE
+      .credit CREDIT
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Refine Refine
+      .credit 22323원
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Collect Collect
+      .credit 22323원
+    .project
+      .title-wrap
+        .date 2018.01.01
+        .title 안녕하세요
+      .type.Refine Refine
+      .credit 22323원
 </template>
 
 <script>
@@ -164,19 +154,11 @@ export default {
     percent (percent) {
       return 'p' + Math.round(percent)
     },
-    showCharge () {
-      this.$modal.show('charge-modal')
-    },
-    showWithdraw () {
-      this.$modal.show('withdraw-modal')
-    },
     showProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('project-modal')
     },
     hide () {
-      this.$modal.hide('charge-modal')
-      this.$modal.hide('withdraw-modal')
       this.$modal.hide('project-modal')
     },
     withdraw () {
@@ -201,79 +183,34 @@ export default {
 .dot.green {
   background-image: linear-gradient(313deg,#00a1ff,#26d06b);
 }
-.sep {
+.divider {
   height: 1px;
   background-color: #eee;
   margin: 5px 0;
 }
 .container {
-  margin: 150px auto 0;
+  margin: 150px auto;
   overflow: hidden;
 }
-.project-wrap {
-  height: 400px;
-  background-color: #fff;
-  margin: 20px 20px 0;
-  padding: 15px;
-  border: 1px solid rgba(211, 215, 219, 1.0);
-  border-radius: 4px;
-  cursor: pointer;
-}
-.project-wrap:hover .c100{
-  cursor: default;
-}
-.project-wrap:hover .c100 > span {
-  width: 3.33em;
-  line-height: 3.33em;
-  font-size: 0.3em;
-  color: #4e4e4e;
-}
-.project-wrap:hover .c100:after {
-  top: 0.04em;
-  left: 0.04em;
-  width: 0.92em;
-  height: 0.92em;
-}
-.project-wrap > .title {
-  font-size: 18px;
-  font-weight: 600;
-  display: inline-block;
-}
-.project-wrap > .sub {
-  color: #a7b3bf;
-  margin-left: 5px;
-}
-.problem-wrap {
-  display: flex;
-  padding: 20px 0;
-  margin: 10px 0 20px;
-}
-.problem-wrap > div {
-  flex: 1;
-  text-align: center;
-}
-.problem-wrap > div > .num {
-  font-weight: 800;
-  font-size: 20px;
-}
-.problem-wrap > div > .text {
-  color: #a7b3bf;
-  margin-top: 3px;
-  font-size: 14px;
-}
-.credit {
+.container > section {
   width: 880px;
-  display: flex;
-  padding: 15px;
   margin: 20px auto;
 }
-.credit > .profile-wrap {
+.section-title {
+  font-weight: bold;
+  padding: 10px 0 20px;
+}
+.credit-section {
+  display: flex;
+  padding: 30px 15px 20px;
+}
+.credit-section > .profile-wrap {
   display: flex;
   flex-flow: column;
   justify-content: center;
   flex: 1;
 }
-.credit > .profile-wrap > .profile-img {
+.credit-section > .profile-wrap > .profile-img {
   display: inline-block;
   background-image: url("../assets/default-user.png");
   background-repeat: no-repeat;
@@ -285,84 +222,218 @@ export default {
   height: 70px;
   margin-top: 10px;
 }
-.credit > .profile-wrap > .profile-title {
+.credit-section > .profile-wrap > .profile-title {
   margin-top: 15px;
   font-weight: bold;
 }
-.credit > .profile-wrap > .rating {
+.credit-section > .profile-wrap > .rating {
   margin-top: 8px;
   font-size: 14px;
 }
-.credit > .credit-wrap {
+.credit-section > .credit-wrap {
   flex: 1;
   margin: 0 50px;
+  position: relative;
 }
-.credit > .credit-wrap > .wrap {
+.credit-section > .credit-wrap > .detail {
+  background-color: #fff;
+  background-image: url("../assets/magnifier.png");
+  background-size: 20px;
+  background-repeat: no-repeat;
+  background-position: center;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);
+  border: 1px solid rgba(0,0,0,.05);
+  display: inline-block;
+  position: absolute;
+  top: -30px; right: -50px;
+  height: 45px;
+  width: 45px;
+  border-radius: 50px;
+  float: right;
+  cursor: pointer;
+}
+.credit-section > .credit-wrap > .detail:hover {
+  background-color: #fafafa;
+}
+.credit-section > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
 }
-.credit > .credit-wrap > .wrap > .name {
+.credit-section > .credit-wrap > .wrap > .name {
   font-size: 18px;
   font-weight: bold;
 }
-.credit > .credit-wrap > .point {
+.credit-section > .credit-wrap > .point {
   font-size: 40px;
   font-weight: bold;
   padding: 20px 0;
 }
-.credit > .credit-wrap > .wrap > .title {
+.credit-section > .credit-wrap > .wrap > .title {
   font-size: 14px;
 }
-.credit> .credit-wrap > .wrap > .point {
+.credit-section> .credit-wrap > .wrap > .point {
   margin-left: auto;
 }
-.credit > .btn-wrap {
+.credit-section > .btn-wrap {
   display: flex;
   flex-flow: column;
   width: 150px;
   align-items: center;
   justify-content: center;
 }
-.credit > .btn-wrap > .btn {
+.credit-section > .btn-wrap > .btn {
   width: 100%;
   margin: 10px 0;
 }
-/*.credit > .title {*/
-/*font-size: 18px;*/
-/*font-weight: 600;*/
-/*}*/
-/*.credit > .credit-wrap {*/
-/*display: flex;*/
-/*flex-flow: row;*/
-/*text-align: center;*/
-/*margin-top: 20px;*/
-/*}*/
-/*.credit > .credit-wrap > .available {*/
-/*flex: 3;*/
-/*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
-/*}*/
-/*.credit > .credit-wrap > .expected {*/
-/*flex: 2;*/
-/*border-right: 1px solid rgba(211, 215, 219, 1.0);*/
-/*}*/
-/*.credit > .credit-wrap > div > .text {*/
-/*font-size: 16px;*/
-/*font-weight: 600;*/
-/*color: #a7b3bf;*/
-/*margin-top: 10px;*/
-/*}*/
-/*.credit > .credit-wrap > div > .point {*/
-/*font-size: 32px;*/
-/*margin-top: 10px;*/
-/*}*/
-/*.credit > .credit-wrap > .btn-wrap {*/
-/*flex: 2;*/
-/*}*/
-/*.credit > .credit-wrap > .btn-wrap > .btn {*/
-/*width: 60%;*/
-/*margin: 5px;*/
-/*padding: 10px;*/
-/*}*/
+.register-project {
+  width: 950px;
+  padding-top: 15px;
+  margin: 0 auto;
+}
+.register-project .project-wrap {
+  height: 400px;
+  background-color: #fff;
+  margin: 20px 20px 0;
+  padding: 15px;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.register-project .project-wrap:hover .c100{
+  cursor: default;
+}
+.register-project .project-wrap:hover .c100 > span {
+  width: 3.33em;
+  line-height: 3.33em;
+  font-size: 0.3em;
+  color: #2979ff;
+}
+.register-project .project-wrap:hover .c100:after {
+  top: 0.04em;
+  left: 0.04em;
+  width: 0.92em;
+  height: 0.92em;
+}
+.register-project .project-wrap > .title {
+  font-size: 16px;
+  font-weight: 600;
+}
+.register-project .project-wrap > .type {
+  background-color: #2979ff;
+  color: #fff;
+  line-height: 24px;
+  font-size: 12px;
+  text-align: center;
+  width: 60px;
+  border-radius: 20px;
+  float: right;
+}
+.register-project .type.Refine {
+  background-color: #5991ee;
+}
+.register-project .type.Collect {
+  background-color: #62ce8d;
+}
+.register-project .type.finish {
+  background-color: #3c4858;
+}
+.register-project .problem-wrap {
+  display: flex;
+  padding: 20px 0;
+  margin: 10px 0 20px;
+}
+.register-project .problem-wrap > div {
+  flex: 1;
+  text-align: center;
+}
+.register-project .problem-wrap > div > .num {
+  font-weight: 800;
+  font-size: 20px;
+}
+.register-project .problem-wrap > div > .text {
+  color: #a7b3bf;
+  margin-top: 3px;
+  font-size: 14px;
+}
+.project-list > .menu{
+  padding: 15px 20px;
+}
+
+.project-list > .menu > .title {
+  text-align: center;
+  border-radius: 4px;
+  display: inline-block;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .menu > .credit {
+  display: flex;
+  align-items: center;
+  float: right;
+  width: 65px;
+  margin-right: 50px;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .menu > .type {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  float: right;
+  width: 80px;
+  position: relative;
+  margin-right: 20px;
+  font-size: 14px;
+  color: #a7b3bf;
+}
+.project-list > .project{
+  background-color: #fff;
+  padding: 18px 20px;
+  border-radius: 2px;
+  margin: 3px 0;
+  transition: all 0.3s;
+}
+.project-list > .project:hover {
+  box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
+}
+.project-list > .project > .title-wrap {
+  display:inline-block;
+}
+.project-list > .project > .title-wrap > .date {
+  font-size: 11px;
+  color: #8492a6;
+  margin-bottom: 5px;
+}
+.project-list > .project > .title-wrap > .title {
+  display: inline-block;
+  font-weight: bold;
+}
+.project-list > .project > .credit {
+  width: 100px;
+  line-height: 40px;
+  font-size: 14px;
+  text-align: right;
+  float: right;
+  margin-right: 50px;
+}
+.project-list > .project > .type {
+  background-color: #2979ff;
+  color: #fff;
+  line-height: 35px;
+  text-align: center;
+  font-size: 12px;
+  width: 80px;
+  float: right;
+  border-radius: 20px;
+  margin-top: 5px;
+  margin-right: 20px;
+}
+.project-list > .project > .type.Refine {
+  background-color: #5991ee;
+}
+.project-list > .project > .type.Collect {
+  background-color: #62ce8d;
+}
 .modal-container {
   padding: 50px 20px;
   text-align: center;
