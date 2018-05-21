@@ -207,7 +207,8 @@ export default {
     margin: 10px;
   }
   .container > section {
-    width: 880px;
+    max-width: 880px;
+    width: 90%;
     margin: 20px auto;
   }
   .menu {
@@ -227,7 +228,7 @@ export default {
     align-items: center;
     float: right;
     width: 65px;
-    margin-right: 50px;
+    margin-right: 40px;
     font-size: 14px;
     color: #a7b3bf;
   }
@@ -375,6 +376,19 @@ export default {
   @media only screen and (max-width: 1080px) {
     .container {
       margin-left: 0;
+    }
+    .menu > .credit {
+      margin-right: 20px;
+    }
+    .project {
+      height: 120px;
+    }
+    .project >  .title-wrap {
+      display: block;
+      margin-bottom: 10px;
+    }
+    .project > .credit {
+      margin-right: 30px;
     }
   }
 </style>

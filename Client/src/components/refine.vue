@@ -328,7 +328,28 @@ export default {
   .user-info > .credit-wrap > .wrap > .credit {
     margin-left: auto;
   }
-  @media only screen and (max-width:1080px) {
-
+  @media only screen and (max-width:1000px) {
+    .container {
+      padding: 40px 5%;
+    }
+    .sequence-wrap {
+      float: right;
+      margin-right: 10px;
+      position: initial;
+      padding-top: 7px;
+    }
+    .sequence-wrap > .now-sequence {
+      font-size: 18px;
+      font-weight: 900;
+      margin-right: 10px;
+    }
+    .sequence-wrap > .total-sequence {
+      font-size: 18px;
+      font-weight: 900;
+      color: #a7b3bf;
+    }
+    .user-info {
+      display: none;
+    }
   }
 </style>
