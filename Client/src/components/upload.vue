@@ -185,7 +185,7 @@ export default {
               if (i === this.fileList.length - 1) {
                 this.$router.push('/dashboard')
               }
-              this.uploadPercent = parseInt((i/this.fileList.length) *100)
+              this.uploadPercent = parseInt((i / this.fileList.length) * 100)
             }
           } else {
             this.$router.push('/dashboard')

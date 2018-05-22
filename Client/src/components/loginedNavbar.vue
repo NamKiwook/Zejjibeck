@@ -1,7 +1,7 @@
 <template lang="pug">
 nav
   .container
-    modal(name="profile-setting" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
+    modal(name="profile-setting" adaptive=true width="90%" maxWidth=450, height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -14,7 +14,7 @@ nav
           .sep :
           .description
             input(type="password")
-        a.btn(@click="charge") 변경사항 저장
+        a.btn(@click="changeInfo") 변경사항 저장
     router-link.logo(to='/dashboard')
     .profile-wrap(@click="profileToggle")
       img.profile-img(src="../assets/default-user.png", width="30", height="30")
@@ -64,8 +64,11 @@ export default {
     showSetting () {
       this.$modal.show('profile-setting')
     },
-    hide() {
+    hide () {
       this.$modal.hide('profile-setting')
+    },
+    changeInfo () {
+
     }
   }
 }

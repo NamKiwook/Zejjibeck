@@ -36,13 +36,15 @@ export default {
       projectInfo: {},
       dataType: 'text',
       fileList: [],
-      numberCollect: 0
+      numberCollect: 0,
+      projectId: null
     }
   },
   created () {
-    this.$http.get('/api/collect', {params : {
-        projectId: this.$route.params.projectId
-      }}).then((res) => {
+    this.projectId = this.$route.params.projectId
+    this.$http.get('/api/collect', {params: {
+      projectId: this.projectId
+    }}).then((res) => {
       this.projectInfo = res.data.projectInfo
     })
   },
@@ -50,31 +52,41 @@ export default {
     submit () {
       if (this.$refs.files != null) {
         this.fileList = this.$refs.files.files
-        this.$http.put('/api/collect/check',{
-          projectId: this.$route.params.projectId,
+        this.$http.put('/api/collect/check', {
+          projectId: this.projectId,
           fileNo: this.fileList.length
         }).then(async (res) => {
           if (res.data.success) {
             for (var i = 0; i < this.fileList.length; i++) {
               var res1 = await this.$http.get('/api/collect/url', {
                 params: {
-                  projectId: this.$route.params.projectId,
+                  projectId: this.projectId,
                   fileName: this.fileList[i].name
                 }
               })
               if (res1.data.success) {
-                console.log(res1.data.url)
-                var res2 = await this.$http.put('/api/collect/urlAck', {
-                  projectId: this.$route.params.projectId,
-                  index: res1.data.index
+                await this.$http({
+                  method: 'put',
+                  url: res1.data.url,
+                  contentType: false,
+                  processData: false,
+                  data: this.fileList[i]
+                }).then((res) => {
+                  console.log(res1.data.index)
+                  this.$http.put('/api/collect/urlAck', {
+                    projectId: this.projectId,
+                    index: res1.data.index
+                  }).then((res) => {
+                    if (res.data.success) {
+                      this.numberCollect++
+                      if (this.numberCollect === this.fileList.length) {
+                        this.$router.push('/dashboard')
+                      }
+                    } else {
+                      alert(res.data.errorMessage)
+                    }
+                  })
                 })
-                if (res2.data.success) {
-                  this.numberCollect++
-                  if ( i === this.fileList.length - 1) {
-                    alert('succeed' + this.numberCollect)
-                    this.$router.push('/dashboard')
-                  }
-                }
               } else {
                 alert(res1.data.errorMessage)
               }
