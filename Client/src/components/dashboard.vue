@@ -26,7 +26,7 @@ div.container
           | 개당 {{modalProject.stateCredit}}원
       a.btn(@click="selectProject(modalProject)") START
 
-  modal(name="my-project-modal" height="auto" scrollable=true)
+  modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
