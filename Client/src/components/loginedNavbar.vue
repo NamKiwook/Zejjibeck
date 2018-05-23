@@ -8,20 +8,24 @@ nav
           .title 현재 비밀번호
           .sep :
           .description
-            input(type="password")
+            input(type="password", v-model="currentPassword")
         .box
           .title 변경할 비밀번호
           .sep :
           .description
-            input(type="password")
+            input(type="password", v-model="changePassword")
+        .box
+          .title 프로필 사진
+            form#ajaxFrom(enctype="multipart/form-data", ref="form")
+              input#ajaxFile(type="file", ref="file")
         a.btn(@click="changeInfo") 변경사항 저장
     router-link.logo(to='/dashboard')
     .profile-wrap(@click="profileToggle")
-      img.profile-img(src="../assets/default-user.png", width="30", height="30")
+      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile" ,width="30", height="30")
       <!--.profile-title {{username}} //유저네임 넣어주는게 더 나은것같으면 주석해제-->
       .profile-dropdown(v-bind:class="{visible : profileIsVisible}")
         .img-wrap
-          .profile
+          .profile(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
             .cover
               .name {{username}}
         a PROFILE
@@ -42,7 +46,10 @@ export default {
     return {
       profileIsVisible: false,
       username: 'temp_username',
-      pathname: null
+      pathname: null,
+      image: "../assets/default-user.png",
+      currentPassword: null,
+      changePassword: null
     }
   },
   watch: {
@@ -67,8 +74,26 @@ export default {
     hide () {
       this.$modal.hide('profile-setting')
     },
-    changeInfo () {
+    async changeInfo () {
+      var formData = new FormData()
+      if (this.$refs.file.files[0]) {
+        await formData.append('file', this.$refs.file.files[0])
+        console.log(formData.get('file'))
+      }
+      await formData.append('password', this.changePassword)
+      this.$http.put('/api/userInfo',formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      }).then((res) => {
+        if(res.data.success) {
+          this.$http.get('/api/userInfo/profile').then((res) => {
+            this.$store.commit('userProfile', 'data:image/jpg;base64,' + res.data)
+          })
+        }
+        this.$modal.hide('profile-setting')
 
+      })
     }
   }
 }

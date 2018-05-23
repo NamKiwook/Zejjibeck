@@ -1,5 +1,7 @@
 <template lang="pug">
   .container
+    .loading-bar
+      .gaze(:style="{ width: collectPercent+'%' }")
     section.problem
       .project-wrap
         .project-title {{projectInfo.projectName}}
@@ -37,7 +39,8 @@ export default {
       dataType: 'text',
       fileList: [],
       numberCollect: 0,
-      projectId: null
+      projectId: null,
+      collectPercent: 0
     }
   },
   created () {
@@ -72,13 +75,14 @@ export default {
                   processData: false,
                   data: this.fileList[i]
                 }).then((res) => {
-                  console.log(res1.data.index)
+                  console.log(res)
                   this.$http.put('/api/collect/urlAck', {
                     projectId: this.projectId,
                     index: res1.data.index
                   }).then((res) => {
                     if (res.data.success) {
                       this.numberCollect++
+                      this.collectPercent = parseInt((this.numberCollect / this.fileList.length) * 100)
                       if (this.numberCollect === this.fileList.length) {
                         this.$router.push('/dashboard')
                       }
@@ -86,7 +90,7 @@ export default {
                       alert(res.data.errorMessage)
                     }
                   })
-                })
+                }).catch((err) => { alert(err) })
               } else {
                 alert(res1.data.errorMessage)
               }
@@ -117,6 +121,17 @@ export default {
     background-color: #2e76b1;
     border-radius: 50%;
     margin-right: 8px;
+  }
+  .loading-bar {
+    height: 2px;
+    z-index: 9999;
+    position:fixed;
+    top: 0; left: 0; right: 0;
+  }
+  .loading-bar > .gaze {
+    background-color: #2979ff;
+    height: 100%;
+    transition: all 0.4s;
   }
   section {
     box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);

@@ -53,7 +53,7 @@ div.container
       .btn 다운로드
   section.credit-section
     .profile-wrap
-      .profile-img
+      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
       .profile-title {{username}}
     .credit-wrap
       .wrap
@@ -265,10 +265,6 @@ export default {
 }
 .credit-section > .profile-wrap > .profile-img {
   display: inline-block;
-  background-image: url("../assets/default-user.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   border: 1px solid #eee;
   border-radius: 50px;
   width: 70px;

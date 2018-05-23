@@ -34,6 +34,9 @@ export default {
           if (res.data.success) {
             await this.$store.dispatch('login', res.data.token)
             await this.$store.commit('username', res.data.userInfo.username)
+            this.$http.get('/api/userInfo/profile').then((res) => {
+              this.$store.commit('userProfile', 'data:image/jpg;base64,' + res.data)
+            })
             await this.$router.push('/dashboard')
           } else {
             alert('아이디가 존재하지 않거나 비밀번호가 잘못되었습니다.')
