@@ -98,6 +98,7 @@ router.get('/url', async function(req,res,err){
     res.send({success: false, errorMessage: "no available block"});
 
   } catch (err){
+    console.log(err)
     res.send({success: false, errorMessage:"database error"});
   }
 });
@@ -111,14 +112,16 @@ router.put('/urlAck', async function(req,res,err) {
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
 
     var finished = JSON.parse(JSON.stringify(collectBlock.finished));
+    console.log(userId+"=="+ finished[index].owner+"????")
     if(userId == finished[index].owner) {
       finished[index].upload = true;
       finished[index].finishedTime = new Date().getTime();
       collectBlock.finished = finished;
       await collectBlock.save();
       res.send({success: true});
+    } else {
+      res.send({success: false, errorMessage: "time expired"});
     }
-    res.send({success: false, errorMessage: "time expired"});
   } catch (err){
     res.send({success: false, errorMessage:"database error"});
   }

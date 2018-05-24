@@ -22,23 +22,20 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', async function(req, res, next){
-
   console.log("!");
-//  var qq = await IdentityFile("1", "2", ".png");
   await downloads('a', 'g', 1, '.png');
-
-
+//  var qq = await IdentityFile("1", "2", ".png");
 //  clearInterval(flagVerification);
-  //await duplicateVerification();
+//  await duplicateVerification();
 //  var unit = 600; // second
 //  flagVerification = setInterval(runningVerification, unit * 5);
-})
+});
 
 router.get('/off', async function(req, res, next){
   await downloads('a', 'i', 1, '.png');
 //  clearInterval(flagVerification);
 //  console.log("verification off");
-})
+});
 
 router.get('/downloads', async function(req, res, next){
   // test download function
@@ -49,7 +46,7 @@ router.get('/downloads', async function(req, res, next){
   }
 
   await res.send("EEE");
-})
+});
 
 // 정제 프로세스
 // 1. running -> 없애는거
@@ -111,8 +108,7 @@ async function runningVerification(){
 // 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
 //// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
 async function duplicateVerification(){
-  //TODO: 수집이 완료된 애들을 끌어와서 중복 검사후 isvalidate를 done으로 바꿈
-  var projects = await projectSchema.find({projectType : "cValidate"});
+  var projects = await projectSchema.find({projectState : "cValidate"});
 
   for(var i = 0 ; i < projects.length ; i++){
     var block = await blockSchema.findOne({_id:projects[i].collectBlock});
@@ -140,14 +136,31 @@ async function duplicateVerification(){
       }
     }
 
-    // erase duplicated things
+    //TODO : Check is it run well..
+    var duplicateFlag = false;
 
+    for(var j = 0 ; j < block.finished.length ; j++){
+      if(duplicated[j] == 1){
+        block.finished[j].userId = "";
+        block.finished[j].upload = false;
+        duplicateFlag = true;
+      }
+    }
+
+    if(duplicateFlag == true){
+      block.save();
+      projects[i].projectState = "Collect";
+    }
   }
+
+  await projects.save();
+
+  projects = await projectSchema.find({projectState : "cValidate"});
+  console.log(projects);
 }
 
 // 정제 2번
 // 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
-
 async function IdentityFile(x, y, extension){
   try {
     var pathX = "./temporary/" + strFileName(x) + extension;
@@ -182,7 +195,6 @@ async function refineVerification(){
       var block = await blockSchema.findOne({_id: blockId});
       if (block.running.length + block.finished.length < block.total) continue;
       if (block.running.length > 0) continue;
-
 
       for (var k = 0; k < block.finished.length; k++) {
       }

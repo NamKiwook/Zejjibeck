@@ -26,7 +26,7 @@ div.container
           | 개당 {{modalProject.stateCredit}}원
       a.btn(@click="selectProject(modalProject)") START
 
-  modal(name="my-project-modal" height="auto" scrollable=true)
+  modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -53,7 +53,7 @@ div.container
       .btn 다운로드
   section.credit-section
     .profile-wrap
-      .profile-img
+      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
       .profile-title {{username}}
     .credit-wrap
       .wrap
@@ -265,10 +265,6 @@ export default {
 }
 .credit-section > .profile-wrap > .profile-img {
   display: inline-block;
-  background-image: url("../assets/default-user.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   border: 1px solid #eee;
   border-radius: 50px;
   width: 70px;
