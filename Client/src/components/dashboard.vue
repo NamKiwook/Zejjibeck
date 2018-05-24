@@ -45,10 +45,10 @@ div.container
       .box
         .title 프로젝트 질문
         .sep :
-        .description(v-if="!isEditQuestion") 프로젝트 질문
+        .description(v-if="!isEditQuestion") {{modalProject.question}}
           .edit-btn(@click="edit('Question')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.projectName")
+          textarea(:value="modalProject.question")
           .save.btn(@click="saveEdit('Question')") 저장
           .close.btn(@click="closeEdit('Question')") 취소
       .box
