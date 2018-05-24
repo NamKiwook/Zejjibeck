@@ -205,12 +205,11 @@ async function refineVerification(){
         projectFinishedFlag = false;
         continue;
       }
-      block.isValidate = "Done";
-      //
-       // countResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
-        //textResult: {type: Array, default: []},
-        //coordinateResult: {type: Array, default: []}
 
+      block.isValidate = "Done";
+      // countResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+      // textResult: {type: Array, default: []},
+      // coordinateResult: {type: Array, default: []}
 
       var refineType = projects[i].refineType;
 
@@ -225,7 +224,6 @@ async function refineVerification(){
           var answerList = block.finished[k].answerList;
           for(var l = 0 ; l < answerList.length; l++){
             block.countResult[l][parseInt(answerList[l])]++;
-
           }
         }
       }
@@ -236,7 +234,6 @@ async function refineVerification(){
                   block.countResult[k].push(0);
               }
           }
-
           for(var k = 0 ; k < block.finished.length; k++){
               var answerList = block.finished[k].answerList;
               for(var l = 0 ; l < answerList.length; l++){
@@ -253,54 +250,55 @@ async function refineVerification(){
             block.coordinateResult.push({minX: 2 , minY :2 , maxX: -1, maxY: -1});
           }
           for(var k = 0 ; k < block.finished.length; k++){
-              var answerList = block.finished[k].answerList;
-              for(var l = 0 ; l < answerList.length; l++){
-                var crd = JSON.parse(JSON.stringify(answerList[l]));
-                var minX = Math.min(parseInt(crd.prevX), parseInt(crd.curX));
-                  var minY = Math.min(parseInt(crd.prevY), parseInt(crd.curY));
-                  var maxX = Math.max(parseInt(crd.prevX), parseInt(crd.curX));
-                  var maxY = Math.max(parseInt(crd.prevY), parseInt(crd.curY));
-                tempList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
-              }
+            var answerList = block.finished[k].answerList;
+            for(var l = 0 ; l < answerList.length; l++){
+              var crd = JSON.parse(JSON.stringify(answerList[l]));
+              var minX = Math.min(parseInt(crd.prevX), parseInt(crd.curX));
+              var minY = Math.min(parseInt(crd.prevY), parseInt(crd.curY));
+              var maxX = Math.max(parseInt(crd.prevX), parseInt(crd.curX));
+              var maxY = Math.max(parseInt(crd.prevY), parseInt(crd.curY));
+              tempList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
+            }
           }
           for(var k = 0 ; k< tempList.length; k++){
             var resultList = tempList[k];
             if(tempList[k].length >= 5) {
-                tempList[k].sort(function (a, b) {
-                    return a.minX - b.minX;
-                });
-                var delSize = Math.floor(tempList[k].length*0.2);
-                resultList = tempList[k].slice(delSize, tempList[k].length-delSize);
+              tempList[k].sort(function (a, b) {
+                return a.minX - b.minX;
+              });
+              var delSize = Math.floor(tempList[k].length*0.2);
+              resultList = tempList[k].slice(delSize, tempList[k].length-delSize);
 
-                if(resultList.length >= 5) {
-                    resultList.sort(function (a, b) {
-                        return a.minY - b.minY;
-                    });
-                    var delSize2 = Math.floor(resultList.length*0.2);
-                    resultList = resultList.slice(delSize2, resultList.length-delSize2);
-                }
+              if(resultList.length >= 5) {
+                resultList.sort(function (a, b) {
+                  return a.minY - b.minY;
+                });
+                var delSize2 = Math.floor(resultList.length*0.2);
+                resultList = resultList.slice(delSize2, resultList.length-delSize2);
+              }
             }
             var minX =0;
             var minY = 0;
             var maxX =0;
             var maxY =0;
+
             for(var l =0 ; l < resultList.length; l++){
               minX += resultList.minX;
               minY += resultList.minY;
               maxX += resultList.maxX;
               maxY += resultList.maxY;
             }
+
             minX /= resultList.length;
             minY /= resultList.length;
             maxX /= resultList.length;
             maxY /= resultList.length;
-              block.coordinateResult[k].minX = minX;
-              block.coordinateResult[k].minY = minY;
-              block.coordinateResult[k].maxX = maxX;
-              block.coordinateResult[k].maxY = maxY;
+
+            block.coordinateResult[k].minX = minX;
+            block.coordinateResult[k].minY = minY;
+            block.coordinateResult[k].maxX = maxX;
+            block.coordinateResult[k].maxY = maxY;
           }
-
-
       }
       else if (refineType == "Text"){
           for(var k = 0; k< block.finished.length;k++) {
@@ -319,9 +317,23 @@ async function refineVerification(){
     }
     if(projectFinishedFlag == true){
       projects[i].projectState  = "finished";
-        //totalCountResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
-        //totalTextResult: {type: Array, default: []},
-        //totalCoordinateResult: {type: Array, default: []}
+
+      for(var j = 0 ; j < projects[i].refineBlocks.length;j++){
+        var blockId = projects[i].refineBlocks[j];
+        var block = await blockSchema.findOne({_id: blockId});
+        for(var k = 0 ; k < block.countResult ; k++){
+          if(projects[i].refineType == "RadioBox") {
+            projects[i].totalCountResult.push(block.countResult[k]);
+          } else if(projects[i].refineType == "CheckBox") {
+            projects[i].totalCountResult.push(block.countResult[k]);
+          } else if(projects[i].refineType == "Drag") {
+            projects[i].totalCoordinateResult.push(block.coordinateResult[k]);
+          } else if(projects[i].refineType == "Text") {
+            projects[i].totalTextResult.push(block.textResult[k]);
+          }
+        }
+      }
+      await projects.save();
     }
   }
 }

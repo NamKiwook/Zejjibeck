@@ -73,6 +73,7 @@ router.get('/url', async function(req,res,err){
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
+
     var finished = JSON.parse(JSON.stringify(collectBlock.finished));
 
     for(var i = 0 ; i < finished.length;i++){
@@ -84,6 +85,8 @@ router.get('/url', async function(req,res,err){
         params.Key = "upload/" + project.owner + "/" + project.projectName + "/" + fileNo + extension;
 
         var url = await s3.getSignedUrl('putObject', params);
+
+        console.log("TYPE!!!: " + typeof(finished));
 
         collectBlock.finished = finished;
 
@@ -119,10 +122,12 @@ router.put('/urlAck', async function(req,res,err) {
       collectBlock.finished = finished;
       await collectBlock.save();
       res.send({success: true});
+      return;
     } else {
       res.send({success: false, errorMessage: "time expired"});
     }
   } catch (err){
+    console.log(err);
     res.send({success: false, errorMessage:"database error"});
   }
 });
