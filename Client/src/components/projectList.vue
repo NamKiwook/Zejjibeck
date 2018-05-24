@@ -162,6 +162,7 @@ export default {
       this.$modal.hide('project')
     },
     selectProject (project) {
+      this.$modal.hide('project')
       if (project.projectState === 'Refine') {
         this.$router.push({path: `/refine/${project._id}`})
       } else if (project.projectState === 'Collect') {

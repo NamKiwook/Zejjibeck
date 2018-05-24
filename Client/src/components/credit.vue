@@ -1,6 +1,6 @@
 <template lang="pug">
   div.container
-    modal(name="charge-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
+    modal(name="charge-modal" adaptive=true width="90%" maxWidth=450 height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -10,7 +10,7 @@
             input(type="text" v-model="amountCharge")
             | 원
         a.btn(@click="charge") 크레딧 충전
-    modal(name="withdraw-modal" adaptive="true" width="90%" maxWidth="450" height="auto" scrollable=true)
+    modal(name="withdraw-modal" adaptive=true width="90%" maxWidth=450 height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
         .box
@@ -104,12 +104,12 @@
 
 <script>
 export default {
-  name: "credit",
+  name: 'credit',
   data () {
     return {
-      userInfo : { usableCredit: 10000,prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
-      amountWithdraw : 0,
-      amountCharge : 0
+      userInfo: {usableCredit: 10000, prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
+      amountWithdraw: 0,
+      amountCharge: 0
     }
   },
   methods: {
@@ -125,11 +125,10 @@ export default {
     },
     withdraw () {
       this.$http.get('/api/credit/withdraw', {params: {
-          withdrawCredit: parseInt(this.amountWithdraw)
-        }}).then((res) => {
-        if(res.data.success) {
+        withdrawCredit: parseInt(this.amountWithdraw)
+      }}).then((res) => {
+        if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$modal.hide('withdraw-modal')
         } else {
           alert(res.data.errorMassage)
         }
@@ -140,11 +139,10 @@ export default {
     charge () {
       console.log(this.amountCharge)
       this.$http.get('/api/credit/charge', {params: {
-          chargeCredit: parseInt(this.amountCharge)
-        }}).then((res) => {
-        if(res.data.success) {
+        chargeCredit: parseInt(this.amountCharge)
+      }}).then((res) => {
+        if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$modal.hide('charge-modal')
         } else {
           alert(res.data.errorMassage)
         }

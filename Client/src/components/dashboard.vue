@@ -1,6 +1,6 @@
 <template lang="pug">
 div.container
-  modal(name="project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
+  modal(name="project-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -26,7 +26,7 @@ div.container
           | 개당 {{modalProject.stateCredit}}원
       a.btn(@click="selectProject(modalProject)") START
 
-  modal(name="my-project-modal" height="auto" scrollable=true)
+  modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
@@ -53,7 +53,7 @@ div.container
       .btn 다운로드
   section.credit-section
     .profile-wrap
-      .profile-img
+      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
       .profile-title {{username}}
     .credit-wrap
       .wrap
@@ -159,7 +159,6 @@ export default {
       this.projectsInfoList = res.data.projectsInfoList
       this.carouselPerpage()
       this.loadList()
-      console.log(this.projectsInfoList)
     })
   },
   beforeMount () {
@@ -171,12 +170,12 @@ export default {
   methods: {
     loadList () {
       this.$http.get('/api/project/list', {params: {
-          page: 1,
-          filter: 'credit',
-          category: 'ALL',
-          listNo: 3,
-          sortedBy: 'dec'
-        }}).then((res) => {
+        page: 1,
+        filter: 'credit',
+        category: 'ALL',
+        listNo: 3,
+        sortedBy: 'dec'
+      }}).then((res) => {
         this.projectList = res.data.projectList
       }).catch((err) => {
         alert(err)
@@ -266,10 +265,6 @@ export default {
 }
 .credit-section > .profile-wrap > .profile-img {
   display: inline-block;
-  background-image: url("../assets/default-user.png");
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: contain;
   border: 1px solid #eee;
   border-radius: 50px;
   width: 70px;

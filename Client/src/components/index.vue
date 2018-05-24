@@ -270,6 +270,9 @@ export default {
       .content {
         width: 90%;
       }
+      .main-section > .content {
+        margin-top: 100px;
+      }
       .main-section > .content > .main-left > .title {
         font-size: 28px;
       }

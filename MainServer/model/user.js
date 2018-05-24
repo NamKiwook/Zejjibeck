@@ -10,6 +10,7 @@ var userSchema = new Schema({
   prearrangedCredit: {type: Number, default: 0},
   penalty : {type: Number, default: 0},
   bank: String,
-  bankAccount: String
+  bankAccount: String,
+  profileUrl: {type: String, default: __dirname+"/../public/profile/default.png"}
 });
 module.exports = mongoose.model('user', userSchema);

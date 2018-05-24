@@ -66,7 +66,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: { projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
+      projectInfo: {projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,

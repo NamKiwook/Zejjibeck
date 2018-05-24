@@ -17,7 +17,8 @@ export const store = new Vuex.Store({
     isScrolled: true,
     menuVisible: false,
     accessToken: null,
-    username: null
+    username: null,
+    userProfile: null
   },
   getters: {
     getScrolled (state) {
@@ -26,6 +27,10 @@ export const store = new Vuex.Store({
     getUsername (state) {
       state.username = state.username || localStorage.username
       return state.username
+    },
+    getUserProfile (state) {
+      state.userProfile = state.userProfile || localStorage.userProfile
+      return state.userProfile
     },
     menuIsVisible (state) {
       return state.menuVisible
@@ -47,6 +52,10 @@ export const store = new Vuex.Store({
       state.username = username
       localStorage.username = username
     },
+    userProfile (state, userProfile) {
+      state.userProfile = userProfile
+      localStorage.userProfile = userProfile
+    },
     scrollIsFalse (state) {
       state.isScrolled = false
     },
@@ -61,6 +70,7 @@ export const store = new Vuex.Store({
       state.accessToken = null
       delete localStorage.accessToken
       delete localStorage.username
+      delete localStorage.userProfile
     }
   },
   actions: {
