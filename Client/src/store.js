@@ -14,6 +14,7 @@ enhanceAccessToken()
 
 export const store = new Vuex.Store({
   state: {
+    isLoading: false,
     isScrolled: true,
     menuVisible: false,
     accessToken: null,
@@ -21,6 +22,9 @@ export const store = new Vuex.Store({
     userProfile: null
   },
   getters: {
+    getIsLoading (state) {
+      return state.isLoading
+    },
     getScrolled (state) {
       return state.isScrolled
     },
@@ -45,6 +49,12 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    isLoadingTrue (state) {
+      state.isLoading = true
+    },
+    isLoadingFalse (state) {
+      state.isLoading = false
+    },
     scrollIsTrue (state) {
       state.isScrolled = true
     },

@@ -187,16 +187,20 @@ export default {
       })
     },
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.$http.post('/api/refine', {
         refineList: this.refineList,
         blockId: this.blockId
       }).then((res) => {
         if (res.data.success) {
+          this.$store.commit('isLoadingFalse')
           this.$router.push('/dashboard')
         } else {
+          this.$store.commit('isLoadingFalse')
           alert('실패')
         }
       }).catch((err) => {
+        this.$store.commit('isLoadingFalse')
         alert(err)
       })
     },

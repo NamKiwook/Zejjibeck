@@ -160,6 +160,7 @@ export default {
       this.carouselPerpage()
       this.loadList()
     })
+
   },
   beforeMount () {
     window.addEventListener('resize', this.carouselPerpage)
