@@ -6,9 +6,10 @@ var util = require('util');
 
 var downloadAPI = require('download-url');
 
-var userSchema = require('../../MainServer/model/user');
-var projectSchema = require('../../MainServer/model/project');
-var blockSchema = require('../../MainServer/model/blockInfo');
+var userSchema = require('../model/user');
+var projectSchema = require('../model/project');
+
+var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
 var timeInterval = 1000 * 60 * 15;
@@ -25,18 +26,22 @@ router.get('/', function(req, res, next) {
 
 router.get('/on', async function(req, res, next){
   console.log("Start Verification");
-  flagVerification = setInterval(await runVerification, unit * 60 * 30);
+  await runVerification();
+//  flagVerification = setInterval(runVerification, unit * 10 * 1);
+  console.log("Finished Yeah~");
+  res.send("YEE");
 });
 
 router.get('/off', async function(req, res, next){
   clearInterval(flagVerification);
   console.log("Turn off!");
+  res.send("YEE");
 });
 
 
 async function runVerification(){
   console.log("Start time expire verification!");
-  await timeExpireVerification();
+//  await timeExpireVerification();
   console.log("End time expire check, Start duplicate verification!");
   await duplicateVerification();
   console.log("End duplicate verification, Start refine verification!");
@@ -59,48 +64,57 @@ async function runVerification(){
 // 정제 1 & 수집 1
 
 async function timeExpireVerification(){
-  var projects = await projectSchema.find({projectType : { $not : "finished"}});
-  for(var i=0; i< projects.length; i++){
-    if(projects[i].projectState == "rValidate"){
-      var blockList = projects[i].refineBlocks;
-      for(var j =0; j<blockList.length; j++){
-        var block = blockList[j];
-        if(block.finished.length + block.running.length >= projects[i].minimumRefine && block.running.length>0) {
-          var time = new Date().getTime();
-          var deleteList = [];
-          for (var k = 0; k < running.length; k++){
-            if(parseInt(running[k].assignTime) + timeInterval > time){
-              projects[i].projectState = "Refine";
-              deleteList.push(k);
+  try {
+    var projects = await projectSchema.find();
+
+    console.log(projects);
+
+    for (var i = 0; i < projects.length; i++) {
+      if (projects[i].projectState == "finished") continue;
+      else if (projects[i].projectState == "rValidate") {
+       var blockList = projects[i].refineBlocks;
+        for (var j = 0; j < blockList.length; j++) {
+          var block = blockList[j];
+          if (block.finished.length + block.running.length >= projects[i].minimumRefine && block.running.length > 0) {
+            var time = new Date().getTime();
+            var deleteList = [];
+            for (var k = 0; k < running.length; k++) {
+              if (parseInt(running[k].assignTime) + timeInterval > time) {
+                projects[i].projectState = "Refine";
+                deleteList.push(k);
+              }
+            }
+            for (var k = deleteList.length - 1; k >= 0; k--) {
+              block.running.splice(deleteList[k], 1);
             }
           }
-          for(var k =deleteList.length-1; k>=0; k--){
-            block.running.splice(deleteList[k],1);
+        }
+      }
+      else if (projects[i].projectState == "cValidate") {
+        var block = blockSchema.findOne({_id: projects[i].collectBlock});
+        var time = new Date().getTime();
+        var saveFlag = 0;
+        var finished = JSON.parse(JSON.stringify(block.finished));
+
+
+        for (var j = 0; j < finished.length; j++) {
+          if (finished[j].upload == false && time < parseInt(finished[j].assignTime) + timeInterval) {
+            finished[j].owner = "";
+            projects[i].projectState = "Collect";
+            saveFlag = 1;
           }
         }
-      }
-    }
-    else if(projects[i].projectState == "cValidate"){
-      var block = blockSchema.findOne({_id:projects[i].collectBlock});
-      var time = new Date().getTime();
-      var saveFlag = 0;
-      var finished = JSON.parse(JSON.stringify(block.finished));
-
-
-      for(var j = 0 ; j < finished.length ; j++) {
-        if (finished[j].upload == false && time < parseInt(finished[j].assignTime) + timeInterval) {
-          finished[j].owner = "";
-          projects[i].projectState = "Collect";
-          saveFlag = 1;
+        if (saveFlag == 1) {
+          block.finished = finished;
+          await block.save();
         }
       }
-      if(saveFlag == 1) {
-        block.finished = finished;
-        await block.save();
-      }
     }
+    await projects.save();
   }
-  await projects.save();
+  catch(err){
+    console.log(err);
+  }
 }
 
 
@@ -115,8 +129,10 @@ async function duplicateVerification(){
     var projectName = projects[i].projectName;
     var extension = projects[i].fileExtension;
 
+    console.log(extension);
+
     for(var j = 0 ; j < block.finished.length ; j++){
-      await downloads(user, projectName, j, extension);
+      await downloads(userId, projectName, j, extension);
     }
 
     var duplicated = [];
@@ -154,9 +170,6 @@ async function duplicateVerification(){
   }
 
   await projects.save();
-
-  projects = await projectSchema.find({projectState : "cValidate"});
-  console.log(projects);
 }
 
 // 정제 2번
@@ -347,8 +360,7 @@ async function downloads(user, projectName, fileNo, extension){
 
 async function getDownloadUrl(userName, projectName, fileNo, extension) {
   var strFileNo = strFileName(fileNo);
-//  params.Key = "upload/" + userName + "/" + projectName + "/" + strFileNo + extension;
-  params.Key = "rawData/" + userName + "/" + projectName + "/" + strFileNo + extension;
+  params.Key = "upload/" + userName + "/" + projectName + "/" + strFileNo + extension;
   var url = await s3.getSignedUrl('getObject', params);
   return url;
 }

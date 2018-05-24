@@ -9,7 +9,7 @@ var blockSchema = require('../model/blockInfo');
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
-var digits = 6;
+const digits = 6;
 
 router.get('/', async function(req,res,err){
   var projectId = req.query.projectId;
@@ -74,12 +74,17 @@ router.get('/url', async function(req,res,err){
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
     var finished = JSON.parse(JSON.stringify(collectBlock.finished));
 
+    //TODO : TEMPORARY SOLUTION. TOT
+    project.fileExtension = extension;
+    await project.save();
+
     for(var i = 0 ; i < finished.length;i++){
       if(finished[i].owner == userId && finished[i].upload == false){
 
-        var fileNo = setLeadingZero(i);
+        var fileNo = setLeadingZero(i.toString());
 
         params.Key = "upload/" + project.owner + "/" + project.projectName + "/" + fileNo + extension;
+        console.log(params.Key);
 
         var url = await s3.getSignedUrl('putObject', params);
         collectBlock.finished = finished;
