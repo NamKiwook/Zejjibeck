@@ -16,6 +16,8 @@ nav
             input(type="password", v-model="changePassword")
         .box
           .title 프로필 사진
+          .sep :
+          .description
             form#ajaxFrom(enctype="multipart/form-data", ref="form")
               input#ajaxFile(type="file", ref="file")
         a.btn(@click="changeInfo") 변경사항 저장
@@ -35,8 +37,8 @@ nav
     router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
     router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
     router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
-    router-link.title(to='/credit', :class="{active : pathname === '/credit'}") CREDIT
-  .cover
+    router-link.title(to='/credit', :class="{active : pathname === '/credit'}") Credit
+  .cover(v-if="false")
     .loader
 </template>
 

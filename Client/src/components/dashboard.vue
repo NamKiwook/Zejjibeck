@@ -33,10 +33,27 @@ div.container
         .title 프로젝트 이름
         .sep :
         .description {{modalProject.projectName}}
+          .edit-btn
       .box
         .title 프로젝트 설명
         .sep :
         .description {{modalProject.description}}
+          .edit-btn
+        //edit-btn 눌리면 .edit-wrap display: block, .description display:none으로 변경
+        //save나 close버튼 눌리면 .edit-wrap display: none .description display: block로 변경하면됨
+        .edit-wrap
+          textarea(:value="modalProject.projectName")
+          .save.btn(@click="saveProject(modalProject)") 저장
+          .close.btn 취소
+      .box
+        .title 프로젝트 질문
+        .sep :
+        .description 프로젝트 질문
+          .edit-btn
+        .edit-wrap
+          textarea(:value="modalProject.projectName")
+          .save.btn(@click="saveProject(modalProject)") 저장
+          .close.btn 취소
       .box
         .title 프로젝트 타입
         .sep :
@@ -531,6 +548,42 @@ export default {
   border-radius : 2px;
   text-align: right;
   width: 100px;
+}
+.modal-container > .box > .description > .edit-btn {
+  display: none;
+  width: 16px;
+  height: 16px;
+  background-image: url("../assets/edit.png");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  float: right;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.modal-container > .box:hover > .description > .edit-btn {
+  display: inline-block;
+}
+.modal-container > .box > .description > .edit-btn:hover {
+  background-image: url("../assets/edit-active.png");
+}
+.modal-container > .box > .edit-wrap {
+  width: calc(100% - 130px);
+  display: none;
+}
+.modal-container > .box > .edit-wrap > textarea {
+  width: 100%;
+  resize: none;
+  background-color: #eee;
+  outline: none;
+  border-radius: 4px;
+  padding: 10px;
+}
+.modal-container > .box > .edit-wrap > .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  margin: 5px 0 5px 5px;
+  float: right;
 }
 .modal-container > .btn {
   margin-top: 20px;

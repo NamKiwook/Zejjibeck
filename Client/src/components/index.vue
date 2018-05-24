@@ -6,7 +6,7 @@ div.sections
         .title
           |데이터 습득을 위한
           br
-          |데이터유통플랫폼
+          |데이터 유통 플랫폼
         .description 안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요
         router-link(to="/login").btn 서비스 시작하기
       .main-right
@@ -24,31 +24,26 @@ div.sections
           .profile-content
             .name 조현성
             .role Backend
-            .description  awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 편경민
             .role Backend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 박성준
             .role Frontend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 남기욱
             .role Frontend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 김태우
             .role mentor
-            .description awefadfawef
   section.last-section
     .img-cover
       .content
@@ -207,7 +202,6 @@ export default {
     color: #8492a6;
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 25px;
   }
   .last-section {
     background: url("../assets/business-3370832_1920.jpg") no-repeat;
