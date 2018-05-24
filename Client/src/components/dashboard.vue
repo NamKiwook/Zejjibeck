@@ -33,27 +33,24 @@ div.container
         .title 프로젝트 이름
         .sep :
         .description {{modalProject.projectName}}
-          .edit-btn
       .box
         .title 프로젝트 설명
         .sep :
-        .description {{modalProject.description}}
-          .edit-btn
-        //edit-btn 눌리면 .edit-wrap display: block, .description display:none으로 변경
-        //save나 close버튼 눌리면 .edit-wrap display: none .description display: block로 변경하면됨
-        .edit-wrap
-          textarea(:value="modalProject.projectName")
-          .save.btn(@click="saveProject(modalProject)") 저장
-          .close.btn 취소
+        .description(v-if="!isEditDescription") {{modalProject.description}}
+          .edit-btn(@click="edit('Description')")
+        .edit-wrap(v-else)
+          textarea(:value="modalProject.description")
+          .save.btn(@click="saveEdit('Description')") 저장
+          .close.btn(@click="closeEdit('Description')") 취소
       .box
         .title 프로젝트 질문
         .sep :
-        .description 프로젝트 질문
-          .edit-btn
-        .edit-wrap
+        .description(v-if="!isEditQuestion") 프로젝트 질문
+          .edit-btn(@click="edit('Question')")
+        .edit-wrap(v-else)
           textarea(:value="modalProject.projectName")
-          .save.btn(@click="saveProject(modalProject)") 저장
-          .close.btn 취소
+          .save.btn(@click="saveEdit('Question')") 저장
+          .close.btn(@click="closeEdit('Question')") 취소
       .box
         .title 프로젝트 타입
         .sep :
@@ -164,7 +161,9 @@ export default {
       chargeCredit: 0,
       projectNo: 0,
       projectsInfoList: [],
-      projectList: []
+      projectList: [],
+      isEditDescription: false,
+      isEditQuestion: false
     }
   },
   created () {
@@ -185,6 +184,30 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    edit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = true
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = true
+      }
+    },
+    saveEdit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = false
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = false
+      }
+    },
+    closeEdit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = false
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = false
+      }
+    },
     loadList () {
       this.$http.get('/api/project/list', {params: {
         page: 1,
@@ -569,7 +592,6 @@ export default {
 }
 .modal-container > .box > .edit-wrap {
   width: calc(100% - 130px);
-  display: none;
 }
 .modal-container > .box > .edit-wrap > textarea {
   width: 100%;

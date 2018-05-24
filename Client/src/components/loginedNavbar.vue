@@ -81,7 +81,6 @@ export default {
       var formData = new FormData()
       if (this.$refs.file.files[0]) {
         await formData.append('file', this.$refs.file.files[0])
-        console.log(formData.get('file'))
       }
       await formData.append('password', this.changePassword)
       this.$http.put('/api/userInfo',formData, {
