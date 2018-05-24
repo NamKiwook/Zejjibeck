@@ -88,15 +88,18 @@ async function runningVerification(){
       var block = blockSchema.findOne({_id:projects[i].collectBlock});
       var time = new Date().getTime();
       var saveFlag = 0;
+      var finished = JSON.parse(JSON.stringify(block.finished));
 
-      for(var j = 0 ; j < block.finished.length ; j++) {
-        if (block.finished[j].upload == false && time < parseInt(block.finished[j].assignTime) + timeInterval) {
-          block.finished[j].owner = "";
+
+      for(var j = 0 ; j < finished.length ; j++) {
+        if (finished[j].upload == false && time < parseInt(finished[j].assignTime) + timeInterval) {
+          finished[j].owner = "";
           projects[i].projectState = "Collect";
           saveFlag = 1;
         }
       }
       if(saveFlag == 1) {
+        block.finished = finished;
         await block.save();
       }
     }
@@ -136,18 +139,19 @@ async function duplicateVerification(){
       }
     }
 
-    //TODO : Check is it run well..
-    var duplicateFlag = false;
 
-    for(var j = 0 ; j < block.finished.length ; j++){
+    var duplicateFlag = false;
+    var finished = JSON.parse(JSON.stringify(block.finished));
+    for(var j = 0 ; j < finished.length ; j++){
       if(duplicated[j] == 1){
-        block.finished[j].userId = "";
-        block.finished[j].upload = false;
+        finished[j].userId = "";
+        finished[j].upload = false;
         duplicateFlag = true;
       }
     }
 
     if(duplicateFlag == true){
+      block.finished = finished;
       block.save();
       projects[i].projectState = "Collect";
     }
@@ -190,14 +194,134 @@ async function refineVerification(){
   var averageAnswer = [];
 
   for(var i = 0 ; i < projects.length ; i++){
+
+    var projectFinishedFlag = true;
     for(var j = 0 ; j < projects[i].refineBlocks.length ; j++) {
+
       var blockId = projects[i].refineBlocks[j];
       var block = await blockSchema.findOne({_id: blockId});
-      if (block.running.length + block.finished.length < block.total) continue;
-      if (block.running.length > 0) continue;
-
-      for (var k = 0; k < block.finished.length; k++) {
+      if (block.isValidate == "Done")continue;
+      if (block.finished.length != parseInt(projects[i].minimumRefine)) {
+        projectFinishedFlag = false;
+        continue;
       }
+      block.isValidate = "Done";
+      //
+       // countResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+        //textResult: {type: Array, default: []},
+        //coordinateResult: {type: Array, default: []}
+
+
+      var refineType = projects[i].refineType;
+
+      if(refineType == "RadioBox"){
+        for(var k = 0; k< block.finished.length;k++) {
+          block.countResult.push([]);
+            for (var l = 0; l < projects[i].refineList.length; l++) {
+                block.countResult[k].push(0);
+            }
+        }
+        for(var k = 0 ; k < block.finished.length; k++){
+          var answerList = block.finished[k].answerList;
+          for(var l = 0 ; l < answerList.length; l++){
+            block.countResult[l][parseInt(answerList[l])]++;
+
+          }
+        }
+      }
+      else if (refineType == "CheckBox"){
+          for(var k = 0; k< block.finished.length;k++) {
+              block.countResult.push([]);
+              for (var l = 0; l < projects[i].refineList.length; l++) {
+                  block.countResult[k].push(0);
+              }
+          }
+
+          for(var k = 0 ; k < block.finished.length; k++){
+              var answerList = block.finished[k].answerList;
+              for(var l = 0 ; l < answerList.length; l++){
+                  for(var m = 0 ; m< answerList[l].length; m++){
+                      block.countResult[l][parseInt(answerList[l][m])]++;
+                  }
+              }
+          }
+      }
+      else if (refineType == "Drag"){
+        var tempList = [];
+          for(var k = 0; k< block.finished.answerList.length;k++){
+            tempList.push([]);
+            block.coordinateResult.push({minX: 2 , minY :2 , maxX: -1, maxY: -1});
+          }
+          for(var k = 0 ; k < block.finished.length; k++){
+              var answerList = block.finished[k].answerList;
+              for(var l = 0 ; l < answerList.length; l++){
+                var crd = JSON.parse(JSON.stringify(answerList[l]));
+                var minX = Math.min(parseInt(crd.prevX), parseInt(crd.curX));
+                  var minY = Math.min(parseInt(crd.prevY), parseInt(crd.curY));
+                  var maxX = Math.max(parseInt(crd.prevX), parseInt(crd.curX));
+                  var maxY = Math.max(parseInt(crd.prevY), parseInt(crd.curY));
+                tempList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
+              }
+          }
+          for(var k = 0 ; k< tempList.length; k++){
+            var resultList = tempList[k];
+            if(tempList[k].length >= 5) {
+                tempList[k].sort(function (a, b) {
+                    return a.minX - b.minX;
+                });
+                var delSize = Math.floor(tempList[k].length*0.2);
+                resultList = tempList[k].slice(delSize, tempList[k].length-delSize);
+
+                if(resultList.length >= 5) {
+                    resultList.sort(function (a, b) {
+                        return a.minY - b.minY;
+                    });
+                    var delSize2 = Math.floor(resultList.length*0.2);
+                    resultList = resultList.slice(delSize2, resultList.length-delSize2);
+                }
+            }
+            var minX =0;
+            var minY = 0;
+            var maxX =0;
+            var maxY =0;
+            for(var l =0 ; l < resultList.length; l++){
+              minX += resultList.minX;
+              minY += resultList.minY;
+              maxX += resultList.maxX;
+              maxY += resultList.maxY;
+            }
+            minX /= resultList.length;
+            minY /= resultList.length;
+            maxX /= resultList.length;
+            maxY /= resultList.length;
+              block.coordinateResult[k].minX = minX;
+              block.coordinateResult[k].minY = minY;
+              block.coordinateResult[k].maxX = maxX;
+              block.coordinateResult[k].maxY = maxY;
+          }
+
+
+      }
+      else if (refineType == "Text"){
+          for(var k = 0; k< block.finished.length;k++) {
+              block.textResult.push([]);
+          }
+          for(var k = 0 ; k < block.finished.length; k++){
+              var answerList = block.finished[k].answerList;
+              for(var l = 0 ; l < answerList.length; l++){
+                  for(var m = 0 ; m< answerList[l].length; m++){
+                      block.textResult[m].push(answerList[l][m]);
+                  }
+              }
+          }
+      }
+      await block.save();
+    }
+    if(projectFinishedFlag == true){
+      projects[i].projectState  = "finished";
+        //totalCountResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+        //totalTextResult: {type: Array, default: []},
+        //totalCoordinateResult: {type: Array, default: []}
     }
   }
 }
