@@ -11,17 +11,18 @@ var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 var index = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
-var io = require('socket.io-client');
-var socket = io.connect('http://localhost:3000', {reconnect:true});
-socket.on('connect', function(){
-	console.log("connection ok");
-});
-socket.on('event', function(data){
-	console.log(data);
-});
-socket.on('disconnect', function(){
-	console.log('disconnect');
-});
+
+// var io = require('socket.io-client');
+// var socket = io.connect('http://localhost:3000', {reconnect:true});
+// socket.on('connect', function(){
+// 	console.log("connection ok");
+// });
+// socket.on('event', function(data){
+// 	console.log(data);
+// });
+// socket.on('disconnect', function(){
+// 	console.log('disconnect');
+// });
 
 
 mongoose.Promise = global.Promise;
@@ -29,7 +30,7 @@ mongoose.connect(mongoUrl);
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function(){
-  console.log('mongodb connection OK.');
+    console.log('mongodb connection OK.');
 });
 
 

@@ -6,9 +6,9 @@ var util = require('util');
 
 var downloadAPI = require('download-url');
 
-var userSchema = require('../../MainServer/model/user');
-var projectSchema = require('../../MainServer/model/project');
-var blockSchema = require('../../MainServer/model/blockInfo');
+var userSchema = require('../model/user');
+var projectSchema = require('../model/project');
+var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
 var timeInterval = 1000 * 60 * 15;
@@ -25,12 +25,16 @@ router.get('/', function(req, res, next) {
 
 router.get('/on', async function(req, res, next){
   console.log("Start Verification");
-  flagVerification = setInterval(await runVerification, unit * 60 * 30);
+  //flagVerification = setInterval(await runVerification, unit * 60 * 30);
+
+  //await runVerification();
+  res.send("123");
 });
 
 router.get('/off', async function(req, res, next){
   clearInterval(flagVerification);
   console.log("Turn off!");
+  res.send("123");
 });
 
 
@@ -59,7 +63,15 @@ async function runVerification(){
 // 정제 1 & 수집 1
 
 async function timeExpireVerification(){
-  var projects = await projectSchema.find({projectType : { $not : "finished"}});
+  try {
+      var project = await projectSchema.find();
+      console.log(project);
+  } catch(err){
+    console.log(err);
+  }
+
+  var projects = await projectSchema.find({projectState : { $not : "finished"}});
+  console.log(projects);
   for(var i=0; i< projects.length; i++){
     if(projects[i].projectState == "rValidate"){
       var blockList = projects[i].refineBlocks;
@@ -100,7 +112,9 @@ async function timeExpireVerification(){
       }
     }
   }
-  await projects.save();
+  for(var i = 0; i < projects.length; i++){
+    await projects[i].save();
+  }
 }
 
 
@@ -153,9 +167,11 @@ async function duplicateVerification(){
     }
   }
 
-  await projects.save();
+    for(var i = 0; i < projects.length; i++){
+        await projects[i].save();
+    }
 
-  projects = await projectSchema.find({projectState : "cValidate"});
+
   console.log(projects);
 }
 
@@ -329,8 +345,11 @@ async function refineVerification(){
           }
         }
       }
-      await projects.save();
     }
+
+    await projects[i].save();
+
+
   }
 }
 
