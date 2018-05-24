@@ -110,7 +110,6 @@ router.put('/urlAck', async function(req,res,err) {
   try{
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
-
     var finished = JSON.parse(JSON.stringify(collectBlock.finished));
     console.log(userId+"=="+ finished[index].owner+"????")
     if(userId == finished[index].owner) {
@@ -123,6 +122,7 @@ router.put('/urlAck', async function(req,res,err) {
       res.send({success: false, errorMessage: "time expired"});
     }
   } catch (err){
+    console
     res.send({success: false, errorMessage:"database error"});
   }
 });

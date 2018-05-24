@@ -19,7 +19,7 @@ export default {
   },
   watch: {
     $route () {
-      if (window.location.pathname === '/login') {
+      if (window.location.pathname === '/login' || window.location.pathname === '/signup') {
         this.isLoginPage = true
       } else {
         this.isLoginPage = false
@@ -32,7 +32,7 @@ export default {
     }
   },
   created () {
-    if (window.location.pathname === '/login') {
+    if (window.location.pathname === '/login' || window.location.pathname === '/signup') {
       this.isLoginPage = true
     } else {
       this.isLoginPage = false

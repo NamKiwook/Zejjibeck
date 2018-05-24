@@ -53,6 +53,7 @@ export default {
   },
   methods: {
     submit () {
+      this.$store.commit('isLoadingTrue')
       if (this.$refs.files != null) {
         this.fileList = this.$refs.files.files
         this.$http.put('/api/collect/check', {
@@ -67,35 +68,38 @@ export default {
                   fileName: this.fileList[i].name
                 }
               })
-              if (res1.data.success) {
-                await this.$http({
+              console.log(this.fileList[i].name)
+              if(res1.data.success) {
+                var res2 = await this.$http({
                   method: 'put',
                   url: res1.data.url,
                   contentType: false,
                   processData: false,
                   data: this.fileList[i]
-                }).then((res) => {
-                  console.log(res)
-                  this.$http.put('/api/collect/urlAck', {
-                    projectId: this.projectId,
-                    index: res1.data.index
-                  }).then((res) => {
-                    if (res.data.success) {
-                      this.numberCollect++
-                      this.collectPercent = parseInt((this.numberCollect / this.fileList.length) * 100)
-                      if (this.numberCollect === this.fileList.length) {
-                        this.$router.push('/dashboard')
-                      }
-                    } else {
-                      alert(res.data.errorMessage)
-                    }
-                  })
-                }).catch((err) => { alert(err) })
+                })
+                console.log(res)
+                var res3 = await this.$http.put('/api/collect/urlAck', {
+                  projectId: this.projectId,
+                  index: res1.data.index
+                })
+                if (res3.data.success) {
+                  this.numberCollect++
+                  this.collectPercent = parseInt((this.numberCollect / this.fileList.length) * 100)
+                  if (this.numberCollect === this.fileList.length) {
+                    this.$store.commit('isLoadingFalse')
+                    this.$router.push('/dashboard')
+                  }
+                } else {
+                  this.$store.commit('isLoadingFalse')
+                  alert(res3.data.errorMessage)
+                }
               } else {
+                this.$store.commit('isLoadingFalse')
                 alert(res1.data.errorMessage)
               }
             }
           } else {
+            this.$store.commit('isLoadingFalse')
             alert(res.data.errorMessage + res.data.available)
           }
         })

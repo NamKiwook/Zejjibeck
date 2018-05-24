@@ -29,14 +29,14 @@ nav
             .cover
               .name {{username}}
         a(@click="showSetting") SETTING
-        a.logout LOGOUT
+        a.logout(@click="logout") LOGOUT
   .sep
   .section
-    router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
-    router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
-    router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
-    router-link.title(to='/credit', :class="{active : pathname === '/credit'}") CREDIT
-  .cover
+    router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") Dashboard
+    router-link.title(to='/list', :class="{active : pathname === 'list'}") Project
+    router-link.title(to='/upload', :class="{active : pathname === 'upload'}") Upload
+    router-link.title(to='/credit', :class="{active : pathname === 'credit'}") Credit
+  .cover(v-if="isLoading")
     .loader
 </template>
 
@@ -50,12 +50,17 @@ export default {
       pathname: null,
       image: "../assets/default-user.png",
       currentPassword: null,
-      changePassword: null
+      changePassword: null,
     }
+  },
+  computed: {
+    isLoading () {
+      return this.$store.getters.getIsLoading
+    },
   },
   watch: {
     $route () {
-      this.pathname = window.location.pathname
+      this.pathname = window.location.pathname.split("/")[1]
     }
   },
   created () {
@@ -74,6 +79,10 @@ export default {
     },
     hide () {
       this.$modal.hide('profile-setting')
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
     },
     async changeInfo () {
       var formData = new FormData()

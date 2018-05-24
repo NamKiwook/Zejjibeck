@@ -70,7 +70,7 @@
     section.upload.active(v-if="projectType === 'Refine'")
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
-        input#ajaxFile(type="file", multiple="multiple", ref="files", @change="fileChange")
+        input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
     input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
     input.btn.register.disable(type="button", value="REGISTER", v-else)
 </template>
@@ -152,15 +152,16 @@ export default {
   methods: {
     fileChange (e) {
       this.fileList = e.target.files
+      for (var i = 0; i < this.fileList.length; i++) {
+        this.fileNames[i] = this.fileList[i].name
+      }
     },
     tagPlus () {
       this.tagNumber++
     },
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.isSubmited = true
-      for (var i = 0; i < this.fileList.length; i++) {
-        this.fileNames[i] = this.fileList[i].name
-      }
       this.$http.post('/api/upload', {
         projectName: this.projectName,
         projectType: this.projectType,
@@ -177,6 +178,7 @@ export default {
         fileNames: this.fileNames,
         end: this.fileNames}).then(async (res) => { // TODO: DELETE THIS, 'end' IS DUMMY!
         if (res.data.success === false) {
+          this.$store.commit('isLoadingFalse')
           this.isSubmited = false
           alert(res.data.errorMessage)
         } else {
@@ -200,6 +202,7 @@ export default {
             })
             this.uploadPercent = parseInt((i / this.fileList.length) * 100)
           }
+          this.$store.commit('isLoadingFalse')
           this.$router.push('/dashboard')
         }
       })

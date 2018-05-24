@@ -54,7 +54,7 @@ router.get('/list', async function(req,res,next){
     else sortQuery.uploadTime = sortedBy;
 
     var projectList = await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit);
-    var totalPage = Math.ceil(await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit).count() / unit);
+    var totalPage = Math.ceil(await projectSchema.find(query).count() / unit);
 
     await res.send({
       projectList: projectList,

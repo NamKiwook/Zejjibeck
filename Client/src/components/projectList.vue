@@ -1,5 +1,5 @@
 <template lang="pug">
-  div.container
+  div.container#listTop
     modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
@@ -49,9 +49,9 @@
         .credit {{project.stateCredit}}원
 
       .pagination
-        a(@click="nextList(currentPage - 10)") &laquo;
-        a(@click="nextList(n + startNavigator - 1)", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
-        a(@click="nextList(currentPage + 10)") &raquo;
+        a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
+        a(@click="nextList(n + startNavigator - 1)",  v-scroll-to="'#listTop'", v-for="n in endNavigator - startNavigator + 1", :class="{active : n + startNavigator - 1 === currentPage}") {{n + startNavigator - 1}}
+        a(@click="nextList(currentPage + 10)",  v-scroll-to="'#listTop'") &raquo;
 </template>
 <script>
 export default {
@@ -87,8 +87,8 @@ export default {
       this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
     }
   },
-  created () {
-    this.loadList()
+  async created() {
+    await this.loadList()
   },
   methods: {
     creditClick () {
@@ -131,6 +131,7 @@ export default {
       }}).then((res) => {
         this.projectList = res.data.projectList
         this.totalPage = res.data.totalPage
+
         if (this.currentPage - 4 > 0) {
           this.startNavigator = this.currentPage - 4
         } else {
