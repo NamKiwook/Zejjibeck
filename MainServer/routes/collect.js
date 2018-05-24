@@ -123,7 +123,6 @@ router.put('/urlAck', async function(req,res,err) {
       res.send({success: false, errorMessage: "time expired"});
     }
   } catch (err){
-    console
     res.send({success: false, errorMessage:"database error"});
   }
 });
