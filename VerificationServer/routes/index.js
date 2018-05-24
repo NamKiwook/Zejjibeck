@@ -41,7 +41,7 @@ router.get('/off', async function(req, res, next){
 
 async function runVerification(){
   console.log("Start time expire verification!");
-//  await timeExpireVerification();
+  await timeExpireVerification();
   console.log("End time expire check, Start duplicate verification!");
   await duplicateVerification();
   console.log("End duplicate verification, Start refine verification!");
@@ -72,7 +72,7 @@ async function timeExpireVerification(){
     for (var i = 0; i < projects.length; i++) {
       if (projects[i].projectState == "finished") continue;
       else if (projects[i].projectState == "rValidate") {
-       var blockList = projects[i].refineBlocks;
+        var blockList = projects[i].refineBlocks;
         for (var j = 0; j < blockList.length; j++) {
           var block = blockList[j];
           if (block.finished.length + block.running.length >= projects[i].minimumRefine && block.running.length > 0) {
@@ -110,7 +110,9 @@ async function timeExpireVerification(){
         }
       }
     }
-    await projects.save();
+    for (var i = 0; i < projects.length; i++) {
+      await projects[i].save();
+    }
   }
   catch(err){
     console.log(err);
@@ -129,10 +131,8 @@ async function duplicateVerification(){
     var projectName = projects[i].projectName;
     var extension = projects[i].fileExtension;
 
-    console.log(extension);
-
     for(var j = 0 ; j < block.finished.length ; j++){
-      await downloads(userId, projectName, j, extension);
+      await downloads(user, projectName, j, extension);
     }
 
     var duplicated = [];
@@ -169,7 +169,12 @@ async function duplicateVerification(){
     }
   }
 
-  await projects.save();
+    for(var i = 0; i < projects.length; i++){
+        await projects[i].save();
+    }
+
+
+  console.log(projects);
 }
 
 // 정제 2번
@@ -342,8 +347,8 @@ async function refineVerification(){
           }
         }
       }
-      await projects.save();
     }
+    await projects[i].save();
   }
 }
 
