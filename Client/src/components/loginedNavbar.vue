@@ -28,15 +28,16 @@ nav
           .profile(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
             .cover
               .name {{username}}
-        a PROFILE
         a(@click="showSetting") SETTING
-        a.logout LOGOUT
+        a.logout(@click="logout") LOGOUT
   .sep
   .section
-    router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
-    router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
-    router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
-
+    router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") Dashboard
+    router-link.title(to='/list', :class="{active : pathname === 'list'}") Project
+    router-link.title(to='/upload', :class="{active : pathname === 'upload'}") Upload
+    router-link.title(to='/credit', :class="{active : pathname === 'credit'}") Credit
+  .cover(v-if="isLoading")
+    .loader
 </template>
 
 <script>
@@ -49,12 +50,17 @@ export default {
       pathname: null,
       image: "../assets/default-user.png",
       currentPassword: null,
-      changePassword: null
+      changePassword: null,
     }
+  },
+  computed: {
+    isLoading () {
+      return this.$store.getters.getIsLoading
+    },
   },
   watch: {
     $route () {
-      this.pathname = window.location.pathname
+      this.pathname = window.location.pathname.split("/")[1]
     }
   },
   created () {
@@ -73,6 +79,10 @@ export default {
     },
     hide () {
       this.$modal.hide('profile-setting')
+    },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
     },
     async changeInfo () {
       var formData = new FormData()
@@ -100,6 +110,32 @@ export default {
 </script>
 
 <style scoped>
+  .cover {
+    background-color: rgba(0,0,0,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top:0; left:0; right:0; bottom:0;
+    z-index: 9999;
+  }
+  .loader {
+    border: 10px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 10px solid #2979ff;
+    width: 80px;
+    height: 80px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
   nav {
     background-color: #fff;
     box-shadow: 0 1px 0 0 rgba(0,0,0,.11);
@@ -133,6 +169,7 @@ export default {
     position: relative;
   }
   nav > .container > .profile-wrap > .profile-img {
+    border-radius: 50%;
   }
   nav > .container > .profile-wrap > .profile-title {
     display: inline-block;
@@ -191,9 +228,6 @@ export default {
   }
   .profile-dropdown > a:hover {
     color: #fff;
-  }
-  .profile-dropdown > .logout {
-    border-top: 1px solid #4e4e4e;
   }
   nav > .sep {
     background-color: #eee;

@@ -56,7 +56,7 @@
       input.text(type='text', v-model="maxCollect", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title Block Size (Basic = 10)
-      input.text#blockSize(type='text', v-model="blockSize", placeholder="10")
+      input.text#blockSize(type='text', v-model="blockSize", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title 문제당 최소 정제 횟수
       input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
@@ -70,8 +70,9 @@
     section.upload.active(v-if="projectType === 'Refine'")
       .title Upload
       form#ajaxFrom(enctype="multipart/form-data")
-        input#ajaxFile(type="file", multiple="multiple", ref="files")
-    input.btn.register(type="button", @click="submit", value="REGISTER")
+        input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
+    input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
+    input.btn.register.disable(type="button", value="REGISTER", v-else)
 </template>
 
 <script>
@@ -94,7 +95,8 @@ export default {
       tagNumber: 1,
       fileList: [],
       maxCollect: null,
-      uploadPercent: 0
+      uploadPercent: 0,
+      isSubmited: false
     }
   },
   watch: {
@@ -127,24 +129,39 @@ export default {
       }
     }
   },
+  computed: {
+    isAble () {
+      if(this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
+        if(this.projectType === 'Refine') {//Collect 인 경우
+          if((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
+            return true
+          }
+        } else if(this.projectType === 'Collect') {
+          if(this.maxCollect) {
+            return true
+          }
+        } else if(this.projectType === 'Refine&Collect') {
+          if((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
+            return true
+          }
+        }
+      }
+      return false
+    }
+  },
   methods: {
+    fileChange (e) {
+      this.fileList = e.target.files
+      for (var i = 0; i < this.fileList.length; i++) {
+        this.fileNames[i] = this.fileList[i].name
+      }
+    },
     tagPlus () {
       this.tagNumber++
     },
     submit () {
-      if (this.projectType === 1) {
-        this.state = '1'
-      } else {
-        this.state = '0'
-      }
-      if (this.$refs.files != null) {
-        this.fileList = this.$refs.files.files
-        for (var i = 0; i < this.fileList.length; i++) {
-          this.fileNames[i] = this.fileList[i].name
-        }
-      } else {
-        this.fileList = null
-      }
+      this.$store.commit('isLoadingTrue')
+      this.isSubmited = true
       this.$http.post('/api/upload', {
         projectName: this.projectName,
         projectType: this.projectType,
@@ -161,35 +178,32 @@ export default {
         fileNames: this.fileNames,
         end: this.fileNames}).then(async (res) => { // TODO: DELETE THIS, 'end' IS DUMMY!
         if (res.data.success === false) {
+          this.$store.commit('isLoadingFalse')
+          this.isSubmited = false
           alert(res.data.errorMessage)
         } else {
-          if (this.$refs.files != null) {
-            for (var i = 0; i < this.fileList.length; i++) {
-              var file = this.fileList[i]
-              var response = await
-              this.$http.get('/api/upload/url', {
-                params:
-                  {
-                    projectName: this.projectName,
-                    fileName: this.fileNames[i],
-                    fileNo: i.toString()
-                  }
-              })
-              await this.$http({
-                method: 'put',
-                url: response.data.url,
-                contentType: false,
-                processData: false,
-                data: file
-              })
-              if (i === this.fileList.length - 1) {
-                this.$router.push('/dashboard')
-              }
-              this.uploadPercent = parseInt((i / this.fileList.length) * 100)
-            }
-          } else {
-            this.$router.push('/dashboard')
+          for (var i = 0; i < this.fileList.length; i++) {
+            var file = this.fileList[i]
+            var response = await
+            this.$http.get('/api/upload/url', {
+              params:
+                {
+                  projectName: this.projectName,
+                  fileName: this.fileNames[i],
+                  fileNo: i.toString()
+                }
+            })
+            await this.$http({
+              method: 'put',
+              url: response.data.url,
+              contentType: false,
+              processData: false,
+              data: file
+            })
+            this.uploadPercent = parseInt((i / this.fileList.length) * 100)
           }
+          this.$store.commit('isLoadingFalse')
+          this.$router.push('/dashboard')
         }
       })
     }

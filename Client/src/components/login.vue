@@ -14,7 +14,7 @@
           input.id(type="text", name="userID", placeholder="Email", v-model="userId")
           input.password(type="password", name="password", placeholder="Password", v-model="password")
           a.signin.btn(v-on:click="submit") Sign In
-          router-link.btn.signup(to="/signUp") Sign Up
+          router-link.btn.signup(to="/signup") Sign Up
           a.text Forgot password?
 </template>
 
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
         .then(async (res) => {
           if (res.data.success) {
@@ -37,8 +38,10 @@ export default {
             this.$http.get('/api/userInfo/profile').then((res) => {
               this.$store.commit('userProfile', 'data:image/jpg;base64,' + res.data)
             })
+            this.$store.commit('isLoadingFalse')
             await this.$router.push('/dashboard')
           } else {
+            this.$store.commit('isLoadingFalse')
             alert('아이디가 존재하지 않거나 비밀번호가 잘못되었습니다.')
           }
         })
