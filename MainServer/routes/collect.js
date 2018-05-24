@@ -47,6 +47,7 @@ router.put('/check', async function(req,res,err){
       }
       for(var i = 0 ; i < parseInt(collectBlock.maxCollect) ; i++){
         if(finished[i].owner == ""){
+          finished[i].assignTime = new Date().getTime();
           finished[i].owner = userId;
           finished[i].upload = false;
           fileNo--;
@@ -58,9 +59,7 @@ router.put('/check', async function(req,res,err){
 
     collectBlock.finished = finished;
     await collectBlock.save();
-
     res.send({success:true});
-
   } catch (err){
     res.send({success: false, errorMessage:"database error"});
   }
@@ -77,14 +76,12 @@ router.get('/url', async function(req,res,err){
 
     for(var i = 0 ; i < finished.length;i++){
       if(finished[i].owner == userId && finished[i].upload == false){
-        finished[i].assignTime = new Date().getTime();
 
         var fileNo = setLeadingZero(i);
 
         params.Key = "upload/" + project.owner + "/" + project.projectName + "/" + fileNo + extension;
 
         var url = await s3.getSignedUrl('putObject', params);
-
         collectBlock.finished = finished;
 
         await collectBlock.save();
@@ -111,7 +108,6 @@ router.put('/urlAck', async function(req,res,err) {
     var project = await projectSchema.findOne({_id: projectId});
     var collectBlock = await blockSchema.findOne({_id:project.collectBlock});
     var finished = JSON.parse(JSON.stringify(collectBlock.finished));
-    console.log(userId+"=="+ finished[index].owner+"????")
     if(userId == finished[index].owner) {
       finished[index].upload = true;
       finished[index].finishedTime = new Date().getTime();
