@@ -34,5 +34,10 @@ var projectSchema = new Schema({
   projectState : {type: String, default: "Collect"}, // Collect, Refine, cValidate, rValidate finished
   completedBlock: {type: Number, default: 0},
   maxCollect : Number,
+
+  totalCountResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+  totalTextResult: {type: Array, default: []},
+  totalCoordinateResult: {type: Array, default: []}
+
 });
 module.exports = mongoose.model('project', projectSchema);

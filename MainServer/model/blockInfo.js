@@ -6,7 +6,11 @@ var blockInfoSchema = new Schema({
     maxCollect: Number, // collect -> collect
     isValidate: String, // Not Validate, Done -> for refine
     finished: Array, // refine, collect {userId, assignTime, finishedTime, answerList}
-    running: Array // {userId, AssignTime}
+    running: Array, // {userId, AssignTime}
+
+    countResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+    textResult: {type: Array, default: []},
+    coordinateResult: {type: Array, default: []}
 
 
   //asdf, 0 compleete! --> 1's url
