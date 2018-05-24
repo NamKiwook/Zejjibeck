@@ -91,7 +91,7 @@ async function timeExpireVerification(){
         }
       }
       else if (projects[i].projectState == "cValidate") {
-        var block = blockSchema.findOne({_id: projects[i].collectBlock});
+        var block = await blockSchema.findOne({_id: projects[i].collectBlock});
         var time = new Date().getTime();
         var saveFlag = 0;
         var finished = JSON.parse(JSON.stringify(block.finished));
@@ -132,7 +132,7 @@ async function duplicateVerification(){
     var extension = projects[i].fileExtension;
 
     for(var j = 0 ; j < block.finished.length ; j++){
-      await downloads(user, projectName, j, extension);
+      await downloads(userId, projectName, j, extension);
     }
 
     var duplicated = [];
@@ -156,7 +156,7 @@ async function duplicateVerification(){
     var finished = JSON.parse(JSON.stringify(block.finished));
     for(var j = 0 ; j < finished.length ; j++){
       if(duplicated[j] == 1){
-        finished[j].userId = "";
+        finished[j].owner = "";
         finished[j].upload = false;
         duplicateFlag = true;
       }
