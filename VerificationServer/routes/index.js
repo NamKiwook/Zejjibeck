@@ -13,6 +13,8 @@ var blockSchema = require('../../MainServer/model/blockInfo');
 var flagVerification;
 var timeInterval = 1000 * 60 * 15;
 
+var unit = 600; // second
+
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 
@@ -22,31 +24,25 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', async function(req, res, next){
-  console.log("!");
-  await downloads('a', 'g', 1, '.png');
-//  var qq = await IdentityFile("1", "2", ".png");
-//  clearInterval(flagVerification);
-//  await duplicateVerification();
-//  var unit = 600; // second
-//  flagVerification = setInterval(runningVerification, unit * 5);
+  console.log("Start Verification");
+  flagVerification = setInterval(await runVerification, unit * 60 * 30);
 });
 
 router.get('/off', async function(req, res, next){
-  await downloads('a', 'i', 1, '.png');
-//  clearInterval(flagVerification);
-//  console.log("verification off");
+  clearInterval(flagVerification);
+  console.log("Turn off!");
 });
 
-router.get('/downloads', async function(req, res, next){
-  // test download function
-  var files = JSON.parse(req.query.files);
 
-  for(var i = 0 ; i < files.length ; i++){
-    var download = await downloads('a', 'ckmoni', files[i], '.png');
-  }
-
-  await res.send("EEE");
-});
+async function runVerification(){
+  console.log("Start time expire verification!");
+  await timeExpireVerification();
+  console.log("End time expire check, Start duplicate verification!");
+  await duplicateVerification();
+  console.log("End duplicate verification, Start refine verification!");
+  await refineVerification();
+  console.log("Finish!");
+}
 
 // 정제 프로세스
 // 1. running -> 없애는거
@@ -62,7 +58,7 @@ router.get('/downloads', async function(req, res, next){
 // 리파인일때는 finished 들어올떄마다 하나씩 만듬
 // 정제 1 & 수집 1
 
-async function runningVerification(){
+async function timeExpireVerification(){
   var projects = await projectSchema.find({projectType : { $not : "finished"}});
   for(var i=0; i< projects.length; i++){
     if(projects[i].projectState == "rValidate"){
