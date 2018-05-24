@@ -6,12 +6,11 @@ var blockInfoSchema = new Schema({
     maxCollect: Number, // collect -> collect
     isValidate: String, // Not Validate, Done -> for refine
     finished: Array, // refine, collect {userId, assignTime, finishedTime, answerList}
-    running: Array // {userId, AssignTime}
+    running: Array, // {userId, AssignTime}
 
-
-  //asdf, 0 compleete! --> 1's url
-
-  //running-> {0, asdf}, {1,asdf}, {2,asdf},
+    countResult: {type:Array, default:[]},
+    textResult: {type:Array, default:[]},
+    coordinateResult: {type:Array, default:[]},
 });
 
 //users 없애고 finished 리스트로
