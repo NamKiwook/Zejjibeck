@@ -20,7 +20,8 @@ router.get('/', async function(req, res, next) {
 
       for(var j = 0 ; j < project.refineBlocks.length ; j++){
         var block = await blockSchema.findOne({_id:project.refineBlocks[j]});
-        if(block.isValidate == "Done") currentBlock++;
+
+        if(block.finished.length == project.minimumRefine) currentBlock++;
       }
 
       project.currentBlock = currentBlock;
