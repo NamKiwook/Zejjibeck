@@ -3,9 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
       <change beforePath="$PROJECT_DIR$/VerificationServer/package-lock.json" afterPath="$PROJECT_DIR$/VerificationServer/package-lock.json" />
       <change beforePath="$PROJECT_DIR$/VerificationServer/package.json" afterPath="$PROJECT_DIR$/VerificationServer/package.json" />
+      <change beforePath="$PROJECT_DIR$/VerificationServer/result/temporary.zip" afterPath="$PROJECT_DIR$/VerificationServer/result/temporary.zip" />
       <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -20,8 +20,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="416" column="15" lean-forward="true" selection-start-line="416" selection-start-column="15" selection-end-line="416" selection-end-column="15" />
+            <state relative-caret-position="202">
+              <caret line="223" column="7" lean-forward="true" selection-start-line="223" selection-start-column="7" selection-end-line="223" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -376,19 +376,7 @@
               <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
               <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
               <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="result" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="temporary" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -554,7 +542,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="294860000" />
+    <option name="totallyTimeSpent" value="296234000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="30" width="925" height="777" extended-state="0" />
@@ -933,8 +921,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="416" column="15" lean-forward="true" selection-start-line="416" selection-start-column="15" selection-end-line="416" selection-end-column="15" />
+        <state relative-caret-position="202">
+          <caret line="223" column="7" lean-forward="true" selection-start-line="223" selection-start-column="7" selection-end-line="223" selection-end-column="7" />
           <folding />
         </state>
       </provider>

@@ -4,6 +4,7 @@ var AWS = require('aws-sdk');
 var fs = require('fs');
 var util = require('util');
 var zip = require('zipfolder');
+var rimraf = require('rimraf');
 
 var downloadAPI = require('download-url');
 
@@ -36,7 +37,18 @@ const s3Upload =  uploadParams => new Promise((resolve, reject) =>{
     });           // successful response
 });
 
-
+const deleteFile = deletePath => new Promise((resolve, reject) =>{
+   rimraf(deletePath, function(err){
+        if(err) reject(err);
+        else resolve();
+   });
+});
+const mkDir = mkPath => new Promise((resolve, reject) =>{
+   fs.mkdir(mkPath, function(err){
+       if(err) reject(err);
+       else resolve();
+   });
+});
 /* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
@@ -149,6 +161,12 @@ async function duplicateVerification(){
           var projectName = projects[i].projectName;
           var extension = projects[i].fileExtension;
 
+          await deleteFile('./temporary');
+          await deleteFile('./result');
+
+          await mkDir('./temporary');
+          await mkDir('./result');
+
           for (var j = 0; j < block.finished.length; j++) {
               await downloads(userId, projectName, j, extension);
           }
@@ -199,6 +217,8 @@ async function duplicateVerification(){
               var projectName = projects[i].projectName;
               var zipPath = await zip.zipFolder({folderPath:'./temporary', targetFolderPath:'./result'});
               var data = await readFile(zipPath);
+              //TODO: json 파일 업로드!
+              //var data = JSON.stringify(projects[i], null, '\t');
               await uploads(owner, projectName, data);
           }
       }
