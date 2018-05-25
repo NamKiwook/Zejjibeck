@@ -240,8 +240,8 @@ async function refineVerification(){
 
         console.log(block.countResult);
       }
-      else if (refineType == "CheckBox"){
-        for(var k = 0 ; k < block.finished.answerList.length ; k++) {
+      else if (refineType == "Checkbox"){
+        for(var k = 0 ; k < block.finished[0].answerList.length ; k++) {
           block.countResult.push([]);
           for (var l = 0; l < projects[i].refineList.length; l++) {
             block.countResult[k].push(0);
@@ -258,7 +258,7 @@ async function refineVerification(){
       }
       else if (refineType == "Drag"){
         var tempList = [];
-          for(var k = 0; k< block.finished.answerList.length;k++){
+          for(var k = 0; k< block.finished[0].answerList.length;k++){
             tempList.push([]);
             block.coordinateResult.push({minX: 2 , minY :2 , maxX: -1, maxY: -1});
           }
@@ -266,10 +266,11 @@ async function refineVerification(){
             var answerList = block.finished[k].answerList;
             for(var l = 0 ; l < answerList.length; l++){
               var crd = JSON.parse(JSON.stringify(answerList[l]));
-              var minX = Math.min(parseInt(crd.prevX), parseInt(crd.curX));
-              var minY = Math.min(parseInt(crd.prevY), parseInt(crd.curY));
-              var maxX = Math.max(parseInt(crd.prevX), parseInt(crd.curX));
-              var maxY = Math.max(parseInt(crd.prevY), parseInt(crd.curY));
+              var minX = Math.min(parseFloat(crd.prevX), parseFloat(crd.curX));
+              var minY = Math.min(parseFloat(crd.prevY), parseFloat(crd.curY));
+              var maxX = Math.max(parseFloat(crd.prevX), parseFloat(crd.curX));
+              var maxY = Math.max(parseFloat(crd.prevY), parseFloat(crd.curY));
+
               tempList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
             }
           }
@@ -277,7 +278,7 @@ async function refineVerification(){
             var resultList = tempList[k];
             if(tempList[k].length >= 5) {
               tempList[k].sort(function (a, b) {
-                return a.minX - b.minX;
+                return parseFloat(a.minX) - parseFloat(b.minX);
               });
               var delSize = Math.floor(tempList[k].length*0.2);
               resultList = tempList[k].slice(delSize, tempList[k].length-delSize);
@@ -290,16 +291,16 @@ async function refineVerification(){
                 resultList = resultList.slice(delSize2, resultList.length-delSize2);
               }
             }
-            var minX = 0;
-            var minY = 0;
-            var maxX = 0;
-            var maxY = 0;
+            var minX = 0.0;
+            var minY = 0.0;
+            var maxX = 0.0;
+            var maxY = 0.0;
 
             for(var l =0 ; l < resultList.length; l++){
-              minX += resultList.minX;
-              minY += resultList.minY;
-              maxX += resultList.maxX;
-              maxY += resultList.maxY;
+              minX += parseFloat(resultList[l].minX);
+              minY += parseFloat(resultList[l].minY);
+              maxX += parseFloat(resultList[l].maxX);
+              maxY += parseFloat(resultList[l].maxY);
             }
 
             minX /= resultList.length;
@@ -314,17 +315,15 @@ async function refineVerification(){
           }
       }
       else if (refineType == "Text"){
-          for(var k = 0; k< block.finished.length;k++) {
-              block.textResult.push([]);
+        for(var k = 0; k< block.finished[0].answerList.length;k++){
+            block.textResult.push([]);
+        }
+        for(var k = 0 ; k < block.finished.length; k++){
+          var answerList = block.finished[k].answerList;
+          for(var l = 0 ; l < answerList.length; l++){
+            block.textResult[l].push(answerList[l]);
           }
-          for(var k = 0 ; k < block.finished.length; k++){
-              var answerList = block.finished[k].answerList;
-              for(var l = 0 ; l < answerList.length; l++){
-                  for(var m = 0 ; m< answerList[l].length; m++){
-                      block.textResult[m].push(answerList[l][m]);
-                  }
-              }
-          }
+        }
       }
       await block.save();
     }
@@ -334,11 +333,11 @@ async function refineVerification(){
       for(var j = 0 ; j < projects[i].refineBlocks.length;j++){
         var blockId = projects[i].refineBlocks[j];
         var block = await blockSchema.findOne({_id: blockId});
-        for(var k = 0 ; k < block.countResult.length ; k++){
+        for(var k = 0 ; k < Math.max(block.countResult.length, block.textResult.length, block.coordinateResult.length) ; k++){
           if(projects[i].refineType == "Radio") {
             console.log("projects??...");
             projects[i].totalCountResult.push(block.countResult[k]);
-          } else if(projects[i].refineType == "CheckBox") {
+          } else if(projects[i].refineType == "Checkbox") {
             projects[i].totalCountResult.push(block.countResult[k]);
           } else if(projects[i].refineType == "Drag") {
             projects[i].totalCoordinateResult.push(block.coordinateResult[k]);
