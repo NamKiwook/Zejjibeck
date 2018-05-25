@@ -3,14 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/MainServer/model/blockInfo.js" afterPath="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.a24121fae6cb1086ea986d2faa08d76b.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.a24121fae6cb1086ea986d2faa08d76b.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.de48104cb33b31ae68a4.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.de48104cb33b31ae68a4.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" afterPath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" />
+      <change beforePath="$PROJECT_DIR$/MainServer/routes/refine.js" afterPath="$PROJECT_DIR$/MainServer/routes/refine.js" />
       <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -25,8 +18,8 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="332">
-              <caret line="228" column="0" lean-forward="true" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+            <state relative-caret-position="765">
+              <caret line="163" column="30" lean-forward="true" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -56,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/VerificationServer/model/blockInfo.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="180">
-              <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+              <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
               <folding />
             </state>
           </provider>
@@ -65,7 +58,7 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-817">
+            <state relative-caret-position="1275">
               <caret line="85" column="147" lean-forward="false" selection-start-line="85" selection-start-column="147" selection-end-line="85" selection-end-column="147" />
               <folding />
             </state>
@@ -75,8 +68,8 @@
       <file leaf-file-name="refine.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+            <state relative-caret-position="135">
+              <caret line="52" column="28" lean-forward="false" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -115,8 +108,8 @@
       <file leaf-file-name="blockInfo.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="307">
-              <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+            <state relative-caret-position="405">
+              <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -213,7 +206,6 @@
         <option value="$PROJECT_DIR$/MainServer/routes/project.js" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
-        <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/collect.js" />
         <option value="$PROJECT_DIR$/VerificationServer/model/project.js" />
         <option value="$PROJECT_DIR$/VerificationServer/model/user.js" />
@@ -221,6 +213,7 @@
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" />
         <option value="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
+        <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
         <option value="$PROJECT_DIR$/VerificationServer/routes/index.js" />
       </list>
     </option>
@@ -246,7 +239,7 @@
     <dismissed value="$PROJECT_DIR$/VerificationServer/package.json" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="130" />
+    <option name="x" value="85" />
     <option name="y" value="23" />
     <option name="width" value="1201" />
     <option name="height" value="777" />
@@ -318,6 +311,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -440,7 +434,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -543,14 +536,15 @@
       <workItem from="1527158510836" duration="5816000" />
       <workItem from="1527222752865" duration="804000" />
       <workItem from="1527223636442" duration="2879000" />
+      <workItem from="1527230051360" duration="1330000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="278353000" />
+    <option name="totallyTimeSpent" value="279683000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="130" y="23" width="1201" height="777" extended-state="0" />
+    <frame x="85" y="23" width="1201" height="777" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17372881" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -802,7 +796,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -848,7 +841,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1005">
           <caret line="67" column="49" lean-forward="false" selection-start-line="67" selection-start-column="49" selection-end-line="67" selection-end-column="49" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -876,14 +868,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="330">
@@ -902,7 +886,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-817">
+        <state relative-caret-position="1275">
           <caret line="85" column="147" lean-forward="false" selection-start-line="85" selection-start-column="147" selection-end-line="85" selection-end-column="147" />
           <folding />
         </state>
@@ -910,8 +894,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/model/blockInfo.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="307">
-          <caret line="27" column="0" lean-forward="true" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
+        <state relative-caret-position="405">
+          <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -919,15 +903,23 @@
     <entry file="file://$PROJECT_DIR$/VerificationServer/model/blockInfo.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
-          <caret line="12" column="32" lean-forward="true" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <caret line="12" column="32" lean-forward="false" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="52" column="28" lean-forward="false" selection-start-line="52" selection-start-column="28" selection-end-line="52" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="228" column="0" lean-forward="true" selection-start-line="228" selection-start-column="0" selection-end-line="228" selection-end-column="0" />
+        <state relative-caret-position="765">
+          <caret line="163" column="30" lean-forward="true" selection-start-line="163" selection-start-column="30" selection-end-line="163" selection-end-column="30" />
           <folding />
         </state>
       </provider>

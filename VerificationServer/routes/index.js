@@ -40,13 +40,12 @@ router.get('/off', async function(req, res, next){
 
 
 async function runVerification(){
-/*
+
   console.log("Start time expire verification!");
   await timeExpireVerification();
   console.log("End time expire check, Start duplicate verification!");
   await duplicateVerification();
   console.log("End duplicate verification, Start refine verification!");
-*/
   await refineVerification();
   console.log("Finish!");
 }
@@ -166,6 +165,13 @@ async function duplicateVerification(){
       block.finished = finished;
       block.save();
       projects[i].projectState = "Collect";
+    }else {
+      if(projects[i].projectType == "Refine&Collect"){
+        projects[i].projectState = "Refine";
+      }
+      else{
+        projects[i].projectState = "finished";
+      }
     }
   }
 

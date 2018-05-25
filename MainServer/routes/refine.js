@@ -48,7 +48,10 @@ router.get('/', async function(req,res,next) {
     var lastBlockSize = parseInt(project.fileNo) - ((parseInt(project.blockNo) - 1) * blockSize);
 
     var userId = req.decoded.userId;
-    var downloadUrl = "rawData/" + project.owner + "/" + project.projectName + "/";
+    var directory = "rawData/";
+    if(project.projectType == "Refine&Collect")
+      directory = "upload/";
+    var downloadUrl = directory + project.owner + "/" + project.projectName + "/";
     var urlList = [];
 
 
