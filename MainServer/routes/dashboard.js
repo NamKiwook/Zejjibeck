@@ -35,6 +35,13 @@ router.get('/', async function(req, res, next) {
 
       project.currentCollect = currentCollect;
     }
+    else if(project.projectState == "rValidate"){
+      project.totalBlock = project.refineBlocks.length;
+      project.currentBlock = project.refineBlocks.length;
+    }
+    else if(project.projectState == "cValidate"){
+      project.currentCollect = project.maxCollect;
+    }
     else {
       if(project.projectType == "Collect"){
         project.currentCollect  = project.maxCollect;
