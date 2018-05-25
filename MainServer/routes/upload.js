@@ -69,7 +69,6 @@ router.post('/', async function(req,res, next){
       for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
         newBlock.finished.push({
           owner:"",
-          expireTime:"",
           upload:false,
         });
       }
@@ -118,7 +117,6 @@ router.post('/', async function(req,res, next){
       for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
         newBlock.finished.push({
           owner:"",
-          expireTime:"",
           upload:false,
         });
       }
