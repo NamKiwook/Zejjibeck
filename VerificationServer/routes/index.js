@@ -12,7 +12,7 @@ var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
-var timeInterval = 1000;
+var timeInterval = 1000 * 10; //1000 * 60 * 15;
 
 var unit = 600; // second
 
@@ -40,11 +40,13 @@ router.get('/off', async function(req, res, next){
 
 
 async function runVerification(){
+/*
   console.log("Start time expire verification!");
   await timeExpireVerification();
   console.log("End time expire check, Start duplicate verification!");
   await duplicateVerification();
   console.log("End duplicate verification, Start refine verification!");
+*/
   await refineVerification();
   console.log("Finish!");
 }
@@ -67,19 +69,17 @@ async function timeExpireVerification(){
   try {
     var projects = await projectSchema.find();
 
-    console.log(projects);
-
     for (var i = 0; i < projects.length; i++) {
       if (projects[i].projectState == "finished") continue;
       else if (projects[i].projectState == "rValidate") {
         var blockList = projects[i].refineBlocks;
         for (var j = 0; j < blockList.length; j++) {
-          var block = blockList[j];
-          if (block.finished.length + block.running.length >= projects[i].minimumRefine && block.running.length > 0) {
+          var block = await blockSchema.findOne({_id : blockList[j]});
+          if (block.finished.length + block.running.length >= parseInt(projects[i].minimumRefine) && block.running.length > 0) {
             var time = new Date().getTime();
             var deleteList = [];
-            for (var k = 0; k < running.length; k++) {
-              if (parseInt(running[k].assignTime) + timeInterval > time) {
+            for (var k = 0; k < block.running.length; k++) {
+              if (parseInt(block.running[k].assignTime) + timeInterval < time) {
                 projects[i].projectState = "Refine";
                 deleteList.push(k);
               }
@@ -88,15 +88,14 @@ async function timeExpireVerification(){
               block.running.splice(deleteList[k], 1);
             }
           }
+          await block.save();
         }
-
       }
       else if (projects[i].projectState == "cValidate") {
         var block = await blockSchema.findOne({_id: projects[i].collectBlock});
         var time = new Date().getTime();
         var saveFlag = 0;
         var finished = JSON.parse(JSON.stringify(block.finished));
-
 
         for (var j = 0; j < finished.length; j++) {
           if (finished[j].upload == false && time < parseInt(finished[j].assignTime) + timeInterval) {
@@ -123,7 +122,6 @@ async function timeExpireVerification(){
 
 // 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
 //// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
-///////////완성
 async function duplicateVerification(){
   var projects = await projectSchema.find({projectState : "cValidate"});
 
@@ -174,9 +172,6 @@ async function duplicateVerification(){
     for(var i = 0; i < projects.length; i++){
         await projects[i].save();
     }
-
-
-  console.log(projects);
 }
 
 // 정제 2번
@@ -228,34 +223,38 @@ async function refineVerification(){
       var refineType = projects[i].refineType;
 
       if(refineType == "Radio"){
-        for(var k = 0; k< block.finished.length;k++) {
+        console.log("radio..");
+        for(var k = 0 ; k < block.finished[0].answerList.length ; k++) {
           block.countResult.push([]);
-            for (var l = 0; l < projects[i].refineList.length; l++) {
-                block.countResult[k].push(0);
-            }
+          for (var l = 0; l < projects[i].refineList.length; l++) {
+            block.countResult[k].push(0);
+          }
         }
+
         for(var k = 0 ; k < block.finished.length; k++){
           var answerList = block.finished[k].answerList;
           for(var l = 0 ; l < answerList.length; l++){
             block.countResult[l][parseInt(answerList[l])]++;
           }
         }
+
+        console.log(block.countResult);
       }
       else if (refineType == "CheckBox"){
-          for(var k = 0; k< block.finished.length;k++) {
-              block.countResult.push([]);
-              for (var l = 0; l < projects[i].refineList.length; l++) {
-                  block.countResult[k].push(0);
-              }
+        for(var k = 0 ; k < block.finished.answerList.length ; k++) {
+          block.countResult.push([]);
+          for (var l = 0; l < projects[i].refineList.length; l++) {
+            block.countResult[k].push(0);
           }
-          for(var k = 0 ; k < block.finished.length; k++){
-              var answerList = block.finished[k].answerList;
-              for(var l = 0 ; l < answerList.length; l++){
-                  for(var m = 0 ; m< answerList[l].length; m++){
-                      block.countResult[l][parseInt(answerList[l][m])]++;
-                  }
-              }
+        }
+        for(var k = 0 ; k < block.finished.length; k++){
+          var answerList = block.finished[k].answerList;
+          for(var l = 0 ; l < answerList.length; l++){
+            for(var m = 0 ; m< answerList[l].length; m++){
+              block.countResult[l][parseInt(answerList[l][m])]++;
+            }
           }
+        }
       }
       else if (refineType == "Drag"){
         var tempList = [];
@@ -291,10 +290,10 @@ async function refineVerification(){
                 resultList = resultList.slice(delSize2, resultList.length-delSize2);
               }
             }
-            var minX =0;
+            var minX = 0;
             var minY = 0;
-            var maxX =0;
-            var maxY =0;
+            var maxX = 0;
+            var maxY = 0;
 
             for(var l =0 ; l < resultList.length; l++){
               minX += resultList.minX;
@@ -335,8 +334,9 @@ async function refineVerification(){
       for(var j = 0 ; j < projects[i].refineBlocks.length;j++){
         var blockId = projects[i].refineBlocks[j];
         var block = await blockSchema.findOne({_id: blockId});
-        for(var k = 0 ; k < block.countResult ; k++){
+        for(var k = 0 ; k < block.countResult.length ; k++){
           if(projects[i].refineType == "Radio") {
+            console.log("projects??...");
             projects[i].totalCountResult.push(block.countResult[k]);
           } else if(projects[i].refineType == "CheckBox") {
             projects[i].totalCountResult.push(block.countResult[k]);
