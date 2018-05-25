@@ -3,6 +3,7 @@ var router = express.Router();
 var AWS = require('aws-sdk');
 var fs = require('fs');
 var util = require('util');
+var zip = require('zipfolder');
 
 var downloadAPI = require('download-url');
 
@@ -18,6 +19,23 @@ var unit = 600; // second
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
+var uploadParams ={Bucket: 'zejjibeck', Key:'', Body:''};
+
+const readFile = filePath => new Promise((resolve, reject) => {
+    fs.readFile(filePath, (err, data) => {
+        if (err) reject(err);
+        else resolve(data);
+    });
+});
+
+
+const s3Upload =  uploadParams => new Promise((resolve, reject) =>{
+    s3.putObject(uploadParams, function(err, data) {
+        if (err) reject(err); // an error occurred
+        else resolve(data);
+    });           // successful response
+});
+
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -122,62 +140,75 @@ async function timeExpireVerification(){
 // 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
 //// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
 async function duplicateVerification(){
-  var projects = await projectSchema.find({projectState : "cValidate"});
+  try {
+      var projects = await projectSchema.find({projectState: "cValidate"});
 
-  for(var i = 0 ; i < projects.length ; i++){
-    var block = await blockSchema.findOne({_id:projects[i].collectBlock});
-    var userId = projects[i].owner;
-    var projectName = projects[i].projectName;
-    var extension = projects[i].fileExtension;
+      for (var i = 0; i < projects.length; i++) {
+          var block = await blockSchema.findOne({_id: projects[i].collectBlock});
+          var userId = projects[i].owner;
+          var projectName = projects[i].projectName;
+          var extension = projects[i].fileExtension;
 
-    for(var j = 0 ; j < block.finished.length ; j++){
-      await downloads(userId, projectName, j, extension);
-    }
-
-    var duplicated = [];
-
-    for(var j = 0 ; j < block.finished.length ; j++)
-      duplicated.push(0);
-
-    for(var j = 0 ; j < block.finished.length ; j++){
-      if(duplicated[j] == 0) {
-        for (var k = j + 1; k < block.finished.length; k++) {
-          var isDuplicate = await IdentityFile(j,k,extension);
-          if(isDuplicate){
-            duplicated[k] = 1;
+          for (var j = 0; j < block.finished.length; j++) {
+              await downloads(userId, projectName, j, extension);
           }
-        }
-      }
-    }
+
+          var duplicated = [];
+
+          for (var j = 0; j < block.finished.length; j++)
+              duplicated.push(0);
+
+          for (var j = 0; j < block.finished.length; j++) {
+              if (duplicated[j] == 0) {
+                  for (var k = j + 1; k < block.finished.length; k++) {
+                      var isDuplicate = await IdentityFile(j, k, extension);
+                      if (isDuplicate) {
+                          duplicated[k] = 1;
+                      }
+                  }
+              }
+          }
 
 
-    var duplicateFlag = false;
-    var finished = JSON.parse(JSON.stringify(block.finished));
-    for(var j = 0 ; j < finished.length ; j++){
-      if(duplicated[j] == 1){
-        finished[j].owner = "";
-        finished[j].upload = false;
-        duplicateFlag = true;
-      }
-    }
+          var duplicateFlag = false;
+          var finished = JSON.parse(JSON.stringify(block.finished));
+          for (var j = 0; j < finished.length; j++) {
+              if (duplicated[j] == 1) {
+                  finished[j].owner = "";
+                  finished[j].upload = false;
+                  duplicateFlag = true;
+              }
+          }
 
-    if(duplicateFlag == true){
-      block.finished = finished;
-      block.save();
-      projects[i].projectState = "Collect";
-    }else {
-      if(projects[i].projectType == "Refine&Collect"){
-        projects[i].projectState = "Refine";
+          if (duplicateFlag == true) {
+              block.finished = finished;
+              block.save();
+              projects[i].projectState = "Collect";
+          }
+          else {
+              if (projects[i].projectType == "Refine&Collect") {
+                  projects[i].projectState = "Refine";
+              }
+              else {
+                  projects[i].projectState = "finished";
+              }
+
+              // 수집이 완료되었다. s3에 zip 파일 올림
+              // 00000~ 00012 파일 zip으로 바꾸고 올리면댐
+              var owner = projects[i].owner;
+              var projectName = projects[i].projectName;
+              var zipPath = await zip.zipFolder({folderPath:'./temporary', targetFolderPath:'./result'});
+              var data = await readFile(zipPath);
+              await uploads(owner, projectName, data);
+          }
       }
-      else{
-        projects[i].projectState = "finished";
+
+      for (var i = 0; i < projects.length; i++) {
+          await projects[i].save();
       }
-    }
+  } catch(err){
+    console.log(err);
   }
-
-    for(var i = 0; i < projects.length; i++){
-        await projects[i].save();
-    }
 }
 
 // 정제 2번
@@ -369,11 +400,25 @@ async function downloads(user, projectName, fileNo, extension){
 }
 
 async function getDownloadUrl(userName, projectName, fileNo, extension) {
-  var strFileNo = strFileName(fileNo);
-  params.Key = "upload/" + userName + "/" + projectName + "/" + strFileNo + extension;
-  var url = await s3.getSignedUrl('getObject', params);
-  return url;
+    var strFileNo = strFileName(fileNo);
+    params.Key = "upload/" + userName + "/" + projectName + "/" + strFileNo + extension;
+    var url = await s3.getSignedUrl('getObject', params);
+    return url;
 }
+
+async function uploads(owner, projectName, data){
+  try{
+    uploadParams.Key = "result/" + owner + "/" + projectName + "/" + "result.zip";
+    uploadParams.Body = data;
+    uploadParams.ACL= 'public-read';
+    console.log(uploadParams.Key);
+    var data = await s3Upload(uploadParams);
+    console.log(data);
+  } catch(err){
+    console.log("error");
+  }
+}
+
 
 function strFileName(iName){
   var strFileNo = iName.toString();
