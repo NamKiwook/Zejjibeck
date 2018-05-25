@@ -12,7 +12,7 @@ var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
-var timeInterval = 1000 * 60 * 15;
+var timeInterval = 1000;
 
 var unit = 600; // second
 
@@ -89,6 +89,7 @@ async function timeExpireVerification(){
             }
           }
         }
+
       }
       else if (projects[i].projectState == "cValidate") {
         var block = await blockSchema.findOne({_id: projects[i].collectBlock});
@@ -122,6 +123,7 @@ async function timeExpireVerification(){
 
 // 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
 //// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
+///////////완성
 async function duplicateVerification(){
   var projects = await projectSchema.find({projectState : "cValidate"});
 
@@ -204,8 +206,6 @@ async function IdentityFile(x, y, extension){
 async function refineVerification(){
   //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
   var projects = await projectSchema.find({projectState : "rValidate"});
-  var currentTime = new Date().getTime();
-  var averageAnswer = [];
 
   for(var i = 0 ; i < projects.length ; i++){
 
@@ -227,7 +227,7 @@ async function refineVerification(){
 
       var refineType = projects[i].refineType;
 
-      if(refineType == "RadioBox"){
+      if(refineType == "Radio"){
         for(var k = 0; k< block.finished.length;k++) {
           block.countResult.push([]);
             for (var l = 0; l < projects[i].refineList.length; l++) {
@@ -336,7 +336,7 @@ async function refineVerification(){
         var blockId = projects[i].refineBlocks[j];
         var block = await blockSchema.findOne({_id: blockId});
         for(var k = 0 ; k < block.countResult ; k++){
-          if(projects[i].refineType == "RadioBox") {
+          if(projects[i].refineType == "Radio") {
             projects[i].totalCountResult.push(block.countResult[k]);
           } else if(projects[i].refineType == "CheckBox") {
             projects[i].totalCountResult.push(block.countResult[k]);
