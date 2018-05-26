@@ -142,6 +142,7 @@ async function duplicateVerification(){
           var userId = projects[i].owner;
           var projectName = projects[i].projectName;
           var extension = projects[i].fileExtension;
+          var collectCredit = parseInt(projects[i].collectCredit);
 
           await deleteFile('./temporary');
           await deleteFile('./result');
@@ -157,6 +158,7 @@ async function duplicateVerification(){
 
           for (var j = 0; j < block.finished.length; j++)
               duplicated.push(0);
+
 
           for (var j = 0; j < block.finished.length; j++) {
               if (duplicated[j] == 0) {
@@ -174,9 +176,13 @@ async function duplicateVerification(){
           var finished = JSON.parse(JSON.stringify(block.finished));
           for (var j = 0; j < finished.length; j++) {
               if (duplicated[j] == 1) {
-                  finished[j].owner = "";
-                  finished[j].upload = false;
-                  duplicateFlag = true;
+                var collectUser = await userSchema.findOne({userId : finished[j].owner});
+                collectUser.prearrangedCredit = parseInt(collectUser.prearrangedCredit) - collectCredit;
+                await collectUser.save();
+
+                finished[j].owner = "";
+                finished[j].upload = false;
+                duplicateFlag = true;
               }
           }
 
@@ -192,8 +198,6 @@ async function duplicateVerification(){
               else {
                   projects[i].projectState = "finished";
               }
-
-              var collectCredit = parseInt(projects[i].collectCredit);
 
               for(var j = 0 ; j < finished.length ; j++){
                 var collectUserId = finished[j].owner;

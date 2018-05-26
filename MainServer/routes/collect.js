@@ -48,7 +48,7 @@ router.put('/check', async function(req,res,err){
       }
 
       var user = await userSchema.findOne({userId:userId});
-      user.prearrangedCredit = parseInt(prearrangedCredit) + fileNo * parseInt(project.collectCredit);
+      user.prearrangedCredit = parseInt(user.prearrangedCredit) + fileNo * parseInt(project.collectCredit);
       await user.save();
 
       for(var i = 0 ; i < parseInt(collectBlock.maxCollect) ; i++){
@@ -67,6 +67,7 @@ router.put('/check', async function(req,res,err){
     await collectBlock.save();
     res.send({success:true});
   } catch (err){
+    console.log(err);
     res.send({success: false, errorMessage:"database error"});
   }
 });
