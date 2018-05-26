@@ -109,8 +109,8 @@ div.container
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)")
-              span {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100), projectInfo.projectState]")
+              span(:class="projectInfo.projectState") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
@@ -126,8 +126,8 @@ div.container
             .text Current Refine Block
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)")
-              span {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100), projectInfo.projectState]")
+              span(:class="projectInfo.projectState") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
               .slice
                 .bar
                 .fill
@@ -301,15 +301,15 @@ export default {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  align-items: center;
   flex: 1;
 }
 .credit-section > .profile-wrap > .profile-img {
   display: inline-block;
   border: 1px solid #eee;
-  border-radius: 50px;
-  width: 70px;
-  height: 70px;
-  margin-top: 10px;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
 }
 .credit-section > .profile-wrap > .profile-title {
   margin-top: 15px;
@@ -396,11 +396,125 @@ export default {
   font-size: 0.3em;
   color: #2979ff;
 }
+.register-project .project-wrap:hover .c100 > span.Refine {
+  color: #5991ee;
+}
+.register-project .project-wrap:hover .c100 > span.Collect {
+  color: #62ce8d;
+}
 .register-project .project-wrap:hover .c100:after {
   top: 0.04em;
   left: 0.04em;
   width: 0.92em;
   height: 0.92em;
+}
+.pie,
+.c100.Collect .bar,
+.c100.Collect.p51 .fill,
+.c100.Collect.p52 .fill,
+.c100.Collect.p53 .fill,
+.c100.Collect.p54 .fill,
+.c100.Collect.p55 .fill,
+.c100.Collect.p56 .fill,
+.c100.Collect.p57 .fill,
+.c100.Collect.p58 .fill,
+.c100.Collect.p59 .fill,
+.c100.Collect.p60 .fill,
+.c100.Collect.p61 .fill,
+.c100.Collect.p62 .fill,
+.c100.Collect.p63 .fill,
+.c100.Collect.p64 .fill,
+.c100.Collect.p65 .fill,
+.c100.Collect.p66 .fill,
+.c100.Collect.p67 .fill,
+.c100.Collect.p68 .fill,
+.c100.Collect.p69 .fill,
+.c100.Collect.p70 .fill,
+.c100.Collect.p71 .fill,
+.c100.Collect.p72 .fill,
+.c100.Collect.p73 .fill,
+.c100.Collect.p74 .fill,
+.c100.Collect.p75 .fill,
+.c100.Collect.p76 .fill,
+.c100.Collect.p77 .fill,
+.c100.Collect.p78 .fill,
+.c100.Collect.p79 .fill,
+.c100.Collect.p80 .fill,
+.c100.Collect.p81 .fill,
+.c100.Collect.p82 .fill,
+.c100.Collect.p83 .fill,
+.c100.Collect.p84 .fill,
+.c100.Collect.p85 .fill,
+.c100.Collect.p86 .fill,
+.c100.Collect.p87 .fill,
+.c100.Collect.p88 .fill,
+.c100.Collect.p89 .fill,
+.c100.Collect.p90 .fill,
+.c100.Collect.p91 .fill,
+.c100.Collect.p92 .fill,
+.c100.Collect.p93 .fill,
+.c100.Collect.p94 .fill,
+.c100.Collect.p95 .fill,
+.c100.Collect.p96 .fill,
+.c100.Collect.p97 .fill,
+.c100.Collect.p98 .fill,
+.c100.Collect.p99 .fill,
+.c100.Collect.p100 .fill {
+  border-color: #62ce8d;
+}
+.pie,
+.c100.Refine .bar,
+.c100.Refine.p51 .fill,
+.c100.Refine.p52 .fill,
+.c100.Refine.p53 .fill,
+.c100.Refine.p54 .fill,
+.c100.Refine.p55 .fill,
+.c100.Refine.p56 .fill,
+.c100.Refine.p57 .fill,
+.c100.Refine.p58 .fill,
+.c100.Refine.p59 .fill,
+.c100.Refine.p60 .fill,
+.c100.Refine.p61 .fill,
+.c100.Refine.p62 .fill,
+.c100.Refine.p63 .fill,
+.c100.Refine.p64 .fill,
+.c100.Refine.p65 .fill,
+.c100.Refine.p66 .fill,
+.c100.Refine.p67 .fill,
+.c100.Refine.p68 .fill,
+.c100.Refine.p69 .fill,
+.c100.Refine.p70 .fill,
+.c100.Refine.p71 .fill,
+.c100.Refine.p72 .fill,
+.c100.Refine.p73 .fill,
+.c100.Refine.p74 .fill,
+.c100.Refine.p75 .fill,
+.c100.Refine.p76 .fill,
+.c100.Refine.p77 .fill,
+.c100.Refine.p78 .fill,
+.c100.Refine.p79 .fill,
+.c100.Refine.p80 .fill,
+.c100.Refine.p81 .fill,
+.c100.Refine.p82 .fill,
+.c100.Refine.p83 .fill,
+.c100.Refine.p84 .fill,
+.c100.Refine.p85 .fill,
+.c100.Refine.p86 .fill,
+.c100.Refine.p87 .fill,
+.c100.Refine.p88 .fill,
+.c100.Refine.p89 .fill,
+.c100.Refine.p90 .fill,
+.c100.Refine.p91 .fill,
+.c100.Refine.p92 .fill,
+.c100.Refine.p93 .fill,
+.c100.Refine.p94 .fill,
+.c100.Refine.p95 .fill,
+.c100.Refine.p96 .fill,
+.c100.Refine.p97 .fill,
+.c100.Refine.p98 .fill,
+.c100.Refine.p99 .fill,
+.c100.Refine.p100 .fill {
+  border-color: #5991ee;
 }
 .register-project .project-wrap > .title {
   font-size: 16px;

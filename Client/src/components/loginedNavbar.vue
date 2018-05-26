@@ -23,8 +23,8 @@ nav
         a.btn(@click="changeInfo") 변경사항 저장
     router-link.logo(to='/dashboard')
     .profile-wrap(@click="profileToggle")
-      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile" ,width="30", height="30")
-      <!--.profile-title {{username}} //유저네임 넣어주는게 더 나은것같으면 주석해제-->
+      img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile" ,width="45", height="45")
+      .profile-title {{username}}
       .profile-dropdown(v-bind:class="{visible : profileIsVisible}")
         .img-wrap
           .profile(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
@@ -143,9 +143,9 @@ export default {
   }
   nav > .container > .logo {
     background-image: url("../assets/logo-black.png");
-    width: 150px;
+    width: 170px;
     height: 100%;
-    background-size: 150px;
+    background-size: 170px;
     background-position: center;
     background-repeat: no-repeat;
     color: #000;
@@ -171,7 +171,7 @@ export default {
     display: flex;
     flex-flow: column;
     position: absolute;
-    top: 35px; right: 0;
+    top: 50px; right: 0;
     visibility: hidden;
     z-index: 999;
     background-color: #262931;
