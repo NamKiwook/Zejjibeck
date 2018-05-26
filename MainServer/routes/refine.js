@@ -1,6 +1,7 @@
 var express = require('express');
 var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
+var userSchema = require('../model/user');
 var router = express.Router();
 
 var bodyParser = require('body-parser');
@@ -15,15 +16,22 @@ var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*15 };
 router.post('/', async function(req,res,next){
   try{
     var answerList = req.body.refineList;
-    var id = req.decoded.userId;
+    var userId = req.decoded.userId;
     var block = await blockSchema.findOne({_id:req.body.blockId});
+    var project = await projectSchema.findOne({_id:req.body.projectId});
 
     for(var i = 0; i < block.running.length; i ++){
-      if(block.running[i].userId == id){
+      if(block.running[i].userId == userId){
         var time = new Date().getTime();
-        block.finished.push({userId : id, assignTime : block.running[i].assignTime, finishedTime: time, answerList : answerList});
+        block.finished.push({userId : userId, assignTime : block.running[i].assignTime, finishedTime: time, answerList : answerList});
         block.running.splice(i,1);
         await block.save();
+
+        var user = await userSchema.findOne({userId:userId});
+        var currentCredit = parseInt(user.prearrangedCredit);
+        user.prearrangedCredit = currentCredit + parseInt(project.refineCredit) * answerList.length;
+        user.save();
+
         res.send({success: true});
         return;
       }

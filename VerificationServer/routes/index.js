@@ -182,7 +182,7 @@ async function duplicateVerification(){
 
           if (duplicateFlag == true) {
               block.finished = finished;
-              block.save();
+              await block.save();
               projects[i].projectState = "Collect";
           }
           else {
@@ -191,6 +191,16 @@ async function duplicateVerification(){
               }
               else {
                   projects[i].projectState = "finished";
+              }
+
+              var collectCredit = parseInt(projects[i].collectCredit);
+
+              for(var j = 0 ; j < finished.length ; j++){
+                var collectUserId = finished[j].owner;
+                var collectUser = await userSchema.findOne({userId : collectUserId});
+                collectUser.prearrangedCredit = parseInt(collectUser.prearrangedCredit) - collectCredit;
+                collectUser.usableCredit = parseInt(collectUser.usableCredit) + collectCredit;
+                await collectUser.save();
               }
 
               var owner = projects[i].owner;
@@ -249,6 +259,18 @@ async function refineVerification(){
       }
 
       block.isValidate = "Done";
+
+      var refineCredit = parseInt(projects[i].refineCredit);
+      var finished = block.finished;
+
+      for(var k = 0 ; k < finished.length ; k++){
+        var refineUserId = finished[k].userId;
+        var refineUser = await userSchema.findOne({userId : refineUserId});
+        var problemNo = parseInt(finished[k].answerList.length);
+        refineUser.prearrangedCredit = parseInt(refineUser.prearrangedCredit) - refineCredit * problemNo;
+        refineUser.usableCredit = parseInt(refineUser.usableCredit) + refineCredit * problemNo;
+        await refineUser.save();
+      }
 
       var refineType = projects[i].refineType;
 
