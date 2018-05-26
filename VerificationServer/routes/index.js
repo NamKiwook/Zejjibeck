@@ -6,6 +6,7 @@ var util = require('util');
 var zip = require('zipfolder');
 var rimraf = require('rimraf');
 
+
 var downloadAPI = require('download-url');
 
 var userSchema = require('../model/user');
@@ -29,12 +30,11 @@ const readFile = filePath => new Promise((resolve, reject) => {
     });
 });
 
-
 const s3Upload =  uploadParams => new Promise((resolve, reject) =>{
     s3.putObject(uploadParams, function(err, data) {
-        if (err) reject(err); // an error occurred
+        if (err) reject(err);
         else resolve(data);
-    });           // successful response
+    });
 });
 
 const deleteFile = deletePath => new Promise((resolve, reject) =>{
@@ -49,7 +49,7 @@ const mkDir = mkPath => new Promise((resolve, reject) =>{
        else resolve();
    });
 });
-/* GET home page. */
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -70,7 +70,6 @@ router.get('/off', async function(req, res, next){
 
 
 async function runVerification(){
-
   console.log("Start time expire verification!");
   await timeExpireVerification();
   console.log("End time expire check, Start duplicate verification!");
@@ -79,20 +78,6 @@ async function runVerification(){
   await refineVerification();
   console.log("Finish!");
 }
-
-// 정제 프로세스
-// 1. running -> 없애는거
-// 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
-// 3. refine 프로젝트에서 모든 블락이 완료되었을 경우 프로젝트 스테이트 변경
-
-// 수집 프로세스
-// 1. finished에서 시간이 초과된 것들 체크
-// 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
-//// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
-
-// collect일때는, finished 전부 미리 만듬
-// 리파인일때는 finished 들어올떄마다 하나씩 만듬
-// 정제 1 & 수집 1
 
 async function timeExpireVerification(){
   try {
@@ -148,9 +133,6 @@ async function timeExpireVerification(){
   }
 }
 
-
-// 2. 전부 다 업로드 됬을 시, 중복 체크해서 완료되면 프로젝트 스테이트 변경, 중복 발견 시 finished 하나 비움
-//// 이미지, 음성, 텍스트 -> 정제프로세스 (o/x) -> 향상시키기 위한 방법임. 지금을 위한게 아니다.
 async function duplicateVerification(){
   try {
       var projects = await projectSchema.find({projectState: "cValidate"});
@@ -211,15 +193,11 @@ async function duplicateVerification(){
                   projects[i].projectState = "finished";
               }
 
-              // 수집이 완료되었다. s3에 zip 파일 올림
-              // 00000~ 00012 파일 zip으로 바꾸고 올리면댐
               var owner = projects[i].owner;
               var projectName = projects[i].projectName;
               var zipPath = await zip.zipFolder({folderPath:'./temporary', targetFolderPath:'./result'});
               var data = await readFile(zipPath);
-              //TODO: json 파일 업로드!
-              //var data = JSON.stringify(projects[i], null, '\t');
-              await uploads(owner, projectName, data);
+              await uploads(owner, projectName, data, "result.zip");
           }
       }
 
@@ -231,8 +209,6 @@ async function duplicateVerification(){
   }
 }
 
-// 정제 2번
-// 2. finished 꽉찬거 분포 처리해서 아웃풋으로 넘겨주기. -> 이상한놈 감지해서 밴
 async function IdentityFile(x, y, extension){
   try {
     var pathX = "./temporary/" + strFileName(x) + extension;
@@ -273,9 +249,6 @@ async function refineVerification(){
       }
 
       block.isValidate = "Done";
-      // countResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
-      // textResult: {type: Array, default: []},
-      // coordinateResult: {type: Array, default: []}
 
       var refineType = projects[i].refineType;
 
@@ -403,10 +376,35 @@ async function refineVerification(){
           }
         }
       }
+
+      var resultJson = {};
+      var refineResult;
+
+      if(projects[i].refineType == "Radio") refineResult = projects[i].totalCountResult;
+      else if(projects[i].refineType == "Checkbox") refineResult = projects[i].totalCountResult;
+      else if(projects[i].refineType == "Drag") refineResult = projects[i].totalCoordinateResult;
+      else if(projects[i].refineType == "Text") refineResult = projects[i].totalTextResult;
+
+      if(projects[i].projectType == "Refine"){
+        var originalFileNames = projects[i].originalFileNames;
+        for(var j = 0 ; j < refineResult.length ; j++){
+          resultJson[originalFileNames[j]] = refineResult[j];
+        }
+      } else{
+        for(var j = 0 ; j < refineResult.length ; j++){
+          var fileName = strFileName(j) + projects[i].fileExtension;
+          resultJson[fileName] = refineResult[j];
+        }
+      }
+
+      resultJson = JSON.stringify(resultJson, null, '\t');
+
+      await uploads(projects[i].owner, projects[i].projectName, resultJson, 'result.json');
     }
     await projects[i].save();
   }
 }
+
 
 async function downloads(user, projectName, fileNo, extension){
   try{
@@ -426,9 +424,9 @@ async function getDownloadUrl(userName, projectName, fileNo, extension) {
     return url;
 }
 
-async function uploads(owner, projectName, data){
+async function uploads(owner, projectName, data, fileName){
   try{
-    uploadParams.Key = "result/" + owner + "/" + projectName + "/" + "result.zip";
+    uploadParams.Key = "result/" + owner + "/" + projectName + "/" + fileName;
     uploadParams.Body = data;
     uploadParams.ACL= 'public-read';
     console.log(uploadParams.Key);

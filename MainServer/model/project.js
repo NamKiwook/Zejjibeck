@@ -37,7 +37,8 @@ var projectSchema = new Schema({
 
   totalCountResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
   totalTextResult: {type: Array, default: []},
-  totalCoordinateResult: {type: Array, default: []}
+  totalCoordinateResult: {type: Array, default: []},
 
+  originalFileNames: {type:Array, default: []},
 });
 module.exports = mongoose.model('project', projectSchema);

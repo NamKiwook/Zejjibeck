@@ -94,6 +94,7 @@ router.post('/', async function(req,res, next){
       project.blockNo = blockNo;
       project.refineBlocks = [];
 
+      project.originalFileNames = fileNames;
 
       for (var i = 0; i < blockNo; i++) {
         var newBlock = new blockSchema();

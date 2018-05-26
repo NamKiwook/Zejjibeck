@@ -1,6 +1,11 @@
 var express = require('express');
 var router = express.Router();
 var projectSchema = require('../model/project');
+
+var AWS = require('aws-sdk');
+var s3 = new AWS.S3({region:'ap-northeast-2'});
+var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*15 };
+
 router.get('/', async function(req,res,err){
   var projectId = req.query.projectId;
   try{
@@ -66,6 +71,48 @@ router.get('/list', async function(req,res,next){
     await res.send({
       projectList: [],
       totalPage: 0,
+    })
+  }
+});
+
+router.get('/collectedFile', async function(req,res,next) {
+  try{
+    var projectId = req.query.projectId;
+    var project = await projectSchema.findOne({_id: projectId});
+
+    params.Key = "result/" + req.decoded.userId + "/" + project.projectName + "/result.zip";
+    var url = await s3.getSignedUrl('getObject', params);
+    await res.send({
+      url:url,
+      success:true
+    })
+
+  }catch(err){
+    console.log(err);
+    await res.send({
+      success:false,
+      errorMessage:err
+    })
+  }
+});
+
+router.get('/refineResult', async function(req,res,next) {
+  try{
+    var projectId = req.query.projectId;
+    var project = await projectSchema.findOne({_id: projectId});
+
+    params.Key = "result/" + req.decoded.userId + "/" + project.projectName + "/result.json";
+    var url = await s3.getSignedUrl('getObject', params);
+    await res.send({
+      url:url,
+      success:true
+    })
+
+  }catch(err){
+    console.log(err);
+    await res.send({
+      success:false,
+      errorMessage:err
     })
   }
 });
