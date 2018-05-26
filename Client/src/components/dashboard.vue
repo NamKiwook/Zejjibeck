@@ -109,7 +109,7 @@ div.container
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100), projectInfo.projectState]")
+            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100), projectInfo.projectState]")
               span(:class="projectInfo.projectState") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
