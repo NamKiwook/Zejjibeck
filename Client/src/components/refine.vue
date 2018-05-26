@@ -15,6 +15,7 @@
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
           canvas(ref="myCanvas", width="1000" height="1000", @mousedown="mousedown", @mouseup="mouseup")
+          .delete.btn 선택 삭제
         .problem-title {{projectInfo.question}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
@@ -284,12 +285,19 @@ export default {
   }
   .content {
     text-align: center;
+    overflow: hidden;
   }
   .content > img {
     width: 100%;
   }
   canvas {
     max-width: 100%;
+  }
+  .content > .delete.btn {
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    float: right;
   }
   .content > .text {
     font-size: 24px;
