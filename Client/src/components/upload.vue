@@ -64,7 +64,9 @@
       .title Tag Value
       .valueWrap
         .textWrap#valueField
-          input.text(type='text', v-for="n in tagNumber", v-model="refineList[n-1]")
+          .inputWrap(v-for="n in tagNumber", v-model="refineList[n-1]")
+            input.text(type='text')
+            .delete
         .btnWrap
           a#plus.btn(@click="tagPlus") +
     section.upload.active(v-if="projectType === 'Refine'")
@@ -283,13 +285,13 @@ export default {
   }
   input.text {
     padding: 10px;
-    border: 1px solid rgba(211, 215, 219, 1.0);
+    border: 1px solid #eee;
     border-radius: 4px;
     width: 100%;
   }
   textarea.text {
     padding: 10px;
-    border: 1px solid rgba(211, 215, 219, 1.0);
+    border: 1px solid #eee;
     border-radius: 4px;
     width: 100%;
     resize: none;
@@ -311,8 +313,31 @@ export default {
     flex: 1;
     flex-flow: column;
   }
-  .tagValue > .valueWrap > .textWrap > input {
+  .tagValue > .valueWrap > .textWrap > .inputWrap {
     margin-bottom: 10px;
+    display: flex;
+  }
+  .tagValue > .valueWrap > .textWrap > .inputWrap > input {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .tagValue > .valueWrap > .textWrap > .inputWrap > .delete {
+    width: 39.6px;
+    height: 39.6px;
+    color: #62ce8d;
+    border: 1px solid #eee;
+    border-left: 0;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    background-color: #fff;
+    background-position: center;
+    background-size: 8px;
+    background-repeat: no-repeat;
+  }
+  .tagValue > .valueWrap > .textWrap > .inputWrap:hover > .delete {
+    background-image: url("../assets/close-gray.png");
+    cursor: pointer;
   }
   .tagValue > .valueWrap > .btnWrap {
     position: relative;

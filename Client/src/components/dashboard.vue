@@ -64,7 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      .btn 다운로드
+      .download.btn Collection 다운로드
+      .download.btn Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -724,6 +725,10 @@ export default {
 .modal-container > .btn {
   margin-top: 20px;
   padding: 15px 60px;
+}
+.modal-container > .download.btn {
+  padding: 10px 30px;
+  margin: 20px 5px 0;
 }
 @media only screen and (max-width: 1000px) {
   .credit-section {
