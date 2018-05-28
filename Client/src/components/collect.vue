@@ -10,8 +10,10 @@
           | {{projectInfo.description}}
       .submit-wrap
         form#ajaxFrom(enctype="multipart/form-data")
-          input#ajaxFile(type="file", multiple="multiple", ref="files")
-          input.btn.register(type="button", @click="submit", value="SUBMIT")
+          input#ajaxFile(type="file", multiple="multiple",@change="fileChange")
+          input.btn.register(type="button", @click="submit", value="SUBMIT", v-if="isAble && !isSubmited")
+          input.btn.register.disable(type="button", value="SUBMIT" v-else)
+
     section.user-info
       .profile-wrap
         .profile-img
@@ -40,8 +42,17 @@ export default {
       fileList: [],
       numberCollect: 0,
       projectId: null,
-      collectPercent: 0
+      collectPercent: 0,
+      isSubmited: false
     }
+  },
+  computed: {
+    isAble () {
+      if(this.fileList.length > 0) {
+        return true
+      }
+      return false
+    },
   },
   created () {
     this.projectId = this.$route.params.projectId
@@ -52,9 +63,13 @@ export default {
     })
   },
   methods: {
+    fileChange (e) {
+      this.fileList = e.target.files
+    },
     submit () {
-      if (this.$refs.files != null) {
-        this.fileList = this.$refs.files.files
+      this.isSubmited = true
+      this.$store.commit('isLoadingTrue')
+      if (this.fileList.length > 0) {
         this.$http.put('/api/collect/check', {
           projectId: this.projectId,
           fileNo: this.fileList.length
@@ -67,36 +82,41 @@ export default {
                   fileName: this.fileList[i].name
                 }
               })
-              if (res1.data.success) {
-                await this.$http({
+              if(res1.data.success) {
+                var res2 = await this.$http({
                   method: 'put',
                   url: res1.data.url,
                   contentType: false,
                   processData: false,
                   data: this.fileList[i]
-                }).then((res) => {
-                  console.log(res)
-                  this.$http.put('/api/collect/urlAck', {
-                    projectId: this.projectId,
-                    index: res1.data.index
-                  }).then((res) => {
-                    if (res.data.success) {
-                      this.numberCollect++
-                      this.collectPercent = parseInt((this.numberCollect / this.fileList.length) * 100)
-                      if (this.numberCollect === this.fileList.length) {
-                        this.$router.push('/dashboard')
-                      }
-                    } else {
-                      alert(res.data.errorMessage)
-                    }
-                  })
-                }).catch((err) => { alert(err) })
+                })
+                var res3 = await this.$http.put('/api/collect/urlAck', {
+                  projectId: this.projectId,
+                  index: res1.data.index
+                })
+                if (res3.data.success) {
+                  this.numberCollect++
+                  this.collectPercent = parseInt((this.numberCollect / this.fileList.length) * 100)
+                  if (this.numberCollect === this.fileList.length) {
+                    this.$store.commit('isLoadingFalse')
+                    this.isSubmited = false
+                    this.$router.push('/dashboard')
+                  }
+                } else {
+                  alert(res3.data.errorMessage)
+                  this.$store.commit('isLoadingFalse')
+                  this.isSubmited = false
+                }
               } else {
                 alert(res1.data.errorMessage)
+                this.$store.commit('isLoadingFalse')
+                this.isSubmited = false
               }
             }
           } else {
             alert(res.data.errorMessage + res.data.available)
+            this.$store.commit('isLoadingFalse')
+            this.isSubmited = false
           }
         })
       }

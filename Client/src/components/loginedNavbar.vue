@@ -31,14 +31,14 @@ nav
             .cover
               .name {{username}}
         a(@click="showSetting") SETTING
-        a.logout LOGOUT
+        a.logout(@click="logout") LOGOUT
   .sep
   .section
-    router-link.title(to='/dashboard', :class="{active : pathname === '/dashboard'}") Dashboard
-    router-link.title(to='/list', :class="{active : pathname === '/list'}") Project
-    router-link.title(to='/upload', :class="{active : pathname === '/upload'}") Upload
-    router-link.title(to='/credit', :class="{active : pathname === '/credit'}") Credit
-  .cover(v-if="false")
+    router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") Dashboard
+    router-link.title(to='/list', :class="{active : pathname === 'list'}") 과제 수행
+    router-link.title(to='/upload', :class="{active : pathname === 'upload'}") 과제 의뢰
+    router-link.title(to='/credit', :class="{active : pathname === 'credit'}") Credit
+  .cover(v-if="isLoading")
     .loader
 </template>
 
@@ -52,24 +52,26 @@ export default {
       pathname: null,
       image: "../assets/default-user.png",
       currentPassword: null,
-      changePassword: null
-    }
-  },
-  watch: {
-    $route () {
-      this.pathname = window.location.pathname
+      changePassword: null,
     }
   },
   created () {
     this.username = this.$store.getters.getUsername
-    this.pathname = window.location.pathname
+    this.pathname = window.location.pathname.split("/")[1]
+  },
+  computed: {
+    isLoading () {
+      return this.$store.getters.getIsLoading
+    },
+  },
+  watch: {
+    $route () {
+      this.pathname = window.location.pathname.split("/")[1]
+    }
   },
   methods: {
     profileToggle () {
       this.profileIsVisible = !this.profileIsVisible
-    },
-    menuToggle () {
-      this.$store.commit('menuToggle')
     },
     showSetting () {
       this.$modal.show('profile-setting')
@@ -77,12 +79,18 @@ export default {
     hide () {
       this.$modal.hide('profile-setting')
     },
+    logout () {
+      this.$store.dispatch('logout')
+      this.$router.push('/')
+    },
     async changeInfo () {
       var formData = new FormData()
       if (this.$refs.file.files[0]) {
         await formData.append('file', this.$refs.file.files[0])
       }
-      await formData.append('password', this.changePassword)
+      if(this.changePassword) {
+        await formData.append('password', this.changePassword)
+      }
       this.$http.put('/api/userInfo',formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -94,7 +102,6 @@ export default {
           })
         }
         this.$modal.hide('profile-setting')
-
       })
     }
   }

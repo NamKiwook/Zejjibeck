@@ -4,18 +4,21 @@ div.sections
     .content
       .main-left
         .title
-          |데이터 습득을 위한
-          br
           |데이터 유통 플랫폼
-        .description 안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요안녕하세요 안녕하세요 안녕하세요
-        router-link(to="/login").btn 서비스 시작하기
+          br
+          |DATAG
+        .description 누구나 다양한 유형의 데이터를 의뢰할 수 있고,
+        .description 누구나 의뢰에 맞는 데이터 판매, 가공을 할 수 있습니다!
+        router-link(to="/login").btn 시작하기!
       .main-right
         .main-img
   section.description-section#about
     .content
-      .section-title PRODUCT FEATURES AND BENEFITS
-      .title 우리의 장점을 써보자
-      .description 나에게 꼭 필요한 데이터만 수집을 할 수 있다 나에게 꼭 필요한 데이터만 수집을 할 수 있다 나에게 꼭 필요한 데이터만 수집을 할 수 있다나에게 꼭 필요한 데이터만 수집을 할 수 있다
+      .section-title Easy & Powerful Datag
+      .title 다양한 유형의 데이터 수집, 정제를 간단하게!
+      .description 의뢰인이 원하는 다양한 유형의 데이터를 얻을 수 있습니다.
+      .description 데이터 수집, 정제 또한 클릭 혹은 간단한 타이핑으로 가능합니다.
+      .description PC, 모바일 모두 서비스를 제공합니다.
   section.team-section#member
     .content
       .team-profile

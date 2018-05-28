@@ -64,8 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      .download.btn Collection 다운로드
-      .download.btn Refine 다운로드
+      a.download.btn(ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
+      a.download.btn(ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -74,14 +74,14 @@ div.container
       .wrap
         .dot.green
         .name 총 참여 프로젝트
-      .point 10
+      .point {{processingProjectNo + processedProjectNo}}
       .wrap
         .title 완료된 프로젝트
-        .point 8
+        .point {{processedProjectNo}}
       .divider
       .wrap
         .title 진행중인 프로젝트
-        .point 2
+        .point {{processingProjectNo}}
     .credit-wrap
       .wrap
         .dot.blue
@@ -98,8 +98,8 @@ div.container
   .divider(v-if="projectsInfoList.length !== 0")
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
-      .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect'")
-        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
+      .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect' || projectInfo.projectState === 'cValidate' || (projectInfo.projectType === 'Collect' && projectInfo.projectState === 'finished')")
+        .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
@@ -110,13 +110,13 @@ div.container
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100), projectInfo.projectState]")
-              span(:class="projectInfo.projectState") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)]" class="Collect")
+              span(class="Collect") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
       .project-wrap(@click="showMyProject(projectInfo)" v-else)
-        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
+        .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
@@ -127,8 +127,8 @@ div.container
             .text Current Refine Block
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100), projectInfo.projectState]")
-              span(:class="projectInfo.projectState") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)]" class="Refine")
+              span(class="Refine") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
               .slice
                 .bar
                 .fill
@@ -155,16 +155,16 @@ export default {
     return {
       modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       perpage: 2,
-      username: '유저 이름',
-      usableCredit: 1000,
-      prearrangedCredit: 100,
-      amountWithdraw: 0,
-      chargeCredit: 0,
-      projectNo: 0,
+      username: '',
+      usableCredit: null,
+      prearrangedCredit: null,
+      projectNo: null,
       projectsInfoList: [],
       projectList: [],
       isEditDescription: false,
-      isEditQuestion: false
+      isEditQuestion: false,
+      processingProjectNo : null,
+      processedProjectNo: null
     }
   },
   created () {
@@ -174,6 +174,8 @@ export default {
       this.prearrangedCredit = res.data.userInfo.prearrangedCredit
       this.projectNo = res.data.projectsInfoList.length
       this.projectsInfoList = res.data.projectsInfoList
+      this.processedProjectNo = res.data.processedProjectNo
+      this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
       this.loadList()
     })
@@ -185,6 +187,22 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    projectStateClass(projectState) {
+      if(projectState === 'rValidate') {
+        return 'Refine'
+      } else if(projectState === 'cValidate') {
+        return 'Collect'
+      }
+      return projectState
+    },
+    projectStateName(projectState) {
+      if(projectState === 'rValidate' || projectState === 'cValidate') {
+        return '검증중'
+      } else if (projectState === 'finished') {
+        return '완료'
+      }
+      return projectState
+    },
     edit (str) {
       if (str === 'Description') {
         this.isEditDescription = true
@@ -223,16 +241,15 @@ export default {
       })
     },
     carouselPerpage () {
-      if (this.projectNo === 0 || window.innerWidth < 1050) {
+      if (this.projectNo === 0 || window.innerWidth < 620 ) {
         this.perpage = 1
+      } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
+        this.perpage = 2
       } else if (this.projectNo > 3) {
         this.perpage = 3
       } else {
         this.perpage = this.projectNo
       }
-    },
-    download (project) {
-      console.log(project._id)
     },
     percent (percent) {
       return 'p' + Math.round(percent)
@@ -240,6 +257,29 @@ export default {
     showMyProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('my-project-modal')
+
+      if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.dataDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
+      if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.refineDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
     },
     showProject (modalProject) {
       this.modalProject = modalProject
@@ -541,7 +581,7 @@ export default {
 .register-project .type.Collect {
   background-color: #62ce8d;
 }
-.register-project .type.finish {
+.register-project .type.finished {
   background-color: #3c4858;
 }
 .register-project .problem-wrap {

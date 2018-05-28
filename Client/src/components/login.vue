@@ -6,15 +6,15 @@
           .title DATAG
           .slogun 필요한 데이터를 쉽고 빠르게
           .divider
-          .text 장점1
-          .text 장점2
-          .text 장점3
+          .text 이미지, 음성, 텍스트의 다양한 유형의 데이터
+          .text 분류부터 이미지 영역 드래그까지 다양한 데이터 정제 유형
+          .text 간단한 데이터 의뢰, 수집, 정제
         .login-wrap
           .title Sign In
           input.id(type="text", name="userID", placeholder="Email", v-model="userId")
           input.password(type="password", name="password", placeholder="Password", v-model="password")
           a.signin.btn(v-on:click="submit") Sign In
-          router-link.btn.signup(to="/signUp") Sign Up
+          router-link.btn.signup(to="/signup") Sign Up
           a.text Forgot password?
 </template>
 
@@ -29,6 +29,7 @@ export default {
   },
   methods: {
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.$http.get('/api/login', {params: {userId: this.userId, password: this.password}})
         .then(async (res) => {
           if (res.data.success) {
@@ -37,8 +38,10 @@ export default {
             this.$http.get('/api/userInfo/profile').then((res) => {
               this.$store.commit('userProfile', 'data:image/jpg;base64,' + res.data)
             })
+            this.$store.commit('isLoadingFalse')
             await this.$router.push('/dashboard')
           } else {
+            this.$store.commit('isLoadingFalse')
             alert('아이디가 존재하지 않거나 비밀번호가 잘못되었습니다.')
           }
         })

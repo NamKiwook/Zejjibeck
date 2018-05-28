@@ -14,7 +14,7 @@
 
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
-          canvas(ref="myCanvas", width="1000" height="1000", @mousedown="mousedown", @mouseup="mouseup")
+          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove")
           .delete.btn 선택 삭제
         .problem-title {{projectInfo.question}}
 
@@ -41,8 +41,12 @@
           span.mark
 
       .btnWrap
-        .prev.btn(@click="goToPrev()",  v-scroll-to="'#problemTop'") PREV
-        .next.btn(:class="{disable : isNull}",@click="goToNext()",  v-scroll-to="'#problemTop'") {{nextButton}}
+        .prev.btn.disable(v-scroll-to="'#problemTop'" v-if="nowSequence === 1") PREV
+        .prev.btn(@click="nowSequence--",  v-scroll-to="'#problemTop'" v-else) PREV
+        .next.btn.disable(v-scroll-to="'#problemTop'" v-if="nowSequence < urlList.length && isNull") NEXT
+        .next.btn(@click="nowSequence++",  v-scroll-to="'#problemTop'" v-else-if="nowSequence < urlList.length && !isNull") NEXT
+        .next.btn.disable(v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && isNull") SUBMIT
+        .next.btn(@click="submit()",  v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && !isNull") SUBMIT
 
     section.user-info
       .profile-wrap
@@ -67,21 +71,22 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
+      projectInfo: {projectName: '', dataType: '', question: '', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
       urlSrc: null,
       refineList: [],
       nextButton: 'NEXT',
-      textData: 'defualt',
+      textData: '',
       canvas: null,
       ctx: null,
       imageObj: new Image(),
       preX: null,
       preY: null,
       curX: null,
-      curY: null
+      curY: null,
+      isDrawing: false
     }
   },
   mounted () {
@@ -157,21 +162,27 @@ export default {
         y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
       }
     },
+    mousemove (event) {
+      if(this.isDrawing) {
+        var mousePos = this.getMousePos(this.canvas, event)
+        this.curX = mousePos.x
+        this.curY = mousePos.y
+        this.clearCanvas()
+        this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+        this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
+        this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
+        this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
+        this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+      }
+    },
     mousedown (event) {
+      this.isDrawing = true
       var mousePos = this.getMousePos(this.canvas, event)
       this.preX = mousePos.x
       this.preY = mousePos.y
     },
-    mouseup (event) {
-      var mousePos = this.getMousePos(this.canvas, event)
-      this.curX = mousePos.x
-      this.curY = mousePos.y
-      this.clearCanvas()
-      this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
-      this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
-      this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
-      this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
-      this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+    mouseup () {
+      this.isDrawing = false
     },
     clearCanvas () {
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
@@ -188,32 +199,23 @@ export default {
       })
     },
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.$http.post('/api/refine', {
         refineList: this.refineList,
+        projectId: this.$route.params.projectId,
         blockId: this.blockId
       }).then((res) => {
         if (res.data.success) {
+          this.$store.commit('isLoadingFalse')
           this.$router.push('/dashboard')
         } else {
+          this.$store.commit('isLoadingFalse')
           alert('실패')
         }
       }).catch((err) => {
+        this.$store.commit('isLoadingFalse')
         alert(err)
       })
-    },
-    goToPrev () {
-      if (this.nowSequence > 1) {
-        this.nowSequence--
-      }
-    },
-    goToNext () {
-      if (!this.isNull && this.nowSequence < this.urlList.length) {
-        this.nowSequence++
-      } else if (!this.isNull && this.nowSequence === this.urlList.length) {
-        this.submit()
-      } else if (this.isNull) {
-        alert('값을 입력하세요!')
-      }
     }
   }
 }

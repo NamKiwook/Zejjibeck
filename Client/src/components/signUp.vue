@@ -33,14 +33,9 @@ export default {
       bankAccount: null
     }
   },
-  mounted () {
-    document.body.style.backgroundColor = '#425262'
-  },
-  beforeDestroy () {
-    document.body.style.backgroundColor = 'rgba(235,237,239,1.0)'
-  },
   methods: {
     submit () {
+      this.$store.commit('isLoadingTrue')
       this.$http.get('/api/signup',
         {params: {
           userId: this.userId,
@@ -52,8 +47,10 @@ export default {
           if (res.data.success) {
             alert('complete')
             this.$router.push('/login')
+            this.$store.commit('isLoadingFalse')
           } else {
             alert(res.data.errorMassage)
+            this.$store.commit('isLoadingFalse')
           }
         })
     }
