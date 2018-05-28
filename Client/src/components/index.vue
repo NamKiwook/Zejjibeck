@@ -27,31 +27,26 @@ div.sections
           .profile-content
             .name 조현성
             .role Backend
-            .description  awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 편경민
             .role Backend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 박성준
             .role Frontend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 남기욱
             .role Frontend
-            .description awefadfawef
         .profile-wrap
           .profile-img
           .profile-content
             .name 김태우
             .role mentor
-            .description awefadfawef
   section.last-section
     .img-cover
       .content
@@ -210,7 +205,6 @@ export default {
     color: #8492a6;
     font-weight: bold;
     font-size: 18px;
-    margin-bottom: 25px;
   }
   .last-section {
     background: url("../assets/business-3370832_1920.jpg") no-repeat;
