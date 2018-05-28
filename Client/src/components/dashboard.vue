@@ -64,8 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      a.download.btn(href="#" ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
-      a.download.btn(href="#" ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
+      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
+      a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -164,7 +164,9 @@ export default {
       isEditDescription: false,
       isEditQuestion: false,
       processingProjectNo : null,
-      processedProjectNo: null
+      processedProjectNo: null,
+      dataUrl: '#',
+      refineUrl :'#'
     }
   },
   created () {
@@ -270,9 +272,8 @@ export default {
       if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
         this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
           if(res.data.success) {
-            this.$refs.dataDownload.href =res.data.url
+            this.dataUrl =res.data.url
           } else {
-            this.$refs.dataDownload.href = null
             alert(res.data.errorMassage)
           }
         }).catch((err) => {
@@ -282,9 +283,8 @@ export default {
       if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
         this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
           if(res.data.success) {
-            this.$refs.refineDownload.href =res.data.url
+            this.refineUrl =res.data.url
           } else {
-            this.$refs.dataDownload.href = null
             alert(res.data.errorMassage)
           }
         }).catch((err) => {
