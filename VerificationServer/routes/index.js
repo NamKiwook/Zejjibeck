@@ -15,7 +15,7 @@ var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
-var timeInterval = 1000 * 10; //1000 * 60 * 15;
+var timeInterval = 1000 * 60 * 15;
 
 var unit = 600; // second
 

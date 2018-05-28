@@ -220,8 +220,10 @@ export default {
       })
     },
     carouselPerpage () {
-      if (this.projectNo === 0 || window.innerWidth < 1050) {
+      if (this.projectNo === 0 || window.innerWidth < 620 ) {
         this.perpage = 1
+      } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
+        this.perpage = 2
       } else if (this.projectNo > 3) {
         this.perpage = 3
       } else {

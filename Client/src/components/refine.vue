@@ -41,8 +41,14 @@
           span.mark
 
       .btnWrap
-        .prev.btn(@click="goToPrev()",  v-scroll-to="'#problemTop'") PREV
-        .next.btn(:class="{disable : isNull}",@click="goToNext()",  v-scroll-to="'#problemTop'") {{nextButton}}
+        .prev.btn.disable(v-scroll-to="'#problemTop'" v-if="nowSequence === 1") PREV
+        .prev.btn(@click="nowSequence--",  v-scroll-to="'#problemTop'" v-else) PREV
+        .next.btn.disable(v-scroll-to="'#problemTop'" v-if="nowSequence < urlList.length && isNull") NEXT
+        .next.btn(@click="nowSequence++",  v-scroll-to="'#problemTop'" v-else-if="nowSequence < urlList.length && !isNull") NEXT
+        .next.btn.disable(v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && isNull") SUBMIT
+        .next.btn(@click="submit()",  v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && !isNull") SUBMIT
+
+
 
     section.user-info
       .profile-wrap
@@ -165,6 +171,10 @@ export default {
         this.curY = mousePos.y
         this.clearCanvas()
         this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+        this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
+        this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
+        this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
+        this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
       }
     },
     mousedown (event) {
@@ -175,10 +185,6 @@ export default {
     },
     mouseup () {
       this.isDrawing = false
-      this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
-      this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
-      this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
-      this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
     },
     clearCanvas () {
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
@@ -212,20 +218,6 @@ export default {
         this.$store.commit('isLoadingFalse')
         alert(err)
       })
-    },
-    goToPrev () {
-      if (this.nowSequence > 1) {
-        this.nowSequence--
-      }
-    },
-    goToNext () {
-      if (!this.isNull && this.nowSequence < this.urlList.length) {
-        this.nowSequence++
-      } else if (!this.isNull && this.nowSequence === this.urlList.length) {
-        this.submit()
-      } else if (this.isNull) {
-        alert('값을 입력하세요!')
-      }
     }
   }
 }
