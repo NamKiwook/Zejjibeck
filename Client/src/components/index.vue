@@ -319,7 +319,7 @@ export default {
         font-size: 28px;
       }
       .main-section > .content > .main-left > .description {
-        font-size: 16px;
+        font-size: 15px;
       }
       .main-section > .content > .main-right {
         height: 300px;
