@@ -54,6 +54,8 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+flagVerification = setInterval(runVerification, unit * 15 * 1);
+
 router.get('/on', async function(req, res, next){
   console.log("Start Verification");
   await runVerification();

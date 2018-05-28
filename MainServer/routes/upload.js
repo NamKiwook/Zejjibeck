@@ -47,6 +47,16 @@ router.post('/', async function(req,res, next){
       completedBlock: 0,
     });
 
+    var currentUserCredit = parseInt(user.usableCredit);
+
+    if(currentUserCredit < parseInt(req.body.totalCredit)){
+      res.send({success: false, errorMessage : "보유 Credit이 부족합니다!"});
+      return;
+    }
+    else{
+      user.usableCredit = currentUserCredit - parseInt(req.body.totalCredit);
+    }
+
     if(req.body.projectType == "Refine") {
       project.projectState = "Refine";
     }
