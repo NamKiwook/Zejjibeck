@@ -161,6 +161,10 @@ export default {
     this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
       this.logList = res.data.logList
     })
+  },
+  destroyed () {
+    this.store.commit('userUsableCredit',this.userInfo.usableCredit)
+    this.store.commit('userPrearrangedCredit', this.userInfo.prearrangedCredit)
   }
 }
 </script>

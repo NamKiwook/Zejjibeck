@@ -180,6 +180,8 @@ export default {
       this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
       this.loadList()
+      this.store.commit('userUsableCredit',this.usableCredit)
+      this.store.commit('userPrearrangedCredit', this.prearrangedCredit)
     })
   },
   beforeMount () {

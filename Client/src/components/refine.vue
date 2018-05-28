@@ -15,7 +15,7 @@
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
           canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove")
-          .delete.btn 선택 삭제
+          .delete.btn(@click="dragDel") 선택 삭제
         .problem-title {{projectInfo.question}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
@@ -50,20 +50,17 @@
 
     section.user-info
       .profile-wrap
-        .profile-img
-        .profile-title {{this.$store.getters.username}}
-      .rating-wrap
-        .title 나의 등급
-        .rating 다이아
+        .profile-img(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
+        .profile-title {{this.$store.getters.getUsername}}
       .credit-wrap
         .wrap
           .dot
           .title 사용가능
-          .credit 2000
+          .credit {{this.$store.getters.getUserUsableCredit}}
         .wrap
           .dot
           .title 적립예정
-          .credit 100
+          .credit {{this.$store.getters.getUserPrearrangedCredit}}
 </template>
 
 <script>
@@ -155,6 +152,11 @@ export default {
     }
   },
   methods: {
+    dragDel () {
+      this.curY = null
+      this.clearCanvas()
+      this.refineList[this.nowSequence-1].curY =null
+    },
     getMousePos (canvas, evt) {
       var rect = canvas.getBoundingClientRect()
       return {
@@ -394,7 +396,7 @@ export default {
     background-image: url("../assets/default-user.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     border: 1px solid #eee;
     border-radius: 50px;
     width: 40px;
