@@ -285,7 +285,7 @@ async function IdentityFile(x, y, extension){
 
 
 async function refineVerification(){
-  //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
+  //TODO: 분포 확인을 통해 불량 사용자 확인  및 사용자 벤 처벌
   var projects = await projectSchema.find({projectState : "rValidate"});
 
   for(var i = 0 ; i < projects.length ; i++){

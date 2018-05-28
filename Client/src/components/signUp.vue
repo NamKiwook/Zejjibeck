@@ -6,16 +6,19 @@
           .title DATAG
           .slogun 필요한 데이터를 쉽고 빠르게
           .divider
+          .text 쉽고 간편한 데이터 수집 및 정제
+            .dot
           .text 이미지, 음성, 텍스트의 다양한 유형의 데이터
-          .text 분류부터 이미지 영역 드래그까지 다양한 데이터 정제 유형
-          .text 간단한 데이터 의뢰, 수집, 정제
+            .dot
+          .text 분류부터 영역선택까지 다양한 데이터 정제 유형 제공
+            .dot
         .login-wrap
           .title Sign Up
-          input#name(type="text", placeholder="Full Name", v-model="username")
-          input#id(type="text", name="userID", placeholder="Email", v-model="userId")
+          input#name(type="text", placeholder="Full Name", spellcheck='false', v-model="username")
+          input#id(type="text", name="userID", spellcheck='false', placeholder="Email", v-model="userId")
           input#password(type="password", name="password", placeholder="Password", v-model="password")
-          input#bank(type="text", name="bank", placeholder="은행", v-model="bank")
-          input#bankAccount(type="text", name="bankAccount", placeholder="계좌번호", v-model="bankAccount")
+          input#bank(type="text", name="bank", placeholder="은행", spellcheck='false', v-model="bank")
+          input#bankAccount(type="text", name="bankAccount", placeholder="계좌번호", spellcheck='false', v-model="bankAccount")
 
           a.register.btn(v-on:click="submit") Register
           router-link.text(to="/login") Already have an account?
@@ -59,6 +62,16 @@ export default {
 </script>
 
 <style scoped>
+  .dot {
+    float: left;
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #7789a8;
+    margin-top: 8px;
+    margin-right: 10px;
+  }
   .container {
     background-image: url("../assets/login-img.png");
     background-repeat: no-repeat;
@@ -104,7 +117,7 @@ export default {
   }
   .description-wrap > .text {
     color: #fff;
-    padding: 10px 0;
+    margin-top: 35px;
   }
   .login-wrap {
     background-color: #fff;

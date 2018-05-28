@@ -39,8 +39,8 @@ div.container
         .description(v-if="!isEditDescription") {{modalProject.description}}
           .edit-btn(@click="edit('Description')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.description")
-          .save.btn(@click="saveEdit('Description')") 저장
+          textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
+          .save.btn(@click="saveEdit('Description',modalProject)") 저장
           .close.btn(@click="closeEdit('Description')") 취소
       .box
         .title 프로젝트 질문
@@ -48,8 +48,8 @@ div.container
         .description(v-if="!isEditQuestion") {{modalProject.question}}
           .edit-btn(@click="edit('Question')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.question")
-          .save.btn(@click="saveEdit('Question')") 저장
+          textarea(:value="modalProject.question" ref="changeQuestion", spellcheck='false')
+          .save.btn(@click="saveEdit('Question',modalProject)") 저장
           .close.btn(@click="closeEdit('Question')") 취소
       .box
         .title 프로젝트 타입
@@ -94,7 +94,7 @@ div.container
       .wrap
         .title 적립 예정
         .point {{prearrangedCredit}}
-    router-link.detail(to='/credit')
+    <!--router-link.detail(to='/credit')-->
   .divider(v-if="projectsInfoList.length !== 0")
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
@@ -141,7 +141,7 @@ div.container
       .credit CREDIT
     .project(@click="showProject(project)" v-for="project in projectList")
       .title-wrap
-        .date 2018.01.01
+        .date {{parseDate(project)}}
         .title {{project.projectName}}
       .type(:class="project.projectState") {{project.projectState}}
       .credit {{project.stateCredit}}원
@@ -187,6 +187,11 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    parseDate (project) {
+      var date = new Date(project.uploadTime)
+      var month = date.getMonth() + 1
+      return date.getFullYear()+'. '+month+'. '+date.getDate()
+    },
     projectStateClass(projectState) {
       if(projectState === 'rValidate') {
         return 'Refine'
@@ -211,12 +216,18 @@ export default {
         this.isEditQuestion = true
       }
     },
-    saveEdit (str) {
+    saveEdit (str,modalProject) {
       if (str === 'Description') {
         this.isEditDescription = false
+        modalProject.description = this.$refs.changeDescription.value
+        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
       }
       if (str === 'Question') {
         this.isEditQuestion = false
+        modalProject.question = this.$refs.changeQuestion.value
+        console.log(modalProject)
+        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
+
       }
     },
     closeEdit (str) {
@@ -256,8 +267,6 @@ export default {
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
-      this.$modal.show('my-project-modal')
-
       if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
         this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
           if(res.data.success) {
@@ -282,6 +291,8 @@ export default {
           alert(err)
         })
       }
+      this.$modal.show('my-project-modal')
+
     },
     showProject (modalProject) {
       this.modalProject = modalProject
@@ -366,26 +377,26 @@ export default {
   flex: 1;
   margin: 0 50px;
 }
-.credit-section > .detail {
-  background-color: #fff;
-  background-image: url("../assets/magnifier.png");
-  background-size: 20px;
-  background-repeat: no-repeat;
-  background-position: center;
-  box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);
-  border: 1px solid rgba(0,0,0,.05);
-  display: inline-block;
-  position: absolute;
-  top: 10px; right: 10px;
-  height: 45px;
-  width: 45px;
-  border-radius: 50px;
-  float: right;
-  cursor: pointer;
-}
-.credit-section > .detail:hover {
-  background-color: #fafafa;
-}
+/*.credit-section > .detail {*/
+  /*background-color: #fff;*/
+  /*background-image: url("../assets/magnifier.png");*/
+  /*background-size: 20px;*/
+  /*background-repeat: no-repeat;*/
+  /*background-position: center;*/
+  /*box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);*/
+  /*border: 1px solid rgba(0,0,0,.05);*/
+  /*display: inline-block;*/
+  /*position: absolute;*/
+  /*top: 10px; right: 10px;*/
+  /*height: 45px;*/
+  /*width: 45px;*/
+  /*border-radius: 50px;*/
+  /*float: right;*/
+  /*cursor: pointer;*/
+/*}*/
+/*.credit-section > .detail:hover {*/
+  /*background-color: #fafafa;*/
+/*}*/
 .credit-section > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
@@ -774,7 +785,7 @@ export default {
 }
 @media only screen and (max-width: 1000px) {
   .credit-section {
-    flex-flow: column-reverse;
+    flex-flow: column;
     padding: 0 10px;
   }
   .credit-section > .profile-wrap {
