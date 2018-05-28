@@ -5,6 +5,7 @@ var AWS = require('aws-sdk');
 
 var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
+var userSchema = require('../model/user');
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 
@@ -45,6 +46,11 @@ router.put('/check', async function(req,res,err){
         project.projectState = "cValidate";
         await project.save();
       }
+
+      var user = await userSchema.findOne({userId:userId});
+      user.prearrangedCredit = parseInt(user.prearrangedCredit) + fileNo * parseInt(project.collectCredit);
+      await user.save();
+
       for(var i = 0 ; i < parseInt(collectBlock.maxCollect) ; i++){
         if(finished[i].owner == ""){
           finished[i].assignTime = new Date().getTime();
@@ -61,6 +67,7 @@ router.put('/check', async function(req,res,err){
     await collectBlock.save();
     res.send({success:true});
   } catch (err){
+    console.log(err);
     res.send({success: false, errorMessage:"database error"});
   }
 });
