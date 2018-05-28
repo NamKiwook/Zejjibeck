@@ -30,7 +30,7 @@ router.post('/', async function(req,res,next){
         var user = await userSchema.findOne({userId:userId});
         var currentCredit = parseInt(user.prearrangedCredit);
         user.prearrangedCredit = currentCredit + parseInt(project.refineCredit) * answerList.length;
-        user.save();
+        await user.save();
 
         res.send({success: true});
         return;

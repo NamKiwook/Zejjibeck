@@ -4,9 +4,14 @@ var router = express.Router();
 
 router.get('/list', async function(req,res,next) {
   var id = req.decoded.userId;
+  var index = parseInt(req.query.index);
   try {
     var user = await userSchema.findOne({userId: id});
-    res.send({success:true,logList:user.creditHistory});
+    var history = JSON.parse(JSON.stringify(user.creditHistory)).sort(function(a,b){
+      return b.date.localeCompare(a.date);
+    });
+    var logList = history.slice(5*index,5*(index+1));
+    res.send({success:true,logList:logList});
   } catch(err){
     console.log(err);
     res.send({success:false,errorMessage:"네트워크 에러"});
@@ -32,7 +37,7 @@ router.get('/withdraw', async function(req,res,next){
       console.log(user.usableCredit);
 
       var formattedDate = getFormattedDate(new Date());
-      user.creditHistory.push({note:"크레딧 출금", credit:withdraw, date:formattedDate, type:"출금"});
+      user.creditHistory.push({note:"크레딧 출금", credit:parseInt(withdraw), date:formattedDate, type:"출금"});
       await user.save();
       res.send({
         success: true,
@@ -57,7 +62,7 @@ router.get('/charge', async function(req,res,next){
     user.usableCredit += parseInt(charge);
     console.log(user.usableCredit);
     var formattedDate = getFormattedDate(new Date());
-    user.creditHistory.push({note:"크레딧 충전", credit:charge, date:formattedDate, type:"충전"});
+    user.creditHistory.push({note:"크레딧 충전", credit:parseInt(charge), date:formattedDate, type:"충전"});
     await user.save();
     res.send({
       success: true,
