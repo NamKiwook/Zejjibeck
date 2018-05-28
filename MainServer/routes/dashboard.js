@@ -9,10 +9,22 @@ router.get('/', async function(req, res, next) {
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;
   var projectList = [];
+
+  var processingProjectNo = 0;
+  var processedProjectNo = 0;
+
   for(var i = tempList.length-1; i>=0; i--){
     var project2 = await projectSchema.findOne({_id : tempList[i].project_dbid});
     var project3 = JSON.stringify(project2);
     var project = JSON.parse(project3);
+
+    if(project.projectState == "finished") {
+      processedProjectNo++;
+    }
+    else {
+      processingProjectNo++;
+    }
+
 
     if(project.projectState == "Refine"){
       project.totalBlock = project.refineBlocks.length;
@@ -58,8 +70,10 @@ router.get('/', async function(req, res, next) {
   console.log(projectList);
 
   res.send({
-      userInfo: userInfo,
-      projectsInfoList: projectList
+    userInfo: userInfo,
+    projectsInfoList: projectList,
+    processingProjectNo:processingProjectNo,
+    processedProjectNo:processedProjectNo,
   });
 });
 
