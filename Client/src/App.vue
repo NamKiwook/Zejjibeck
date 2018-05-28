@@ -53,11 +53,6 @@ export default {
     background-color: #fff;
     opacity: 0.08;
   }
-  .btn:active::after {
-    content: "";
-    background-color: #000;
-    opacity: 0.16;
-  }
   .btn.disable {
     background-color: #e0e0e0;
   }

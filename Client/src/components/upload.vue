@@ -4,12 +4,21 @@
       .gaze(:style="{ width: uploadPercent+'%' }")
     section.textWrap
       .title 프로젝트 이름
+        .detail ?
+        .description
+          p 프로젝트 이름을 입력해주세요
       input.text#projectName(type='text', v-model="projectName")
     section.textWrap
       .title 프로젝트 설명
+        .detail ?
+        .description
+          p 프로젝트 설명을 입력해주세요
       textarea.text#description(v-model="description")
     section.textWrap
       .title 프로젝트 질문
+        .detail ?
+        .description
+          p 프로젝트 질문을 입력해주세요
       textarea.text#question(v-model="question")
 
     section.textWrap
@@ -305,8 +314,57 @@ export default {
   .title {
     font-size: 16px;
     margin-bottom: 10px;
+    position: relative;
   }
-
+  .title > .detail {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    vertical-align: bottom;
+    box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);
+    border: 1px solid rgba(0,0,0,.05);
+    border-radius: 50%;
+    background-color: #fff;
+    text-align: center;
+    margin-left: 8px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #999;
+    cursor: pointer;
+    position: relative;
+  }
+  .title > .detail:hover {
+    background-color: #fafafa;
+  }
+  .title > .description {
+    background-color: #5991ee;
+    border-radius: 10px;
+    transition: all 0.5s;
+    opacity: 0;
+    height: 0;
+    position: absolute;
+    left: 150px; bottom: -8px;
+  }
+  .title > .detail:hover ~ .description {
+    opacity: 1;
+    height: auto;
+  }
+  .title > .detail:hover ~ .description:after {
+    background-color: #5991ee;
+    display:inline-block;
+    width: 10px;
+    height: 10px;
+    content: "";
+    position: absolute;
+    left: -4px; bottom: 10px;
+    transform: rotate(45deg);
+  }
+  .title > .description > p {
+    padding: 15px;
+    color: #fff;
+    font-weight: 300;
+    font-size: 12px;
+  }
   .tagValue {
     display: block;
     flex-flow: column;
