@@ -53,6 +53,10 @@ export default {
       changePassword: null,
     }
   },
+  created () {
+    this.username = this.$store.getters.getUsername
+    this.pathname = window.location.pathname.split("/")[1]
+  },
   computed: {
     isLoading () {
       return this.$store.getters.getIsLoading
@@ -63,16 +67,9 @@ export default {
       this.pathname = window.location.pathname.split("/")[1]
     }
   },
-  created () {
-    this.username = this.$store.getters.getUsername
-    this.pathname = window.location.pathname
-  },
   methods: {
     profileToggle () {
       this.profileIsVisible = !this.profileIsVisible
-    },
-    menuToggle () {
-      this.$store.commit('menuToggle')
     },
     showSetting () {
       this.$modal.show('profile-setting')
@@ -88,9 +85,10 @@ export default {
       var formData = new FormData()
       if (this.$refs.file.files[0]) {
         await formData.append('file', this.$refs.file.files[0])
-        console.log(formData.get('file'))
       }
-      await formData.append('password', this.changePassword)
+      if(this.changePassword) {
+        await formData.append('password', this.changePassword)
+      }
       this.$http.put('/api/userInfo',formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
@@ -102,7 +100,6 @@ export default {
           })
         }
         this.$modal.hide('profile-setting')
-
       })
     }
   }

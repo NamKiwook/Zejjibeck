@@ -140,12 +140,10 @@ export default {
     return {
       modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       perpage: 2,
-      username: '유저 이름',
-      usableCredit: 1000,
-      prearrangedCredit: 100,
-      amountWithdraw: 0,
-      chargeCredit: 0,
-      projectNo: 0,
+      username: '',
+      usableCredit: null,
+      prearrangedCredit: null,
+      projectNo: null,
       projectsInfoList: [],
       projectList: []
     }
@@ -160,7 +158,6 @@ export default {
       this.carouselPerpage()
       this.loadList()
     })
-
   },
   beforeMount () {
     window.addEventListener('resize', this.carouselPerpage)

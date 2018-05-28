@@ -14,7 +14,7 @@
 
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
-          canvas(ref="myCanvas", width="1000" height="1000", @mousedown="mousedown", @mouseup="mouseup")
+          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove")
         .problem-title {{projectInfo.question}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
@@ -66,21 +66,22 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {projectName: 'default', dataType: 'Image', question: 'default', refineType: 'Drag'},
+      projectInfo: {projectName: '', dataType: '', question: '', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
       urlSrc: null,
       refineList: [],
       nextButton: 'NEXT',
-      textData: 'defualt',
+      textData: '',
       canvas: null,
       ctx: null,
       imageObj: new Image(),
       preX: null,
       preY: null,
       curX: null,
-      curY: null
+      curY: null,
+      isDrawing: false
     }
   },
   mounted () {
@@ -156,17 +157,23 @@ export default {
         y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
       }
     },
+    mousemove (event) {
+      if(this.isDrawing) {
+        var mousePos = this.getMousePos(this.canvas, event)
+        this.curX = mousePos.x
+        this.curY = mousePos.y
+        this.clearCanvas()
+        this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+      }
+    },
     mousedown (event) {
+      this.isDrawing = true
       var mousePos = this.getMousePos(this.canvas, event)
       this.preX = mousePos.x
       this.preY = mousePos.y
     },
-    mouseup (event) {
-      var mousePos = this.getMousePos(this.canvas, event)
-      this.curX = mousePos.x
-      this.curY = mousePos.y
-      this.clearCanvas()
-      this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+    mouseup () {
+      this.isDrawing = false
       this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
       this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
       this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width

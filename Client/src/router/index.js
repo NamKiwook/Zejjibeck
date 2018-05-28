@@ -37,7 +37,8 @@ const requireAuth = (from, to, next) => {
   next('/login')
 }
 
-export default new Router({
+
+var router = new Router({
   mode: 'history',
   routes: [
     {
@@ -109,5 +110,9 @@ export default new Router({
       },
       beforeEnter: requireAuth
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    return { x: 0, y: 0 }
+  }
 })
+export default router
