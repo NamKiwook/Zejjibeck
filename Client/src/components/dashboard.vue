@@ -36,7 +36,21 @@ div.container
       .box
         .title 프로젝트 설명
         .sep :
-        .description {{modalProject.description}}
+        .description(v-if="!isEditDescription") {{modalProject.description}}
+          .edit-btn(@click="edit('Description')")
+        .edit-wrap(v-else)
+          textarea(:value="modalProject.description")
+          .save.btn(@click="saveEdit('Description')") 저장
+          .close.btn(@click="closeEdit('Description')") 취소
+      .box
+        .title 프로젝트 질문
+        .sep :
+        .description(v-if="!isEditQuestion") {{modalProject.question}}
+          .edit-btn(@click="edit('Question')")
+        .edit-wrap(v-else)
+          textarea(:value="modalProject.question")
+          .save.btn(@click="saveEdit('Question')") 저장
+          .close.btn(@click="closeEdit('Question')") 취소
       .box
         .title 프로젝트 타입
         .sep :
@@ -50,7 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      .btn 다운로드
+      a.download.btn(ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
+      a.download.btn(ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -59,14 +74,14 @@ div.container
       .wrap
         .dot.green
         .name 총 참여 프로젝트
-      .point 10
+      .point {{processingProjectNo + processedProjectNo}}
       .wrap
         .title 완료된 프로젝트
-        .point 8
+        .point {{processedProjectNo}}
       .divider
       .wrap
         .title 진행중인 프로젝트
-        .point 2
+        .point {{processingProjectNo}}
     .credit-wrap
       .wrap
         .dot.blue
@@ -84,7 +99,7 @@ div.container
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect' || projectInfo.projectState === 'cValidate' || (projectInfo.projectType === 'Collect' && projectInfo.projectState === 'finished')")
-        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
+        .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
@@ -95,13 +110,13 @@ div.container
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)")
-              span {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)]" class="Collect")
+              span(class="Collect") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
       .project-wrap(@click="showMyProject(projectInfo)" v-else)
-        .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
+        .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
@@ -112,8 +127,8 @@ div.container
             .text Current Refine Block
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)")
-              span {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)]" class="Refine")
+              span(class="Refine") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
               .slice
                 .bar
                 .fill
@@ -140,14 +155,16 @@ export default {
     return {
       modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
       perpage: 2,
-      username: '유저 이름',
-      usableCredit: 1000,
-      prearrangedCredit: 100,
-      amountWithdraw: 0,
-      chargeCredit: 0,
-      projectNo: 0,
+      username: '',
+      usableCredit: null,
+      prearrangedCredit: null,
+      projectNo: null,
       projectsInfoList: [],
-      projectList: []
+      projectList: [],
+      isEditDescription: false,
+      isEditQuestion: false,
+      processingProjectNo : null,
+      processedProjectNo: null
     }
   },
   created () {
@@ -157,10 +174,11 @@ export default {
       this.prearrangedCredit = res.data.userInfo.prearrangedCredit
       this.projectNo = res.data.projectsInfoList.length
       this.projectsInfoList = res.data.projectsInfoList
+      this.processedProjectNo = res.data.processedProjectNo
+      this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
       this.loadList()
     })
-
   },
   beforeMount () {
     window.addEventListener('resize', this.carouselPerpage)
@@ -169,6 +187,46 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    projectStateClass(projectState) {
+      if(projectState === 'rValidate') {
+        return 'Refine'
+      } else if(projectState === 'cValidate') {
+        return 'Collect'
+      }
+      return projectState
+    },
+    projectStateName(projectState) {
+      if(projectState === 'rValidate' || projectState === 'cValidate') {
+        return '검증중'
+      } else if (projectState === 'finished') {
+        return '완료'
+      }
+      return projectState
+    },
+    edit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = true
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = true
+      }
+    },
+    saveEdit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = false
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = false
+      }
+    },
+    closeEdit (str) {
+      if (str === 'Description') {
+        this.isEditDescription = false
+      }
+      if (str === 'Question') {
+        this.isEditQuestion = false
+      }
+    },
     loadList () {
       this.$http.get('/api/project/list', {params: {
         page: 1,
@@ -183,16 +241,15 @@ export default {
       })
     },
     carouselPerpage () {
-      if (this.projectNo === 0 || window.innerWidth < 1050) {
+      if (this.projectNo === 0 || window.innerWidth < 620 ) {
         this.perpage = 1
+      } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
+        this.perpage = 2
       } else if (this.projectNo > 3) {
         this.perpage = 3
       } else {
         this.perpage = this.projectNo
       }
-    },
-    download (project) {
-      console.log(project._id)
     },
     percent (percent) {
       return 'p' + Math.round(percent)
@@ -200,6 +257,29 @@ export default {
     showMyProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('my-project-modal')
+
+      if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.dataDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
+      if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.refineDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
     },
     showProject (modalProject) {
       this.modalProject = modalProject
@@ -262,15 +342,15 @@ export default {
   display: flex;
   flex-flow: column;
   justify-content: center;
+  align-items: center;
   flex: 1;
 }
 .credit-section > .profile-wrap > .profile-img {
   display: inline-block;
   border: 1px solid #eee;
-  border-radius: 50px;
-  width: 70px;
-  height: 70px;
-  margin-top: 10px;
+  border-radius: 50%;
+  width: 130px;
+  height: 130px;
 }
 .credit-section > .profile-wrap > .profile-title {
   margin-top: 15px;
@@ -357,11 +437,125 @@ export default {
   font-size: 0.3em;
   color: #2979ff;
 }
+.register-project .project-wrap:hover .c100 > span.Refine {
+  color: #5991ee;
+}
+.register-project .project-wrap:hover .c100 > span.Collect {
+  color: #62ce8d;
+}
 .register-project .project-wrap:hover .c100:after {
   top: 0.04em;
   left: 0.04em;
   width: 0.92em;
   height: 0.92em;
+}
+.pie,
+.c100.Collect .bar,
+.c100.Collect.p51 .fill,
+.c100.Collect.p52 .fill,
+.c100.Collect.p53 .fill,
+.c100.Collect.p54 .fill,
+.c100.Collect.p55 .fill,
+.c100.Collect.p56 .fill,
+.c100.Collect.p57 .fill,
+.c100.Collect.p58 .fill,
+.c100.Collect.p59 .fill,
+.c100.Collect.p60 .fill,
+.c100.Collect.p61 .fill,
+.c100.Collect.p62 .fill,
+.c100.Collect.p63 .fill,
+.c100.Collect.p64 .fill,
+.c100.Collect.p65 .fill,
+.c100.Collect.p66 .fill,
+.c100.Collect.p67 .fill,
+.c100.Collect.p68 .fill,
+.c100.Collect.p69 .fill,
+.c100.Collect.p70 .fill,
+.c100.Collect.p71 .fill,
+.c100.Collect.p72 .fill,
+.c100.Collect.p73 .fill,
+.c100.Collect.p74 .fill,
+.c100.Collect.p75 .fill,
+.c100.Collect.p76 .fill,
+.c100.Collect.p77 .fill,
+.c100.Collect.p78 .fill,
+.c100.Collect.p79 .fill,
+.c100.Collect.p80 .fill,
+.c100.Collect.p81 .fill,
+.c100.Collect.p82 .fill,
+.c100.Collect.p83 .fill,
+.c100.Collect.p84 .fill,
+.c100.Collect.p85 .fill,
+.c100.Collect.p86 .fill,
+.c100.Collect.p87 .fill,
+.c100.Collect.p88 .fill,
+.c100.Collect.p89 .fill,
+.c100.Collect.p90 .fill,
+.c100.Collect.p91 .fill,
+.c100.Collect.p92 .fill,
+.c100.Collect.p93 .fill,
+.c100.Collect.p94 .fill,
+.c100.Collect.p95 .fill,
+.c100.Collect.p96 .fill,
+.c100.Collect.p97 .fill,
+.c100.Collect.p98 .fill,
+.c100.Collect.p99 .fill,
+.c100.Collect.p100 .fill {
+  border-color: #62ce8d;
+}
+.pie,
+.c100.Refine .bar,
+.c100.Refine.p51 .fill,
+.c100.Refine.p52 .fill,
+.c100.Refine.p53 .fill,
+.c100.Refine.p54 .fill,
+.c100.Refine.p55 .fill,
+.c100.Refine.p56 .fill,
+.c100.Refine.p57 .fill,
+.c100.Refine.p58 .fill,
+.c100.Refine.p59 .fill,
+.c100.Refine.p60 .fill,
+.c100.Refine.p61 .fill,
+.c100.Refine.p62 .fill,
+.c100.Refine.p63 .fill,
+.c100.Refine.p64 .fill,
+.c100.Refine.p65 .fill,
+.c100.Refine.p66 .fill,
+.c100.Refine.p67 .fill,
+.c100.Refine.p68 .fill,
+.c100.Refine.p69 .fill,
+.c100.Refine.p70 .fill,
+.c100.Refine.p71 .fill,
+.c100.Refine.p72 .fill,
+.c100.Refine.p73 .fill,
+.c100.Refine.p74 .fill,
+.c100.Refine.p75 .fill,
+.c100.Refine.p76 .fill,
+.c100.Refine.p77 .fill,
+.c100.Refine.p78 .fill,
+.c100.Refine.p79 .fill,
+.c100.Refine.p80 .fill,
+.c100.Refine.p81 .fill,
+.c100.Refine.p82 .fill,
+.c100.Refine.p83 .fill,
+.c100.Refine.p84 .fill,
+.c100.Refine.p85 .fill,
+.c100.Refine.p86 .fill,
+.c100.Refine.p87 .fill,
+.c100.Refine.p88 .fill,
+.c100.Refine.p89 .fill,
+.c100.Refine.p90 .fill,
+.c100.Refine.p91 .fill,
+.c100.Refine.p92 .fill,
+.c100.Refine.p93 .fill,
+.c100.Refine.p94 .fill,
+.c100.Refine.p95 .fill,
+.c100.Refine.p96 .fill,
+.c100.Refine.p97 .fill,
+.c100.Refine.p98 .fill,
+.c100.Refine.p99 .fill,
+.c100.Refine.p100 .fill {
+  border-color: #5991ee;
 }
 .register-project .project-wrap > .title {
   font-size: 16px;
@@ -387,7 +581,7 @@ export default {
 .register-project .type.Collect {
   background-color: #62ce8d;
 }
-.register-project .type.finish {
+.register-project .type.finished {
   background-color: #3c4858;
 }
 .register-project .problem-wrap {
@@ -533,9 +727,48 @@ export default {
   text-align: right;
   width: 100px;
 }
+.modal-container > .box > .description > .edit-btn {
+  display: none;
+  width: 16px;
+  height: 16px;
+  background-image: url("../assets/edit.png");
+  background-size: 12px;
+  background-position: center;
+  background-repeat: no-repeat;
+  float: right;
+  cursor: pointer;
+  border-radius: 4px;
+}
+.modal-container > .box:hover > .description > .edit-btn {
+  display: inline-block;
+}
+.modal-container > .box > .description > .edit-btn:hover {
+  background-image: url("../assets/edit-active.png");
+}
+.modal-container > .box > .edit-wrap {
+  width: calc(100% - 130px);
+}
+.modal-container > .box > .edit-wrap > textarea {
+  width: 100%;
+  resize: none;
+  background-color: #eee;
+  outline: none;
+  border-radius: 4px;
+  padding: 10px;
+}
+.modal-container > .box > .edit-wrap > .btn {
+  font-size: 12px;
+  padding: 5px 10px;
+  margin: 5px 0 5px 5px;
+  float: right;
+}
 .modal-container > .btn {
   margin-top: 20px;
   padding: 15px 60px;
+}
+.modal-container > .download.btn {
+  padding: 10px 30px;
+  margin: 20px 5px 0;
 }
 @media only screen and (max-width: 1000px) {
   .credit-section {

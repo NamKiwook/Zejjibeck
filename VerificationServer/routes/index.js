@@ -50,6 +50,11 @@ const mkDir = mkPath => new Promise((resolve, reject) =>{
    });
 });
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
@@ -60,7 +65,7 @@ router.get('/on', async function(req, res, next){
 //  console.log("Start Verification");
   for(;;){
     await runVerification();
-
+    await sleep(15*1000);
     console.log()
   }
 //  await runVerification();
@@ -152,7 +157,6 @@ async function duplicateVerification(){
           var collectCredit = parseInt(projects[i].collectCredit);
           var breakingPoint = 0;
 
-
           for (var j = 0; j < block.finished.length; j++) {
             if(block.finished[j].upload == false) {
               breakingPoint = 1;
@@ -162,11 +166,10 @@ async function duplicateVerification(){
 
           if(breakingPoint == 1) continue;
 
-
           await deleteFile('./temporary');
           await deleteFile('./result');
 
-          await mkDir('./temporary'+userId);
+          await mkDir('./temporary');
           await mkDir('./result');
 
           for (var j = 0; j < block.finished.length; j++) {
@@ -189,7 +192,6 @@ async function duplicateVerification(){
                   }
               }
           }
-
 
           var duplicateFlag = false;
           var finished = JSON.parse(JSON.stringify(block.finished));
@@ -218,12 +220,30 @@ async function duplicateVerification(){
                   projects[i].projectState = "finished";
               }
 
+              var users = {};
+
               for(var j = 0 ; j < finished.length ; j++){
                 var collectUserId = finished[j].owner;
                 var collectUser = await userSchema.findOne({userId : collectUserId});
                 collectUser.prearrangedCredit = parseInt(collectUser.prearrangedCredit) - collectCredit;
                 collectUser.usableCredit = parseInt(collectUser.usableCredit) + collectCredit;
+
+                var strUserId = collectUser.userId.toString();
+
+                if(users[strUserId] != null){
+                  users[strUserId] = users[strUserId] + collectCredit;
+                } else{
+                  users[strUserId] = collectCredit;
+                }
                 await collectUser.save();
+              }
+
+              var formattedDate = getFormattedDate(new Date());
+
+              for(var id in users){
+                var user = await userSchema.findOne({userId : id});
+                user.creditHistory.push({note:"과제 수행",credit:users[id],date:formattedDate, type:"적립"});
+                await user.save();
               }
 
               var owner = projects[i].owner;
@@ -286,14 +306,33 @@ async function refineVerification(){
       var refineCredit = parseInt(projects[i].refineCredit);
       var finished = block.finished;
 
+      var users = {};
+
       for(var k = 0 ; k < finished.length ; k++){
         var refineUserId = finished[k].userId;
         var refineUser = await userSchema.findOne({userId : refineUserId});
         var problemNo = parseInt(finished[k].answerList.length);
+
         refineUser.prearrangedCredit = parseInt(refineUser.prearrangedCredit) - refineCredit * problemNo;
         refineUser.usableCredit = parseInt(refineUser.usableCredit) + refineCredit * problemNo;
+
+        var strUserId = refineUser.userId.toString();
+        if(users[strUserId] != null){
+          users[strUserId] = users[strUserId] + refineCredit * problemNo;
+        } else{
+          users[strUserId] = refineCredit * problemNo;
+        }
         await refineUser.save();
       }
+
+      var formattedDate = getFormattedDate(new Date());
+
+      for(var id in users){
+        var user = await userSchema.findOne({userId : id});
+        user.creditHistory.push({note:"과제 수행",credit:users[id],date:formattedDate, type:"적립"});
+        await user.save();
+      }
+
 
       var refineType = projects[i].refineType;
 
@@ -482,7 +521,6 @@ async function uploads(owner, projectName, data, fileName){
   }
 }
 
-
 function strFileName(iName){
   var strFileNo = iName.toString();
   while(strFileNo.length < 6){
@@ -490,5 +528,11 @@ function strFileName(iName){
   }
   return strFileNo;
 }
+
+function getFormattedDate(date) {
+  return date.getFullYear().toString() + "." + pad2(date.getMonth() + 1) + "." + pad2(date.getDate()) + ", " + pad2(date.getHours()) + ":" + pad2(date.getMinutes());
+}
+
+function pad2(n) { return n < 10 ? '0' + n : n }
 
 module.exports = router;

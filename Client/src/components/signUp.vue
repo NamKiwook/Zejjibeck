@@ -6,9 +6,9 @@
           .title DATAG
           .slogun 필요한 데이터를 쉽고 빠르게
           .divider
-          .text 장점1
-          .text 장점2
-          .text 장점3
+          .text 이미지, 음성, 텍스트의 다양한 유형의 데이터
+          .text 분류부터 이미지 영역 드래그까지 다양한 데이터 정제 유형
+          .text 간단한 데이터 의뢰, 수집, 정제
         .login-wrap
           .title Sign Up
           input#name(type="text", placeholder="Full Name", v-model="username")

@@ -7,7 +7,7 @@
           .title 충전할 크레딧
           .sep :
           .description
-            input(type="text" v-model="amountCharge")
+            input(type="text" v-model="amountCharge" placeholder=0)
             | 원
         a.btn(@click="charge") 크레딧 충전
     modal(name="withdraw-modal" adaptive=true width="90%" maxWidth=450 height="auto" scrollable=true)
@@ -33,9 +33,9 @@
           .title 출금할 크레딧
           .sep :
           .description
-            input(type="text" v-model="amountWithdraw")
+            input(type="text" v-model="amountWithdraw" placeholder=0)
             | 원
-        a.btn(@click="withdraw") 크레딧 출금
+        a.btn(@click="withdraw") 크레딧 충전
     section.credit
       .credit-wrap
         .wrap
@@ -51,16 +51,16 @@
           .title 적립 예정
           .point 800
       .core.wrap
-        p 사용가능 크레딧
+        p 사용 가능 크레딧
         .credit {{userInfo.usableCredit}}
           span 원
       .wrap
-        p 적립예정 크레딧
+        p 적립 예정 크레딧
         .credit {{userInfo.prearrangedCredit}}
           span 원
       .wrap
+        .btn(@click="showCharge") 충전
         .btn(@click="showWithdraw") 출금
-        .btn(@click="showCharge") 입금
     .divider
     section.list
       .wrap
@@ -107,16 +107,18 @@ export default {
   name: 'credit',
   data () {
     return {
-      userInfo: {usableCredit: 10000, prearrangedCredit: 1000, bank: '농협', bankAccount: '111-1111-1111-11', username: 'default'},
-      amountWithdraw: 0,
-      amountCharge: 0
+      userInfo: {usableCredit: null, prearrangedCredit: null, bank: '', bankAccount: '', username: ''},
+      amountWithdraw: null,
+      amountCharge: null
     }
   },
   methods: {
     showCharge () {
+      this.amountCharge = null;
       this.$modal.show('charge-modal')
     },
     showWithdraw () {
+      this.amountWithdraw = null;
       this.$modal.show('withdraw-modal')
     },
     hide () {
@@ -135,9 +137,9 @@ export default {
       }).catch((err) => {
         alert(err)
       })
+      this.$modal.hide('withdraw-modal')
     },
     charge () {
-      console.log(this.amountCharge)
       this.$http.get('/api/credit/charge', {params: {
         chargeCredit: parseInt(this.amountCharge)
       }}).then((res) => {
@@ -149,6 +151,7 @@ export default {
       }).catch((err) => {
         alert(err)
       })
+      this.$modal.hide('charge-modal')
     }
   },
   created () {

@@ -4,6 +4,7 @@ var router = express.Router();
 var userSchema= require('../model/user');
 var multer = require('multer');
 var upload = multer({
+
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, __dirname + "/../public/profile/");
@@ -30,13 +31,14 @@ router.get('/profile', async function (req, res, next) {
 
 router.put('/', upload.single('file'), async function(req,res,next){
   var ID = req.decoded.userId;
-  var password = req.body.password;
-  console.log(password)
-  console.log(req.file)
   try{
     var user = await userSchema.findOne({userId : ID});
-    user.password = password;
-    user.profileUrl = req.file.path;
+    if(req.body.password != null) {
+        user.password = req.body.password;
+    }
+    if(req.file != null) {
+        user.profileUrl = req.file.path;
+    }
     await user.save();
     res.send({success: true});
   } catch(err){
