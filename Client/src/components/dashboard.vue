@@ -39,7 +39,7 @@ div.container
         .description(v-if="!isEditDescription") {{modalProject.description}}
           .edit-btn(@click="edit('Description')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.description" ref="changeDescription")
+          textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
           .save.btn(@click="saveEdit('Description',modalProject)") 저장
           .close.btn(@click="closeEdit('Description')") 취소
       .box
@@ -48,7 +48,7 @@ div.container
         .description(v-if="!isEditQuestion") {{modalProject.question}}
           .edit-btn(@click="edit('Question')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.question" ref="changeQuestion")
+          textarea(:value="modalProject.question" ref="changeQuestion", spellcheck='false')
           .save.btn(@click="saveEdit('Question',modalProject)") 저장
           .close.btn(@click="closeEdit('Question')") 취소
       .box
@@ -267,8 +267,6 @@ export default {
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
-      this.$modal.show('my-project-modal')
-
       if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
         this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
           if(res.data.success) {
@@ -291,6 +289,8 @@ export default {
           alert(err)
         })
       }
+      this.$modal.show('my-project-modal')
+
     },
     showProject (modalProject) {
       this.modalProject = modalProject

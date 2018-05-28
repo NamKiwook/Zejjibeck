@@ -7,23 +7,23 @@
         .detail ?
         .description
           p 프로젝트 이름을 입력해주세요
-      input.text#projectName(type='text', v-model="projectName")
+      input.text#projectName(type='text', spellcheck='false', v-model="projectName")
     section.textWrap
       .title 프로젝트 설명
         .detail ?
         .description
           p 프로젝트 설명을 입력해주세요
-      textarea.text#description(v-model="description")
+      textarea.text#description(spellcheck='false', v-model="description")
     section.textWrap
       .title 프로젝트 질문
         .detail ?
         .description
           p 프로젝트 질문을 입력해주세요
-      textarea.text#question(v-model="question")
+      textarea.text#question(spellcheck='false', v-model="question")
 
     section.textWrap
       .title 프로젝트 비용
-      input.text#totalCredit(type='text', v-model="totalCredit", placeholder="0")
+      input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
     section.typeWrap
       p.title 프로젝트 타입
       label.radioWrap 데이터 수집

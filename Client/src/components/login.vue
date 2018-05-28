@@ -14,7 +14,7 @@
             .dot
         .login-wrap
           .title Sign In
-          input.id(type="text", name="userID", placeholder="Email", v-model="userId")
+          input.id(type="text", name="userID", spellcheck='false', placeholder="Email", v-model="userId")
           input.password(type="password", name="password", placeholder="Password", v-model="password")
           a.signin.btn(v-on:click="submit") Sign In
           router-link.btn.signup(to="/signup") Sign Up
