@@ -9,7 +9,7 @@ router.get('/list', async function(req,res,next) {
     res.send({success:true,logList:user.creditHistory});
   } catch(err){
     console.log(err);
-    res.send({success:true,errorMessage:"네트워크 에러"});
+    res.send({success:false,errorMessage:"네트워크 에러"});
   }
 });
 

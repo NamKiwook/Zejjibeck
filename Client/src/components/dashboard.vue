@@ -39,8 +39,8 @@ div.container
         .description(v-if="!isEditDescription") {{modalProject.description}}
           .edit-btn(@click="edit('Description')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.description")
-          .save.btn(@click="saveEdit('Description')") 저장
+          textarea(:value="modalProject.description" ref="changeDescription")
+          .save.btn(@click="saveEdit('Description',modalProject)") 저장
           .close.btn(@click="closeEdit('Description')") 취소
       .box
         .title 프로젝트 질문
@@ -48,8 +48,8 @@ div.container
         .description(v-if="!isEditQuestion") {{modalProject.question}}
           .edit-btn(@click="edit('Question')")
         .edit-wrap(v-else)
-          textarea(:value="modalProject.question")
-          .save.btn(@click="saveEdit('Question')") 저장
+          textarea(:value="modalProject.question" ref="changeQuestion")
+          .save.btn(@click="saveEdit('Question',modalProject)") 저장
           .close.btn(@click="closeEdit('Question')") 취소
       .box
         .title 프로젝트 타입
@@ -141,7 +141,7 @@ div.container
       .credit CREDIT
     .project(@click="showProject(project)" v-for="project in projectList")
       .title-wrap
-        .date 2018.01.01
+        .date {{parseDate(project)}}
         .title {{project.projectName}}
       .type(:class="project.projectState") {{project.projectState}}
       .credit {{project.stateCredit}}원
@@ -187,6 +187,11 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    parseDate (project) {
+      var date = new Date(project.uploadTime)
+      var month = date.getMonth() + 1
+      return date.getFullYear()+'. '+month+'. '+date.getDate()
+    },
     projectStateClass(projectState) {
       if(projectState === 'rValidate') {
         return 'Refine'
@@ -211,12 +216,18 @@ export default {
         this.isEditQuestion = true
       }
     },
-    saveEdit (str) {
+    saveEdit (str,modalProject) {
       if (str === 'Description') {
         this.isEditDescription = false
+        modalProject.description = this.$refs.changeDescription.value
+        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
       }
       if (str === 'Question') {
         this.isEditQuestion = false
+        modalProject.question = this.$refs.changeQuestion.value
+        console.log(modalProject)
+        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
+
       }
     },
     closeEdit (str) {

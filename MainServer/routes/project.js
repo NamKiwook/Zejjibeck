@@ -18,6 +18,7 @@ router.get('/', async function(req,res,err){
 });
 router.put('/', async function(req,res,err){
   var description = req.body.description;
+  var question = req.body.question;
   var projectName = req.body.projectName;
   var projectId = req.body.projectId;
   var Id = req.decoded.userId;
@@ -33,6 +34,7 @@ router.put('/', async function(req,res,err){
     else {
       var project = await projectSchema.findOne({_id: projectId});
       project.description = description;
+      project.question = question;
       project.projectName = projectName;
       await project.save();
       res.send({success: true});

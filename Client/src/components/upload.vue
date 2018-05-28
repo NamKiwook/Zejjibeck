@@ -64,9 +64,9 @@
       .title Tag Value
       .valueWrap
         .textWrap#valueField
-          .inputWrap(v-for="n in tagNumber", v-model="refineList[n-1]")
-            input.text(type='text')
-            .delete
+          .inputWrap(v-for="number in tagNumber")
+            input.text(type='text' v-model="refineList[number-1]" placeholder="입력해주세요!", @keydown="isEnter")
+            .delete(@click="tagValueDel(number)")
         .btnWrap
           a#plus.btn(@click="tagPlus") +
     section.upload.active(v-if="projectType === 'Refine'")
@@ -152,6 +152,17 @@ export default {
     }
   },
   methods: {
+    isEnter (e) {
+      if(e.keyCode == 13) {
+        this.tagNumber++
+      }
+    },
+    tagValueDel (number) {
+      console.log(number)
+      this.refineList.splice(number-1,1)
+      this.tagNumber--
+      console.log(this.refineList)
+    },
     fileChange (e) {
       this.fileList = e.target.files
       for (var i = 0; i < this.fileList.length; i++) {
