@@ -15,7 +15,7 @@ var projectSchema = require('../model/project');
 var blockSchema = require('../model/blockInfo');
 
 var flagVerification;
-var timeInterval = 1000 * 60 * 15;
+var timeInterval = 1000 * 60 * 15; //1000 * 60 * 15;
 
 var unit = 600; // second
 
@@ -54,14 +54,19 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-flagVerification = setInterval(runVerification, unit * 15 * 1);
+//flagVerification = setInterval(runVerification, unit * 60 * 5);
 
 router.get('/on', async function(req, res, next){
-  console.log("Start Verification");
-  await runVerification();
+//  console.log("Start Verification");
+  for(;;){
+    await runVerification();
+
+    console.log()
+  }
+//  await runVerification();
 //  flagVerification = setInterval(runVerification, unit * 10 * 1);
-  console.log("Finished Yeah~");
-  res.send("YEE");
+//  console.log("Finished Yeah~");
+//  res.send("YEE");
 });
 
 router.get('/off', async function(req, res, next){
@@ -114,7 +119,7 @@ async function timeExpireVerification(){
         var finished = JSON.parse(JSON.stringify(block.finished));
 
         for (var j = 0; j < finished.length; j++) {
-          if (finished[j].upload == false && time < parseInt(finished[j].assignTime) + timeInterval) {
+          if (finished[j].upload == false && time > parseInt(finished[j].assignTime) + timeInterval) {
             finished[j].owner = "";
             projects[i].projectState = "Collect";
             saveFlag = 1;
@@ -145,6 +150,18 @@ async function duplicateVerification(){
           var projectName = projects[i].projectName;
           var extension = projects[i].fileExtension;
           var collectCredit = parseInt(projects[i].collectCredit);
+          var breakingPoint = 0;
+
+          for (var j = 0; j < block.finished.length; j++) {
+            if(block.finished[j].upload == false) {
+              breakingPoint = 1;
+              console.log("fuck is : " + j);
+              break;
+            }
+          }
+
+          if(breakingPoint == 1) continue;
+          console.log("brOn");
 
           await deleteFile('./temporary');
           await deleteFile('./result');
