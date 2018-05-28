@@ -61,14 +61,14 @@ router.get('/list', async function(req,res,next){
     var projectList = await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit);
     var totalPage = Math.ceil(await projectSchema.find(query).count() / unit);
 
-    await res.send({
+    res.send({
       projectList: projectList,
       totalPage: totalPage,
     });
   }
   catch(err){
     console.log(err);
-    await res.send({
+    res.send({
       projectList: [],
       totalPage: 0,
     })
@@ -82,14 +82,14 @@ router.get('/collectedFile', async function(req,res,next) {
 
     params.Key = "result/" + req.decoded.userId + "/" + project.projectName + "/result.zip";
     var url = await s3.getSignedUrl('getObject', params);
-    await res.send({
+    res.send({
       url:url,
       success:true
     })
 
   }catch(err){
     console.log(err);
-    await res.send({
+    res.send({
       success:false,
       errorMessage:err
     })
