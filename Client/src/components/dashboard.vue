@@ -64,8 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      a.download.btn(ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
-      a.download.btn(ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
+      a.download.btn(href="#" ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
+      a.download.btn(href="#" ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -263,6 +263,7 @@ export default {
           if(res.data.success) {
             this.$refs.dataDownload.href =res.data.url
           } else {
+            this.$refs.dataDownload.href = null
             alert(res.data.errorMassage)
           }
         }).catch((err) => {
@@ -274,6 +275,7 @@ export default {
           if(res.data.success) {
             this.$refs.refineDownload.href =res.data.url
           } else {
+            this.$refs.dataDownload.href = null
             alert(res.data.errorMassage)
           }
         }).catch((err) => {
