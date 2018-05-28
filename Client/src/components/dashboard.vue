@@ -64,8 +64,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit}}원
-      .download.btn Collection 다운로드
-      .download.btn Refine 다운로드
+      a.download.btn(ref="dataDownload" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
+      a.download.btn(ref="refineDownload" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -231,15 +231,35 @@ export default {
         this.perpage = this.projectNo
       }
     },
-    download (project) {
-      console.log(project._id)
-    },
     percent (percent) {
       return 'p' + Math.round(percent)
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
       this.$modal.show('my-project-modal')
+
+      if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.dataDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
+      if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
+          if(res.data.success) {
+            this.$refs.refineDownload.href =res.data.url
+          } else {
+            alert(res.data.errorMassage)
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      }
     },
     showProject (modalProject) {
       this.modalProject = modalProject

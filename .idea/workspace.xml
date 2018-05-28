@@ -1,26 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/Client/src/components/refine.vue" line="117" />
+    <bookmark url="file://$PROJECT_DIR$/Client/src/components/refine.vue" line="115" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/refine.vue" afterPath="$PROJECT_DIR$/Client/src/components/refine.vue" />
-      <change beforePath="$PROJECT_DIR$/MainServer/app.js" afterPath="$PROJECT_DIR$/MainServer/app.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.57c1d764ed8dc11f1850db6eca5a8279.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.57c1d764ed8dc11f1850db6eca5a8279.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/img/index-img.5aac73b.png" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.6cca14956a958f425bb9.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.6cca14956a958f425bb9.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/vendor.79c2c7f8eefccdb18068.js" afterPath="$PROJECT_DIR$/MainServer/public/static/js/vendor.79c2c7f8eefccdb18068.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/package-lock.json" afterPath="$PROJECT_DIR$/VerificationServer/package-lock.json" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/package.json" afterPath="$PROJECT_DIR$/VerificationServer/package.json" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,7 +23,7 @@
       <file leaf-file-name="loginedNavbar.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2408">
+            <state relative-caret-position="2660">
               <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
               <folding />
             </state>
@@ -47,11 +33,9 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="321">
-              <caret line="226" column="38" lean-forward="false" selection-start-line="226" selection-start-column="38" selection-end-line="226" selection-end-column="38" />
-              <folding>
-                <marker date="1527480861804" expanded="true" signature="18289:18292" ph="{...}" />
-              </folding>
+            <state relative-caret-position="-840">
+              <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -59,8 +43,8 @@
       <file leaf-file-name="refine.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="980">
-              <caret line="35" column="85" lean-forward="false" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
+            <state relative-caret-position="56">
+              <caret line="86" column="17" lean-forward="false" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -69,7 +53,7 @@
       <file leaf-file-name="refine.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1848">
+            <state relative-caret-position="840">
               <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
               <folding />
             </state>
@@ -79,7 +63,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-202">
+            <state relative-caret-position="532">
               <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
               <folding />
             </state>
@@ -89,7 +73,7 @@
       <file leaf-file-name="upload.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="162">
+            <state relative-caret-position="2828">
               <caret line="101" column="104" lean-forward="false" selection-start-line="101" selection-start-column="100" selection-end-line="101" selection-end-column="104" />
               <folding />
             </state>
@@ -99,7 +83,7 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-20">
+            <state relative-caret-position="392">
               <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding />
             </state>
@@ -467,11 +451,12 @@
       <workItem from="1527213223237" duration="5082000" />
       <workItem from="1527475097260" duration="639000" />
       <workItem from="1527475851528" duration="4990000" />
+      <workItem from="1527487614410" duration="1318000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="215370000" />
+    <option name="totallyTimeSpent" value="216688000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="82" y="-11" width="1849" height="1102" extended-state="6" />
@@ -697,7 +682,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="896">
           <caret line="32" column="30" lean-forward="false" selection-start-line="32" selection-start-column="30" selection-end-line="32" selection-end-column="30" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -727,7 +711,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2408">
+        <state relative-caret-position="2660">
           <caret line="95" column="16" lean-forward="false" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
           <folding />
         </state>
@@ -737,7 +721,7 @@
     <entry file="file://$USER_HOME$/AppData/Local/Temp/BNZ.5b079ef8a2e39aa/jquery-1.4.2.js" />
     <entry file="file://$PROJECT_DIR$/MainServer/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-20">
+        <state relative-caret-position="392">
           <caret line="14" column="44" lean-forward="false" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
           <folding />
         </state>
@@ -745,7 +729,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
+        <state relative-caret-position="2828">
           <caret line="101" column="104" lean-forward="false" selection-start-line="101" selection-start-column="100" selection-end-line="101" selection-end-column="104" />
           <folding />
         </state>
@@ -753,7 +737,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1848">
+        <state relative-caret-position="840">
           <caret line="30" column="45" lean-forward="false" selection-start-line="30" selection-start-column="45" selection-end-line="30" selection-end-column="45" />
           <folding />
         </state>
@@ -761,7 +745,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-202">
+        <state relative-caret-position="532">
           <caret line="19" column="25" lean-forward="false" selection-start-line="19" selection-start-column="25" selection-end-line="19" selection-end-column="25" />
           <folding />
         </state>
@@ -769,19 +753,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="980">
-          <caret line="35" column="85" lean-forward="false" selection-start-line="35" selection-start-column="85" selection-end-line="35" selection-end-column="85" />
+        <state relative-caret-position="56">
+          <caret line="86" column="17" lean-forward="false" selection-start-line="86" selection-start-column="17" selection-end-line="86" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="321">
-          <caret line="226" column="38" lean-forward="false" selection-start-line="226" selection-start-column="38" selection-end-line="226" selection-end-column="38" />
-          <folding>
-            <marker date="1527480861804" expanded="true" signature="18289:18292" ph="{...}" />
-          </folding>
+        <state relative-caret-position="-840">
+          <caret line="30" column="32" lean-forward="true" selection-start-line="30" selection-start-column="32" selection-end-line="30" selection-end-column="32" />
+          <folding />
         </state>
       </provider>
     </entry>

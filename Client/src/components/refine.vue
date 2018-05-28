@@ -48,8 +48,6 @@
         .next.btn.disable(v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && isNull") SUBMIT
         .next.btn(@click="submit()",  v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && !isNull") SUBMIT
 
-
-
     section.user-info
       .profile-wrap
         .profile-img
