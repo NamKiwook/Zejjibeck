@@ -229,6 +229,7 @@ export default {
     position: absolute;
     opacity: 0;
     cursor: pointer;
+    outline: none;
   }
   .radiomark {
     position: absolute;
@@ -288,6 +289,7 @@ export default {
     border: 1px solid #eee;
     border-radius: 4px;
     width: 100%;
+    outline: none;
   }
   textarea.text {
     padding: 10px;
@@ -295,6 +297,7 @@ export default {
     border-radius: 4px;
     width: 100%;
     resize: none;
+    outline: none;
   }
   .title {
     font-size: 16px;
@@ -321,6 +324,7 @@ export default {
     border-right: 0;
     border-top-right-radius: 0;
     border-bottom-right-radius: 0;
+    outline: none;
   }
   .tagValue > .valueWrap > .textWrap > .inputWrap > .delete {
     width: 39.6px;
