@@ -141,7 +141,7 @@ div.container
       .credit CREDIT
     .project(@click="showProject(project)" v-for="project in projectList")
       .title-wrap
-        .date 2018.01.01
+        .date  2018.01.01
         .title {{project.projectName}}
       .type(:class="project.projectState") {{project.projectState}}
       .credit {{project.stateCredit}}원
