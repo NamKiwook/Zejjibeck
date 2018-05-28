@@ -27,7 +27,7 @@
         a.btn(@click="selectProject(modalProject)") START
     section
       .menu
-        .title PROJECT
+        a.title(@click="dateClick") PROJECT
           .filter-arrow
             .down
         a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
@@ -43,7 +43,7 @@
             .down
       .project(@click="show(project)" v-for="project in projectList")
         .title-wrap
-          .date 2018.01.01
+          .date {{parseDate(project)}}
           .title {{project.projectName}}
         .type(:class="project.projectState") {{project.projectState}}
         .credit {{project.stateCredit}}원
@@ -91,6 +91,23 @@ export default {
     await this.loadList()
   },
   methods: {
+    parseDate (project) {
+      var date = new Date(project.uploadTime)
+      var month = date.getMonth() + 1
+      return date.getFullYear()+'. '+month+'. '+date.getDate()
+    },
+    dateClick () {
+      if (this.filter === 'recent') {
+        if (this.sortedBy === 'dec') {
+          this.sortedBy = 'inc'
+        } else {
+          this.sortedBy = 'dec'
+        }
+      } else {
+        this.filter = 'recent'
+        this.sortedBy = 'dec'
+      }
+    },
     creditClick () {
       if (this.filter === 'credit') {
         if (this.sortedBy === 'dec') {

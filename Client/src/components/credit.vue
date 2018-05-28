@@ -63,43 +63,13 @@
         .btn(@click="showWithdraw") 출금
     .divider
     section.list
-      .wrap
-        .title.plus 적립
+      .wrap(v-for="log in logList")
+        .title(:class="titleClass(log)") {{log.type}}
         .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit + 400원
-      .wrap
-        .title.minus 사용
-        .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit - 40원
-      .wrap
-        .title.plus 적립
-        .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit + 400원
-      .wrap
-        .title.minus 사용
-        .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit - 40원
-      .wrap
-        .title.plus 적립
-        .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit + 400원
-      .wrap
-        .title.minus 사용
-        .content
-          .date 2018. 05. 18
-          p 적립 예정
-        .credit - 40원
-      .more.btn + 더보기
+          .date {{log.date}}
+          p {{log.note}}
+        .credit {{symbol(log) + log.credit}}
+      a.more.btn(@click="addList") + 더보기
 </template>
 
 <script>
@@ -109,10 +79,26 @@ export default {
     return {
       userInfo: {usableCredit: null, prearrangedCredit: null, bank: '', bankAccount: '', username: ''},
       amountWithdraw: null,
-      amountCharge: null
+      amountCharge: null,
+      logList: null,
+      index: 0
     }
   },
   methods: {
+    titleClass(log) {
+      if(log.type === '충전' || log.type === '적립') {
+        return 'plus'
+      } else {
+        return 'minus'
+      }
+    },
+    symbol(log) {
+      if(log.type === '충전' || log.type === '적립') {
+        return '+'
+      } else {
+        return '-'
+      }
+    },
     showCharge () {
       this.amountCharge = null;
       this.$modal.show('charge-modal')
@@ -131,6 +117,9 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+            this.logList = res.data.logList
+          })
         } else {
           alert(res.data.errorMassage)
         }
@@ -145,6 +134,9 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+            this.logList = res.data.logList
+          })
         } else {
           alert(res.data.errorMassage)
         }
@@ -152,11 +144,22 @@ export default {
         alert(err)
       })
       this.$modal.hide('charge-modal')
+    },
+    addList () {
+      this.index++
+      this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+        for(var i = 0; i < res.data.logList.length; i++) {
+          this.logList.push(res.data.logList[i])
+        }
+      })
     }
   },
   created () {
     this.$http.get('/api/userInfo').then((res) => {
       this.userInfo = res.data.userInfo
+    })
+    this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+      this.logList = res.data.logList
     })
   }
 }

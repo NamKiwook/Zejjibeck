@@ -34,10 +34,10 @@ nav
         a.logout(@click="logout") LOGOUT
   .sep
   .section
-    router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") Dashboard
+    router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") 대시보드
     router-link.title(to='/list', :class="{active : pathname === 'list'}") 과제 수행
     router-link.title(to='/upload', :class="{active : pathname === 'upload'}") 과제 의뢰
-    router-link.title(to='/credit', :class="{active : pathname === 'credit'}") Credit
+    router-link.title(to='/credit', :class="{active : pathname === 'credit'}") 크레딧
   .cover(v-if="isLoading")
     .loader
 </template>
@@ -58,6 +58,9 @@ export default {
   created () {
     this.username = this.$store.getters.getUsername
     this.pathname = window.location.pathname.split("/")[1]
+    if(this.pathname === 'refine' || this.pathname === 'collect') {
+      this.pathname = 'list'
+    }
   },
   computed: {
     isLoading () {
@@ -67,6 +70,9 @@ export default {
   watch: {
     $route () {
       this.pathname = window.location.pathname.split("/")[1]
+      if(this.pathname === 'refine' || this.pathname ===  'collect') {
+        this.pathname = 'list'
+      }
     }
   },
   methods: {
@@ -244,6 +250,7 @@ export default {
     height: 100%;
     line-height: 49px;
     margin-right: 20px;
+    font-weight: bold;
   }
   nav > .section > .title:hover {
     border-bottom: 3px solid #e4e4e4;
