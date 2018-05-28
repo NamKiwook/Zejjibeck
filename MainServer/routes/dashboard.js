@@ -9,10 +9,22 @@ router.get('/', async function(req, res, next) {
   var userInfo = await userSchema.findOne({userId: Id});
   var tempList = userInfo.projects;
   var projectList = [];
+
+  var processingProjectNo = 0;
+  var processedProjectNo = 0;
+
   for(var i = tempList.length-1; i>=0; i--){
     var project2 = await projectSchema.findOne({_id : tempList[i].project_dbid});
     var project3 = JSON.stringify(project2);
     var project = JSON.parse(project3);
+
+    if(project.projectState == "finished") {
+      processedProjectNo++;
+    }
+    else {
+      processingProjectNo++;
+    }
+
 
     if(project.projectState == "Refine"){
       project.totalBlock = project.refineBlocks.length;
@@ -20,7 +32,8 @@ router.get('/', async function(req, res, next) {
 
       for(var j = 0 ; j < project.refineBlocks.length ; j++){
         var block = await blockSchema.findOne({_id:project.refineBlocks[j]});
-        if(block.isValidate == "Done") currentBlock++;
+
+        if(block.finished.length == project.minimumRefine) currentBlock++;
       }
 
       project.currentBlock = currentBlock;
@@ -35,6 +48,13 @@ router.get('/', async function(req, res, next) {
 
       project.currentCollect = currentCollect;
     }
+    else if(project.projectState == "rValidate"){
+      project.totalBlock = project.refineBlocks.length;
+      project.currentBlock = project.refineBlocks.length;
+    }
+    else if(project.projectState == "cValidate"){
+      project.currentCollect = project.maxCollect;
+    }
     else {
       if(project.projectType == "Collect"){
         project.currentCollect  = project.maxCollect;
@@ -47,9 +67,13 @@ router.get('/', async function(req, res, next) {
     projectList.push(project);
   }
 
+  console.log(projectList);
+
   res.send({
-      userInfo: userInfo,
-      projectsInfoList: projectList
+    userInfo: userInfo,
+    projectsInfoList: projectList,
+    processingProjectNo:processingProjectNo,
+    processedProjectNo:processedProjectNo,
   });
 });
 

@@ -33,8 +33,8 @@ nav
   .sep
   .section
     router-link.title(to='/dashboard', :class="{active : pathname === 'dashboard'}") Dashboard
-    router-link.title(to='/list', :class="{active : pathname === 'list'}") Project
-    router-link.title(to='/upload', :class="{active : pathname === 'upload'}") Upload
+    router-link.title(to='/list', :class="{active : pathname === 'list'}") 과제 수행
+    router-link.title(to='/upload', :class="{active : pathname === 'upload'}") 과제 의뢰
     router-link.title(to='/credit', :class="{active : pathname === 'credit'}") Credit
   .cover(v-if="isLoading")
     .loader

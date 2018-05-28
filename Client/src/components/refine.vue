@@ -197,6 +197,7 @@ export default {
       this.$store.commit('isLoadingTrue')
       this.$http.post('/api/refine', {
         refineList: this.refineList,
+        projectId: this.$route.params.projectId,
         blockId: this.blockId
       }).then((res) => {
         if (res.data.success) {

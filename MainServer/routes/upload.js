@@ -47,8 +47,20 @@ router.post('/', async function(req,res, next){
       completedBlock: 0,
     });
 
-    if(req.body.projectType == "Refine")
+    var currentUserCredit = parseInt(user.usableCredit);
+
+    if(currentUserCredit < parseInt(req.body.totalCredit)){
+      res.send({success: false, errorMessage : "보유 Credit이 부족합니다!"});
+      return;
+    }
+    else{
+      user.usableCredit = currentUserCredit - parseInt(req.body.totalCredit);
+    }
+
+    if(req.body.projectType == "Refine") {
       project.projectState = "Refine";
+    }
+
     var userProjects = user.projects;
 
     for(var i = 0 ; i < userProjects.length ; i++)
@@ -69,7 +81,6 @@ router.post('/', async function(req,res, next){
       for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
         newBlock.finished.push({
           owner:"",
-          expireTime:"",
           upload:false,
         });
       }
@@ -83,10 +94,7 @@ router.post('/', async function(req,res, next){
 
 
     else if(req.body.projectType == 'Refine') {
-
       var fileNo = fileNames.length;
-      if(req.body.projectType != "Refine")
-        fileNo = parseInt(req.body.maxCollect);
 
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((fileNo + blockSize - 1) / blockSize);
@@ -95,6 +103,8 @@ router.post('/', async function(req,res, next){
       project.stateCredit = project.refineCredit;
       project.blockNo = blockNo;
       project.refineBlocks = [];
+
+      project.originalFileNames = fileNames;
 
       for (var i = 0; i < blockNo; i++) {
         var newBlock = new blockSchema();
@@ -106,8 +116,7 @@ router.post('/', async function(req,res, next){
         project.refineBlocks.push(blockId._id);
       }
     }
-    else {
-      //collect
+    else if(req.body.projectType == 'Refine&Collect') {
       var newBlock = new blockSchema();
       newBlock.property = "Collect";
       newBlock.maxCollect = req.body.maxCollect;
@@ -117,7 +126,6 @@ router.post('/', async function(req,res, next){
       for(var i = 0 ; i < parseInt(req.body.maxCollect) ; i++){
         newBlock.finished.push({
           owner:"",
-          expireTime:"",
           upload:false,
         });
       }
@@ -126,15 +134,15 @@ router.post('/', async function(req,res, next){
       project.collectBlock = BlockId._id;
       project.collectCredit = Math.floor(parseInt(project.totalCredit)/(2*parseInt(project.maxCollect)));
       project.stateCredit = project.collectCredit;
+      project.fileNo = project.maxCollect;
 
-      // refine
       var maxCollect = parseInt(req.body.maxCollect);
       var blockSize = parseInt(req.body.blockSize);
       var blockNo = Math.floor((maxCollect + blockSize - 1) / blockSize);
 
-      project.refineCredit = Math.floor(parseInt(project.totalCredit) / (2*maxCollect * parseInt(req.body.minimumRefine)));
+      project.refineCredit = Math.floor(parseInt(project.totalCredit) / (2 * maxCollect * parseInt(req.body.minimumRefine)));
       project.blockNo = blockNo;
-      project.refineblocks = [];
+      project.refineBlocks = [];
 
       for (var i = 0; i < blockNo; i++) {
         var newBlock = new blockSchema();
@@ -143,7 +151,7 @@ router.post('/', async function(req,res, next){
         newBlock.running = [];
         newBlock.property = "Refine";
         var blockId = await newBlock.save();
-        project.refineblocks.push(blockId._id);
+        project.refineBlocks.push(blockId._id);
       }
     }
 

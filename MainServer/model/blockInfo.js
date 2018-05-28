@@ -2,16 +2,15 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var blockInfoSchema = new Schema({
-    property : String, // collect or refine
-    maxCollect: Number, // collect -> collect
-    isValidate: String, // Not Validate, Done -> for refine
-    finished: Array, // refine, collect {userId, assignTime, finishedTime, answerList}
-    running: Array // {userId, AssignTime}
+  property : String, // collect or refine
+  maxCollect: Number, // collect -> collect
+  isValidate: String, // Not Validate, Done -> for refine
+  finished: {type:Array, default:[]}, // refine, collect {userId, assignTime, finishedTime, answerList}
+  running: {type:Array, default:[]}, // {userId, AssignTime}
 
-
-  //asdf, 0 compleete! --> 1's url
-
-  //running-> {0, asdf}, {1,asdf}, {2,asdf},
+  countResult: {type:Array, default:[]},
+  textResult: {type:Array, default:[]},
+  coordinateResult: {type:Array, default:[]},
 });
 
 //users 없애고 finished 리스트로

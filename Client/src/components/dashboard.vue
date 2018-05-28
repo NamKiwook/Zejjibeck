@@ -83,7 +83,7 @@ div.container
   .divider(v-if="projectsInfoList.length !== 0")
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
-      .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect'")
+      .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect' || projectInfo.projectState === 'cValidate' || (projectInfo.projectType === 'Collect' && projectInfo.projectState === 'finished')")
         .type(:class="projectInfo.projectState") {{projectInfo.projectState}}
         .title {{projectInfo.projectName}}
         .problem-wrap

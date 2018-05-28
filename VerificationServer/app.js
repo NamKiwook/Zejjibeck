@@ -11,6 +11,8 @@ var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 var index = require('./routes/index');
 var users = require('./routes/users');
 var app = express();
+
+/*
 var io = require('socket.io-client');
 var socket = io.connect('http://localhost:3000', {reconnect:true});
 socket.on('connect', function(){
@@ -22,6 +24,7 @@ socket.on('event', function(data){
 socket.on('disconnect', function(){
 	console.log('disconnect');
 });
+*/
 
 
 mongoose.Promise = global.Promise;

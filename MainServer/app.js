@@ -36,7 +36,7 @@ app.set('view engine', 'pug');
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 //ALERT! MUST DELETE THIS ANNOTATE BEFORE USE(IT'S FOR USING POSTMAN)
-//app.use(connectHistory);
+app.use(connectHistory);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
