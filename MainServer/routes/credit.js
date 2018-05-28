@@ -11,7 +11,7 @@ router.get('/list', async function(req,res,next) {
     console.log(err);
     res.send({success:true,errorMessage:"네트워크 에러"});
   }
-}
+});
 
 
 router.get('/withdraw', async function(req,res,next){
