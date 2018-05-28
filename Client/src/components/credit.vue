@@ -69,7 +69,7 @@
           .date {{log.date}}
           p {{log.note}}
         .credit {{symbol(log) + log.credit}}
-      .more.btn(@click="add") + 더보기
+      a.more.btn(@click="addList") + 더보기
 </template>
 
 <script>
@@ -117,6 +117,9 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+            this.logList = res.data.logList
+          })
         } else {
           alert(res.data.errorMassage)
         }
@@ -131,6 +134,9 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+            this.logList = res.data.logList
+          })
         } else {
           alert(res.data.errorMassage)
         }
@@ -138,20 +144,22 @@ export default {
         alert(err)
       })
       this.$modal.hide('charge-modal')
+    },
+    addList () {
+      this.index++
+      this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+        for(var i = 0; i < res.data.logList.length; i++) {
+          this.logList.push(res.data.logList[i])
+        }
+      })
     }
   },
   created () {
     this.$http.get('/api/userInfo').then((res) => {
       this.userInfo = res.data.userInfo
     })
-    this.$http.get('/api/userInfo/list',{params:{index:this.index}}).then((res) => {
+    this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
       this.logList = res.data.logList
-    })
-  },
-  add () {
-    this.index++
-    this.$http.get('/api/userInfo/list',{params:{index:this.index}}).then((res) => {
-      this.logList.add(res.data.logList)
     })
   }
 }
