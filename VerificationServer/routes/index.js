@@ -156,13 +156,11 @@ async function duplicateVerification(){
           for (var j = 0; j < block.finished.length; j++) {
             if(block.finished[j].upload == false) {
               breakingPoint = 1;
-              console.log("fuck is : " + j);
               break;
             }
           }
 
           if(breakingPoint == 1) continue;
-          console.log("brOn");
 
 
           await deleteFile('./temporary');
