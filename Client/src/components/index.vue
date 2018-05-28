@@ -4,21 +4,43 @@ div.sections
     .content
       .main-left
         .title
-          |데이터 유통 플랫폼
+          | 데이터 유통 플랫폼
           br
-          |DATAG
-        .description 누구나 다양한 유형의 데이터를 의뢰할 수 있고,
-        .description 누구나 의뢰에 맞는 데이터 판매, 가공을 할 수 있습니다!
-        router-link(to="/login").btn 시작하기!
+          | DATAG
+        .description
+          | 누구나 다양한 유형의 데이터를 의뢰할 수 있고,
+          br
+          | 의뢰에 맞는 데이터 판매, 가공을 할 수 있습니다!
+        router-link(to="/login").btn 시작하기
       .main-right
         .main-img
   section.description-section#about
     .content
-      .section-title Easy & Powerful Datag
-      .title 다양한 유형의 데이터 수집, 정제를 간단하게!
-      .description 의뢰인이 원하는 다양한 유형의 데이터를 얻을 수 있습니다.
-      .description 데이터 수집, 정제 또한 클릭 혹은 간단한 타이핑으로 가능합니다.
-      .description PC, 모바일 모두 서비스를 제공합니다.
+      .section-title EASY & POWERFUL DATAG
+      .title
+        | 다양한 유형의 데이터의
+        br
+        | 수집과 정제를 간단하게!
+      .item-wrap
+        .item
+          img(src="../assets/data.png")
+          .text
+            | 원하는 다양한 유형의 데이터를
+            br
+            | 쉽고 빠르게 얻을 수 있습니다.
+        .item
+          img(src="../assets/mouse.png")
+          .text
+            | 간단한 클릭 및 짧은 타이핑으로
+            br
+            | 데이터 수집 및 정제가 가능합니다.
+        .item
+          img(src="../assets/computer.png")
+          .text
+            | PC뿐만 아니라 모바일에서도
+            br
+            | 손쉽게 서비스 이용이 가능합니다.
+
   section.team-section#member
     .content
       .team-profile
@@ -106,7 +128,7 @@ export default {
   }
   .main-left > .description {
     display: inline-block;
-    font-size: 24px;
+    font-size: 22px;
     color: #8492a6;
     font-weight: normal;
     line-height: 1.5;
@@ -164,6 +186,23 @@ export default {
     line-height: 1.5;
     width: 600px;
     margin: 30px auto 0;
+  }
+  .description-section > .content > .item-wrap {
+    display: flex;
+    margin-top: 120px;
+  }
+  .description-section > .content > .item-wrap > .item {
+    flex: 1;
+    padding: 30px;
+  }
+  .description-section > .content > .item-wrap > .item > img {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 40px;
+  }
+  .description-section > .content > .item-wrap > .item > .text {
+    font-size: 18px;
+    line-height: 1.6;
   }
   .team-section {
     background-color: #fbfbfb;
@@ -257,6 +296,12 @@ export default {
       font-size: 18px;
       width: 100%;
     }
+    .description-section > .content > .item-wrap {
+      flex-flow: column;
+    }
+    .description-section > .content > .item-wrap > .item {
+      margin-bottom: 30px;
+    }
     .team-profile > .profile-wrap {
       width: 100%;
     }
@@ -274,7 +319,7 @@ export default {
         font-size: 28px;
       }
       .main-section > .content > .main-left > .description {
-        font-size: 16px;
+        font-size: 15px;
       }
       .main-section > .content > .main-right {
         height: 300px;
@@ -285,6 +330,13 @@ export default {
       .description-section > .content > .description {
         font-size: 16px;
         width: 100%;
+      }
+      .description-section > .content > .item-wrap > .item > img {
+        width: 90px;
+        height: 90px;
+      }
+      .description-section > .content > .item-wrap > .item > .text{
+        font-size: 14px;
       }
       .team-profile > .profile-wrap > .profile-img {
         width: 150px;
