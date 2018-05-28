@@ -152,6 +152,7 @@ async function duplicateVerification(){
           var collectCredit = parseInt(projects[i].collectCredit);
           var breakingPoint = 0;
 
+
           for (var j = 0; j < block.finished.length; j++) {
             if(block.finished[j].upload == false) {
               breakingPoint = 1;
@@ -163,10 +164,11 @@ async function duplicateVerification(){
           if(breakingPoint == 1) continue;
           console.log("brOn");
 
+
           await deleteFile('./temporary');
           await deleteFile('./result');
 
-          await mkDir('./temporary');
+          await mkDir('./temporary'+userId);
           await mkDir('./result');
 
           for (var j = 0; j < block.finished.length; j++) {
