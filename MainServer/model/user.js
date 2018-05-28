@@ -11,6 +11,8 @@ var userSchema = new Schema({
   penalty : {type: Number, default: 0},
   bank: String,
   bankAccount: String,
-  profileUrl: {type: String, default: __dirname+"/../public/profile/default.png"}
+  profileUrl: {type: String, default: __dirname+"/../public/profile/default.png"},
+  creditHistory : {type:Array, default:[]},
+  // {note:, credit:, date:, type:}
 });
 module.exports = mongoose.model('user', userSchema);

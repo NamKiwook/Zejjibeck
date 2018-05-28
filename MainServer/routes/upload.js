@@ -57,6 +57,9 @@ router.post('/', async function(req,res, next){
       user.usableCredit = currentUserCredit - parseInt(req.body.totalCredit);
     }
 
+    var formattedDate = getFormattedDate(new Date());
+    user.creditHistory.push({note:"과제 등록", credit:parseInt(req.body.totalCredit), date:formattedDate, type:"사용"});
+
     if(req.body.projectType == "Refine") {
       project.projectState = "Refine";
     }
@@ -162,7 +165,7 @@ router.post('/', async function(req,res, next){
       project_dbid: projectUpload._id,
     });
 
-    var userUpdate = await user.save();
+    await user.save();
 
     res.send({success:true});
   } catch(err){
@@ -208,5 +211,11 @@ function getExtension(fileName){
   }
   return extension;
 }
+
+function getFormattedDate(date) {
+  return date.getFullYear().toString() + "." + pad2(date.getMonth() + 1) + "." + pad2(date.getDate()) + ", " + pad2(date.getHours()) + ":" + pad2(date.getMinutes());
+}
+
+function pad2(n) { return n < 10 ? '0' + n : n }
 
 module.exports = router;
