@@ -85,26 +85,26 @@ export default {
     }
   },
   methods: {
-    titleClass(log) {
-      if(log.type === '충전' || log.type === '적립') {
+    titleClass (log) {
+      if (log.type === '충전' || log.type === '적립') {
         return 'plus'
       } else {
         return 'minus'
       }
     },
-    symbol(log) {
-      if(log.type === '충전' || log.type === '적립') {
+    symbol (log) {
+      if (log.type === '충전' || log.type === '적립') {
         return '+'
       } else {
         return '-'
       }
     },
     showCharge () {
-      this.amountCharge = null;
+      this.amountCharge = null
       this.$modal.show('charge-modal')
     },
     showWithdraw () {
-      this.amountWithdraw = null;
+      this.amountWithdraw = null
       this.$modal.show('withdraw-modal')
     },
     hide () {
@@ -117,7 +117,7 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+          this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })
         } else {
@@ -134,7 +134,7 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+          this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })
         } else {
@@ -147,8 +147,8 @@ export default {
     },
     addList () {
       this.index++
-      this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
-        for(var i = 0; i < res.data.logList.length; i++) {
+      this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
+        for (var i = 0; i < res.data.logList.length; i++) {
           this.logList.push(res.data.logList[i])
         }
       })
@@ -158,12 +158,12 @@ export default {
     this.$http.get('/api/userInfo').then((res) => {
       this.userInfo = res.data.userInfo
     })
-    this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+    this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
       this.logList = res.data.logList
     })
   },
   destroyed () {
-    this.store.commit('userUsableCredit',this.userInfo.usableCredit)
+    this.store.commit('userUsableCredit', this.userInfo.usableCredit)
     this.store.commit('userPrearrangedCredit', this.userInfo.prearrangedCredit)
   }
 }

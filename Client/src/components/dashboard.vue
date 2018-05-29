@@ -163,10 +163,10 @@ export default {
       projectList: [],
       isEditDescription: false,
       isEditQuestion: false,
-      processingProjectNo : null,
+      processingProjectNo: null,
       processedProjectNo: null,
       dataUrl: '#',
-      refineUrl :'#'
+      refineUrl: '#'
     }
   },
   created () {
@@ -180,8 +180,8 @@ export default {
       this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
       this.loadList()
-      this.store.commit('userUsableCredit',this.usableCredit)
-      this.store.commit('userPrearrangedCredit', this.prearrangedCredit)
+      this.$store.commit('userUsableCredit', res.data.userInfo.usableCredit)
+      this.$store.commit('userPrearrangedCredit', res.data.userInfo.prearrangedCredit)
     })
   },
   beforeMount () {
@@ -194,18 +194,18 @@ export default {
     parseDate (project) {
       var date = new Date(project.uploadTime)
       var month = date.getMonth() + 1
-      return date.getFullYear()+'. '+month+'. '+date.getDate()
+      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
     },
-    projectStateClass(projectState) {
-      if(projectState === 'rValidate') {
+    projectStateClass (projectState) {
+      if (projectState === 'rValidate') {
         return 'Refine'
-      } else if(projectState === 'cValidate') {
+      } else if (projectState === 'cValidate') {
         return 'Collect'
       }
       return projectState
     },
-    projectStateName(projectState) {
-      if(projectState === 'rValidate' || projectState === 'cValidate') {
+    projectStateName (projectState) {
+      if (projectState === 'rValidate' || projectState === 'cValidate') {
         return '검증중'
       } else if (projectState === 'finished') {
         return '완료'
@@ -220,18 +220,17 @@ export default {
         this.isEditQuestion = true
       }
     },
-    saveEdit (str,modalProject) {
+    saveEdit (str, modalProject) {
       if (str === 'Description') {
         this.isEditDescription = false
         modalProject.description = this.$refs.changeDescription.value
-        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
+        this.$http.put('/api/project', {projectName: modalProject.projectName, projectId: modalProject._id, description: modalProject.description, question: modalProject.question})
       }
       if (str === 'Question') {
         this.isEditQuestion = false
         modalProject.question = this.$refs.changeQuestion.value
         console.log(modalProject)
-        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
-
+        this.$http.put('/api/project', {projectName: modalProject.projectName, projectId: modalProject._id, description: modalProject.description, question: modalProject.question})
       }
     },
     closeEdit (str) {
@@ -256,7 +255,7 @@ export default {
       })
     },
     carouselPerpage () {
-      if (this.projectNo === 0 || window.innerWidth < 620 ) {
+      if (this.projectNo === 0 || window.innerWidth < 620) {
         this.perpage = 1
       } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
         this.perpage = 2
@@ -271,10 +270,10 @@ export default {
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
-      if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
-        this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
-          if(res.data.success) {
-            this.dataUrl =res.data.url
+      if (modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/collectedFile', {params: {projectId: modalProject._id}}).then((res) => {
+          if (res.data.success) {
+            this.dataUrl = res.data.url
           } else {
             alert(res.data.errorMassage)
           }
@@ -282,10 +281,10 @@ export default {
           alert(err)
         })
       }
-      if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
-        this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
-          if(res.data.success) {
-            this.refineUrl =res.data.url
+      if (modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/refineResult', {params: {projectId: modalProject._id}}).then((res) => {
+          if (res.data.success) {
+            this.refineUrl = res.data.url
           } else {
             alert(res.data.errorMassage)
           }
@@ -294,7 +293,6 @@ export default {
         })
       }
       this.$modal.show('my-project-modal')
-
     },
     showProject (modalProject) {
       this.modalProject = modalProject

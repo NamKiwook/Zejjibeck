@@ -14,7 +14,7 @@
 
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
-          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove")
+          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove", @touchstart="mousedown", @touchend="mouseup",@touchmove="mousemove")
           .delete.btn(@click="dragDel") 선택 삭제
         .problem-title {{projectInfo.question}}
 
@@ -155,18 +155,27 @@ export default {
     dragDel () {
       this.curY = null
       this.clearCanvas()
-      this.refineList[this.nowSequence-1].curY =null
+      this.refineList[this.nowSequence - 1].curY = null
     },
     getMousePos (canvas, evt) {
       var rect = canvas.getBoundingClientRect()
-      return {
-        x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
-        y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+      if (evt.changedTouches) {
+        return {
+          x: parseInt((evt.changedTouches[0].clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.changedTouches[0].clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
+      } else {
+        return {
+          x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
       }
     },
     mousemove (event) {
-      if(this.isDrawing) {
+      event.preventDefault()
+      if (this.isDrawing) {
         var mousePos = this.getMousePos(this.canvas, event)
+        console.log(mousePos)
         this.curX = mousePos.x
         this.curY = mousePos.y
         this.clearCanvas()
@@ -183,10 +192,11 @@ export default {
       this.preX = mousePos.x
       this.preY = mousePos.y
     },
-    mouseup () {
+    mouseup (event) {
       this.isDrawing = false
     },
     clearCanvas () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
     },
     imageUpdate () {
