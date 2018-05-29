@@ -37,7 +37,6 @@ const requireAuth = (from, to, next) => {
   next('/login')
 }
 
-
 var router = new Router({
   mode: 'history',
   routes: [

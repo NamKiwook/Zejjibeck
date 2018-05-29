@@ -142,17 +142,17 @@ export default {
   },
   computed: {
     isAble () {
-      if(this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
-        if(this.projectType === 'Refine') {//Collect 인 경우
-          if((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
+      if (this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
+        if (this.projectType === 'Refine') { // Collect 인 경우
+          if ((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
             return true
           }
-        } else if(this.projectType === 'Collect') {
-          if(this.maxCollect) {
+        } else if (this.projectType === 'Collect') {
+          if (this.maxCollect) {
             return true
           }
-        } else if(this.projectType === 'Refine&Collect') {
-          if((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
+        } else if (this.projectType === 'Refine&Collect') {
+          if ((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
             return true
           }
         }
@@ -162,13 +162,13 @@ export default {
   },
   methods: {
     isEnter (e) {
-      if(e.keyCode == 13) {
+      if (e.keyCode === 13) {
         this.tagNumber++
       }
     },
     tagValueDel (number) {
       console.log(number)
-      this.refineList.splice(number-1,1)
+      this.refineList.splice(number - 1, 1)
       this.tagNumber--
       console.log(this.refineList)
     },
