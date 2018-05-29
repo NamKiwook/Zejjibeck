@@ -16,20 +16,17 @@
 
     section.user-info
       .profile-wrap
-        .profile-img
-        .profile-title 박성준
-      .rating-wrap
-        .title 나의 등급
-        .rating 다이아
+        .profile-img(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
+        .profile-title {{this.$store.getters.getUsername}}
       .credit-wrap
         .wrap
           .dot
           .title 사용가능
-          .credit 2000
+          .credit {{this.$store.getters.getUserUsableCredit}}
         .wrap
           .dot
           .title 적립예정
-          .credit 100
+          .credit {{this.$store.getters.getUserPrearrangedCredit}}
 </template>
 
 <script>
@@ -217,7 +214,7 @@ export default {
     background-image: url("../assets/default-user.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     border: 1px solid #eee;
     border-radius: 50px;
     width: 40px;

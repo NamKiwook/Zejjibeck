@@ -316,5 +316,8 @@ export default {
       width: 100px;
       background-size: 100px;
     }
+    nav > .container > .profile-wrap > .profile-title {
+      display: none;
+    }
   }
 </style>
