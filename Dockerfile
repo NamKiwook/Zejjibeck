@@ -1,20 +1,22 @@
 FROM node:latest
 
-ADD MainServer /app
-ADD Client /app
+ADD MainServer /app/MainServer
+ADD Client /app/Client
 
-WORKDIR /app/MainServer
+WORKDIR /app
+RUN npm i npm@latest -g
+RUN apt-get update && apt-get install -y
 
-RUN cd /app/Client
-RUN rm -r node_modules
+WORKDIR /app/Client
+RUN rm -rf node_modules
 RUN npm install
 RUN npm run build
 
+WORKDIR /app/MainServer
 RUN cd /app/MainServer
-RUN rm -r node_modules
+RUN rm -rf node_modules
 RUN npm install
 
-RUN apt-get update
 
 EXPOSE 3000 
 

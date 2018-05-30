@@ -1,12 +1,12 @@
 version: '2'
 services:
-  Mongo:
+  mongo:
     image: mongo
     networks:
       zejjibeckbr:
         ipv4_address: 172.22.0.4
  
-  MainServer:
+  mainserver:
     build: .
     ports:
       - "3000:3000"
@@ -14,15 +14,17 @@ services:
       zejjibeckbr:
         ipv4_address: 172.22.0.5
     depends_on:
-      - Mongo
+      - mongo
 
-  VerificationSerer:
+  verificationserver:
     build: VerificationServer/.
+    ports:
+      - "3001:3001"    
     networks:
       zejjibeckbr:
         ipv4_address: 172.22.0.6
     depends_on:
-      - Mongo
+      - mongo
 
 networks:
   zejjibeckbr:
