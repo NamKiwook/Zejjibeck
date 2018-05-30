@@ -251,12 +251,14 @@ export default {
     line-height: 49px;
     margin-right: 20px;
     font-weight: bold;
+    border-bottom: 3px solid rgba(255,255,255,0);
+    transition: all 0.4s;
   }
   nav > .section > .title:hover {
-    border-bottom: 3px solid #e4e4e4;
+    border-color: #e4e4e4;
   }
   nav > .section > .title.active {
-    border-bottom: 3px solid #2979ff;
+    border-color: #2979ff;
   }
   @media only screen and (max-width: 1170px) {
     nav > .container {
