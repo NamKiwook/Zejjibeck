@@ -69,7 +69,7 @@
           .date {{log.date}}
           p {{log.note}}
         .credit {{symbol(log) + log.credit}}
-      a.more.btn(@click="addList") + 더보기
+      a.more.btn(@click="addList" v-if="isAddList") + 더보기
 </template>
 
 <script>
@@ -81,7 +81,8 @@ export default {
       amountWithdraw: null,
       amountCharge: null,
       logList: null,
-      index: 0
+      index: 0,
+      isAddList: true
     }
   },
   methods: {
@@ -148,6 +149,9 @@ export default {
     addList () {
       this.index++
       this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
+        if (res.data.logList.length === 0) {
+          this.isAddList = false
+        }
         for (var i = 0; i < res.data.logList.length; i++) {
           this.logList.push(res.data.logList[i])
         }

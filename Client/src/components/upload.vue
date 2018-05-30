@@ -20,7 +20,6 @@
         .description
           p 프로젝트 질문을 입력해주세요
       textarea.text#question(spellcheck='false', v-model="question")
-
     section.textWrap
       .title 프로젝트 비용
       input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
