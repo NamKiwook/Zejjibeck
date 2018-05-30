@@ -3,14 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
       <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.c85737272a4e100edf0d5e129d7a0125.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.c85737272a4e100edf0d5e129d7a0125.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8a157d98ff02e70c0e0e.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8a157d98ff02e70c0e0e.js.map" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/profile/123.jpg" afterPath="$PROJECT_DIR$/MainServer/public/profile/123.jpg" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.fe083e4c3c8131c46ca1d95c3b7a73cf.css" afterPath="" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.fe083e4c3c8131c46ca1d95c3b7a73cf.css.map" afterPath="" />
       <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" />
-      <change beforePath="$PROJECT_DIR$/MainServer/routes/project.js" afterPath="$PROJECT_DIR$/MainServer/routes/project.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -24,7 +21,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="103">
+            <state relative-caret-position="2565">
               <caret line="171" column="27" lean-forward="false" selection-start-line="171" selection-start-column="27" selection-end-line="171" selection-end-column="27" />
               <folding />
             </state>
@@ -34,7 +31,7 @@
       <file leaf-file-name="collect.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/collect.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-397">
+            <state relative-caret-position="255">
               <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
               <folding />
             </state>
@@ -44,7 +41,7 @@
       <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/VerificationServer/model/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="336">
+            <state relative-caret-position="510">
               <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
               <folding />
             </state>
@@ -54,7 +51,7 @@
       <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="188">
+            <state relative-caret-position="1575">
               <caret line="105" column="21" lean-forward="false" selection-start-line="105" selection-start-column="21" selection-end-line="105" selection-end-column="21" />
               <folding />
             </state>
@@ -64,7 +61,7 @@
       <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-659">
+            <state relative-caret-position="120">
               <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
               <folding />
             </state>
@@ -74,7 +71,7 @@
       <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/MainServer/app.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="209">
+            <state relative-caret-position="555">
               <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
               <folding />
             </state>
@@ -84,8 +81,8 @@
       <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="108">
-              <caret line="67" column="31" lean-forward="false" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+            <state relative-caret-position="89">
+              <caret line="274" column="38" lean-forward="false" selection-start-line="274" selection-start-column="38" selection-end-line="274" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -317,6 +314,59 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <expand>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="Client" type="cbb8eebc:String" user="Client" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="Client" type="cbb8eebc:String" user="Client" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="Client" type="cbb8eebc:String" user="Client" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="components" type="cbb8eebc:String" user="components" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="Client" type="cbb8eebc:String" user="Client" />
+              <item name="src" type="cbb8eebc:String" user="src" />
+              <item name="router" type="cbb8eebc:String" user="router" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
+              <item name="model" type="cbb8eebc:String" user="model" />
+            </path>
+            <path>
+              <item name="Root" type="cbb8eebc:String" user="Root" />
+              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
+              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
+              <item name="routes" type="cbb8eebc:String" user="routes" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -381,59 +431,6 @@
               <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
               <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
               <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <expand>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="Client" type="cbb8eebc:String" user="Client" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="Client" type="cbb8eebc:String" user="Client" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="Client" type="cbb8eebc:String" user="Client" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="components" type="cbb8eebc:String" user="components" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="Client" type="cbb8eebc:String" user="Client" />
-              <item name="src" type="cbb8eebc:String" user="src" />
-              <item name="router" type="cbb8eebc:String" user="router" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
-              <item name="model" type="cbb8eebc:String" user="model" />
-            </path>
-            <path>
-              <item name="Root" type="cbb8eebc:String" user="Root" />
-              <item name="Zejjibeck" type="cbb8eebc:String" user="Zejjibeck" />
-              <item name="MainServer" type="cbb8eebc:String" user="MainServer" />
-              <item name="routes" type="cbb8eebc:String" user="routes" />
             </path>
           </expand>
           <select />
@@ -548,11 +545,12 @@
       <workItem from="1527479052884" duration="2384000" />
       <workItem from="1527485705935" duration="387000" />
       <workItem from="1527500148517" duration="7062000" />
+      <workItem from="1527507799961" duration="2031000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="308066000" />
+    <option name="totallyTimeSpent" value="310097000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="50" y="23" width="1134" height="777" extended-state="0" />
@@ -561,12 +559,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3759086" sideWeight="0.40916443" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32917964" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.41426402" sideWeight="0.5908356" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -781,11 +779,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/VerificationServer/temporary/000000.png">
-      <provider selected="true" editor-type-id="images">
-        <state />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/VerificationServer/temporary/000000.png" />
     <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1335">
@@ -811,7 +805,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="0" lean-forward="false" selection-start-line="8" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -819,7 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="408">
           <caret line="30" column="16" lean-forward="false" selection-start-line="30" selection-start-column="16" selection-end-line="30" selection-end-column="16" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -827,7 +819,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="356">
           <caret line="27" column="0" lean-forward="false" selection-start-line="27" selection-start-column="0" selection-end-line="27" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -835,7 +826,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-166">
           <caret line="16" column="22" lean-forward="true" selection-start-line="16" selection-start-column="22" selection-end-line="16" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -843,7 +833,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-149">
           <caret line="89" column="54" lean-forward="false" selection-start-line="89" selection-start-column="54" selection-end-line="89" selection-end-column="54" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -851,13 +840,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/model/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="336">
+        <state relative-caret-position="510">
           <caret line="34" column="8" lean-forward="false" selection-start-line="34" selection-start-column="8" selection-end-line="34" selection-end-column="8" />
           <folding />
         </state>
@@ -889,7 +877,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/collect.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-397">
+        <state relative-caret-position="255">
           <caret line="17" column="18" lean-forward="false" selection-start-line="17" selection-start-column="18" selection-end-line="17" selection-end-column="18" />
           <folding />
         </state>
@@ -897,7 +885,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/app.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="209">
+        <state relative-caret-position="555">
           <caret line="37" column="0" lean-forward="false" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
@@ -905,7 +893,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="103">
+        <state relative-caret-position="2565">
           <caret line="171" column="27" lean-forward="false" selection-start-line="171" selection-start-column="27" selection-end-line="171" selection-end-column="27" />
           <folding />
         </state>
@@ -913,7 +901,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-659">
+        <state relative-caret-position="120">
           <caret line="8" column="35" lean-forward="false" selection-start-line="8" selection-start-column="35" selection-end-line="8" selection-end-column="35" />
           <folding />
         </state>
@@ -921,7 +909,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/project.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
+        <state relative-caret-position="1575">
           <caret line="105" column="21" lean-forward="false" selection-start-line="105" selection-start-column="21" selection-end-line="105" selection-end-column="21" />
           <folding />
         </state>
@@ -929,8 +917,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="108">
-          <caret line="67" column="31" lean-forward="false" selection-start-line="67" selection-start-column="31" selection-end-line="67" selection-end-column="31" />
+        <state relative-caret-position="89">
+          <caret line="274" column="38" lean-forward="false" selection-start-line="274" selection-start-column="38" selection-end-line="274" selection-end-column="38" />
           <folding />
         </state>
       </provider>
