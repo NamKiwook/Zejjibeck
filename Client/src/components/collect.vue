@@ -45,11 +45,11 @@ export default {
   },
   computed: {
     isAble () {
-      if(this.fileList.length > 0) {
+      if (this.fileList.length > 0) {
         return true
       }
       return false
-    },
+    }
   },
   created () {
     this.projectId = this.$route.params.projectId
@@ -79,8 +79,8 @@ export default {
                   fileName: this.fileList[i].name
                 }
               })
-              if(res1.data.success) {
-                var res2 = await this.$http({
+              if (res1.data.success) {
+                await this.$http({
                   method: 'put',
                   url: res1.data.url,
                   contentType: false,

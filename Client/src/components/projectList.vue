@@ -87,14 +87,14 @@ export default {
       this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
     }
   },
-  async created() {
+  async created () {
     await this.loadList()
   },
   methods: {
     parseDate (project) {
       var date = new Date(project.uploadTime)
       var month = date.getMonth() + 1
-      return date.getFullYear()+'. '+month+'. '+date.getDate()
+      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
     },
     dateClick () {
       if (this.filter === 'recent') {

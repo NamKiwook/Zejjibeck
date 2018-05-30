@@ -27,11 +27,11 @@ export const store = new Vuex.Store({
     getIsLoading (state) {
       return state.isLoading
     },
-    getUserPrearrangedCredit(state) {
-      return state.userPrearrangedCredit
+    getUserPrearrangedCredit (state) {
+      return state.userPrearrangedCredit || localStorage.userPrearrangedCredit
     },
-    getUserUsableCredit(state) {
-      return state.userUsableCredit
+    getUserUsableCredit (state) {
+      return state.userUsableCredit || localStorage.userUsableCredit
     },
     getScrolled (state) {
       return state.isScrolled
@@ -57,11 +57,13 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    userPrearrangedCredit(state, credit) {
+    userPrearrangedCredit (state, credit) {
       state.userPrearrangedCredit = credit
+      localStorage.userPrearrangedCredit = credit
     },
-    userUsableCredit(state, credit) {
+    userUsableCredit (state, credit) {
       state.userUsableCredit = credit
+      localStorage.userUsableCredit = credit
     },
     isLoadingTrue (state) {
       state.isLoading = true

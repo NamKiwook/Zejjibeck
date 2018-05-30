@@ -6,26 +6,28 @@
       .title 프로젝트 이름
         .detail ?
         .description
-          p 프로젝트 이름을 입력해주세요
+          p 프로젝트 이름을 입력해주세요. (중복불가)
       input.text#projectName(type='text', spellcheck='false', v-model="projectName")
     section.textWrap
       .title 프로젝트 설명
         .detail ?
         .description
-          p 프로젝트 설명을 입력해주세요
+          p 프로젝트에 대한 상세 설명을 적어주세요.
       textarea.text#description(spellcheck='false', v-model="description")
     section.textWrap
       .title 프로젝트 질문
         .detail ?
         .description
-          p 프로젝트 질문을 입력해주세요
+          p Refine 작업에 들어갈 질문을 입력해주세요.
       textarea.text#question(spellcheck='false', v-model="question")
-
     section.textWrap
       .title 프로젝트 비용
       input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
     section.typeWrap
-      p.title 프로젝트 타입
+      .title 프로젝트 타입
+        .detail ?
+        .description
+          p Refine 데이터 수집인지 정제인지 수집 및 정제인지 선택할 수 있습니다.
       label.radioWrap 데이터 수집
         input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
         span.radiomark
@@ -36,7 +38,10 @@
         input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
         span.radiomark
     section.typeWrap
-      p.title 데이터 타입
+      .title 데이터 타입
+        .detail ?
+        .description
+          p Refine 수집 혹은 등록할 데이터의 타입을 선택해주세요.
       label.radioWrap 이미지
         input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
         span.radiomark
@@ -47,14 +52,24 @@
         input.type(type="radio", name="dataType", value="Text", v-model="dataType")
         span.radiomark
     section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      p.title 정제 타입
-      label.radioWrap 단수 선택
+      .title 정제 타입
+        .detail ?
+        .description
+          p
+            | 데이터 정제작업 시 정제 타입을 선택할 수 있습니다.
+            br
+            | 객관식: 주어진 보기에서 정답을 선택합니다.(단수, 복수 가능)
+            br
+            | 주관식: 정답을 텍스트로 입력받습니다.
+            br
+            | 영역선택: 이미지를 드래그하여 영역을 선택합니다.
+      label.radioWrap 객관식(단수)
         input.tagType#radioTag(type="radio", name="refineType", value="Radio", v-model="refineType")
         span.radiomark
-      label.radioWrap 복수 선택
+      label.radioWrap 객관식(복수)
         input.tagType#checkboxTag(type="radio", name="refineType", value="Checkbox", v-model="refineType")
         span.radiomark
-      label.radioWrap 텍스트
+      label.radioWrap 주관식
         input.tagType(type="radio", name="refineType", value="Text", v-model="refineType")
         span.radiomark
       label.radioWrap#dragType(v-if="dataType === 'Image' && (projectType === 'Refine' || projectType === 'Refine&Collect')") 영역선택
@@ -62,15 +77,27 @@
         span.radiomark
     section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
       .title Maximum Number of Data
+        .detail ?
+        .description
+          p Refine 작업에 들어갈 질문을 입력해주세요.
       input.text(type='text', v-model="maxCollect", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title Block Size (Basic = 10)
+      .title 블록 사이즈
+        .detail ?
+        .description
+          p 블록 사이즈를 지정해주세요.
       input.text#blockSize(type='text', v-model="blockSize", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title 문제당 최소 정제 횟수
+      .title 최소 정제 횟수
+        .detail ?
+        .description
+          p 문제당 필요한 최소 정제 횟수를 지정해줍니다.
       input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
     section.tagValue(v-if="(refineType === 'Radio' || refineType === 'Checkbox') && (projectType === 'Refine' || projectType === 'Refine&Collect')")
-      .title Tag Value
+      .title 객관식 보기
+        .detail ?
+        .description
+          p 객관식 문항에서 보여줄 보기를 입력해주세요.
       .valueWrap
         .textWrap#valueField
           .inputWrap(v-for="number in tagNumber")
@@ -79,7 +106,7 @@
         .btnWrap
           a#plus.btn(@click="tagPlus") +
     section.upload.active(v-if="projectType === 'Refine'")
-      .title Upload
+      .title 파일첨부
       form#ajaxFrom(enctype="multipart/form-data")
         input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
     input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
@@ -142,17 +169,17 @@ export default {
   },
   computed: {
     isAble () {
-      if(this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
-        if(this.projectType === 'Refine') {//Collect 인 경우
-          if((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
+      if (this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
+        if (this.projectType === 'Refine') { // Collect 인 경우
+          if ((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
             return true
           }
-        } else if(this.projectType === 'Collect') {
-          if(this.maxCollect) {
+        } else if (this.projectType === 'Collect') {
+          if (this.maxCollect) {
             return true
           }
-        } else if(this.projectType === 'Refine&Collect') {
-          if((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
+        } else if (this.projectType === 'Refine&Collect') {
+          if ((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
             return true
           }
         }
@@ -162,13 +189,13 @@ export default {
   },
   methods: {
     isEnter (e) {
-      if(e.keyCode == 13) {
+      if (e.keyCode === 13) {
         this.tagNumber++
       }
     },
     tagValueDel (number) {
       console.log(number)
-      this.refineList.splice(number-1,1)
+      this.refineList.splice(number - 1, 1)
       this.tagNumber--
       console.log(this.refineList)
     },
