@@ -29,6 +29,7 @@
       .menu
         a.title(@click="dateClick") PROJECT
           .filter-arrow
+            .up
             .down
         a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
           .filter-arrow
