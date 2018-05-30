@@ -140,7 +140,7 @@ export default {
     margin-right: 8px;
   }
   .loading-bar {
-    height: 2px;
+    height: 8px;
     z-index: 9999;
     position:fixed;
     top: 0; left: 0; right: 0;

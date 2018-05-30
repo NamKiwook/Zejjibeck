@@ -105,14 +105,15 @@ router.get('/refineResult', async function(req,res,next) {
 
     params.Key = "result/" + req.decoded.userId + "/" + project.projectName + "/result.json";
     var url = await s3.getSignedUrl('getObject', params);
-    await res.send({
+    console.log(url);
+    res.send({
       url:url,
       success:true
     })
 
   }catch(err){
     console.log(err);
-    await res.send({
+    res.send({
       success:false,
       errorMessage:err
     })
