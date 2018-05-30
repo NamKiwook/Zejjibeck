@@ -1,0 +1,36 @@
+version: '2'
+services:
+  mongo:
+    image: mongo
+    networks:
+      zejjibeckbr:
+        ipv4_address: 172.22.0.4
+ 
+  mainserver:
+    build: .
+    ports:
+      - "3000:3000"
+    networks:
+      zejjibeckbr:
+        ipv4_address: 172.22.0.5
+    depends_on:
+      - mongo
+
+  verificationserver:
+    build: VerificationServer/.
+    ports:
+      - "3001:3001"    
+    networks:
+      zejjibeckbr:
+        ipv4_address: 172.22.0.6
+    depends_on:
+      - mongo
+
+networks:
+  zejjibeckbr:
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.22.0.0/16
+          gateway: 172.22.0.1
+
