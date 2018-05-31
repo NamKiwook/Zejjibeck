@@ -351,15 +351,17 @@ export default {
     flex: 1;
     text-align: center;
     margin: 0;
-    padding: 15px;
+    padding: 10px;
     position: relative;
+    font-size: 15px;
   }
   section > .wrap > .radioWrap > input:checked ~ .background{
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background-color: #5991ee;
     color: #fff;
-    padding: 15px;
+    padding: 10px;
+    font-size: 15px;
   }
   section > .wrap > .divider {
     width: 1px;
