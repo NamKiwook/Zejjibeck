@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Client/src/components/upload.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/upload.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,11 +37,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="dashboard.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="451" column="9" selection-start-line="451" selection-start-column="9" selection-end-line="451" selection-end-column="16" />
+            <state relative-caret-position="229">
+              <caret line="102" column="42" lean-forward="true" selection-start-line="102" selection-start-column="42" selection-end-line="102" selection-end-column="42" />
             </state>
           </provider>
         </entry>
@@ -64,11 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="upload.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="upload.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="355" column="20" lean-forward="true" selection-start-line="355" selection-start-column="20" selection-end-line="355" selection-end-column="20" />
+            <state relative-caret-position="355">
+              <caret line="362" column="18" lean-forward="true" selection-start-line="362" selection-start-column="18" selection-end-line="362" selection-end-column="18" />
             </state>
           </provider>
         </entry>
@@ -123,9 +123,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>mini</find>
-      <find>timeinterval</find>
-      <find>finished</find>
       <find>finish</find>
       <find>span</find>
       <find>refineList</find>
@@ -151,8 +148,11 @@
       <find>radioWrap</find>
       <find>active</find>
       <find>.wrap</find>
-      <find>.background</find>
       <find>nav</find>
+      <find>.background</find>
+      <find>.Refine</find>
+      <find>3c4858</find>
+      <find>finished</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -193,7 +193,6 @@
         <option value="$PROJECT_DIR$/MainServer/model/user.js" />
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/collect.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
@@ -203,6 +202,7 @@
         <option value="$PROJECT_DIR$/Client/index.html" />
         <option value="$PROJECT_DIR$/Client/src/App.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
       </list>
     </option>
   </component>
@@ -452,12 +452,12 @@
       <workItem from="1527487614410" duration="13915000" />
       <workItem from="1527504533782" duration="1426000" />
       <workItem from="1527506116135" duration="968000" />
-      <workItem from="1527761060065" duration="6065000" />
+      <workItem from="1527761060065" duration="6575000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="245520000" />
+    <option name="totallyTimeSpent" value="246030000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-7" width="1488" height="878" extended-state="6" />
@@ -714,13 +714,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="451" column="9" selection-start-line="451" selection-start-column="9" selection-end-line="451" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/loginedNavbar.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="196">
@@ -751,8 +744,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="355">
+          <caret line="362" column="18" lean-forward="true" selection-start-line="362" selection-start-column="18" selection-end-line="362" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
-          <caret line="355" column="20" lean-forward="true" selection-start-line="355" selection-start-column="20" selection-end-line="355" selection-end-column="20" />
+          <caret line="102" column="42" lean-forward="true" selection-start-line="102" selection-start-column="42" selection-end-line="102" selection-end-column="42" />
         </state>
       </provider>
     </entry>

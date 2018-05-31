@@ -375,26 +375,6 @@ export default {
   flex: 1;
   margin: 0 50px;
 }
-/*.credit-section > .detail {*/
-  /*background-color: #fff;*/
-  /*background-image: url("../assets/magnifier.png");*/
-  /*background-size: 20px;*/
-  /*background-repeat: no-repeat;*/
-  /*background-position: center;*/
-  /*box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);*/
-  /*border: 1px solid rgba(0,0,0,.05);*/
-  /*display: inline-block;*/
-  /*position: absolute;*/
-  /*top: 10px; right: 10px;*/
-  /*height: 45px;*/
-  /*width: 45px;*/
-  /*border-radius: 50px;*/
-  /*float: right;*/
-  /*cursor: pointer;*/
-/*}*/
-/*.credit-section > .detail:hover {*/
-  /*background-color: #fafafa;*/
-/*}*/
 .credit-section > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
@@ -453,6 +433,9 @@ export default {
 }
 .register-project .project-wrap:hover .c100 > span.Collect {
   color: #62ce8d;
+}
+.register-project .project-wrap:hover .c100 > span.finished {
+  color: #3c4858;
 }
 .register-project .project-wrap:hover .c100:after {
   top: 0.04em;
@@ -567,6 +550,60 @@ export default {
 .c100.Refine.p99 .fill,
 .c100.Refine.p100 .fill {
   border-color: #5991ee;
+}
+.pie,
+.c100.finished .bar,
+.c100.finished.p51 .fill,
+.c100.finished.p52 .fill,
+.c100.finished.p53 .fill,
+.c100.finished.p54 .fill,
+.c100.finished.p55 .fill,
+.c100.finished.p56 .fill,
+.c100.finished.p57 .fill,
+.c100.finished.p58 .fill,
+.c100.finished.p59 .fill,
+.c100.finished.p60 .fill,
+.c100.finished.p61 .fill,
+.c100.finished.p62 .fill,
+.c100.finished.p63 .fill,
+.c100.finished.p64 .fill,
+.c100.finished.p65 .fill,
+.c100.finished.p66 .fill,
+.c100.finished.p67 .fill,
+.c100.finished.p68 .fill,
+.c100.finished.p69 .fill,
+.c100.finished.p70 .fill,
+.c100.finished.p71 .fill,
+.c100.finished.p72 .fill,
+.c100.finished.p73 .fill,
+.c100.finished.p74 .fill,
+.c100.finished.p75 .fill,
+.c100.finished.p76 .fill,
+.c100.finished.p77 .fill,
+.c100.finished.p78 .fill,
+.c100.finished.p79 .fill,
+.c100.finished.p80 .fill,
+.c100.finished.p81 .fill,
+.c100.finished.p82 .fill,
+.c100.finished.p83 .fill,
+.c100.finished.p84 .fill,
+.c100.finished.p85 .fill,
+.c100.finished.p86 .fill,
+.c100.finished.p87 .fill,
+.c100.finished.p88 .fill,
+.c100.finished.p89 .fill,
+.c100.finished.p90 .fill,
+.c100.finished.p91 .fill,
+.c100.finished.p92 .fill,
+.c100.finished.p93 .fill,
+.c100.finished.p94 .fill,
+.c100.finished.p95 .fill,
+.c100.finished.p96 .fill,
+.c100.finished.p97 .fill,
+.c100.finished.p98 .fill,
+.c100.finished.p99 .fill,
+.c100.finished.p100 .fill {
+  border-color: #3c4858;
 }
 .register-project .project-wrap > .title {
   font-size: 16px;
