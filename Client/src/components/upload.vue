@@ -2,6 +2,41 @@
   .container
     .loading-bar
       .gaze(:style="{ width: uploadPercent+'%' }")
+    section.typeWrap
+      .title 프로젝트 타입
+        .detail ?
+        .description
+          p Refine 데이터 수집인지 정제인지 수집 및 정제인지 선택할 수 있습니다.
+      .wrap
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
+          .background 데이터 수집
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
+          .background 데이터 정제
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
+          .background 수집 및 정제
+
+    section.typeWrap
+      .title 데이터 타입
+        .detail ?
+        .description
+          p Refine 수집 혹은 등록할 데이터의 타입을 선택해주세요.
+      .wrap
+        label.radioWrap
+          input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
+          .background 이미지
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
+          .background 오디오
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="dataType", value="Text", v-model="dataType")
+          .background 텍스트
     section.textWrap
       .title 프로젝트 이름
         .detail ?
@@ -23,34 +58,6 @@
     section.textWrap
       .title 프로젝트 비용
       input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
-    section.typeWrap
-      .title 프로젝트 타입
-        .detail ?
-        .description
-          p Refine 데이터 수집인지 정제인지 수집 및 정제인지 선택할 수 있습니다.
-      label.radioWrap 데이터 수집
-        input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
-        span.radiomark
-      label.radioWrap 데이터 정제
-        input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
-        span.radiomark
-      label.radioWrap 수집 및 정제
-        input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
-        span.radiomark
-    section.typeWrap
-      .title 데이터 타입
-        .detail ?
-        .description
-          p Refine 수집 혹은 등록할 데이터의 타입을 선택해주세요.
-      label.radioWrap 이미지
-        input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
-        span.radiomark
-      label.radioWrap 오디오
-        input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
-        span.radiomark
-      label.radioWrap 텍스트
-        input.type(type="radio", name="dataType", value="Text", v-model="dataType")
-        span.radiomark
     section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title 정제 타입
         .detail ?
@@ -334,6 +341,30 @@ export default {
   section > #dragType {
     display: inline-block;
   }
+  section > .wrap {
+    display: flex;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+  section > .wrap > .radioWrap {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 15px;
+    position: relative;
+  }
+  section > .wrap > .radioWrap > input:checked ~ .background{
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #5991ee;
+    color: #fff;
+    padding: 15px;
+  }
+  section > .wrap > .divider {
+    width: 1px;
+    background-color: #eee;
+  }
   input.text {
     padding: 10px;
     border: 1px solid #eee;
@@ -402,6 +433,10 @@ export default {
     color: #fff;
     font-weight: 300;
     font-size: 12px;
+    display: none;
+  }
+  .title > .detail:hover ~ .description > p {
+    display: block;
   }
   .tagValue {
     display: block;

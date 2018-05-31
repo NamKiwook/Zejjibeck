@@ -65,7 +65,7 @@ div.sections
             .name 남기욱
             .role Vue.js
         .profile-wrap
-          img.profile-img(src="../assets/tae.png")
+          img.profile-img(src="../assets/mentor.jpg")
           .profile-content
             .name 김태우
             .role mentor

@@ -35,7 +35,7 @@
           .description
             input(type="text" v-model="amountWithdraw" placeholder=0)
             | 원
-        a.btn(@click="withdraw") 크레딧 충전
+        a.btn(@click="withdraw") 크레딧 출금
     section.credit
       .credit-wrap
         .wrap
