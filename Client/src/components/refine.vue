@@ -47,6 +47,7 @@
         .next.btn(@click="nowSequence++",  v-scroll-to="'#problemTop'" v-else-if="nowSequence < urlList.length && !isNull") NEXT
         .next.btn.disable(v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && isNull") SUBMIT
         .next.btn(@click="submit()",  v-scroll-to="'#problemTop'" v-else-if="nowSequence === urlList.length && !isNull") SUBMIT
+        .report(v-if="projectType === 'Collect&Refine'")
 
     section.user-info
       .profile-wrap
@@ -367,15 +368,25 @@ export default {
     background-image: url("../assets/check-active.png");
   }
   .btnWrap {
-    display: flex;
     padding: 10px 20px;
-    justify-content: center;
+    text-align: center;
+    position: relative;
   }
   .btnWrap > .btn {
     padding: 10px 40px;
     margin: 10px;
     border: 0;
     color: #fff;
+  }
+  .btnWrap > .report {
+    position: absolute;
+    right: 10px; top: 20px; bottom: 20px;
+    width: 30px;
+    background-image: url("../assets/alarm.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 20px;
+    cursor: pointer;
   }
   .user-info {
     display: inline-block;

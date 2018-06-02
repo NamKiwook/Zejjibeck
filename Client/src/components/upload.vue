@@ -115,7 +115,7 @@
     section.upload.active(v-if="projectType === 'Refine'")
       .title 파일첨부
       form#ajaxFrom(enctype="multipart/form-data")
-        input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
+        input#ajaxFile(type="file", multiple="multiple", @change="fileChange", accept="audio/*")
     input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
     input.btn.register.disable(type="button", value="REGISTER", v-else)
 </template>

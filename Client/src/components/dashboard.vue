@@ -110,8 +110,8 @@ div.container
             .text Current Collect
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)]" class="Collect")
-              span(class="Collect") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+            .c100.center(:class="[[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)], projectStateClass(projectInfo.projectState)]")
+              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
@@ -127,8 +127,8 @@ div.container
             .text Current Refine Block
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)]" class="Refine")
-              span(class="Refine") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)], projectStateClass(projectInfo.projectState)]")
+              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
               .slice
                 .bar
                 .fill
@@ -435,7 +435,7 @@ export default {
   color: #62ce8d;
 }
 .register-project .project-wrap:hover .c100 > span.finished {
-  color: #3c4858;
+  color: #666;
 }
 .register-project .project-wrap:hover .c100:after {
   top: 0.04em;
@@ -603,7 +603,7 @@ export default {
 .c100.finished.p98 .fill,
 .c100.finished.p99 .fill,
 .c100.finished.p100 .fill {
-  border-color: #3c4858;
+  border-color: #666;
 }
 .register-project .project-wrap > .title {
   font-size: 16px;
@@ -630,7 +630,7 @@ export default {
   background-color: #62ce8d;
 }
 .register-project .type.finished {
-  background-color: #3c4858;
+  background-color: #666;
 }
 .register-project .problem-wrap {
   display: flex;
