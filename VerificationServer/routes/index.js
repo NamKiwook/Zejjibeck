@@ -23,6 +23,8 @@ var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 var uploadParams ={Bucket: 'zejjibeck', Key:'', Body:''};
 
+var isRunning = 0;
+
 const readFile = filePath => new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
         if (err) reject(err);
@@ -62,33 +64,27 @@ router.get('/', function(req, res, next) {
 //flagVerification = setInterval(runVerification, unit * 60 * 5);
 
 router.get('/on', async function(req, res, next){
-//  console.log("Start Verification");
-  for(;;){
-    await runVerification();
-    await sleep(15*1000);
-    console.log()
+  if(isRunning == 0){
+    isRunning = 1;
+    for(;;){
+      await runVerification();
+      await sleep(15*1000);
+    }
   }
-//  await runVerification();
-//  flagVerification = setInterval(runVerification, unit * 10 * 1);
-//  console.log("Finished Yeah~");
-//  res.send("YEE");
 });
 
 router.get('/off', async function(req, res, next){
-  clearInterval(flagVerification);
-  console.log("Turn off!");
-  res.send("YEE");
 });
 
 
 async function runVerification(){
-  console.log("Start time expire verification!");
+  console.log(getFormattedDetailDate(new Date()) + " Start time expire verification!");
   await timeExpireVerification();
-  console.log("End time expire check, Start duplicate verification!");
+  console.log(getFormattedDetailDate(new Date()) + " End time expire check, Start duplicate verification!");
   await duplicateVerification();
-  console.log("End duplicate verification, Start refine verification!");
+  console.log(getFormattedDetailDate(new Date()) + " End duplicate verification, Start refine verification!");
   await refineVerification();
-  console.log("Finish!");
+  console.log(getFormattedDetailDate(new Date()) + " Finish!");
 }
 
 async function timeExpireVerification(){
@@ -530,9 +526,13 @@ function strFileName(iName){
 }
 
 function getFormattedDate(date) {
-  return date.getFullYear().toString() + "." + pad2(date.getMonth() + 1) + "." + pad2(date.getDate()) + ", " + pad2(date.getHours()) + ":" + pad2(date.getMinutes());
+  return date.getFullYear().toString() + "." + pad(10, date.getMonth() + 1) + "." + pad(10, date.getDate()) + ", " + pad(10, date.getHours()) + ":" + pad(10, date.getMinutes());
 }
 
-function pad2(n) { return n < 10 ? '0' + n : n }
+function getFormattedDetailDate(date) {
+  return date.getFullYear().toString() + "." + pad(10, date.getMonth() + 1) + "." + pad(10, date.getDate()) + " " + pad(10, date.getHours()) + ":" + pad(10, date.getMinutes()) + ":" + pad(10, date.getSeconds()) + ":" + pad(100, date.getMilliseconds());
+}
+
+function pad(padding, n) { return n < padding ? '0' + n : n }
 
 module.exports = router;
