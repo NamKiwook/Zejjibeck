@@ -45,27 +45,27 @@ div.sections
     .content
       .team-profile
         .profile-wrap
-          .profile-img
+          img.profile-img(src="../assets/cho.jpeg")
           .profile-content
             .name 조현성
             .role Backend
         .profile-wrap
-          .profile-img
+          img.profile-img(src="../assets/pyeon.png")
           .profile-content
             .name 편경민
             .role Backend
         .profile-wrap
-          .profile-img
+          img.profile-img(src="../assets/profileImg1.jpg")
           .profile-content
             .name 박성준
-            .role Frontend
+            .role HTML/CSS
         .profile-wrap
-          .profile-img
+          img.profile-img(src="../assets/nam.jpg")
           .profile-content
             .name 남기욱
-            .role Frontend
+            .role Vue.js
         .profile-wrap
-          .profile-img
+          img.profile-img(src="../assets/mentor.jpg")
           .profile-content
             .name 김태우
             .role mentor
@@ -224,9 +224,6 @@ export default {
     width: 250px;
     height: 250px;
     border-radius: 50%;
-    background-image: url("../assets/profileImg1.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
   }
   .team-profile > .profile-wrap > .profile-content {
     display: flex;

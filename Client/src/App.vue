@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view name="nav"></router-view>
-    <router-view name="sidebar"></router-view>
     <router-view></router-view>
   </div>
 </template>
@@ -29,6 +28,10 @@ export default {
   }
   body {
     background-color: #fbfbfb;
+    min-width: 400px;
+  }
+  body::-webkit-scrollbar {
+    display: none;
   }
   .btn {
     display: inline-block;

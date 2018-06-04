@@ -379,9 +379,9 @@ export default {
     background-image: url("../assets/check-active.png");
   }
   .btnWrap {
-    display: flex;
     padding: 10px 20px;
-    justify-content: center;
+    text-align: center;
+    position: relative;
   }
   .btnWrap > .btn {
     padding: 10px 40px;

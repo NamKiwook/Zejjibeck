@@ -35,21 +35,21 @@
           .description
             input(type="text" v-model="amountWithdraw" placeholder=0)
             | 원
-        a.btn(@click="withdraw") 크레딧 충전
+        a.btn(@click="withdraw") 크레딧 출금
     section.credit
       .credit-wrap
         .wrap
           .name 총 크레딧
-        .point 2000
+        .point {{userInfo.prearrangedCredit + userInfo.usableCredit}}
           .btn(@click="showWithdraw") 출금
           .btn(@click="showCharge") 충전
         .wrap
           .title 사용 가능
-          .point 1200
+          .point {{userInfo.usableCredit}}
         .divider
         .wrap
           .title 적립 예정
-          .point 800
+          .point {{userInfo.prearrangedCredit}}
       .core.wrap
         p 사용 가능 크레딧
         .credit {{userInfo.usableCredit}}
