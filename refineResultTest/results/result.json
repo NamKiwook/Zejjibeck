@@ -1,0 +1,129 @@
+{
+	"result": [
+		{
+			"fileName": "1.jpg",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.248,
+					"minY": 0.5445,
+					"maxX": 0.651,
+					"maxY": 0.895
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.247,
+						"minY": 0.542,
+						"maxX": 0.655,
+						"maxY": 0.894
+					},
+					{
+						"minX": 0.249,
+						"minY": 0.547,
+						"maxX": 0.647,
+						"maxY": 0.896
+					}
+				]
+			}
+		},
+		{
+			"fileName": "2.jpg",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.352,
+					"minY": 0.351,
+					"maxX": 0.664,
+					"maxY": 0.67
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.347,
+						"minY": 0.352,
+						"maxX": 0.664,
+						"maxY": 0.671
+					},
+					{
+						"minX": 0.357,
+						"minY": 0.35,
+						"maxX": 0.664,
+						"maxY": 0.669
+					}
+				]
+			}
+		},
+		{
+			"fileName": "3.jpg",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.5225,
+					"minY": 0.4155,
+					"maxX": 0.7195,
+					"maxY": 0.581
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.52,
+						"minY": 0.408,
+						"maxX": 0.716,
+						"maxY": 0.583
+					},
+					{
+						"minX": 0.525,
+						"minY": 0.423,
+						"maxX": 0.723,
+						"maxY": 0.579
+					}
+				]
+			}
+		},
+		{
+			"fileName": "5.jpg",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.34750000000000003,
+					"minY": 0.348,
+					"maxX": 0.67,
+					"maxY": 0.671
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.333,
+						"minY": 0.352,
+						"maxX": 0.669,
+						"maxY": 0.671
+					},
+					{
+						"minX": 0.362,
+						"minY": 0.344,
+						"maxX": 0.671,
+						"maxY": 0.671
+					}
+				]
+			}
+		},
+		{
+			"fileName": "6.jpg",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.0495,
+					"minY": 0.334,
+					"maxX": 0.2535,
+					"maxY": 0.6105
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.045,
+						"minY": 0.338,
+						"maxX": 0.255,
+						"maxY": 0.613
+					},
+					{
+						"minX": 0.054,
+						"minY": 0.33,
+						"maxX": 0.252,
+						"maxY": 0.608
+					}
+				]
+			}
+		}
+	]
+}

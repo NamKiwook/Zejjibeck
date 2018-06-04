@@ -15,3 +15,10 @@ capstone design/ data broker
 
 # park
 [![Build Status](https://travis-ci.org/peter1201/Zejjibeck.svg?branch=park)](https://travis-ci.org/peter1201/Zejjibeck)
+
+# Usage
+docker-compose up -d
+
+# Usage(if you have mongo container with zejjibeck network-bridge)
+docker-compose -f docker-compose-nomongo.yml up -d 
+

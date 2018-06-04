@@ -5,17 +5,17 @@ var projectSchema = new Schema({
   owner: String,
   projectName: String,
   question: String,
-  projectType: String, // 'Refine' 'Collect' 'Refine&Collect'
-  dataType: String, // 'Image' 'Audio' 'Text'
+  projectType: String,
+  dataType: String,
   uploadTime: Number,
 
   outputInfo: String,
 
   description: String,
-  fileNo: Number, // upload 된 파일 수
+  fileNo: Number,
   fileExtension: {type:String, default:""},
 
-  refineType: String, //RadioBox, CheckBox, Drag, Text
+  refineType: String,
   refineList: Array,
 
   minimumRefine: Number,
@@ -23,22 +23,24 @@ var projectSchema = new Schema({
   totalCredit: Number,
 
   stateCredit: {type:Number, default: 0},
-  collectCredit: {type: Number, default: 0}, //블락당 크레딧
-  refineCredit: {type: Number, default : 0}, //파일당 크레딧
+  collectCredit: {type: Number, default: 0},
+  refineCredit: {type: Number, default : 0},
 
   blockNo:  {type: Number, default: 1},
   blockSize: Number,
   refineBlocks: Array,
   collectBlock: String,
 
-  projectState : {type: String, default: "Collect"}, // Collect, Refine, cValidate, rValidate finished
+  projectState : {type: String, default: "Collect"},
   completedBlock: {type: Number, default: 0},
   maxCollect : Number,
 
-  totalCountResult: {type: Array, default: []}, // [{5, 2, 4, 1}] minimumrefine 12    ----- for radio , check
+  checkBoxResult: {type: Array, default: []},
+  totalCountResult: {type: Array, default: []},
   totalTextResult: {type: Array, default: []},
   totalCoordinateResult: {type: Array, default: []},
 
   originalFileNames: {type:Array, default: []},
 });
+
 module.exports = mongoose.model('project', projectSchema);

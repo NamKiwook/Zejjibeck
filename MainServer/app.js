@@ -6,7 +6,10 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var connectHistory = require('connect-history-api-fallback')();
 var authMiddleware = require('./routes/middleware/authMiddleware');
+
+//var mongoUrl = 'mongodb://172.22.0.4:27017/zejjibeck';
 var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
+
 var index = require('./routes/index');
 var signUp = require('./routes/signUp');
 var login = require('./routes/login');
@@ -35,7 +38,7 @@ app.set('view engine', 'pug');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
-//app.use(connectHistory); //ALERT! MUST DELETE THIS ANNOTATE BEFORE USE(IT'S FOR USING POSTMAN)
+app.use(connectHistory);
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
