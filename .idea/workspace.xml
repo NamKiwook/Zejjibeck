@@ -2,42 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3270fa6d-96a7-40bf-b93e-43a63b92a9a4" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/css/app.8092713049d9b620691b180205dfb265.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/css/app.8092713049d9b620691b180205dfb265.css.map" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/img/cho.b1fee22.jpeg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/img/index-img.70d62ec.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/img/nam.d00926d.jpg" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/img/pyeon.0a78df3.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/img/tae.b99820b.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.8888d5e1fc3d5affeca4.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.8888d5e1fc3d5affeca4.js.map" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/MainServer/app.js" afterPath="$PROJECT_DIR$/MainServer/app.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/model/project.js" afterPath="$PROJECT_DIR$/MainServer/model/project.js" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.5d729ca68bcfc7c3e9f3c7d09b1b3f48.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.5d729ca68bcfc7c3e9f3c7d09b1b3f48.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.5dee5a647b600fedd50e1dbace963d25.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.5dee5a647b600fedd50e1dbace963d25.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8b892ce3bcca42ba02dd6093af5f5bf9.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8b892ce3bcca42ba02dd6093af5f5bf9.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8dac25678b248fa7ea6f4bf5c2c881cd.css" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8dac25678b248fa7ea6f4bf5c2c881cd.css.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.5b6a7f32314623f330bb.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.5b6a7f32314623f330bb.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.71ec0306c67e7a0a1e87.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.71ec0306c67e7a0a1e87.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.83924d7463ac6c8811ab.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.83924d7463ac6c8811ab.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.9eda284f3226fa0b33ac.js" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.9eda284f3226fa0b33ac.js.map" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/app.js" afterPath="$PROJECT_DIR$/VerificationServer/app.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" afterPath="$PROJECT_DIR$/VerificationServer/model/blockInfo.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/model/project.js" afterPath="$PROJECT_DIR$/VerificationServer/model/project.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/model/user.js" afterPath="$PROJECT_DIR$/VerificationServer/model/user.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/routes/index.js" afterPath="$PROJECT_DIR$/VerificationServer/routes/index.js" />
-      <change beforePath="$PROJECT_DIR$/VerificationServer/views/index.jade" afterPath="$PROJECT_DIR$/VerificationServer/views/index.jade" />
+      <change beforePath="$PROJECT_DIR$/MainServer/routes/collect.js" afterPath="$PROJECT_DIR$/MainServer/routes/collect.js" />
+      <change beforePath="$PROJECT_DIR$/MainServer/routes/upload.js" afterPath="$PROJECT_DIR$/MainServer/routes/upload.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -48,61 +15,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
+      <file leaf-file-name="upload.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="374">
+              <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="collect.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/collect.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="252">
-              <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+              <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainServer/model/project.js">
+      <file leaf-file-name="dashboard.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="576">
-              <caret line="32" column="0" lean-forward="false" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VerificationServer/model/user.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="blockInfo.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VerificationServer/model/blockInfo.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="project.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/VerificationServer/model/project.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="666">
-              <caret line="37" column="16" lean-forward="false" selection-start-line="37" selection-start-column="2" selection-end-line="37" selection-end-column="16" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/MainServer/app.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="414">
+              <caret line="23" column="10" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -119,7 +56,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>DB</find>
       <find>project</find>
       <find>총 참여</find>
       <find>unit</find>
@@ -129,7 +65,6 @@
       <find>user</find>
       <find>출금</find>
       <find>사용가능</find>
-      <find>credit</find>
       <find>&quot;fins</find>
       <find>users</find>
       <find>await</find>
@@ -149,6 +84,8 @@
       <find>refineList</find>
       <find>projects[i].refineList</find>
       <find>refine</find>
+      <find>credit</find>
+      <find>block</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -184,19 +121,16 @@
         <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/MainServer/model/blockInfo.js" />
-        <option value="$PROJECT_DIR$/MainServer/routes/collect.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/refine.js" />
         <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/index.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/navbar.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/loginedNavbar.vue" />
-        <option value="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
         <option value="$PROJECT_DIR$/MainServer/model/credit.js" />
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/credit.vue" />
         <option value="$PROJECT_DIR$/MainServer/model/user.js" />
-        <option value="$PROJECT_DIR$/MainServer/routes/upload.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/credit.js" />
         <option value="$PROJECT_DIR$/MainServer/routes/project.js" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
@@ -208,6 +142,9 @@
         <option value="$PROJECT_DIR$/VerificationServer/model/project.js" />
         <option value="$PROJECT_DIR$/MainServer/model/project.js" />
         <option value="$PROJECT_DIR$/VerificationServer/routes/index.js" />
+        <option value="$PROJECT_DIR$/MainServer/routes/upload.js" />
+        <option value="$PROJECT_DIR$/MainServer/routes/collect.js" />
+        <option value="$PROJECT_DIR$/MainServer/routes/dashboard.js" />
       </list>
     </option>
   </component>
@@ -304,6 +241,52 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="MainServer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="MainServer" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
+              <item name="model" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
+              <item name="routes" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
+              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
+              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scratches" />
       <pane id="Scope">
         <subPane subId="Project Files">
           <expand>
@@ -357,52 +340,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="MainServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="MainServer" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="routes" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="Zejjibeck" type="b2602c69:ProjectViewProjectNode" />
-              <item name="Zejjibeck" type="462c0819:PsiDirectoryNode" />
-              <item name="VerificationServer" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -522,14 +459,18 @@
       <workItem from="1527913429581" duration="12636000" />
       <workItem from="1527934547541" duration="940000" />
       <workItem from="1527947933501" duration="2533000" />
+      <workItem from="1528141008475" duration="189000" />
+      <workItem from="1528111724810" duration="27000" />
+      <workItem from="1528111763419" duration="1743000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="348191000" />
+    <option name="totallyTimeSpent" value="350150000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="337" y="6" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20053908" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -703,13 +644,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/collect.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1057">
-          <caret line="61" column="9" lean-forward="false" selection-start-line="61" selection-start-column="9" selection-end-line="61" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/refine.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="324">
@@ -781,20 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1314">
-          <caret line="73" column="30" lean-forward="false" selection-start-line="73" selection-start-column="30" selection-end-line="73" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="575">
-          <caret line="216" column="0" lean-forward="false" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/MainServer/routes/credit.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -862,7 +782,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -870,7 +789,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -894,7 +812,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -907,8 +824,31 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="547">
+          <caret line="40" column="6" lean-forward="false" selection-start-line="40" selection-start-column="6" selection-end-line="40" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="374">
+          <caret line="70" column="0" lean-forward="false" selection-start-line="70" selection-start-column="0" selection-end-line="70" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/collect.js">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="252">
-          <caret line="23" column="40" lean-forward="false" selection-start-line="23" selection-start-column="40" selection-end-line="23" selection-end-column="40" />
+          <caret line="14" column="44" lean-forward="true" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/MainServer/routes/dashboard.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="414">
+          <caret line="23" column="10" lean-forward="true" selection-start-line="23" selection-start-column="10" selection-end-line="23" selection-end-column="10" />
           <folding />
         </state>
       </provider>

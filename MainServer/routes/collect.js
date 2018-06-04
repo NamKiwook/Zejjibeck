@@ -16,7 +16,16 @@ router.get('/', async function(req,res,err){
   var projectId = req.query.projectId;
   try{
     var project = await projectSchema.findOne({_id: projectId});
-    res.send({projectInfo : project});
+
+    var block = await blockSchema.findOne({_id:project.collectBlock});
+
+    var finished = 0;
+
+    for(var i = 0 ; i < block.finished.length ; i++){
+      if(block.finished[i].upload == true) finished++;
+    }
+
+    res.send({projectInfo : project, collectedData:finished});
   } catch (err){
     res.send({projectInfo: "none"});
   }
