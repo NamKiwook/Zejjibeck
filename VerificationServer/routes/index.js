@@ -20,6 +20,8 @@ var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 var uploadParams ={Bucket: 'zejjibeck', Key:'', Body:''};
 var isRunning = 0;
 
+var isRunning = 0;
+
 const readFile = filePath => new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
         if (err) reject(err);
@@ -57,13 +59,16 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/on', async function(req, res, next){
-  if(isRunning == 0) {
+  if(isRunning == 0){
     isRunning = 1;
-    while(isRunning == 1) {
+    for(;;){
       await runVerification();
-      await sleep(15 * 1000);
+      await sleep(15*1000);
     }
   }
+});
+
+router.get('/off', async function(req, res, next){
 });
 
 async function runVerification(){
@@ -556,6 +561,7 @@ function getFormattedDate(date) {
 function getFormattedDetailDate(date) {
   return date.getFullYear().toString() + "." + pad(10, date.getMonth() + 1) + "." + pad(10, date.getDate()) + " " + pad(10, date.getHours()) + ":" + pad(10, date.getMinutes()) + ":" + pad(10, date.getSeconds()) + ":" + pad(100, date.getMilliseconds());
 }
+
 function pad(padding, n) { return n < padding ? '0' + n : n }
 
 module.exports = router;

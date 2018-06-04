@@ -1,12 +1,14 @@
 version: '2'
 services:
-  mongo:
+  mongo2:
     image: mongo
+    volumes:
+      - /data/db:/data/db
     networks:
       zejjibeckbr:
         ipv4_address: 172.22.0.4
  
-  mainserver:
+  mainserver2:
     build: .
     ports:
       - "3000:3000"
@@ -16,9 +18,9 @@ services:
     env_file:
       - ../credentials.env
     depends_on:
-      - mongo
+      - mongo2
 
-  verificationserver:
+  verificationserver2:
     build: VerificationServer/.
     ports:
       - "3001:3001"    
@@ -28,7 +30,7 @@ services:
       zejjibeckbr:
         ipv4_address: 172.22.0.6
     depends_on:
-      - mongo
+      - mongo2
 
 networks:
   zejjibeckbr:
