@@ -27,7 +27,7 @@
           p Refine 수집 혹은 등록할 데이터의 타입을 선택해주세요.
       .wrap
         label.radioWrap
-          input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
+          input.type#tgypeImg(type="radio", name="dataType", value="Image", v-model="dataType")
           .background 이미지
         .divider
         label.radioWrap
