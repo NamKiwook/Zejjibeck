@@ -6,10 +6,22 @@
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/collect.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/collect.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/projectList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/projectList.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/refine.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/refine.vue" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/upload.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/upload.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.35bda965dd0168ec077c36830c163bd1.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.35bda965dd0168ec077c36830c163bd1.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.6c5a67ced1107262d5c1358185db1f15.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.6c5a67ced1107262d5c1358185db1f15.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8092713049d9b620691b180205dfb265.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.8092713049d9b620691b180205dfb265.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/img/tae.b99820b.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.15b086239bb6fcc98315.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.15b086239bb6fcc98315.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.6d45ad50e487b890a55f.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.6d45ad50e487b890a55f.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8888d5e1fc3d5affeca4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8888d5e1fc3d5affeca4.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -37,8 +49,8 @@
           <file leaf-file-name="projectList.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="288">
-                  <caret line="16" column="52" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="52" />
+                <state relative-caret-position="18">
+                  <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
                 </state>
               </provider>
             </entry>
@@ -46,8 +58,8 @@
           <file leaf-file-name="upload.vue" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="330">
-                  <caret line="539" column="47" selection-start-line="539" selection-start-column="47" selection-end-line="539" selection-end-column="47" />
+                <state relative-caret-position="179">
+                  <caret line="536" column="30" selection-start-line="536" selection-start-column="30" selection-end-line="536" selection-end-column="30" />
                 </state>
               </provider>
             </entry>
@@ -55,7 +67,7 @@
           <file leaf-file-name="App.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="377">
+                <state relative-caret-position="540">
                   <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
                 </state>
               </provider>
@@ -64,7 +76,7 @@
           <file leaf-file-name="login.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/login.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="164">
+                <state relative-caret-position="1476">
                   <caret line="82" column="16" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="16" />
                 </state>
               </provider>
@@ -73,7 +85,7 @@
           <file leaf-file-name="signUp.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="164">
+                <state relative-caret-position="1638">
                   <caret line="91" column="4" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="22" />
                 </state>
               </provider>
@@ -91,8 +103,8 @@
           <file leaf-file-name="refine.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="378">
-                  <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
+                <state relative-caret-position="396">
+                  <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -100,7 +112,7 @@
           <file leaf-file-name="collect.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/collect.vue">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="638">
+                <state relative-caret-position="3834">
                   <caret line="213" column="25" selection-start-line="213" selection-start-column="25" selection-end-line="213" selection-end-column="25" />
                 </state>
               </provider>
@@ -109,7 +121,7 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="collect.vue" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/Client/src/components/collect.vue">
               <provider selected="true" editor-type-id="text-editor">
@@ -171,9 +183,9 @@
       <find>progress-bar</find>
       <find>.p</find>
       <find>p</find>
-      <find>exam</find>
       <find>c100</find>
       <find>올릴</find>
+      <find>exam</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -221,8 +233,8 @@
         <option value="$PROJECT_DIR$/Client/src/components/login.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/collect.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
       </list>
     </option>
@@ -477,25 +489,26 @@
       <workItem from="1527761060065" duration="6649000" />
       <workItem from="1527910820272" duration="579000" />
       <workItem from="1527911413671" duration="3387000" />
-      <workItem from="1528105524195" duration="10579000" />
+      <workItem from="1528105524195" duration="11151000" />
+      <workItem from="1528272428446" duration="13000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="260649000" />
+    <option name="totallyTimeSpent" value="261234000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-7" width="2704" height="1166" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.072862454" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.12081785" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5006784" side_tool="true" weight="0.29973823" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32998884" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.18346007" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.18346007" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
@@ -508,23 +521,23 @@
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32998884" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2438616" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
-      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info active="true" anchor="bottom" id="Terminal" order="9" sideWeight="0.49932158" visible="true" weight="0.32664436" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5006784" side_tool="true" weight="0.29973823" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Find" order="1" />
       <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
@@ -727,42 +740,28 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/App.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="377">
+        <state relative-caret-position="540">
           <caret line="30" column="21" selection-start-line="30" selection-start-column="21" selection-end-line="30" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/login.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
+        <state relative-caret-position="1476">
           <caret line="82" column="16" selection-start-line="82" selection-start-column="14" selection-end-line="82" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/signUp.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
+        <state relative-caret-position="1638">
           <caret line="91" column="4" selection-start-line="91" selection-start-column="4" selection-end-line="91" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="16" column="52" selection-start-line="16" selection-start-column="23" selection-end-line="16" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="21" column="16" selection-start-line="21" selection-start-column="16" selection-end-line="21" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/collect.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
+        <state relative-caret-position="3834">
           <caret line="213" column="25" selection-start-line="213" selection-start-column="25" selection-end-line="213" selection-end-column="25" />
         </state>
       </provider>
@@ -774,10 +773,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/refine.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="22" column="28" selection-start-line="22" selection-start-column="28" selection-end-line="22" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="18" column="23" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="539" column="47" selection-start-line="539" selection-start-column="47" selection-end-line="539" selection-end-column="47" />
+        <state relative-caret-position="179">
+          <caret line="536" column="30" selection-start-line="536" selection-start-column="30" selection-end-line="536" selection-end-column="30" />
         </state>
       </provider>
     </entry>

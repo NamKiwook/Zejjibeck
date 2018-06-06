@@ -534,6 +534,7 @@ export default {
     display: flex;
     flex-flow: column;
     position: relative;
+    background-color: #fbfbfb;
   }
   .modal-container > .close-btn {
     display: inline-block;
