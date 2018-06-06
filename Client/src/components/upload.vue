@@ -3,10 +3,13 @@
     .loading-bar
       .gaze(:style="{ width: uploadPercent+'%' }")
     section.typeWrap
-      .title 프로젝트 타입
+      .title 과제 의뢰 유형
         .detail ?
         .description
-          p Refine 데이터 수집인지 정제인지 수집 및 정제인지 선택할 수 있습니다.
+          p
+            | 데이터 수집은 원하는 데이터를 얻고자 할 때 사용합니다.
+            br
+            | 데이터 정제는 데이터에 추가적인 의미를 부여할 때 사용합니다.
       .wrap
         label.radioWrap
           input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
@@ -21,10 +24,10 @@
           .background 수집 및 정제
 
     section.typeWrap
-      .title 데이터 타입
+      .title 데이터 유형
         .detail ?
         .description
-          p Refine 수집 혹은 등록할 데이터의 타입을 선택해주세요.
+          p 수집 혹은 정제할 대상의 데이터 유형을 선택해주세요.
       .wrap
         label.radioWrap
           input.type#tgypeImg(type="radio", name="dataType", value="Image", v-model="dataType")
@@ -38,25 +41,35 @@
           input.type(type="radio", name="dataType", value="Text", v-model="dataType")
           .background 텍스트
     section.textWrap
-      .title 프로젝트 이름
+      .title 과제 제목
         .detail ?
         .description
-          p 프로젝트 이름을 입력해주세요. (중복불가)
+          p 중복된 제목은 불가능합니다.
       input.text#projectName(type='text', spellcheck='false', v-model="projectName")
     section.textWrap
-      .title 프로젝트 설명
+      .title 과제 설명
         .detail ?
         .description
-          p 프로젝트에 대한 상세 설명을 적어주세요.
+          p
+            | 괴제에 대한 자세한 설명을 적어주세요.
       textarea.text#description(spellcheck='false', v-model="description")
     section.textWrap
-      .title 프로젝트 질문
+      .title 수집 요구사항
         .detail ?
         .description
-          p Refine 작업에 들어갈 질문을 입력해주세요.
+          p 수집에 필요한 요구사항을 적어주세요.
+      textarea.text(spellcheck='false', v-model="question2")
+    section.textWrap
+      .title 정제 요구사항
+        .detail ?
+        .description
+          p 정제에 필요한 요구사항을 적어주세요.
       textarea.text#question(spellcheck='false', v-model="question")
     section.textWrap
-      .title 프로젝트 비용
+      .title 과제 비용
+        .detail ?
+        .description
+          p 총 과제의 비용으로 과제를 수행한 사람들에게 동등하게 나누어집니다.
       input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
     section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title 정제 타입
@@ -83,22 +96,22 @@
         input.tagType(type="radio", name="refineType", value="Drag", v-model="refineType")
         span.radiomark
     section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
-      .title Maximum Number of Data
+      .title 수집 데이터 수
         .detail ?
         .description
-          p Refine 작업에 들어갈 질문을 입력해주세요.
+          p 총 수집하고자 하는 데이터의 갯수를 입력해주세요.
       input.text(type='text', v-model="maxCollect", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title 블록 사이즈
         .detail ?
         .description
-          p 블록 사이즈를 지정해주세요.
+          p 블록은 정제 시 한 사람이 수행하게 되는 과제의 데이터의 갯수입니다.
       input.text#blockSize(type='text', v-model="blockSize", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title 최소 정제 횟수
+      .title 데이터 당 정제 횟수
         .detail ?
         .description
-          p 문제당 필요한 최소 정제 횟수를 지정해줍니다.
+          p 각 데이터 당 필요한 정제 횟수를 입력해주세요.
       input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
     section.tagValue(v-if="(refineType === 'Radio' || refineType === 'Checkbox') && (projectType === 'Refine' || projectType === 'Refine&Collect')")
       .title 객관식 보기
