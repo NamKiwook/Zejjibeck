@@ -128,9 +128,17 @@
     section.upload.active(v-if="projectType === 'Refine'")
       .title 파일첨부
       form#ajaxFrom(enctype="multipart/form-data")
-        input#ajaxFile(type="file", multiple="multiple", @change="fileChange", accept="audio/*")
+        input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
+    .example(@click="showExample()") 예시보기
     input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
     input.btn.register.disable(type="button", value="REGISTER", v-else)
+    modal(name="example-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
+      .modal-container
+        a.close-btn(@click="hide")
+        .title 데이터 정제
+        img(src="../assets/refine-example.png")
+        .title 데이터 수집
+        img(src="../assets/collect-example.png")
 </template>
 
 <script>
@@ -275,6 +283,12 @@ export default {
           this.$router.push('/dashboard')
         }
       })
+    },
+    showExample () {
+      this.$modal.show('example-modal')
+    },
+    hide () {
+      this.$modal.hide('example-modal')
     }
   }
 }
@@ -504,6 +518,45 @@ export default {
     border: 0;
     background-color: #2979ff;
     color: #fff;
+  }
+  .example {
+    margin-top: 30px;
+    float: left;
+    background-color: inherit;
+    color: #b9b9b9;
+    line-height: 48px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+  }
+  .modal-container {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+  }
+  .modal-container > .close-btn {
+    display: inline-block;
+    background-image: url("../assets/close-gray.png");
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px; top: 10px;
+    z-index: 999;
+  }
+  .modal-container > .title {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #5991ee;
+    padding: 16px;
+    color: #fff;
+  }
+  .modal-container > img {
+    width: 100%;
+    padding: 30px 20px;
   }
   .btn.register {
     margin-top: 30px;

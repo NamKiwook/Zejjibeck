@@ -4,19 +4,19 @@
       .modal-container
         a.close-btn(@click="hide")
         .box
-          .title 프로젝트 이름
+          .title 과제 제목
           .sep :
           .description {{modalProject.projectName}}
         .box
-          .title 프로젝트 설명
+          .title 과제 설명
           .sep :
           .description {{modalProject.description}}
         .box
-          .title 프로젝트 타입
+          .title 과제 의뢰 유형
           .sep :
           .description {{modalProject.projectState}}
         .box
-          .title 데이터 타입
+          .title 데이터 유형
           .sep :
           .description {{modalProject.dataType}}
         .box
@@ -55,141 +55,151 @@
         a(@click="nextList(currentPage + 10)",  v-scroll-to="'#listTop'") &raquo;
 </template>
 <script>
-export default {
-  name: 'projectList',
-  data () {
-    return {
-      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', stateCredit: 0, description: 'default', dataType: 'default'},
-      projectList: [],
-      currentPage: 1,
-      totalPage: 1,
-      filter: 'recent',
-      category: 'ALL',
-      startNavigator: 1,
-      endNavigator: 1,
-      isTypeClicked: false,
-      sortedBy: 'dec'
-    }
-  },
-  watch: {
-    $route () {
-      this.loadList()
+  export default {
+    name: 'projectList',
+    data() {
+      return {
+        modalProject: {
+          projectName: 'default',
+          blockNo: 0,
+          completedBlock: 0,
+          projectType: 'default',
+          stateCredit: 0,
+          description: 'default',
+          dataType: 'default'
+        },
+        projectList: [],
+        currentPage: 1,
+        totalPage: 1,
+        filter: 'recent',
+        category: 'ALL',
+        startNavigator: 1,
+        endNavigator: 1,
+        isTypeClicked: false,
+        sortedBy: 'dec'
+      }
     },
-    category () {
-      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    watch: {
+      $route() {
+        this.loadList()
+      },
+      category() {
+        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+      },
+      filter() {
+        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+      },
+      currentPage() {
+        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+      },
+      sortedBy() {
+        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+      }
     },
-    filter () {
-      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    async created() {
+      await this.loadList()
     },
-    currentPage () {
-      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-    },
-    sortedBy () {
-      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-    }
-  },
-  async created () {
-    await this.loadList()
-  },
-  methods: {
-    parseDate (project) {
-      var date = new Date(project.uploadTime)
-      var month = date.getMonth() + 1
-      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
-    },
-    dateClick () {
-      if (this.filter === 'recent') {
-        if (this.sortedBy === 'dec') {
-          this.sortedBy = 'inc'
+    methods: {
+      parseDate(project) {
+        var date = new Date(project.uploadTime)
+        var month = date.getMonth() + 1
+        return date.getFullYear() + '. ' + month + '. ' + date.getDate()
+      },
+      dateClick() {
+        if (this.filter === 'recent') {
+          if (this.sortedBy === 'dec') {
+            this.sortedBy = 'inc'
+          } else {
+            this.sortedBy = 'dec'
+          }
         } else {
+          this.filter = 'recent'
           this.sortedBy = 'dec'
         }
-      } else {
-        this.filter = 'recent'
-        this.sortedBy = 'dec'
-      }
-    },
-    creditClick () {
-      if (this.filter === 'credit') {
-        if (this.sortedBy === 'dec') {
-          this.sortedBy = 'inc'
+      },
+      creditClick() {
+        if (this.filter === 'credit') {
+          if (this.sortedBy === 'dec') {
+            this.sortedBy = 'inc'
+          } else {
+            this.sortedBy = 'dec'
+          }
         } else {
+          this.filter = 'credit'
           this.sortedBy = 'dec'
         }
-      } else {
-        this.filter = 'credit'
-        this.sortedBy = 'dec'
-      }
-    },
-    selectType (category) {
-      this.category = category
-    },
-    typeClick () {
-      this.isTypeClicked = !this.isTypeClicked
-    },
-    loadList () {
-      if (this.$route.params.sortedBy) {
-        this.sortedBy = this.$route.params.sortedBy
-      }
-      if (this.$route.params.page) {
-        this.currentPage = Number.parseInt(this.$route.params.page)
-      }
-      if (this.$route.params.filter) {
-        this.filter = this.$route.params.filter
-      }
-      if (this.$route.params.category) {
-        this.category = this.$route.params.category
-      }
-      this.$http.get('/api/project/list', {params: {
-        page: this.currentPage,
-        filter: this.filter,
-        category: this.category,
-        listNo: 10,
-        sortedBy: this.sortedBy
-      }}).then((res) => {
-        this.projectList = res.data.projectList
-        this.totalPage = res.data.totalPage
+      },
+      selectType(category) {
+        this.category = category
+      },
+      typeClick() {
+        this.isTypeClicked = !this.isTypeClicked
+      },
+      loadList() {
+        if (this.$route.params.sortedBy) {
+          this.sortedBy = this.$route.params.sortedBy
+        }
+        if (this.$route.params.page) {
+          this.currentPage = Number.parseInt(this.$route.params.page)
+        }
+        if (this.$route.params.filter) {
+          this.filter = this.$route.params.filter
+        }
+        if (this.$route.params.category) {
+          this.category = this.$route.params.category
+        }
+        this.$http.get('/api/project/list', {
+          params: {
+            page: this.currentPage,
+            filter: this.filter,
+            category: this.category,
+            listNo: 10,
+            sortedBy: this.sortedBy
+          }
+        }).then((res) => {
+          this.projectList = res.data.projectList
+          this.totalPage = res.data.totalPage
 
-        if (this.currentPage - 4 > 0) {
-          this.startNavigator = this.currentPage - 4
-        } else {
-          this.startNavigator = 1
+          if (this.currentPage - 4 > 0) {
+            this.startNavigator = this.currentPage - 4
+          } else {
+            this.startNavigator = 1
+          }
+          if (this.currentPage + 4 < this.totalPage) {
+            this.endNavigator = this.currentPage + 4
+          } else {
+            this.endNavigator = this.totalPage
+          }
+        }).catch((err) => {
+          alert(err)
+        })
+      },
+      nextList(page) {
+        if (page > this.totalPage) {
+          page = this.totalPage
         }
-        if (this.currentPage + 4 < this.totalPage) {
-          this.endNavigator = this.currentPage + 4
-        } else {
-          this.endNavigator = this.totalPage
+        if (page <= 0) {
+          page = 1
         }
-      }).catch((err) => {
-        alert(err)
-      })
-    },
-    nextList (page) {
-      if (page > this.totalPage) {
-        page = this.totalPage
-      }
-      if (page <= 0) {
-        page = 1
-      }
-      this.currentPage = page
-    },
-    show (project) {
-      this.modalProject = project
-      this.$modal.show('project')
-    },
-    hide () {
-      this.$modal.hide('project')
-    },
-    selectProject (project) {
-      this.$modal.hide('project')
-      if (project.projectState === 'Refine') {
-        this.$router.push({path: `/refine/${project._id}`})
-      } else if (project.projectState === 'Collect') {
-        this.$router.push({path: `/collect/${project._id}`})
+        this.currentPage = page
+      },
+      show(project) {
+        this.modalProject = project
+        this.$modal.show('project')
+      },
+      hide() {
+        this.$modal.hide('project')
+      },
+      selectProject(project) {
+        this.$modal.hide('project')
+        if (project.projectState === 'Refine') {
+          this.$router.push({path: `/refine/${project._id}`})
+        } else if (project.projectState === 'Collect') {
+          this.$router.push({path: `/collect/${project._id}`})
+        }
       }
     }
   }
-}
 </script>
 <style scoped>
   .filter-arrow {
@@ -200,6 +210,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
   .filter-arrow > .up {
     background-image: url("../assets/up-arrow.png");
     background-position: center;
@@ -208,6 +219,7 @@ export default {
     width: 6px;
     height: 6px;
   }
+
   .filter-arrow > .down {
     background-image: url("../assets/down-arrow.png");
     background-position: center;
@@ -216,10 +228,12 @@ export default {
     width: 6px;
     height: 6px;
   }
+
   .container {
     margin-top: 150px;
     overflow: hidden;
   }
+
   .container > .title {
     display: inline-block;
     width: 100%;
@@ -228,15 +242,18 @@ export default {
     padding: 10px;
     margin: 10px;
   }
+
   .container > section {
     max-width: 880px;
     width: 90%;
     margin: 20px auto;
   }
+
   .menu {
     padding: 20px;
     height: 50px;
   }
+
   .menu > .title {
     text-align: center;
     border-radius: 4px;
@@ -245,8 +262,9 @@ export default {
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .credit {
-    display:flex;
+    display: flex;
     align-items: center;
     float: right;
     width: 65px;
@@ -254,8 +272,9 @@ export default {
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .type {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     float: right;
@@ -265,6 +284,7 @@ export default {
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .type > .dropdown-box {
     display: none;
     flex-flow: column;
@@ -274,20 +294,25 @@ export default {
     border: 1px solid #eee;
     top: 20px;
   }
+
   .menu > .type.active > .dropdown-box {
     display: flex;
   }
+
   .menu > .type > .dropdown-box > a {
     padding: 5px 10px;
   }
+
   .menu > .type > .dropdown-box > a:hover {
     background-color: #eee;
   }
+
   .menu > .type > .dropdown {
     color: #a7b3bf;
     font-size: 12px;
     margin-left: auto;
   }
+
   .project {
     background-color: #fff;
     padding: 18px 20px;
@@ -295,9 +320,11 @@ export default {
     margin: 3px 0;
     transition: all 0.3s;
   }
+
   .project:hover {
-    box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.05);
   }
+
   .project > .date {
     display: flex;
     color: #8492a6;
@@ -305,6 +332,7 @@ export default {
     line-height: 35px;
     width: 100px;
   }
+
   .project > .title-wrap {
     display: inline-block;
     text-overflow: ellipsis;
@@ -312,15 +340,18 @@ export default {
     overflow: hidden;
     width: calc(100% - 300px);
   }
+
   .project > .title-wrap > .date {
     font-size: 11px;
     color: #8492a6;
     margin-bottom: 5px;
   }
+
   .project > .title-wrap > .title {
     display: inline-block;
     font-weight: bold;
   }
+
   .project > .credit {
     width: 100px;
     line-height: 40px;
@@ -329,6 +360,7 @@ export default {
     float: right;
     margin-right: 50px;
   }
+
   .project > .type {
     background-color: #2979ff;
     color: #fff;
@@ -336,36 +368,43 @@ export default {
     font-size: 12px;
     text-align: center;
     width: 80px;
-    float:right;
+    float: right;
     border-radius: 20px;
     margin-top: 5px;
     margin-right: 20px;
   }
+
   .project > .type.Refine {
     background-color: #5991ee;
   }
+
   .project > .type.Collect {
     background-color: #62ce8d;
   }
+
   .pagination {
     text-align: center;
     padding: 10px 0;
   }
+
   .pagination > a {
     display: inline-block;
     border-radius: 50%;
     padding: 8px 15px;
     text-decoration: none;
   }
+
   .pagination a.active {
     background-color: #4e4e4e;
     color: white;
   }
+
   .modal-container {
     padding: 50px 20px;
     text-align: center;
     position: relative;
   }
+
   .modal-container > .close-btn {
     display: inline-block;
     background-image: url("../assets/close.png");
@@ -375,46 +414,57 @@ export default {
     width: 30px;
     height: 30px;
     position: absolute;
-    right: 10px; top: 10px;
+    right: 10px;
+    top: 10px;
   }
+
   .modal-container > .box {
     display: flex;
     text-align: left;
     padding: 10px;
     border-bottom: 1px solid #eeeeee;
   }
+
   .modal-container > .box > .title {
     width: 100px;
     font-weight: 800;
     font-size: 12px;
   }
+
   .modal-container > .box > .sep {
     font-size: 12px;
     padding: 0 10px;
   }
+
   .modal-container > .box > .description {
     font-size: 12px;
     width: calc(100% - 130px);
   }
+
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
   }
+
   @media only screen and (max-width: 1080px) {
     .container {
       margin-left: 0;
     }
+
     .menu > .credit {
       margin-right: 20px;
     }
+
     .project {
       height: 120px;
     }
-    .project >  .title-wrap {
+
+    .project > .title-wrap {
       display: block;
       margin-bottom: 10px;
       width: 100%;
     }
+
     .project > .credit {
       margin-right: 30px;
     }
