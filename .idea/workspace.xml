@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/Client/src/components/dashboard.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/dashboard.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Client/src/components/projectList.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/projectList.vue" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.3cb11f7b5c1740c58fc93b2a73584471.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.3cb11f7b5c1740c58fc93b2a73584471.css.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8af64632b0064fcfd2c4.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.8af64632b0064fcfd2c4.js.map" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -38,20 +43,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="projectList.vue" pinned="false" current-in-tab="true">
+      <file leaf-file-name="projectList.vue" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="402">
-              <caret line="527" column="4" selection-start-line="527" selection-start-column="4" selection-end-line="527" selection-end-column="4" />
+            <state relative-caret-position="978">
+              <caret line="526" column="2" selection-start-line="526" selection-start-column="2" selection-end-line="526" selection-end-column="43" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="upload.vue" pinned="false" current-in-tab="false">
+      <file leaf-file-name="upload.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="507" column="47" selection-start-line="507" selection-start-column="47" selection-end-line="507" selection-end-column="47" />
+            <state relative-caret-position="348">
+              <caret line="566" column="3" selection-start-line="566" selection-start-column="3" selection-end-line="566" selection-end-column="3" />
             </state>
           </provider>
         </entry>
@@ -124,7 +129,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>3c4858</find>
       <find>finished</find>
       <find>state</find>
       <find>#3</find>
@@ -145,15 +149,16 @@
       <find>.project &gt; .credit</find>
       <find>.credit</find>
       <find>project-</find>
-      <find>profile-img</find>
       <find>close-gray</find>
       <find>.project</find>
       <find>.progress</find>
       <find>refine</find>
       <find>.text</find>
       <find>.project &gt;</find>
-      <find>progress-bar</find>
       <find>.type</find>
+      <find>profile-img</find>
+      <find>progress-bar</find>
+      <find>:hover</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -201,9 +206,9 @@
         <option value="$PROJECT_DIR$/Client/src/components/signUp.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/refine.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/collect.vue" />
-        <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/dashboard.vue" />
         <option value="$PROJECT_DIR$/Client/src/components/projectList.vue" />
+        <option value="$PROJECT_DIR$/Client/src/components/upload.vue" />
       </list>
     </option>
   </component>
@@ -458,12 +463,12 @@
       <workItem from="1527910820272" duration="579000" />
       <workItem from="1527911413671" duration="3387000" />
       <workItem from="1528105524195" duration="11151000" />
-      <workItem from="1528272428446" duration="7946000" />
+      <workItem from="1528272428446" duration="8420000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="269167000" />
+    <option name="totallyTimeSpent" value="269641000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-7" width="1488" height="878" extended-state="6" />
@@ -734,20 +739,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/collect.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="256" column="22" selection-start-line="256" selection-start-column="22" selection-end-line="256" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
-          <caret line="507" column="47" selection-start-line="507" selection-start-column="47" selection-end-line="507" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/dashboard.vue">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="352">
@@ -755,10 +746,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/collect.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="256" column="22" selection-start-line="256" selection-start-column="22" selection-end-line="256" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/projectList.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="527" column="4" selection-start-line="527" selection-start-column="4" selection-end-line="527" selection-end-column="4" />
+        <state relative-caret-position="978">
+          <caret line="526" column="2" selection-start-line="526" selection-start-column="2" selection-end-line="526" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Client/src/components/upload.vue">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="566" column="3" selection-start-line="566" selection-start-column="3" selection-end-line="566" selection-end-column="3" />
         </state>
       </provider>
     </entry>
