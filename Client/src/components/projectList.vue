@@ -48,6 +48,7 @@
           .title {{project.projectName}}
         .type(:class="project.projectState") {{projectStateName(project.projectState)}}
         .credit {{project.stateCredit.toLocaleString()}}원
+          .text / 개당
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -288,7 +289,7 @@ export default {
     display: flex;
     align-items: center;
     float: right;
-    width: 65px;
+    width: 85px;
     margin-right: 40px;
     font-size: 14px;
     color: #a7b3bf;
@@ -299,7 +300,7 @@ export default {
     justify-content: center;
     align-items: center;
     float: right;
-    width: 80px;
+    width: 60px;
     position: relative;
     margin-right: 20px;
     font-size: 14px;
@@ -374,12 +375,20 @@ export default {
   }
 
   .project > .credit {
-    width: 100px;
-    line-height: 40px;
-    font-size: 14px;
+    width: 120px;
+    line-height: 20px;
+    font-size: 15px;
+    margin-top: 15px;
     text-align: right;
     float: right;
     margin-right: 50px;
+  }
+  .project > .credit > .text {
+    float: right;
+    font-size: 10px;
+    color: #bcbcbc;
+    margin-left: 4px;
+    margin-top: 1.5px;
   }
 
   .project > .type {
@@ -388,7 +397,7 @@ export default {
     line-height: 35px;
     font-size: 12px;
     text-align: center;
-    width: 80px;
+    width: 60px;
     float: right;
     border-radius: 20px;
     margin-top: 5px;

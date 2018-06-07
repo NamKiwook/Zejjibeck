@@ -47,7 +47,7 @@ div.container
         .sep :
         .description {{projectTypeName(modalProject.projectType)}}
       .box
-        .title 과제 유형
+        .title 데이터 유형
         .sep :
         .description {{projectDataName(modalProject.dataType)}}
       .box
@@ -136,6 +136,7 @@ div.container
         .title {{project.projectName}}
       .type(:class="project.projectState") {{projectStateName(project.projectState)}}
       .credit {{project.stateCredit.toLocaleString()}}원
+        .text / 개당
 
 </template>
 
@@ -686,7 +687,7 @@ export default {
   display: flex;
   align-items: center;
   float: right;
-  width: 65px;
+  width: 85px;
   margin-right: 40px;
   font-size: 14px;
   color: #a7b3bf;
@@ -696,7 +697,7 @@ export default {
   justify-content: center;
   align-items: center;
   float: right;
-  width: 80px;
+  width: 60px;
   position: relative;
   margin-right: 20px;
   font-size: 14px;
@@ -729,12 +730,20 @@ export default {
   font-weight: bold;
 }
 .project-list > .project > .credit {
-  width: 100px;
-  line-height: 40px;
-  font-size: 14px;
+  width: 120px;
+  line-height: 20px;
+  font-size: 15px;
+  margin-top: 15px;
   text-align: right;
   float: right;
   margin-right: 50px;
+}
+.project-list > .project > .credit > .text {
+  float: right;
+  font-size: 10px;
+  color: #bcbcbc;
+  margin-left: 4px;
+  margin-top: 1.5px;
 }
 .project-list > .project > .type {
   background-color: #2979ff;
@@ -742,7 +751,7 @@ export default {
   line-height: 35px;
   text-align: center;
   font-size: 12px;
-  width: 80px;
+  width: 60px;
   float: right;
   border-radius: 20px;
   margin-top: 5px;
