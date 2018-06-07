@@ -49,6 +49,8 @@
         .type(:class="project.projectState") {{projectStateName(project.projectState)}}
         .credit {{project.stateCredit.toLocaleString()}}원
           .text / 개당
+        .progress-bar
+          .gaze(:class="project.projectState") 10/300
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -347,14 +349,6 @@ export default {
     box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.05);
   }
 
-  .project > .date {
-    display: flex;
-    color: #8492a6;
-    font-size: 12px;
-    line-height: 35px;
-    width: 100px;
-  }
-
   .project > .title-wrap {
     display: inline-block;
     text-overflow: ellipsis;
@@ -378,7 +372,7 @@ export default {
     width: 120px;
     line-height: 20px;
     font-size: 15px;
-    margin-top: 15px;
+    margin-top: 30px;
     text-align: right;
     float: right;
     margin-right: 50px;
@@ -400,7 +394,7 @@ export default {
     width: 60px;
     float: right;
     border-radius: 20px;
-    margin-top: 5px;
+    margin-top: 24px;
     margin-right: 20px;
   }
 
@@ -409,6 +403,29 @@ export default {
   }
 
   .project > .type.Collect {
+    background-color: #62ce8d;
+  }
+
+  .project > .progress-bar {
+    background-color: #eee;
+    width: 80%;
+    height: 15px;
+    border-radius: 10px;
+    margin-top: 8px;
+    width: calc(100% - 300px);
+  }
+  .project > .progress-bar > .gaze {
+    border-radius: 10px;
+    width: 80%;
+    height: 100%;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+  }
+  .project > .progress-bar > .gaze.Refine {
+    background-color: #5991ee;
+  }
+  .project > .progress-bar > .gaze.Collect {
     background-color: #62ce8d;
   }
 
@@ -497,6 +514,19 @@ export default {
 
     .project > .credit {
       margin-right: 30px;
+      margin-top: 15px;
+    }
+    .project > .type {
+      margin-top: 8px;
+    }
+
+    .project > .progress-bar {
+      margin-top: 28px;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .project > .progress-bar {
+      display: none;
     }
   }
 </style>

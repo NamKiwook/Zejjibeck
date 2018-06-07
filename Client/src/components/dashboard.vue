@@ -137,6 +137,8 @@ div.container
       .type(:class="project.projectState") {{projectStateName(project.projectState)}}
       .credit {{project.stateCredit.toLocaleString()}}원
         .text / 개당
+      .progress-bar
+        .gaze(:class="project.projectState") 10/300
 
 </template>
 
@@ -734,7 +736,7 @@ export default {
   width: 120px;
   line-height: 20px;
   font-size: 15px;
-  margin-top: 15px;
+  margin-top: 30px;
   text-align: right;
   float: right;
   margin-right: 50px;
@@ -755,13 +757,35 @@ export default {
   width: 60px;
   float: right;
   border-radius: 20px;
-  margin-top: 5px;
+  margin-top: 24px;
   margin-right: 20px;
 }
 .project-list > .project > .type.Refine {
   background-color: #5991ee;
 }
 .project-list > .project > .type.Collect {
+  background-color: #62ce8d;
+}
+.project-list > .project > .progress-bar {
+  background-color: #eee;
+  width: 80%;
+  height: 15px;
+  border-radius: 10px;
+  margin-top: 8px;
+  width: calc(100% - 300px);
+}
+.project-list > .project > .progress-bar > .gaze {
+  border-radius: 10px;
+  width: 80%;
+  height: 100%;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+}
+.project-list > .project > .progress-bar > .gaze.Refine {
+  background-color: #5991ee;
+}
+.project-list > .project > .progress-bar > .gaze.Collect {
   background-color: #62ce8d;
 }
 .modal-container {
@@ -873,6 +897,18 @@ export default {
   }
   .project-list > .project > .credit {
     margin-right: 30px;
+    margin-top: 15px;
+  }
+  .project-list > .project > .type {
+    margin-top: 8px;
+  }
+  .project-list > .project > .progress-bar {
+    margin-top: 28px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .project-list > .project > .progress-bar {
+    display: none;
   }
 }
 </style>
