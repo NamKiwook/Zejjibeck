@@ -6,8 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var mongoose = require('mongoose');
-//var mongoUrl = 'mongodb://172.22.0.4:27017/zejjibeck';
-var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
+var mongoUrl = 'mongodb://172.22.0.4:27017/zejjibeck';
+//var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 
 
 var index = require('./routes/index');
