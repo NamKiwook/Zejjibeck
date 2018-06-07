@@ -124,7 +124,7 @@ export default {
             this.logList = res.data.logList
           })
         } else {
-          alert(res.data.errorMassage)
+          alert(res.data.errorMessage)
         }
       }).catch((err) => {
         alert(err)
@@ -143,7 +143,7 @@ export default {
             this.logList = res.data.logList
           })
         } else {
-          alert(res.data.errorMassage)
+          alert(res.data.errorMessage)
         }
       }).catch((err) => {
         alert(err)

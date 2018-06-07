@@ -12,7 +12,7 @@ router.get('/', async function(req,res,next){
     user.profileUrl = data.toString('base64');
     var compare = await userSchema.find({userId: user.userId});
     if(compare.toString())
-      res.send({success:false,errorMassage:"중복된 아이디"});
+      res.send({success:false,errorMessage:"중복된 아이디"});
     else{
       try{
         await user.save();
