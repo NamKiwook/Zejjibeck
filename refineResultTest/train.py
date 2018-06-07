@@ -21,14 +21,19 @@ model_names = sorted(name for name in models.__dict__
     if name.islower() and not name.startswith("__")
     and callable(models.__dict__[name]))
 
-parser = argparse.ArgumentParser(description='PyTorch ABID Counting')
+parser = argparse.ArgumentParser(description='Simple classification')
 parser.add_argument('data', metavar='DIR', help='path to dataset')
 parser.add_argument('--arch', '-a', metavar='ARCH', default='resnet34', choices=model_names, help='model architecture: ' + ' | '.join(model_names) + ' (default: resnet34)')
 parser.add_argument('-j', '--workers', default=8, type=int, metavar='N', help='number of data loading workers (default: 4)')
 parser.add_argument('--epochs', default=40, type=int, metavar='N', help='number of total epochs to run')
-parser.add_argument('-b', '--batch_size', default=32, type=int, metavar='N', help='mini-batch size (default: 256)')
+parser.add_argument('--start-epoch', default=0, type=int, metavar='N', help='manual epoch number (useful on restarts)')
+parser.add_argument('-b', '--batch_size', default=2, type=int, metavar='N', help='mini-batch size (default: 256)')
 parser.add_argument('--lr', '--learning-rate', default=0.1, type=float, metavar='LR', help='initial learning rate')
 parser.add_argument('--lrd','--learning-rate-decay-step', default=10, type=int, metavar='N', help='learning rate decay epoch')
+parser.add_argument('--momentum', default=0.9, type=float, metavar='M', help='momentum')
+parser.add_argument('--weight-decay', '--wd', default=1e-4, type=float, metavar='W', help='weight decay (default: 1e-4)')
+parser.add_argument('--print-freq', '-p', default=10, type=int, metavar='N', help='print frequency (default: 10)')
+parser.add_argument('--resume', default='', type=str, metavar='PATH', help='path to latest checkpoint (default: none)')
 parser.add_argument('--evaluate', default=False, type=bool, metavar='BOOL', help='evaluate or train')
 
 def show_image(im,target):
@@ -55,14 +60,14 @@ def main():
     net = models.__dict__[args.arch]()
 
     in_features = net.fc.in_features
+    
+    print(in_features)
     new_fc = nn.Linear(in_features,2)
     net.fc = new_fc
 
     params = net.parameters()
     snapshot_fname = "snapshots/%s.pth.tar" % args.arch
     snapshot_best_fname = "snapshots/%s_best.pth.tar" % args.arch
-
-    cudnn.benchmark = True
 
     # Data loading code
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
@@ -123,14 +128,12 @@ def train(train_loader, net, criterion, optimizer, epoch):
     net.train()
 
     end = time.time()
-    for i, (input, target) in enumerate(train_loader):
+    for i, (input_, target) in enumerate(train_loader):
         data_time.update(time.time() - end)
         
         #show_image(input,target)
 
-        target = target(async=True)
-        input = input(async=True)
-        input_var = torch.autograd.Variable(input)
+        input_var = torch.autograd.Variable(input_)
         target_var = torch.autograd.Variable(target)
 
         output = net(input_var)
@@ -138,10 +141,10 @@ def train(train_loader, net, criterion, optimizer, epoch):
 
         score,idx = torch.max(output.data,1)
         correct = (target==idx)
-        acc = float(correct.sum())/input.size(0)
+        acc = float(correct.sum())/input_.size(0)
 
-        losses.update(loss.data[0], input.size(0))
-        train_acc.update(acc, input.size(0))
+        losses.update(loss.data[0], input_.size(0))
+        train_acc.update(acc, input_.size(0))
 
         optimizer.zero_grad()
         loss.backward()
@@ -171,8 +174,6 @@ def validate(val_loader, net, criterion, file_out):
 
     end = time.time()
     for i, (input, target) in enumerate(val_loader):
-        target = target(async=True)
-        input = input(async=True)
         input_var = torch.autograd.Variable(input, volatile=True)
         target_var = torch.autograd.Variable(target, volatile=True)
 

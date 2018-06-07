@@ -9,9 +9,8 @@ random_train = "random_train.txt"
 random_val = "random_val.txt"
 
 def get_moderate_list(split_file):
-    print("loading random split file")
+    print("loading random split file :" + split_file)
     train_list = []
-    zzanga = 0
 
     with open(split_file) as f:
         for line in f.readlines():
@@ -25,6 +24,8 @@ def get_moderate_list(split_file):
     return train_list 
 
 if __name__ == "__main__":
+    print("start make data for train/valid")
+
     with open("./results/result.json") as json_file:
         metadata = json.load(json_file)
 
@@ -41,4 +42,4 @@ if __name__ == "__main__":
     with open(out_fname,'wb') as f:
         json.dump(val_list,f)
 
-    print("finished make train/val json file")
+    print("done")

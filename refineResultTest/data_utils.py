@@ -28,7 +28,7 @@ class ImageFolderCounting(data.Dataset):
         # pick up the image
         item = self.data_list[index]
         target = int(item[1])
-        img_path = '%d.png' % (item[0])
+        img_path = '%d.png' % (item[0] + 1)
         img = self.loader(os.path.join(self.root, img_path))
         if self.transform is not None:
             img = self.transform(img)
