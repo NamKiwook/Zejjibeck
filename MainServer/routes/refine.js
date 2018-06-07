@@ -76,9 +76,17 @@ router.get('/', async function(req,res,next) {
         await block.running.push({userId: userId, assignTime: time});
         //TODO: 로직 수정 요함,, 검증서버에서 값을 지우면 오류발생
         if (block.running.length + block.finished.length == project.minimumRefine) {
-          var currentId = block._id;
-          var lastId = project.refineBlocks[project.refineBlocks.length - 1];
-          if(currentId.toString() == lastId.toString()) {
+          var validateFlag = 0;
+
+          for(var j = 0 ; j < parseInt(project.blockNo) ; j++){
+            var checkBlock = await blockSchema.findOne({_id: project.refineBlocks[j]});
+            if(checkBlock.running.length + checkBlock.finished.length != project.minimumRefine){
+              validateFlag= 1;
+            }
+            if(validateFlag == 1) break;
+          }
+
+          if(validateFlag == 0) {
             project.projectState = "rValidate";
             await project.save();
           }

@@ -13,7 +13,7 @@ var projectSchema = require('../model/project');
 
 var blockSchema = require('../model/blockInfo');
 
-var timeInterval = 1000 * 60 * 15; //1000 * 60 * 15;
+var timeInterval = 1000 * 60 * 1; //1000 * 60 * 15;
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
