@@ -12,7 +12,7 @@
           .sep :
           .description {{modalProject.description}}
         .box
-          .title 과제 의뢰 유형
+          .title 과제 유형
           .sep :
           .description {{modalProject.projectState}}
         .box
@@ -23,7 +23,7 @@
           .title 적립금
           .sep :
           .description
-            | 개당 {{modalProject.stateCredit}}원
+            | 개당 {{modalProject.stateCredit.toLocaleString()}}원
         a.btn(@click="selectProject(modalProject)") START
     section
       .menu
@@ -35,9 +35,9 @@
           .filter-arrow
             .down
           .dropdown-box
-            a(@click="selectType('ALL')") All
-            a(@click="selectType('Refine')") Refine
-            a(@click="selectType('Collect')") Collect
+            a(@click="selectType('ALL')") 모두
+            a(@click="selectType('Refine')") 정제
+            a(@click="selectType('Collect')") 수집
         a.credit(@click="creditClick") CREDIT
           .filter-arrow
             .up
@@ -46,8 +46,8 @@
         .title-wrap
           .date {{parseDate(project)}}
           .title {{project.projectName}}
-        .type(:class="project.projectState") {{project.projectState}}
-        .credit {{project.stateCredit}}원
+        .type(:class="project.projectState") {{projectStateName(project.projectState)}}
+        .credit {{project.stateCredit.toLocaleString()}}원
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -55,151 +55,163 @@
         a(@click="nextList(currentPage + 10)",  v-scroll-to="'#listTop'") &raquo;
 </template>
 <script>
-  export default {
-    name: 'projectList',
-    data() {
-      return {
-        modalProject: {
-          projectName: 'default',
-          blockNo: 0,
-          completedBlock: 0,
-          projectType: 'default',
-          stateCredit: 0,
-          description: 'default',
-          dataType: 'default'
-        },
-        projectList: [],
-        currentPage: 1,
-        totalPage: 1,
-        filter: 'recent',
-        category: 'ALL',
-        startNavigator: 1,
-        endNavigator: 1,
-        isTypeClicked: false,
-        sortedBy: 'dec'
+export default {
+  name: 'projectList',
+  data () {
+    return {
+      modalProject: {
+        projectName: 'default',
+        blockNo: 0,
+        completedBlock: 0,
+        projectType: 'default',
+        stateCredit: 0,
+        description: 'default',
+        dataType: 'default'
+      },
+      projectList: [],
+      currentPage: 1,
+      totalPage: 1,
+      filter: 'recent',
+      category: 'ALL',
+      startNavigator: 1,
+      endNavigator: 1,
+      isTypeClicked: false,
+      sortedBy: 'dec'
+    }
+  },
+  watch: {
+    $route () {
+      this.loadList()
+    },
+    category () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    filter () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    currentPage () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    },
+    sortedBy () {
+      this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
+    }
+  },
+  async created () {
+    await this.loadList()
+  },
+  methods: {
+    projectStateName (projectState) {
+      if (projectState === 'rValidate' || projectState === 'cValidate') {
+        return '검증중'
+      } else if (projectState === 'finished') {
+        return '완료'
+      } else if (projectState === 'Refine') {
+        return '정제'
+      } else if (projectState === 'Collect') {
+        return '수집'
       }
+      return projectState
     },
-    watch: {
-      $route() {
-        this.loadList()
-      },
-      category() {
-        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-      },
-      filter() {
-        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-      },
-      currentPage() {
-        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-      },
-      sortedBy() {
-        this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
-      }
+    parseDate (project) {
+      var date = new Date(project.uploadTime)
+      var month = date.getMonth() + 1
+      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
     },
-    async created() {
-      await this.loadList()
-    },
-    methods: {
-      parseDate(project) {
-        var date = new Date(project.uploadTime)
-        var month = date.getMonth() + 1
-        return date.getFullYear() + '. ' + month + '. ' + date.getDate()
-      },
-      dateClick() {
-        if (this.filter === 'recent') {
-          if (this.sortedBy === 'dec') {
-            this.sortedBy = 'inc'
-          } else {
-            this.sortedBy = 'dec'
-          }
+    dateClick () {
+      if (this.filter === 'recent') {
+        if (this.sortedBy === 'dec') {
+          this.sortedBy = 'inc'
         } else {
-          this.filter = 'recent'
           this.sortedBy = 'dec'
         }
-      },
-      creditClick() {
-        if (this.filter === 'credit') {
-          if (this.sortedBy === 'dec') {
-            this.sortedBy = 'inc'
-          } else {
-            this.sortedBy = 'dec'
-          }
+      } else {
+        this.filter = 'recent'
+        this.sortedBy = 'dec'
+      }
+    },
+    creditClick () {
+      if (this.filter === 'credit') {
+        if (this.sortedBy === 'dec') {
+          this.sortedBy = 'inc'
         } else {
-          this.filter = 'credit'
           this.sortedBy = 'dec'
         }
-      },
-      selectType(category) {
-        this.category = category
-      },
-      typeClick() {
-        this.isTypeClicked = !this.isTypeClicked
-      },
-      loadList() {
-        if (this.$route.params.sortedBy) {
-          this.sortedBy = this.$route.params.sortedBy
+      } else {
+        this.filter = 'credit'
+        this.sortedBy = 'dec'
+      }
+    },
+    selectType (category) {
+      this.category = category
+    },
+    typeClick () {
+      this.isTypeClicked = !this.isTypeClicked
+    },
+    loadList () {
+      if (this.$route.params.sortedBy) {
+        this.sortedBy = this.$route.params.sortedBy
+      }
+      if (this.$route.params.page) {
+        this.currentPage = Number.parseInt(this.$route.params.page)
+      }
+      if (this.$route.params.filter) {
+        this.filter = this.$route.params.filter
+      }
+      if (this.$route.params.category) {
+        this.category = this.$route.params.category
+      }
+      this.$http.get('/api/project/list', {
+        params: {
+          page: this.currentPage,
+          filter: this.filter,
+          category: this.category,
+          listNo: 10,
+          sortedBy: this.sortedBy
         }
-        if (this.$route.params.page) {
-          this.currentPage = Number.parseInt(this.$route.params.page)
-        }
-        if (this.$route.params.filter) {
-          this.filter = this.$route.params.filter
-        }
-        if (this.$route.params.category) {
-          this.category = this.$route.params.category
-        }
-        this.$http.get('/api/project/list', {
-          params: {
-            page: this.currentPage,
-            filter: this.filter,
-            category: this.category,
-            listNo: 10,
-            sortedBy: this.sortedBy
-          }
-        }).then((res) => {
-          this.projectList = res.data.projectList
-          this.totalPage = res.data.totalPage
+      }).then((res) => {
+        this.projectList = res.data.projectList
+        this.totalPage = res.data.totalPage
 
-          if (this.currentPage - 4 > 0) {
-            this.startNavigator = this.currentPage - 4
-          } else {
-            this.startNavigator = 1
-          }
-          if (this.currentPage + 4 < this.totalPage) {
-            this.endNavigator = this.currentPage + 4
-          } else {
-            this.endNavigator = this.totalPage
-          }
-        }).catch((err) => {
-          alert(err)
-        })
-      },
-      nextList(page) {
-        if (page > this.totalPage) {
-          page = this.totalPage
+        if (this.currentPage - 4 > 0) {
+          this.startNavigator = this.currentPage - 4
+        } else {
+          this.startNavigator = 1
         }
-        if (page <= 0) {
-          page = 1
+        if (this.currentPage + 4 < this.totalPage) {
+          this.endNavigator = this.currentPage + 4
+        } else {
+          this.endNavigator = this.totalPage
         }
-        this.currentPage = page
-      },
-      show(project) {
-        this.modalProject = project
-        this.$modal.show('project')
-      },
-      hide() {
-        this.$modal.hide('project')
-      },
-      selectProject(project) {
-        this.$modal.hide('project')
-        if (project.projectState === 'Refine') {
-          this.$router.push({path: `/refine/${project._id}`})
-        } else if (project.projectState === 'Collect') {
-          this.$router.push({path: `/collect/${project._id}`})
-        }
+      }).catch((err) => {
+        alert(err)
+      })
+    },
+    nextList (page) {
+      if (page > this.totalPage) {
+        page = this.totalPage
+      }
+      if (page <= 0) {
+        page = 1
+      }
+      this.currentPage = page
+    },
+    show (project) {
+      this.modalProject = project
+      this.$modal.show('project')
+    },
+    hide () {
+      this.$modal.hide('project')
+    },
+    selectProject (project) {
+      this.$modal.hide('project')
+      if (project.projectState === 'Refine') {
+        this.$router.push({path: `/refine/${project._id}`})
+      } else if (project.projectState === 'Collect') {
+        this.$router.push({path: `/collect/${project._id}`})
       }
     }
   }
+}
 </script>
 <style scoped>
   .filter-arrow {

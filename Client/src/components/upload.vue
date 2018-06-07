@@ -53,18 +53,18 @@
           p
             | 괴제에 대한 자세한 설명을 적어주세요.
       textarea.text#description(spellcheck='false', v-model="description")
-    section.textWrap
+    section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
       .title 수집 요구사항
         .detail ?
         .description
           p 수집에 필요한 요구사항을 적어주세요.
-      textarea.text(spellcheck='false', v-model="question2")
-    section.textWrap
+      textarea.text(spellcheck='false', v-model="collectQuestion")
+    section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
       .title 정제 요구사항
         .detail ?
         .description
           p 정제에 필요한 요구사항을 적어주세요.
-      textarea.text#question(spellcheck='false', v-model="question")
+      textarea.text#question(spellcheck='false', v-model="refineQuestion")
     section.textWrap
       .title 과제 비용
         .detail ?
@@ -148,7 +148,8 @@ export default {
     return {
       projectName: null,
       minimumRefine: null,
-      question: null,
+      refineQuestion: null,
+      collectQuestion: null,
       totalCredit: null,
       description: null,
       blockSize: null,
@@ -197,17 +198,17 @@ export default {
   },
   computed: {
     isAble () {
-      if (this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
+      if (this.projectType && this.description && this.totalCredit && this.projectName && this.dataType) {
         if (this.projectType === 'Refine') { // Collect 인 경우
-          if ((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
+          if ((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList && this.refineQuestion)) {
             return true
           }
         } else if (this.projectType === 'Collect') {
-          if (this.maxCollect) {
+          if (this.maxCollect && this.collectQuestion) {
             return true
           }
         } else if (this.projectType === 'Refine&Collect') {
-          if ((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
+          if ((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList && this.collectQuestion && this.refineQuestion)) {
             return true
           }
         }
@@ -243,7 +244,8 @@ export default {
         projectName: this.projectName,
         projectType: this.projectType,
         refineType: this.refineType,
-        question: this.question,
+        refineQuestion: this.refineQuestion,
+        collectQuestion: this.collectQuestion,
         dataType: this.dataType,
         maxCollect: this.maxCollect,
         minimumRefine: this.minimumRefine,

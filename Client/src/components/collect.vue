@@ -7,11 +7,11 @@
         .project-title {{projectInfo.projectName}}
       .problem-wrap
         .description
-          | {{projectInfo.description}}
+          | {{projectInfo.collectQuestion}}
         .progress-wrap
           .title 현재 진행상황
           .progress-bar
-            .gaze 10/40
+            .gaze(:style="{ width: collectingPercent+'%' }") {{collectedData}}/{{projectInfo.maxCollect}}
           .text 남은 데이터의 최대 갯수를 초과해서 업로드 할 수 없습니다.
       .submit-wrap
         form#ajaxFrom(enctype="multipart/form-data")
@@ -27,11 +27,11 @@
         .wrap
           .dot
           .title 사용가능
-          .credit {{this.$store.getters.getUserUsableCredit}}
+          .credit {{parseInt(this.$store.getters.getUserUsableCredit).toLocaleString()}}
         .wrap
           .dot
           .title 적립예정
-          .credit {{this.$store.getters.getUserPrearrangedCredit}}
+          .credit {{parseInt(this.$store.getters.getUserPrearrangedCredit).toLocaleString()}}
 </template>
 
 <script>
@@ -45,7 +45,9 @@ export default {
       numberCollect: 0,
       projectId: null,
       collectPercent: 0,
-      isSubmited: false
+      isSubmited: false,
+      collectedData: null,
+      collectingPercent: 0
     }
   },
   computed: {
@@ -61,7 +63,9 @@ export default {
     this.$http.get('/api/collect', {params: {
       projectId: this.projectId
     }}).then((res) => {
+      this.collectedData = res.data.collectedData
       this.projectInfo = res.data.projectInfo
+      this.collectingPercent = parseInt((this.collectedData / this.projectInfo.maxCollect) * 100)
     })
   },
   methods: {

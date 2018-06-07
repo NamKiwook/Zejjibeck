@@ -4,66 +4,57 @@ div.container
     .modal-container
       a.close-btn(@click="hide")
       .box
-        .title 프로젝트 이름
+        .title 과제 제목
         .sep :
         .description {{modalProject.projectName}}
       .box
-        .title 프로젝트 설명
+        .title 과제 설명
         .sep :
         .description {{modalProject.description}}
       .box
-        .title 프로젝트 타입
+        .title 과제 유형
         .sep :
-        .description {{modalProject.projectState}}
+        .description {{projectStateName(modalProject.projectState)}}
       .box
-        .title 데이터 타입
+        .title 데이터 유형
         .sep :
-        .description {{modalProject.dataType}}
+        .description {{projectDataName(modalProject.dataType)}}
       .box
         .title 적립금
         .sep :
         .description
-          | 개당 {{modalProject.stateCredit}}원
+          | 개당 {{modalProject.stateCredit.toLocaleString()}}원
       a.btn(@click="selectProject(modalProject)") START
 
   modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
-        .title 프로젝트 이름
+        .title 과제 제목
         .sep :
         .description {{modalProject.projectName}}
       .box
-        .title 프로젝트 설명
+        .title 과제 설명
         .sep :
         .description(v-if="!isEditDescription") {{modalProject.description}}
           .edit-btn(@click="edit('Description')")
         .edit-wrap(v-else)
           textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
           .save.btn(@click="saveEdit('Description',modalProject)") 저장
-          .close.btn(@click="closeEdit('Description')") 취소
+          .close.btn(@click="closeEdit('Description')") 취소\
       .box
-        .title 프로젝트 질문
+        .title 과제 유형
         .sep :
-        .description(v-if="!isEditQuestion") {{modalProject.question}}
-          .edit-btn(@click="edit('Question')")
-        .edit-wrap(v-else)
-          textarea(:value="modalProject.question" ref="changeQuestion", spellcheck='false')
-          .save.btn(@click="saveEdit('Question',modalProject)") 저장
-          .close.btn(@click="closeEdit('Question')") 취소
+        .description {{projectTypeName(modalProject.projectType)}}
       .box
-        .title 프로젝트 타입
+        .title 과제 유형
         .sep :
-        .description {{modalProject.projectType}}
-      .box
-        .title 데이터 타입
-        .sep :
-        .description {{modalProject.dataType}}
+        .description {{projectDataName(modalProject.dataType)}}
       .box
         .title 적립금
         .sep :
         .description
-          | {{modalProject.totalCredit}}원
+          | {{modalProject.totalCredit.toLocaleString()}}원
       a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
       a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
@@ -73,7 +64,7 @@ div.container
     .credit-wrap
       .wrap
         .dot.green
-        .name 총 참여 프로젝트
+        .name 나의 프로젝트
       .point {{processingProjectNo + processedProjectNo}}
       .wrap
         .title 완료된 프로젝트
@@ -86,14 +77,14 @@ div.container
       .wrap
         .dot.blue
         .name 총 크레딧
-      .point {{usableCredit+prearrangedCredit}}
+      .point {{(usableCredit+prearrangedCredit).toLocaleString()}}
       .wrap
         .title 사용 가능
-        .point {{usableCredit}}
+        .point {{usableCredit.toLocaleString()}}
       .divider
       .wrap
         .title 적립 예정
-        .point {{prearrangedCredit}}
+        .point {{prearrangedCredit.toLocaleString()}}
     <!--router-link.detail(to='/credit')-->
   .divider(v-if="projectsInfoList.length !== 0")
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
@@ -104,10 +95,10 @@ div.container
         .problem-wrap
           .total
             .num {{projectInfo.maxCollect}}
-            .text Total Collect
+            .text 총 수집할 파일
           .solved
             .num {{projectInfo.currentCollect}}
-            .text Current Collect
+            .text 현재 수집된 파일
         .col-xs-6
           .inner-content.text-center
             .c100.center(:class="[[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)], projectStateClass(projectInfo.projectState)]")
@@ -120,15 +111,15 @@ div.container
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
-            .num {{projectInfo.totalBlock}}
-            .text Total Refine Block
+            .num {{projectInfo.fileNo}}
+            .text 총 정제할 파일
           .solved
-            .num {{projectInfo.currentBlock}}
-            .text Current Refine Block
+            .num {{currentRefine(projectInfo)}}
+            .text 현재 정제된 파일
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)], projectStateClass(projectInfo.projectState)]")
-              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[[percent(currentRefine(projectInfo) / projectInfo.fileNo * 100)], projectStateClass(projectInfo.projectState)]")
+              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(currentRefine(projectInfo) / projectInfo.fileNo * 100)}}%
               .slice
                 .bar
                 .fill
@@ -143,8 +134,8 @@ div.container
       .title-wrap
         .date {{parseDate(project)}}
         .title {{project.projectName}}
-      .type(:class="project.projectState") {{project.projectState}}
-      .credit {{project.stateCredit}}원
+      .type(:class="project.projectState") {{projectStateName(project.projectState)}}
+      .credit {{project.stateCredit.toLocaleString()}}원
 
 </template>
 
@@ -153,7 +144,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default', stateCredit: 0, totalCredit: 0},
       perpage: 2,
       username: '',
       usableCredit: null,
@@ -191,10 +182,26 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    currentRefine (project) {
+      if (project.currentBlock === project.totalBlock) {
+        return project.fileNo
+      } else {
+        return project.currentBlock * project.blockSize
+      }
+    },
     parseDate (project) {
       var date = new Date(project.uploadTime)
       var month = date.getMonth() + 1
       return date.getFullYear() + '. ' + month + '. ' + date.getDate()
+    },
+    projectDataName (dataType) {
+      if (dataType === 'Image') {
+        return '이미지'
+      } else if (dataType === 'Audio') {
+        return '오디오'
+      } else {
+        return '텍스트'
+      }
     },
     projectStateClass (projectState) {
       if (projectState === 'rValidate') {
@@ -209,8 +216,20 @@ export default {
         return '검증중'
       } else if (projectState === 'finished') {
         return '완료'
+      } else if (projectState === 'Refine') {
+        return '정제'
+      } else if (projectState === 'Collect') {
+        return '수집'
       }
-      return projectState
+    },
+    projectTypeName (projectType) {
+      if (projectType === 'Collect') {
+        return '데이터 수집'
+      } else if (projectType === 'Refine') {
+        return '데이터 정제'
+      } else {
+        return '데이터 수집 & 데이터 정제'
+      }
     },
     edit (str) {
       if (str === 'Description') {
@@ -257,7 +276,7 @@ export default {
     carouselPerpage () {
       if (this.projectNo === 0 || window.innerWidth < 620) {
         this.perpage = 1
-      } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
+      } else if (window.innerWidth < 1050 && window.innerWidth > 620 && this.projectNo > 2) {
         this.perpage = 2
       } else if (this.projectNo > 3) {
         this.perpage = 3

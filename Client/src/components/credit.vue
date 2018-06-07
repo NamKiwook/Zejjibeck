@@ -28,7 +28,7 @@
         .box
           .title 총 크레딧
           .sep :
-          .description {{userInfo.usableCredit}}원
+          .description {{userInfo.usableCredit.toLocaleString()}}원
         .box
           .title 출금할 크레딧
           .sep :
@@ -40,23 +40,23 @@
       .credit-wrap
         .wrap
           .name 총 크레딧
-        .point {{userInfo.prearrangedCredit + userInfo.usableCredit}}
+        .point {{(userInfo.prearrangedCredit + userInfo.usableCredit).toLocaleString()}}
           .btn(@click="showWithdraw") 출금
           .btn(@click="showCharge") 충전
         .wrap
           .title 사용 가능
-          .point {{userInfo.usableCredit}}
+          .point {{userInfo.usableCredit.toLocaleString()}}
         .divider
         .wrap
           .title 적립 예정
-          .point {{userInfo.prearrangedCredit}}
+          .point {{userInfo.prearrangedCredit.toLocaleString()}}
       .core.wrap
         p 사용 가능 크레딧
-        .credit {{userInfo.usableCredit}}
+        .credit {{userInfo.usableCredit.toLocaleString()}}
           span 원
       .wrap
         p 적립 예정 크레딧
-        .credit {{userInfo.prearrangedCredit}}
+        .credit {{userInfo.prearrangedCredit.toLocaleString()}}
           span 원
       .wrap
         .btn(@click="showCharge") 충전
@@ -68,7 +68,7 @@
         .content
           .date {{log.date}}
           p {{log.note}}
-        .credit {{symbol(log) + log.credit}}
+        .credit {{symbol(log) + log.credit.toLocaleString()}}
       a.more.btn(@click="addList" v-if="isAddList") + 더보기
 </template>
 
@@ -118,6 +118,8 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.index = 0
+          this.isAddList = true
           this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })
@@ -135,6 +137,8 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
+          this.index = 0
+          this.isAddList = true
           this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })

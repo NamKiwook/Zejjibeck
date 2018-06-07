@@ -10,23 +10,23 @@
       .problem-wrap(v-if="projectInfo.dataType === 'Image' && projectInfo.refineType !== 'Drag'")
         .content
           img(:src="urlSrc")
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
           canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove", @touchstart="mousedown", @touchend="mouseup",@touchmove="mousemove")
           .delete.btn(@click="dragDel") 선택 삭제
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
         .content
           .text {{textData}}
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Audio'")
         .content
           audio(controls controlsList="nodownload", :src="urlSrc")
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .refine-wrap.text(v-if="projectInfo.refineType === 'Text'")
         input(type="text" placeholder="정답을 입력해주세요" v-model="refineList[nowSequence-1]")
@@ -56,181 +56,182 @@
         .wrap
           .dot
           .title 사용가능
-          .credit {{this.$store.getters.getUserUsableCredit}}
+          .credit {{parseInt(this.$store.getters.getUserUsableCredit).toLocaleString()}}
         .wrap
           .dot
           .title 적립예정
-          .credit {{this.$store.getters.getUserPrearrangedCredit}}
+          .credit {{parseInt(this.$store.getters.getUserPrearrangedCredit).toLocaleString()}}
 </template>
 
 <script>
-  export default {
-    name: 'refine',
-    data() {
-      return {
-        projectInfo: {projectName: '', dataType: '', question: '', refineType: 'Drag'},
-        nowSequence: 1,
-        urlList: [],
-        blockId: null,
-        urlSrc: null,
-        refineList: [],
-        nextButton: 'NEXT',
-        textData: '',
-        canvas: null,
-        ctx: null,
-        imageObj: new Image(),
-        preX: null,
-        preY: null,
-        curX: null,
-        curY: null,
-        isDrawing: false
-      }
-    },
-    mounted() {
-      this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
-        this.projectInfo = res.data.projectInfo
-        this.urlList = res.data.urlList
-        this.blockId = res.data.blockId
-        this.urlSrc = this.urlList[0]
-        if (this.projectInfo.refineType === 'Checkbox') {
-          for (var i = 0; i < this.urlList.length; i++) {
-            this.refineList[i] = []
-          }
-        }
-        if (this.projectInfo.dataType === 'Text') {
-          this.loadTextData()
-        }
-        if (this.projectInfo.refineType === 'Drag') {
-          this.canvas = this.$refs.myCanvas
-          this.ctx = this.canvas.getContext('2d')
-          this.ctx.lineWidth = 5
-          this.ctx.strokeStyle = '#2979ff'
-          this.imageObj.onload = this.imageUpdate
-          this.imageObj.src = this.urlSrc
-          for (var j = 0; j < this.urlList.length; j++) {
-            this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
-          }
-        }
-        if (this.urlList.length === 1) {
-          this.nextButton = 'SUBMIT'
-        }
-      }).catch((err) => {
-        alert(err)
-      })
-    },
-    watch: {
-      nowSequence() {
-        this.urlSrc = this.urlList[this.nowSequence - 1]
-        if (this.projectInfo.refineType === 'Drag') {
-          this.imageObj.src = this.urlSrc
-        }
-        if (this.projectInfo.dataType === 'Text') {
-          this.loadTextData()
-        }
-        if (this.nowSequence === this.urlList.length) {
-          this.nextButton = 'SUBMIT'
-        } else {
-          this.nextButton = 'NEXT'
+export default {
+  name: 'refine',
+  data () {
+    return {
+      projectInfo: {projectName: '', dataType: '', refineQuestion: '', refineType: 'Drag'},
+      nowSequence: 1,
+      urlList: [],
+      blockId: null,
+      urlSrc: null,
+      refineList: [],
+      nextButton: 'NEXT',
+      textData: '',
+      canvas: null,
+      ctx: null,
+      imageObj: new Image(),
+      preX: null,
+      preY: null,
+      curX: null,
+      curY: null,
+      isDrawing: false
+    }
+  },
+  mounted () {
+    this.$http.get('/api/refine', {params: {projectId: this.$route.params.projectId}}).then((res) => {
+      this.projectInfo = res.data.projectInfo
+      this.urlList = res.data.urlList
+      this.blockId = res.data.blockId
+      this.urlSrc = this.urlList[0]
+      if (this.projectInfo.refineType === 'Checkbox') {
+        for (var i = 0; i < this.urlList.length; i++) {
+          this.refineList[i] = []
         }
       }
-    },
-    computed: {
-      isNull() {
-        console.log(this.refineList)
-        console.log(this.curY)
-        if (this.refineList[this.nowSequence - 1] === 0) {
-          return false
-        }
-        if (this.refineList[this.nowSequence - 1]) {
-          if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
-            return false
-          } else if (this.refineList[this.nowSequence - 1].curY !== null && this.projectInfo.refineType !== 'Checkbox') {
-            return false
-          }
-        }
-        return true
+      if (this.projectInfo.dataType === 'Text') {
+        this.loadTextData()
       }
-    },
-    methods: {
-      dragDel() {
-        this.curY = null
-        this.clearCanvas()
-        this.refineList[this.nowSequence - 1].curY = null
-      },
-      getMousePos(canvas, evt) {
-        var rect = canvas.getBoundingClientRect()
-        if (evt.changedTouches) {
-          return {
-            x: parseInt((evt.changedTouches[0].clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
-            y: parseInt((evt.changedTouches[0].clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
-          }
-        } else {
-          return {
-            x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
-            y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
-          }
+      if (this.projectInfo.refineType === 'Drag') {
+        this.canvas = this.$refs.myCanvas
+        this.ctx = this.canvas.getContext('2d')
+        this.ctx.lineWidth = 5
+        this.ctx.strokeStyle = '#2979ff'
+        this.imageObj.onload = this.imageUpdate
+        this.imageObj.src = this.urlSrc
+        for (var j = 0; j < this.urlList.length; j++) {
+          this.refineList[j] = {prevX: null, prevY: null, curX: null, curY: null}
         }
-      },
-      mousemove(event) {
-        event.preventDefault()
-        if (this.isDrawing) {
-          var mousePos = this.getMousePos(this.canvas, event)
-          console.log(mousePos)
-          this.curX = mousePos.x
-          this.curY = mousePos.y
-          this.clearCanvas()
-          this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
-          this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
-          this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
-          this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
-          this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
-        }
-      },
-      mousedown(event) {
-        this.isDrawing = true
-        var mousePos = this.getMousePos(this.canvas, event)
-        this.preX = mousePos.x
-        this.preY = mousePos.y
-      },
-      mouseup(event) {
-        this.isDrawing = false
-      },
-      clearCanvas() {
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
-        this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
-      },
-      imageUpdate() {
-        this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
-        if (this.refineList[this.nowSequence - 1].curY !== null) {
-          this.ctx.strokeRect(this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].prevY * this.canvas.height, this.refineList[this.nowSequence - 1].curX * this.canvas.width - this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].curY * this.canvas.height - this.refineList[this.nowSequence - 1].prevY * this.canvas.height)
-        }
-      },
-      loadTextData() {
-        this.$http.get(this.urlList[this.nowSequence - 1]).then((res) => {
-          this.textData = res.data
-        })
-      },
-      submit() {
-        this.$store.commit('isLoadingTrue')
-        this.$http.post('/api/refine', {
-          refineList: this.refineList,
-          projectId: this.$route.params.projectId,
-          blockId: this.blockId
-        }).then((res) => {
-          if (res.data.success) {
-            this.$store.commit('isLoadingFalse')
-            this.$router.push('/dashboard')
-          } else {
-            this.$store.commit('isLoadingFalse')
-            alert('실패')
-          }
-        }).catch((err) => {
-          this.$store.commit('isLoadingFalse')
-          alert(err)
-        })
+      }
+      if (this.urlList.length === 1) {
+        this.nextButton = 'SUBMIT'
+      }
+    }).catch((err) => {
+      alert(err)
+    })
+  },
+  watch: {
+    nowSequence () {
+      this.urlSrc = this.urlList[this.nowSequence - 1]
+      if (this.projectInfo.refineType === 'Drag') {
+        this.imageObj.src = this.urlSrc
+      }
+      if (this.projectInfo.dataType === 'Text') {
+        this.loadTextData()
+      }
+      if (this.nowSequence === this.urlList.length) {
+        this.nextButton = 'SUBMIT'
+      } else {
+        this.nextButton = 'NEXT'
       }
     }
+  },
+  computed: {
+    isNull () {
+      console.log(this.refineList)
+      console.log(this.curY)
+      if (this.refineList[this.nowSequence - 1] === 0) {
+        return false
+      }
+      if (this.refineList[this.nowSequence - 1]) {
+        if (this.refineList[this.nowSequence - 1].length !== 0 && this.projectInfo.refineType !== 'Drag') {
+          return false
+        } else if (this.refineList[this.nowSequence - 1].curY !== null && this.projectInfo.refineType !== 'Checkbox') {
+          return false
+        }
+      }
+      return true
+    }
+  },
+  methods: {
+    dragDel () {
+      this.curY = null
+      this.clearCanvas()
+      this.refineList[this.nowSequence - 1].curY = null
+    },
+    getMousePos (canvas, evt) {
+      var rect = canvas.getBoundingClientRect()
+      if (evt.changedTouches) {
+        return {
+          x: parseInt((evt.changedTouches[0].clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.changedTouches[0].clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
+      } else {
+        return {
+          x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
+      }
+    },
+    mousemove (event) {
+      event.preventDefault()
+      if (this.isDrawing) {
+        var mousePos = this.getMousePos(this.canvas, event)
+        console.log(mousePos)
+        this.curX = mousePos.x
+        this.curY = mousePos.y
+        this.clearCanvas()
+        this.ctx.strokeRect(this.preX, this.preY, this.curX - this.preX, this.curY - this.preY)
+        this.refineList[this.nowSequence - 1].prevX = this.preX / this.canvas.width
+        this.refineList[this.nowSequence - 1].prevY = this.preY / this.canvas.height
+        this.refineList[this.nowSequence - 1].curX = this.curX / this.canvas.width
+        this.refineList[this.nowSequence - 1].curY = this.curY / this.canvas.height
+      }
+    },
+    mousedown (event) {
+      this.isDrawing = true
+      var mousePos = this.getMousePos(this.canvas, event)
+      this.preX = mousePos.x
+      this.preY = mousePos.y
+    },
+    mouseup (event) {
+      this.isDrawing = false
+    },
+    clearCanvas () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
+    },
+    imageUpdate () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
+      this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
+      if (this.refineList[this.nowSequence - 1].curY !== null) {
+        this.ctx.strokeRect(this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].prevY * this.canvas.height, this.refineList[this.nowSequence - 1].curX * this.canvas.width - this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].curY * this.canvas.height - this.refineList[this.nowSequence - 1].prevY * this.canvas.height)
+      }
+    },
+    loadTextData () {
+      this.$http.get(this.urlList[this.nowSequence - 1]).then((res) => {
+        this.textData = res.data
+      })
+    },
+    submit () {
+      this.$store.commit('isLoadingTrue')
+      this.$http.post('/api/refine', {
+        refineList: this.refineList,
+        projectId: this.$route.params.projectId,
+        blockId: this.blockId
+      }).then((res) => {
+        if (res.data.success) {
+          this.$store.commit('isLoadingFalse')
+          this.$router.push('/dashboard')
+        } else {
+          this.$store.commit('isLoadingFalse')
+          alert('실패')
+        }
+      }).catch((err) => {
+        this.$store.commit('isLoadingFalse')
+        alert(err)
+      })
+    }
   }
+}
 </script>
 
 <style scoped>

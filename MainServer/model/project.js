@@ -4,7 +4,8 @@ var Schema = mongoose.Schema;
 var projectSchema = new Schema({
   owner: String,
   projectName: String,
-  question: String,
+  refineQuestion: String,
+  collectQuestion: String,
   projectType: String, // 'Refine' 'Collect' 'Refine&Collect'
   dataType: String, // 'Image' 'Audio' 'Text'
   uploadTime: Number,
