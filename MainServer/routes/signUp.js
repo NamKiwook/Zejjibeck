@@ -2,13 +2,14 @@ var express = require('express');
 var router = express.Router();
 var userSchema= require('../model/user');
 var fs = require('fs')
+var util = require('util')
 
 router.get('/', async function(req,res,next){
   var user = new userSchema(req.query);
-  fs.readFile(__dirname + "/../public/profile/default.png", function (err, data) {
-    user.profileUrl = data.toString('base64');
-  })
+  var readFile = util.promisify(fs.readFile)
   try{
+    var data = await readFile(__dirname + "/../public/profile/default.png");
+    user.profileUrl = data.toString('base64');
     var compare = await userSchema.find({userId: user.userId});
     if(compare.toString())
       res.send({success:false,errorMassage:"중복된 아이디"});
