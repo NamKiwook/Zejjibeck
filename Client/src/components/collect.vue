@@ -8,6 +8,11 @@
       .problem-wrap
         .description
           | {{projectInfo.description}}
+        .progress-wrap
+          .title 현재 진행상황
+          .progress-bar
+            .gaze 10/40
+          .text 남은 데이터의 최대 갯수를 초과해서 업로드 할 수 없습니다.
       .submit-wrap
         form#ajaxFrom(enctype="multipart/form-data")
           input#ajaxFile(type="file", multiple="multiple",@change="fileChange")
@@ -150,6 +155,32 @@ export default {
     height: 100%;
     transition: all 0.4s;
   }
+  .progress-wrap > .title {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .progress-wrap > .progress-bar {
+    border-radius: 15px;
+    background-color: #c8d2e0;
+    height: 30px;
+  }
+  .progress-wrap > .progress-bar > .gaze {
+    color: #fff;
+    min-width: 14%;
+    width: 25%;
+    height: 100%;
+    background-color: #5991ee;
+    font-size: 14px;
+    border-radius: 15px;
+    line-height: 30px;
+  }
+  .progress-wrap > .text {
+    font-size: 12px;
+    margin-top: 6px;
+    color: #9a9a9a;
+    text-align: left;
+    padding-left: 8px;
+  }
   section {
     box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);
   }
@@ -177,7 +208,10 @@ export default {
     padding: 20px;
   }
   .problem-wrap > .description {
+    font-size: 16px;
+    font-weight: bold;
     text-align: left;
+    padding-bottom: 40px;
   }
   .problem-wrap > .problem-title {
     font-size: 16px;
