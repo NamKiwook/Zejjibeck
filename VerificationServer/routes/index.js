@@ -13,7 +13,7 @@ var projectSchema = require('../model/project');
 
 var blockSchema = require('../model/blockInfo');
 
-var timeInterval = 1000 * 60 * 1; //1000 * 60 * 15;
+var timeInterval = 1000 * 60 * 15; //1000 * 60 * 15;
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
@@ -496,11 +496,16 @@ async function refineVerification(){
             resultJson[j].refineData = projects[i].checkBoxResult[j];
           }
         }
-      } else{
+      }
+      else{
         for(var j = 0 ; j < refineResult.length ; j++){
           var fileName = strFileName(j) + projects[i].fileExtension;
-          refineResult[j].fileName = fileName;
-          resultJson.push = refineResult[j];
+          resultJson.push({});
+          resultJson[j].fileName = fileName;
+          resultJson[j].result = refineResult[j];
+          if(projects[i].refineType == "Checkbox"){
+            resultJson[j].refineData = projects[i].checkBoxResult[j];
+          }
         }
       }
 

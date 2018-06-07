@@ -7,8 +7,8 @@ var mongoose = require('mongoose');
 var connectHistory = require('connect-history-api-fallback')();
 var authMiddleware = require('./routes/middleware/authMiddleware');
 
-var mongoUrl = 'mongodb://172.22.0.4:27017/zejjibeck';
-//var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
+//var mongoUrl = 'mongodb://172.22.0.4:27017/zejjibeck';
+var mongoUrl = 'mongodb://localhost:27017/zejjibeck';
 
 var index = require('./routes/index');
 var signUp = require('./routes/signUp');
