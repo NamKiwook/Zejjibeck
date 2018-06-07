@@ -1,9 +1,13 @@
 var express = require('express');
 var router = express.Router();
 var userSchema= require('../model/user');
+var fs = require('fs')
 
 router.get('/', async function(req,res,next){
   var user = new userSchema(req.query);
+  fs.readFile(__dirname + "/../public/profile/default.png", function (err, data) {
+    user.profileUrl = data.toString('base64');
+  })
   try{
     var compare = await userSchema.find({userId: user.userId});
     if(compare.toString())

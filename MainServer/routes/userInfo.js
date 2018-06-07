@@ -3,8 +3,8 @@ var fs = require('fs')
 var router = express.Router();
 var userSchema= require('../model/user');
 var multer = require('multer');
+var util = require('util');
 var upload = multer({
-
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, __dirname + "/../public/profile/");
@@ -14,16 +14,20 @@ var upload = multer({
     }
   })
 })
+const readFile = filePath => new Promise((resolve, reject) => {
+  fs.readFile(filePath, (err, data) => {
+    if (err) reject(err);
+    else resolve(data);
+  });
+});
 
 router.get('/profile', async function (req, res, next) {
   var ID = req.decoded.userId
   try {
     var user = await userSchema.findOne({userId: ID})
-    fs.readFile(user.profileUrl, function (err, data) {
-      res.writeHead(200, {'Content-Type': 'image/jpg'})
-      res.write(data.toString('base64'))
-      res.end()
-    })
+    res.writeHead(200, {'Content-Type': 'image/jpg'})
+    res.write(user.profileUrl)
+    res.end()
   } catch(err) {
     console.log(err)
   }
@@ -31,13 +35,15 @@ router.get('/profile', async function (req, res, next) {
 
 router.put('/', upload.single('file'), async function(req,res,next){
   var ID = req.decoded.userId;
+  var readFile = util.promisify(fs.readFile);
   try{
     var user = await userSchema.findOne({userId : ID});
     if(req.body.password != null) {
-        user.password = req.body.password;
+      user.password = req.body.password;
     }
     if(req.file != null) {
-        user.profileUrl = req.file.path;
+      var data = await readFile(req.file.path)
+      user.profileUrl = data.toString('base64');
     }
     await user.save();
     res.send({success: true});

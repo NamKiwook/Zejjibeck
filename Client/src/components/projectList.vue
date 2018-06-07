@@ -14,11 +14,11 @@
         .box
           .title 과제 유형
           .sep :
-          .description {{modalProject.projectState}}
+          .description {{projectStateName(modalProject.projectState)}}
         .box
           .title 데이터 유형
           .sep :
-          .description {{modalProject.dataType}}
+          .description {{projectDataName(modalProject.dataType)}}
         .box
           .title 적립금
           .sep :
@@ -100,6 +100,15 @@ export default {
     await this.loadList()
   },
   methods: {
+    projectDataName (dataType) {
+      if (dataType === 'Image') {
+        return '이미지'
+      } else if (dataType === 'Audio') {
+        return '오디오'
+      } else {
+        return '텍스트'
+      }
+    },
     projectStateName (projectState) {
       if (projectState === 'rValidate' || projectState === 'cValidate') {
         return '검증중'
