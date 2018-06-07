@@ -158,7 +158,8 @@ export default {
       processingProjectNo: null,
       processedProjectNo: null,
       dataUrl: '#',
-      refineUrl: '#'
+      refineUrl: '#',
+      isMobile: true
     }
   },
   created () {
@@ -669,8 +670,8 @@ export default {
 }
 .register-project .problem-wrap > div > .text {
   color: #a7b3bf;
-  margin-top: 3px;
-  font-size: 14px;
+  margin-top: 5px;
+  font-size: 12px;
 }
 .project-list > .menu{
   padding: 15px 20px;

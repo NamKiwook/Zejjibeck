@@ -505,7 +505,7 @@ export default {
     background-repeat: no-repeat;
   }
   .tagValue > .valueWrap > .textWrap > .inputWrap:hover > .delete {
-    background-image: url("../assets/close-gray.png");
+    background-image: url("../assets/close-darkgray.png");
     cursor: pointer;
   }
   .tagValue > .valueWrap > .btnWrap {

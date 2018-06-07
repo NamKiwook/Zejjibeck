@@ -438,9 +438,9 @@ export default {
     background-position: center;
     background-size: cover;
     border: 1px solid #eee;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
   }
 
