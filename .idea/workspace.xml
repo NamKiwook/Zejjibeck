@@ -5,6 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/css/app.d77ab10a6e90fb64f172f2884422c563.css" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/css/app.d77ab10a6e90fb64f172f2884422c563.css.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.8d9ad8ca505dffcd33b3.js" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/MainServer/public/static/js/app.8d9ad8ca505dffcd33b3.js.map" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/data_utils.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/makedata.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/random_train.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/random_val.txt" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/resize.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/split.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/train.json" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/train.py" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/refineResultTest/val.json" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/MainServer/app.js" afterPath="$PROJECT_DIR$/MainServer/app.js" />
       <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" afterPath="$PROJECT_DIR$/MainServer/public/index.html" />
@@ -53,7 +66,7 @@
       <file leaf-file-name="index.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="449">
+            <state relative-caret-position="557">
               <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
               <folding />
             </state>
@@ -390,12 +403,12 @@
       <workItem from="1528272428446" duration="4598000" />
       <workItem from="1528366642668" duration="765000" />
       <workItem from="1528371105784" duration="1770000" />
-      <workItem from="1528381728593" duration="3481000" />
+      <workItem from="1528381728593" duration="3551000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="271835000" />
+    <option name="totallyTimeSpent" value="271905000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="2495" height="1444" extended-state="6" />
@@ -694,7 +707,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/VerificationServer/routes/index.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="449">
+        <state relative-caret-position="557">
           <caret line="502" column="0" lean-forward="false" selection-start-line="502" selection-start-column="0" selection-end-line="502" selection-end-column="0" />
           <folding />
         </state>
