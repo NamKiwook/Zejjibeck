@@ -449,6 +449,7 @@ export default {
   .modal-container {
     text-align: center;
     position: relative;
+    padding-bottom: 30px;
   }
   .modal-container > .project-name {
     font-size: 32px;
@@ -526,7 +527,6 @@ export default {
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
-    margin-bottom: 30px;
   }
 
   @media only screen and (max-width: 1080px) {

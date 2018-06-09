@@ -3,10 +3,10 @@ div.container
   modal(name="project-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
-      .box
-        .title 과제 제목
-        .sep :
-        .description {{modalProject.projectName}}
+      .project-name {{modalProject.projectName}}
+        p 진행상황
+        .progress-bar
+          .gaze 30 / 100
       .box
         .title 과제 설명
         .sep :
@@ -29,10 +29,10 @@ div.container
   modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
-      .box
-        .title 과제 제목
-        .sep :
-        .description {{modalProject.projectName}}
+      .project-name {{modalProject.projectName}}
+        p 진행상황
+        .progress-bar
+          .gaze 30 / 100
       .box
         .title 과제 설명
         .sep :
@@ -55,8 +55,10 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit.toLocaleString()}}원
-      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
-      a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
+      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") 수집 데이터 다운
+      a.download.btn.disable(v-if="modalProject.projectType !== 'Refine' && modalProject.projectState !== 'finished'") 수집 데이터 다운
+      a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") 정제 데이터 다운
+      a.download.btn.disable(v-if="modalProject.projectType !== 'Collect' && modalProject.projectState !== 'finished'") 정제 데이터 다운
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -799,13 +801,13 @@ export default {
   background-color: #62ce8d;
 }
 .modal-container {
-  padding: 50px 20px;
   text-align: center;
   position: relative;
+  padding-bottom: 30px;
 }
 .modal-container > .close-btn {
   display: inline-block;
-  background-image: url("../assets/close.png");
+  background-image: url("../assets/close-gray.png");
   background-position: center;
   background-size: 15px;
   background-repeat: no-repeat;
@@ -814,11 +816,47 @@ export default {
   position: absolute;
   right: 10px; top: 10px;
 }
+.modal-container > .project-name {
+  font-size: 32px;
+  text-align: left;
+  display: block;
+  padding: 40px 20px 20px;
+  font-weight: bold;
+  background-color: #448aff;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.modal-container > .project-name > p {
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  margin-top: 12px;
+  padding-right: 5px;
+}
+.modal-container > .project-name > .progress-bar {
+  background-color: #eee;
+  width: 80%;
+  height: 25px;
+  border-radius: 20px;
+  margin-top: 8px;
+  width: 100%;
+}
+.modal-container > .project-name > .progress-bar > .gaze {
+  background-color: #21dc6d;
+  color: #fff;
+  height: 100%;
+  width: 40%;
+  font-size: 14px;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 25px;
+}
 .modal-container > .box {
   display: flex;
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #eeeeee;
+  margin: 0 15px;
 }
 .modal-container > .box > .title {
   width: 100px;
@@ -826,6 +864,7 @@ export default {
   font-size: 12px;
 }
 .modal-container > .box > .sep {
+  display: none;
   font-size: 12px;
   padding: 0 10px;
 }
