@@ -3,10 +3,10 @@
     modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
-        .box
-          .title 과제 제목
-          .sep :
-          .description {{modalProject.projectName}}
+        .project-name {{modalProject.projectName}}
+          p 진행상황
+          .progress-bar
+            .gaze 30 / 100
         .box
           .title 과제 설명
           .sep :
@@ -447,14 +447,48 @@ export default {
   }
 
   .modal-container {
-    padding: 50px 20px;
     text-align: center;
     position: relative;
+  }
+  .modal-container > .project-name {
+    font-size: 32px;
+    text-align: left;
+    display: block;
+    padding: 40px 20px 20px;
+    font-weight: bold;
+    background-color: #448aff;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .modal-container > .project-name > p {
+    color: #fff;
+    text-align: right;
+    font-size: 12px;
+    margin-top: 12px;
+    padding-right: 5px;
+  }
+  .modal-container > .project-name > .progress-bar {
+    background-color: #eee;
+    width: 80%;
+    height: 25px;
+    border-radius: 20px;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .modal-container > .project-name > .progress-bar > .gaze {
+    background-color: #21dc6d;
+    color: #fff;
+    height: 100%;
+    width: 40%;
+    font-size: 14px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 25px;
   }
 
   .modal-container > .close-btn {
     display: inline-block;
-    background-image: url("../assets/close.png");
+    background-image: url("../assets/close-gray.png");
     background-position: center;
     background-size: 15px;
     background-repeat: no-repeat;
@@ -470,27 +504,29 @@ export default {
     text-align: left;
     padding: 10px;
     border-bottom: 1px solid #eeeeee;
+    margin: 0 15px;
   }
 
   .modal-container > .box > .title {
     width: 100px;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .modal-container > .box > .sep {
-    font-size: 12px;
+    font-size: 13px;
     padding: 0 10px;
   }
 
   .modal-container > .box > .description {
-    font-size: 12px;
+    font-size: 13px;
     width: calc(100% - 130px);
   }
 
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
+    margin-bottom: 30px;
   }
 
   @media only screen and (max-width: 1080px) {

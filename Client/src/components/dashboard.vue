@@ -41,7 +41,7 @@ div.container
         .edit-wrap(v-else)
           textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
           .save.btn(@click="saveEdit('Description',modalProject)") 저장
-          .close.btn(@click="closeEdit('Description')") 취소\
+          .close.btn(@click="closeEdit('Description')") 취소
       .box
         .title 과제 유형
         .sep :
@@ -87,7 +87,7 @@ div.container
         .point {{prearrangedCredit.toLocaleString()}}
     <!--router-link.detail(to='/credit')-->
   .divider(v-if="projectsInfoList.length !== 0")
-  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', :navigation-enabled="isMobile", v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect' || projectInfo.projectState === 'cValidate' || (projectInfo.projectType === 'Collect' && projectInfo.projectState === 'finished')")
         .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
@@ -174,6 +174,7 @@ export default {
       this.processedProjectNo = res.data.processedProjectNo
       this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
+      this.carouselIsMobile()
       this.loadList()
       this.$store.commit('userUsableCredit', res.data.userInfo.usableCredit)
       this.$store.commit('userPrearrangedCredit', res.data.userInfo.prearrangedCredit)
@@ -181,9 +182,11 @@ export default {
   },
   beforeMount () {
     window.addEventListener('resize', this.carouselPerpage)
+    window.addEventListener('resize', this.carouselIsMobile)
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.carouselPerpage)
+    window.removeEventListener('resize', this.carouselIsMobile)
   },
   methods: {
     currentRefine (project) {
@@ -286,6 +289,13 @@ export default {
         this.perpage = 3
       } else {
         this.perpage = this.projectNo
+      }
+    },
+    carouselIsMobile () {
+      if (window.innerWidth < 620) {
+        this.isMobile = false
+      } else {
+        this.isMobile = true
       }
     },
     percent (percent) {
