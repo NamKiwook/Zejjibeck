@@ -1,0 +1,384 @@
+{
+	"result": [
+		{
+			"fileName": "21.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.022,
+					"minY": 0.171,
+					"maxX": 0.522,
+					"maxY": 0.627
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.022,
+						"minY": 0.171,
+						"maxX": 0.522,
+						"maxY": 0.627
+					}
+				]
+			}
+		},
+		{
+			"fileName": "22.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.036,
+					"minY": 0.44,
+					"maxX": 0.283,
+					"maxY": 0.681
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.036,
+						"minY": 0.44,
+						"maxX": 0.283,
+						"maxY": 0.681
+					}
+				]
+			}
+		},
+		{
+			"fileName": "23.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.033,
+					"minY": 0.105,
+					"maxX": 0.897,
+					"maxY": 0.906
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.033,
+						"minY": 0.105,
+						"maxX": 0.897,
+						"maxY": 0.906
+					}
+				]
+			}
+		},
+		{
+			"fileName": "24.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.078,
+					"minY": 0.423,
+					"maxX": 0.539,
+					"maxY": 0.776
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.078,
+						"minY": 0.423,
+						"maxX": 0.539,
+						"maxY": 0.776
+					}
+				]
+			}
+		},
+		{
+			"fileName": "25.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.017,
+					"minY": 0.179,
+					"maxX": 0.394,
+					"maxY": 0.596
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.017,
+						"minY": 0.179,
+						"maxX": 0.394,
+						"maxY": 0.596
+					}
+				]
+			}
+		},
+		{
+			"fileName": "26.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.036,
+					"minY": 0.076,
+					"maxX": 0.643,
+					"maxY": 0.728
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.036,
+						"minY": 0.076,
+						"maxX": 0.643,
+						"maxY": 0.728
+					}
+				]
+			}
+		},
+		{
+			"fileName": "27.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.494,
+					"minY": 0.15,
+					"maxX": 0.999,
+					"maxY": 0.659
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.494,
+						"minY": 0.15,
+						"maxX": 0.999,
+						"maxY": 0.659
+					}
+				]
+			}
+		},
+		{
+			"fileName": "28.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.238,
+					"minY": 0.22,
+					"maxX": 0.421,
+					"maxY": 0.362
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.238,
+						"minY": 0.22,
+						"maxX": 0.421,
+						"maxY": 0.362
+					}
+				]
+			}
+		},
+		{
+			"fileName": "29.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.734,
+					"minY": 0.447,
+					"maxX": 0.895,
+					"maxY": 0.642
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.734,
+						"minY": 0.447,
+						"maxX": 0.895,
+						"maxY": 0.642
+					}
+				]
+			}
+		},
+		{
+			"fileName": "30.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.053,
+					"minY": 0.154,
+					"maxX": 0.539,
+					"maxY": 0.638
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.053,
+						"minY": 0.154,
+						"maxX": 0.539,
+						"maxY": 0.638
+					}
+				]
+			}
+		},
+		{
+			"fileName": "31.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.444,
+					"minY": 0.55,
+					"maxX": 0.685,
+					"maxY": 0.767
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.444,
+						"minY": 0.55,
+						"maxX": 0.685,
+						"maxY": 0.767
+					}
+				]
+			}
+		},
+		{
+			"fileName": "32.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.333,
+					"minY": 0.728,
+					"maxX": 0.468,
+					"maxY": 0.849
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.333,
+						"minY": 0.728,
+						"maxX": 0.468,
+						"maxY": 0.849
+					}
+				]
+			}
+		},
+		{
+			"fileName": "33.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.217,
+					"minY": 0.098,
+					"maxX": 0.472,
+					"maxY": 0.286
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.217,
+						"minY": 0.098,
+						"maxX": 0.472,
+						"maxY": 0.286
+					}
+				]
+			}
+		},
+		{
+			"fileName": "34.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.59,
+					"minY": 0.372,
+					"maxX": 0.897,
+					"maxY": 0.706
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.59,
+						"minY": 0.372,
+						"maxX": 0.897,
+						"maxY": 0.706
+					}
+				]
+			}
+		},
+		{
+			"fileName": "35.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.046,
+					"minY": 0.147,
+					"maxX": 0.556,
+					"maxY": 0.689
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.046,
+						"minY": 0.147,
+						"maxX": 0.556,
+						"maxY": 0.689
+					}
+				]
+			}
+		},
+		{
+			"fileName": "36.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.122,
+					"minY": 0.011,
+					"maxX": 0.88,
+					"maxY": 0.506
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.122,
+						"minY": 0.011,
+						"maxX": 0.88,
+						"maxY": 0.506
+					}
+				]
+			}
+		},
+		{
+			"fileName": "37.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.288,
+					"minY": 0.061,
+					"maxX": 0.785,
+					"maxY": 0.413
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.288,
+						"minY": 0.061,
+						"maxX": 0.785,
+						"maxY": 0.413
+					}
+				]
+			}
+		},
+		{
+			"fileName": "38.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.08,
+					"minY": 0.103,
+					"maxX": 0.477,
+					"maxY": 0.574
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.08,
+						"minY": 0.103,
+						"maxX": 0.477,
+						"maxY": 0.574
+					}
+				]
+			}
+		},
+		{
+			"fileName": "39.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.536,
+					"minY": 0.377,
+					"maxX": 0.836,
+					"maxY": 0.744
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.536,
+						"minY": 0.377,
+						"maxX": 0.836,
+						"maxY": 0.744
+					}
+				]
+			}
+		},
+		{
+			"fileName": "40.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.063,
+					"minY": 0.128,
+					"maxX": 0.507,
+					"maxY": 0.55
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.063,
+						"minY": 0.128,
+						"maxX": 0.507,
+						"maxY": 0.55
+					}
+				]
+			}
+		}
+	]
+}

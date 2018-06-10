@@ -73,16 +73,16 @@ router.get('/', async function(req,res,next) {
         breakingFlag = 1;
 
         var time = new Date().getTime();
+
         await block.running.push({userId: userId, assignTime: time});
-        if (block.running.length + block.finished.length == project.minimumRefine) {
+
+        if (block.running.length + block.finished.length == parseInt(project.minimumRefine)) {
           var validateFlag = 0;
 
-          for(var j = 0 ; j < parseInt(project.blockNo) ; j++){
+          for(var j = i + 1 ; j < parseInt(project.blockNo) ; j++) {
             var checkBlock = await blockSchema.findOne({_id: project.refineBlocks[j]});
-            if(checkBlock.running.length + checkBlock.finished.length != project.minimumRefine){
-              validateFlag= 1;
-            }
-            if(validateFlag == 1) break;
+            if (parseInt(project.minimumRefine) == checkBlock.running.length + checkBlock.finished.length) continue;
+            validateFlag = 1;
           }
 
           if(validateFlag == 0) {

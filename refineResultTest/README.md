@@ -1,10 +1,11 @@
-draw.py
+# Example using result of DATAG for Deep Learning image classification
 
-It is simple visualization code for our service, refine Image to drag.
+heavily based on pyTorch, torchvision
 
-put "result.json" in "results" directory, images(collected or yours) in "images" directory and run 
+# Usage(Demo Scenario)
 
+Download files from DATAG and run autogen script and train script.
 
-crop.py
+# Draw.py
 
-It is for image cropping. 
+Draw rectangle which dragged from DATAG users.
