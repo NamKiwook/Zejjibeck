@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var projectSchema = require('../model/project');
+var blockSchema = require('../model/blockInfo');
 
 var AWS = require('aws-sdk');
 var s3 = new AWS.S3({region:'ap-northeast-2'});
@@ -63,6 +64,32 @@ router.get('/list', async function(req,res,next){
     var projectList = await projectSchema.find(query).sort(sortQuery).skip((page - 1) * unit).limit(unit);
     var totalPage = Math.ceil(await projectSchema.find(query).count() / unit);
 
+    projectList = JSON.parse(JSON.stringify(projectList));
+    for(var i =0; i< projectList.length; i++) {
+        if (projectList[i].projectState == "Refine") {
+            projectList[i].totalBlock = projectList[i].refineBlocks.length;
+            var currentBlock = 0;
+
+            for (var j = 0; j < projectList[i].refineBlocks.length; j++) {
+                var block = await blockSchema.findOne({_id: projectList[i].refineBlocks[j]});
+
+                if (block.finished.length == projectList[i].minimumRefine) currentBlock++;
+            }
+
+            projectList[i].currentBlock = currentBlock;
+        }
+        else if (projectList[i].projectState == "Collect") {
+            var block = await blockSchema.findOne({_id: projectList[i].collectBlock});
+            var currentCollect = 0;
+
+            for (var j = 0; j < block.finished.length; j++) {
+                if (block.finished[j].upload == true) currentCollect++;
+            }
+
+            projectList[i].currentCollect = currentCollect;
+        }
+    }
+    console.log(projectList);
     res.send({
       projectList: projectList,
       totalPage: totalPage,
