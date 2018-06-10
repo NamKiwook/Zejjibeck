@@ -1,7 +1,6 @@
 FROM node:latest
 
 RUN mkdir -p /app/MainServer
-RUN mkdir -p /app/Client
 
 WORKDIR /app/MainServer
 

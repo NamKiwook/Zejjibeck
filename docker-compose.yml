@@ -2,21 +2,15 @@ version: '2'
 services:
   mongo2:
     image: mongo
-    ports:
-      - "27017:27017"
     volumes:
       - /data/db:/data/db
     networks:
       zejjibeckbr:
-        ipv4_address: 172.22.0.4
- 
+        ipv4_address: 172.22.0.4 
   mainserver2:
     build: .
-    ports:
-      - "3000:3000"
     volumes:
       - ./MainServer:/app/MainServer
-      - ./Client:/app/Client
     networks:
       zejjibeckbr:
         ipv4_address: 172.22.0.5
@@ -24,13 +18,12 @@ services:
       - ../credentials.env
     depends_on:
       - mongo2
+    restart: always
 
   verificationserver2:
     build: VerificationServer/.
     volumes:
       - ./VerificationServer:/app
-    ports:
-      - "3001:3001"    
     env_file:
       - ../credentials.env
     networks:
@@ -38,7 +31,18 @@ services:
         ipv4_address: 172.22.0.6
     depends_on:
       - mongo2
-
+    restart: always
+  nginx:
+    build: LoadBalancer/.
+    ports:
+      - "80:80"
+      - "81:81"
+    networks:
+      zejjibeckbr:
+        ipv4_address: 172.22.0.7
+    depends_on:
+      - mainserver2
+      - verificationserver2
 networks:
   zejjibeckbr:
     ipam:
