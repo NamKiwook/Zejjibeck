@@ -28,35 +28,35 @@
         .box
           .title 총 크레딧
           .sep :
-          .description {{userInfo.usableCredit}}원
+          .description {{userInfo.usableCredit.toLocaleString()}}원
         .box
           .title 출금할 크레딧
           .sep :
           .description
             input(type="text" v-model="amountWithdraw" placeholder=0)
             | 원
-        a.btn(@click="withdraw") 크레딧 충전
+        a.btn(@click="withdraw") 크레딧 출금
     section.credit
       .credit-wrap
         .wrap
           .name 총 크레딧
-        .point 2000
+        .point {{(userInfo.prearrangedCredit + userInfo.usableCredit).toLocaleString()}}
           .btn(@click="showWithdraw") 출금
           .btn(@click="showCharge") 충전
         .wrap
           .title 사용 가능
-          .point 1200
+          .point {{userInfo.usableCredit.toLocaleString()}}
         .divider
         .wrap
           .title 적립 예정
-          .point 800
+          .point {{userInfo.prearrangedCredit.toLocaleString()}}
       .core.wrap
         p 사용 가능 크레딧
-        .credit {{userInfo.usableCredit}}
+        .credit {{userInfo.usableCredit.toLocaleString()}}
           span 원
       .wrap
         p 적립 예정 크레딧
-        .credit {{userInfo.prearrangedCredit}}
+        .credit {{userInfo.prearrangedCredit.toLocaleString()}}
           span 원
       .wrap
         .btn(@click="showCharge") 충전
@@ -68,8 +68,8 @@
         .content
           .date {{log.date}}
           p {{log.note}}
-        .credit {{symbol(log) + log.credit}}
-      a.more.btn(@click="addList") + 더보기
+        .credit {{symbol(log) + log.credit.toLocaleString()}}
+      a.more.btn(@click="addList" v-if="isAddList") + 더보기
 </template>
 
 <script>
@@ -81,30 +81,31 @@ export default {
       amountWithdraw: null,
       amountCharge: null,
       logList: null,
-      index: 0
+      index: 0,
+      isAddList: true
     }
   },
   methods: {
-    titleClass(log) {
-      if(log.type === '충전' || log.type === '적립') {
+    titleClass (log) {
+      if (log.type === '충전' || log.type === '적립') {
         return 'plus'
       } else {
         return 'minus'
       }
     },
-    symbol(log) {
-      if(log.type === '충전' || log.type === '적립') {
+    symbol (log) {
+      if (log.type === '충전' || log.type === '적립') {
         return '+'
       } else {
         return '-'
       }
     },
     showCharge () {
-      this.amountCharge = null;
+      this.amountCharge = null
       this.$modal.show('charge-modal')
     },
     showWithdraw () {
-      this.amountWithdraw = null;
+      this.amountWithdraw = null
       this.$modal.show('withdraw-modal')
     },
     hide () {
@@ -117,11 +118,13 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+          this.index = 0
+          this.isAddList = true
+          this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })
         } else {
-          alert(res.data.errorMassage)
+          alert(res.data.errorMessage)
         }
       }).catch((err) => {
         alert(err)
@@ -134,11 +137,13 @@ export default {
       }}).then((res) => {
         if (res.data.success) {
           this.userInfo.usableCredit = res.data.credit
-          this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+          this.index = 0
+          this.isAddList = true
+          this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
             this.logList = res.data.logList
           })
         } else {
-          alert(res.data.errorMassage)
+          alert(res.data.errorMessage)
         }
       }).catch((err) => {
         alert(err)
@@ -147,8 +152,11 @@ export default {
     },
     addList () {
       this.index++
-      this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
-        for(var i = 0; i < res.data.logList.length; i++) {
+      this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
+        if (res.data.logList.length === 0) {
+          this.isAddList = false
+        }
+        for (var i = 0; i < res.data.logList.length; i++) {
           this.logList.push(res.data.logList[i])
         }
       })
@@ -158,9 +166,13 @@ export default {
     this.$http.get('/api/userInfo').then((res) => {
       this.userInfo = res.data.userInfo
     })
-    this.$http.get('/api/credit/list',{params:{index:this.index}}).then((res) => {
+    this.$http.get('/api/credit/list', {params: {index: this.index}}).then((res) => {
       this.logList = res.data.logList
     })
+  },
+  destroyed () {
+    this.store.commit('userUsableCredit', this.userInfo.usableCredit)
+    this.store.commit('userPrearrangedCredit', this.userInfo.prearrangedCredit)
   }
 }
 </script>

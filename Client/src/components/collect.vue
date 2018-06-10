@@ -7,7 +7,12 @@
         .project-title {{projectInfo.projectName}}
       .problem-wrap
         .description
-          | {{projectInfo.description}}
+          | {{projectInfo.collectQuestion}}
+        .progress-wrap
+          .title 현재 진행상황
+          .progress-bar
+            .gaze(:style="{ width: collectingPercent+'%' }") {{collectedData}}/{{projectInfo.maxCollect}}
+          .text 남은 데이터의 최대 갯수를 초과해서 업로드 할 수 없습니다.
       .submit-wrap
         form#ajaxFrom(enctype="multipart/form-data")
           input#ajaxFile(type="file", multiple="multiple",@change="fileChange")
@@ -16,20 +21,17 @@
 
     section.user-info
       .profile-wrap
-        .profile-img
-        .profile-title 박성준
-      .rating-wrap
-        .title 나의 등급
-        .rating 다이아
+        .profile-img(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
+        .profile-title {{this.$store.getters.getUsername}}
       .credit-wrap
         .wrap
           .dot
           .title 사용가능
-          .credit 2000
+          .credit {{parseInt(this.$store.getters.getUserUsableCredit).toLocaleString()}}
         .wrap
           .dot
           .title 적립예정
-          .credit 100
+          .credit {{parseInt(this.$store.getters.getUserPrearrangedCredit).toLocaleString()}}
 </template>
 
 <script>
@@ -43,23 +45,27 @@ export default {
       numberCollect: 0,
       projectId: null,
       collectPercent: 0,
-      isSubmited: false
+      isSubmited: false,
+      collectedData: null,
+      collectingPercent: 0
     }
   },
   computed: {
     isAble () {
-      if(this.fileList.length > 0) {
+      if (this.fileList.length > 0) {
         return true
       }
       return false
-    },
+    }
   },
   created () {
     this.projectId = this.$route.params.projectId
     this.$http.get('/api/collect', {params: {
       projectId: this.projectId
     }}).then((res) => {
+      this.collectedData = res.data.collectedData
       this.projectInfo = res.data.projectInfo
+      this.collectingPercent = parseInt((this.collectedData / this.projectInfo.maxCollect) * 100)
     })
   },
   methods: {
@@ -82,8 +88,8 @@ export default {
                   fileName: this.fileList[i].name
                 }
               })
-              if(res1.data.success) {
-                var res2 = await this.$http({
+              if (res1.data.success) {
+                await this.$http({
                   method: 'put',
                   url: res1.data.url,
                   contentType: false,
@@ -143,7 +149,7 @@ export default {
     margin-right: 8px;
   }
   .loading-bar {
-    height: 2px;
+    height: 8px;
     z-index: 9999;
     position:fixed;
     top: 0; left: 0; right: 0;
@@ -152,6 +158,32 @@ export default {
     background-color: #2979ff;
     height: 100%;
     transition: all 0.4s;
+  }
+  .progress-wrap > .title {
+    margin-bottom: 5px;
+    font-size: 12px;
+  }
+  .progress-wrap > .progress-bar {
+    border-radius: 15px;
+    background-color: #c8d2e0;
+    height: 30px;
+  }
+  .progress-wrap > .progress-bar > .gaze {
+    color: #fff;
+    min-width: 14%;
+    width: 25%;
+    height: 100%;
+    background-color: #5991ee;
+    font-size: 14px;
+    border-radius: 15px;
+    line-height: 30px;
+  }
+  .progress-wrap > .text {
+    font-size: 12px;
+    margin-top: 6px;
+    color: #9a9a9a;
+    text-align: left;
+    padding-left: 8px;
   }
   section {
     box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);
@@ -180,7 +212,10 @@ export default {
     padding: 20px;
   }
   .problem-wrap > .description {
+    font-size: 16px;
+    font-weight: bold;
     text-align: left;
+    padding-bottom: 40px;
   }
   .problem-wrap > .problem-title {
     font-size: 16px;
@@ -217,11 +252,11 @@ export default {
     background-image: url("../assets/default-user.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     border: 1px solid #eee;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
   }
   .user-info > .profile-wrap > .profile-title {

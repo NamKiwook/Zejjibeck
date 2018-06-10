@@ -32,7 +32,8 @@ router.post('/', async function(req,res, next){
       projectType: req.body.projectType,
       dataType: req.body.dataType,
       uploadTime: currentTime,
-      question: req.body.question,
+      refineQuestion: req.body.refineQuestion,
+      collectQuestion: req.body.collectQuestion,
       description: req.body.description,
       fileNo: fileNames.length,
       refineType: req.body.refineType,
@@ -54,6 +55,23 @@ router.post('/', async function(req,res, next){
       return;
     }
     else{
+      if(project.projectType == "Refine"){
+        if(Math.floor(parseInt(project.totalCredit) / (parseInt(project.maxCollect) * parseInt(project.minimumRefine))) < 1) {
+          res.send({success: false, errorMessage : "데이터 당 Credit을 1원보다 크게 설정해주세요!"});
+          return;
+        }
+      } else if(project.projectType == "Collect"){
+        if(Math.floor(parseInt(project.totalCredit)/(parseInt(project.maxCollect))) < 1) {
+          res.send({success: false, errorMessage : "데이터 당 Credit을 1원보다 크게 설정해주세요!"});
+          return;
+        }
+      }else{
+        if((Math.floor(parseInt(project.totalCredit)/(2*parseInt(project.maxCollect))) < 1) || (Math.floor(parseInt(project.totalCredit) / (2 * parseInt(project.maxCollect) * parseInt(project.minimumRefine))) < 1)) {
+          res.send({success: false, errorMessage : "데이터 당 Credit을 1원보다 크게 설정해주세요!"});
+          return;
+        }
+      }
+
       user.usableCredit = currentUserCredit - parseInt(req.body.totalCredit);
     }
 

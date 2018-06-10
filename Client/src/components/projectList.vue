@@ -4,39 +4,40 @@
       .modal-container
         a.close-btn(@click="hide")
         .box
-          .title 프로젝트 이름
+          .title 과제 제목
           .sep :
           .description {{modalProject.projectName}}
         .box
-          .title 프로젝트 설명
+          .title 과제 설명
           .sep :
           .description {{modalProject.description}}
         .box
-          .title 프로젝트 타입
+          .title 과제 유형
           .sep :
-          .description {{modalProject.projectState}}
+          .description {{projectStateName(modalProject.projectState)}}
         .box
-          .title 데이터 타입
+          .title 데이터 유형
           .sep :
-          .description {{modalProject.dataType}}
+          .description {{projectDataName(modalProject.dataType)}}
         .box
           .title 적립금
           .sep :
           .description
-            | 개당 {{modalProject.stateCredit}}원
+            | 개당 {{modalProject.stateCredit.toLocaleString()}}원
         a.btn(@click="selectProject(modalProject)") START
     section
       .menu
         a.title(@click="dateClick") PROJECT
           .filter-arrow
+            .up
             .down
         a.type(:class="{active : isTypeClicked}", @click="typeClick") TYPE
           .filter-arrow
             .down
           .dropdown-box
-            a(@click="selectType('ALL')") All
-            a(@click="selectType('Refine')") Refine
-            a(@click="selectType('Collect')") Collect
+            a(@click="selectType('ALL')") 모두
+            a(@click="selectType('Refine')") 정제
+            a(@click="selectType('Collect')") 수집
         a.credit(@click="creditClick") CREDIT
           .filter-arrow
             .up
@@ -45,8 +46,9 @@
         .title-wrap
           .date {{parseDate(project)}}
           .title {{project.projectName}}
-        .type(:class="project.projectState") {{project.projectState}}
-        .credit {{project.stateCredit}}원
+        .type(:class="project.projectState") {{projectStateName(project.projectState)}}
+        .credit {{project.stateCredit.toLocaleString()}}원
+          .text / 개당
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -58,7 +60,15 @@ export default {
   name: 'projectList',
   data () {
     return {
-      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', stateCredit: 0, description: 'default', dataType: 'default'},
+      modalProject: {
+        projectName: 'default',
+        blockNo: 0,
+        completedBlock: 0,
+        projectType: 'default',
+        stateCredit: 0,
+        description: 'default',
+        dataType: 'default'
+      },
       projectList: [],
       currentPage: 1,
       totalPage: 1,
@@ -87,14 +97,35 @@ export default {
       this.$router.push({path: `/list/${this.currentPage}/${this.filter}/${this.category}/${this.sortedBy}`})
     }
   },
-  async created() {
+  async created () {
     await this.loadList()
   },
   methods: {
+    projectDataName (dataType) {
+      if (dataType === 'Image') {
+        return '이미지'
+      } else if (dataType === 'Audio') {
+        return '오디오'
+      } else {
+        return '텍스트'
+      }
+    },
+    projectStateName (projectState) {
+      if (projectState === 'rValidate' || projectState === 'cValidate') {
+        return '검증중'
+      } else if (projectState === 'finished') {
+        return '완료'
+      } else if (projectState === 'Refine') {
+        return '정제'
+      } else if (projectState === 'Collect') {
+        return '수집'
+      }
+      return projectState
+    },
     parseDate (project) {
       var date = new Date(project.uploadTime)
       var month = date.getMonth() + 1
-      return date.getFullYear()+'. '+month+'. '+date.getDate()
+      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
     },
     dateClick () {
       if (this.filter === 'recent') {
@@ -139,13 +170,15 @@ export default {
       if (this.$route.params.category) {
         this.category = this.$route.params.category
       }
-      this.$http.get('/api/project/list', {params: {
-        page: this.currentPage,
-        filter: this.filter,
-        category: this.category,
-        listNo: 10,
-        sortedBy: this.sortedBy
-      }}).then((res) => {
+      this.$http.get('/api/project/list', {
+        params: {
+          page: this.currentPage,
+          filter: this.filter,
+          category: this.category,
+          listNo: 10,
+          sortedBy: this.sortedBy
+        }
+      }).then((res) => {
         this.projectList = res.data.projectList
         this.totalPage = res.data.totalPage
 
@@ -199,6 +232,7 @@ export default {
     align-items: center;
     justify-content: center;
   }
+
   .filter-arrow > .up {
     background-image: url("../assets/up-arrow.png");
     background-position: center;
@@ -207,6 +241,7 @@ export default {
     width: 6px;
     height: 6px;
   }
+
   .filter-arrow > .down {
     background-image: url("../assets/down-arrow.png");
     background-position: center;
@@ -215,10 +250,12 @@ export default {
     width: 6px;
     height: 6px;
   }
+
   .container {
     margin-top: 150px;
     overflow: hidden;
   }
+
   .container > .title {
     display: inline-block;
     width: 100%;
@@ -227,15 +264,18 @@ export default {
     padding: 10px;
     margin: 10px;
   }
+
   .container > section {
     max-width: 880px;
     width: 90%;
     margin: 20px auto;
   }
+
   .menu {
     padding: 20px;
     height: 50px;
   }
+
   .menu > .title {
     text-align: center;
     border-radius: 4px;
@@ -244,26 +284,29 @@ export default {
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .credit {
-    display:flex;
+    display: flex;
     align-items: center;
     float: right;
-    width: 65px;
+    width: 85px;
     margin-right: 40px;
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .type {
-    display:flex;
+    display: flex;
     justify-content: center;
     align-items: center;
     float: right;
-    width: 80px;
+    width: 60px;
     position: relative;
     margin-right: 20px;
     font-size: 14px;
     color: #a7b3bf;
   }
+
   .menu > .type > .dropdown-box {
     display: none;
     flex-flow: column;
@@ -273,20 +316,25 @@ export default {
     border: 1px solid #eee;
     top: 20px;
   }
+
   .menu > .type.active > .dropdown-box {
     display: flex;
   }
+
   .menu > .type > .dropdown-box > a {
     padding: 5px 10px;
   }
+
   .menu > .type > .dropdown-box > a:hover {
     background-color: #eee;
   }
+
   .menu > .type > .dropdown {
     color: #a7b3bf;
     font-size: 12px;
     margin-left: auto;
   }
+
   .project {
     background-color: #fff;
     padding: 18px 20px;
@@ -294,9 +342,11 @@ export default {
     margin: 3px 0;
     transition: all 0.3s;
   }
+
   .project:hover {
-    box-shadow: 0 0 14px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.05);
   }
+
   .project > .date {
     display: flex;
     color: #8492a6;
@@ -304,6 +354,7 @@ export default {
     line-height: 35px;
     width: 100px;
   }
+
   .project > .title-wrap {
     display: inline-block;
     text-overflow: ellipsis;
@@ -311,60 +362,79 @@ export default {
     overflow: hidden;
     width: calc(100% - 300px);
   }
+
   .project > .title-wrap > .date {
     font-size: 11px;
     color: #8492a6;
     margin-bottom: 5px;
   }
+
   .project > .title-wrap > .title {
     display: inline-block;
     font-weight: bold;
   }
+
   .project > .credit {
-    width: 100px;
-    line-height: 40px;
-    font-size: 14px;
+    width: 120px;
+    line-height: 20px;
+    font-size: 15px;
+    margin-top: 15px;
     text-align: right;
     float: right;
     margin-right: 50px;
   }
+  .project > .credit > .text {
+    float: right;
+    font-size: 10px;
+    color: #bcbcbc;
+    margin-left: 4px;
+    margin-top: 1.5px;
+  }
+
   .project > .type {
     background-color: #2979ff;
     color: #fff;
     line-height: 35px;
     font-size: 12px;
     text-align: center;
-    width: 80px;
-    float:right;
+    width: 60px;
+    float: right;
     border-radius: 20px;
     margin-top: 5px;
     margin-right: 20px;
   }
+
   .project > .type.Refine {
     background-color: #5991ee;
   }
+
   .project > .type.Collect {
     background-color: #62ce8d;
   }
+
   .pagination {
     text-align: center;
     padding: 10px 0;
   }
+
   .pagination > a {
     display: inline-block;
     border-radius: 50%;
     padding: 8px 15px;
     text-decoration: none;
   }
+
   .pagination a.active {
     background-color: #4e4e4e;
     color: white;
   }
+
   .modal-container {
     padding: 50px 20px;
     text-align: center;
     position: relative;
   }
+
   .modal-container > .close-btn {
     display: inline-block;
     background-image: url("../assets/close.png");
@@ -374,46 +444,57 @@ export default {
     width: 30px;
     height: 30px;
     position: absolute;
-    right: 10px; top: 10px;
+    right: 10px;
+    top: 10px;
   }
+
   .modal-container > .box {
     display: flex;
     text-align: left;
     padding: 10px;
     border-bottom: 1px solid #eeeeee;
   }
+
   .modal-container > .box > .title {
     width: 100px;
     font-weight: 800;
     font-size: 12px;
   }
+
   .modal-container > .box > .sep {
     font-size: 12px;
     padding: 0 10px;
   }
+
   .modal-container > .box > .description {
     font-size: 12px;
     width: calc(100% - 130px);
   }
+
   .modal-container > .btn {
     margin-top: 20px;
     padding: 15px 60px;
   }
+
   @media only screen and (max-width: 1080px) {
     .container {
       margin-left: 0;
     }
+
     .menu > .credit {
       margin-right: 20px;
     }
+
     .project {
       height: 120px;
     }
-    .project >  .title-wrap {
+
+    .project > .title-wrap {
       display: block;
       margin-bottom: 10px;
       width: 100%;
     }
+
     .project > .credit {
       margin-right: 30px;
     }

@@ -1,0 +1,744 @@
+{
+	"result": [
+		{
+			"fileName": "1.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.58775,
+					"minY": 0.42025,
+					"maxX": 0.9430000000000001,
+					"maxY": 0.782
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.583,
+						"minY": 0.377,
+						"maxX": 0.94,
+						"maxY": 0.766
+					},
+					{
+						"minX": 0.571,
+						"minY": 0.379,
+						"maxX": 0.959,
+						"maxY": 0.794
+					},
+					{
+						"minX": 0.592,
+						"minY": 0.454,
+						"maxX": 0.976,
+						"maxY": 0.79
+					},
+					{
+						"minX": 0.605,
+						"minY": 0.471,
+						"maxX": 0.897,
+						"maxY": 0.778
+					}
+				]
+			}
+		},
+		{
+			"fileName": "2.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.6617500000000001,
+					"minY": 0.49,
+					"maxX": 0.907,
+					"maxY": 0.7402500000000001
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.666,
+						"minY": 0.476,
+						"maxX": 0.911,
+						"maxY": 0.732
+					},
+					{
+						"minX": 0.662,
+						"minY": 0.483,
+						"maxX": 0.889,
+						"maxY": 0.728
+					},
+					{
+						"minX": 0.661,
+						"minY": 0.494,
+						"maxX": 0.932,
+						"maxY": 0.757
+					},
+					{
+						"minX": 0.658,
+						"minY": 0.507,
+						"maxX": 0.896,
+						"maxY": 0.744
+					}
+				]
+			}
+		},
+		{
+			"fileName": "3.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.39275000000000004,
+					"minY": 0.67825,
+					"maxX": 0.5900000000000001,
+					"maxY": 0.8272499999999999
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.397,
+						"minY": 0.662,
+						"maxX": 0.628,
+						"maxY": 0.846
+					},
+					{
+						"minX": 0.4,
+						"minY": 0.671,
+						"maxX": 0.569,
+						"maxY": 0.822
+					},
+					{
+						"minX": 0.383,
+						"minY": 0.677,
+						"maxX": 0.576,
+						"maxY": 0.823
+					},
+					{
+						"minX": 0.391,
+						"minY": 0.703,
+						"maxX": 0.587,
+						"maxY": 0.818
+					}
+				]
+			}
+		},
+		{
+			"fileName": "4.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.5932499999999999,
+					"minY": 0.49324999999999997,
+					"maxX": 0.9662499999999999,
+					"maxY": 0.82675
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.569,
+						"minY": 0.438,
+						"maxX": 0.988,
+						"maxY": 0.816
+					},
+					{
+						"minX": 0.601,
+						"minY": 0.504,
+						"maxX": 0.974,
+						"maxY": 0.863
+					},
+					{
+						"minX": 0.602,
+						"minY": 0.507,
+						"maxX": 0.95,
+						"maxY": 0.826
+					},
+					{
+						"minX": 0.601,
+						"minY": 0.524,
+						"maxX": 0.953,
+						"maxY": 0.802
+					}
+				]
+			}
+		},
+		{
+			"fileName": "5.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.632,
+					"minY": 0.22675,
+					"maxX": 0.97675,
+					"maxY": 0.6247499999999999
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.632,
+						"minY": 0.196,
+						"maxX": 0.991,
+						"maxY": 0.63
+					},
+					{
+						"minX": 0.643,
+						"minY": 0.196,
+						"maxX": 0.972,
+						"maxY": 0.641
+					},
+					{
+						"minX": 0.621,
+						"minY": 0.25,
+						"maxX": 0.986,
+						"maxY": 0.626
+					},
+					{
+						"minX": 0.632,
+						"minY": 0.265,
+						"maxX": 0.958,
+						"maxY": 0.602
+					}
+				]
+			}
+		},
+		{
+			"fileName": "6.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.4955,
+					"minY": 0.14725,
+					"maxX": 0.9789999999999999,
+					"maxY": 0.70075
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.481,
+						"minY": 0.069,
+						"maxX": 0.991,
+						"maxY": 0.693
+					},
+					{
+						"minX": 0.486,
+						"minY": 0.083,
+						"maxX": 0.962,
+						"maxY": 0.694
+					},
+					{
+						"minX": 0.487,
+						"minY": 0.186,
+						"maxX": 0.989,
+						"maxY": 0.681
+					},
+					{
+						"minX": 0.528,
+						"minY": 0.251,
+						"maxX": 0.974,
+						"maxY": 0.735
+					}
+				]
+			}
+		},
+		{
+			"fileName": "7.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.031,
+					"minY": 0.275,
+					"maxX": 0.447,
+					"maxY": 0.684
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.03,
+						"minY": 0.215,
+						"maxX": 0.454,
+						"maxY": 0.696
+					},
+					{
+						"minX": 0.018,
+						"minY": 0.269,
+						"maxX": 0.435,
+						"maxY": 0.686
+					},
+					{
+						"minX": 0.013,
+						"minY": 0.279,
+						"maxX": 0.458,
+						"maxY": 0.69
+					},
+					{
+						"minX": 0.063,
+						"minY": 0.337,
+						"maxX": 0.441,
+						"maxY": 0.664
+					}
+				]
+			}
+		},
+		{
+			"fileName": "8.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.45,
+					"minY": 0.19499999999999998,
+					"maxX": 0.63225,
+					"maxY": 0.36150000000000004
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.45,
+						"minY": 0.179,
+						"maxX": 0.662,
+						"maxY": 0.383
+					},
+					{
+						"minX": 0.445,
+						"minY": 0.188,
+						"maxX": 0.63,
+						"maxY": 0.352
+					},
+					{
+						"minX": 0.445,
+						"minY": 0.196,
+						"maxX": 0.616,
+						"maxY": 0.357
+					},
+					{
+						"minX": 0.46,
+						"minY": 0.217,
+						"maxX": 0.621,
+						"maxY": 0.354
+					}
+				]
+			}
+		},
+		{
+			"fileName": "9.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.726,
+					"minY": 0.6315,
+					"maxX": 0.9165000000000001,
+					"maxY": 0.8645
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.738,
+						"minY": 0.623,
+						"maxX": 0.905,
+						"maxY": 0.857
+					},
+					{
+						"minX": 0.713,
+						"minY": 0.633,
+						"maxX": 0.942,
+						"maxY": 0.864
+					},
+					{
+						"minX": 0.723,
+						"minY": 0.635,
+						"maxX": 0.918,
+						"maxY": 0.834
+					},
+					{
+						"minX": 0.73,
+						"minY": 0.635,
+						"maxX": 0.901,
+						"maxY": 0.903
+					}
+				]
+			}
+		},
+		{
+			"fileName": "10.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.53125,
+					"minY": 0.19799999999999998,
+					"maxX": 0.981,
+					"maxY": 0.753
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.479,
+						"minY": 0.164,
+						"maxX": 0.969,
+						"maxY": 0.759
+					},
+					{
+						"minX": 0.522,
+						"minY": 0.177,
+						"maxX": 0.991,
+						"maxY": 0.752
+					},
+					{
+						"minX": 0.543,
+						"minY": 0.216,
+						"maxX": 1.003,
+						"maxY": 0.738
+					},
+					{
+						"minX": 0.581,
+						"minY": 0.235,
+						"maxX": 0.961,
+						"maxY": 0.763
+					}
+				]
+			}
+		},
+		{
+			"fileName": "11.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.7459999999999999,
+					"minY": 0.64225,
+					"maxX": 0.9815,
+					"maxY": 0.86325
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.744,
+						"minY": 0.623,
+						"maxX": 0.971,
+						"maxY": 0.866
+					},
+					{
+						"minX": 0.745,
+						"minY": 0.644,
+						"maxX": 0.979,
+						"maxY": 0.83
+					},
+					{
+						"minX": 0.736,
+						"minY": 0.647,
+						"maxX": 0.969,
+						"maxY": 0.849
+					},
+					{
+						"minX": 0.759,
+						"minY": 0.655,
+						"maxX": 1.007,
+						"maxY": 0.908
+					}
+				]
+			}
+		},
+		{
+			"fileName": "12.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.11,
+					"minY": 0.783,
+					"maxX": 0.271,
+					"maxY": 0.9352500000000001
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.106,
+						"minY": 0.757,
+						"maxX": 0.277,
+						"maxY": 0.937
+					},
+					{
+						"minX": 0.098,
+						"minY": 0.777,
+						"maxX": 0.271,
+						"maxY": 0.932
+					},
+					{
+						"minX": 0.127,
+						"minY": 0.788,
+						"maxX": 0.271,
+						"maxY": 0.93
+					},
+					{
+						"minX": 0.109,
+						"minY": 0.81,
+						"maxX": 0.265,
+						"maxY": 0.942
+					}
+				]
+			}
+		},
+		{
+			"fileName": "13.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.5175000000000001,
+					"minY": 0.14100000000000001,
+					"maxX": 0.744,
+					"maxY": 0.34125
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.522,
+						"minY": 0.122,
+						"maxX": 0.761,
+						"maxY": 0.347
+					},
+					{
+						"minX": 0.513,
+						"minY": 0.135,
+						"maxX": 0.749,
+						"maxY": 0.337
+					},
+					{
+						"minX": 0.509,
+						"minY": 0.146,
+						"maxX": 0.702,
+						"maxY": 0.349
+					},
+					{
+						"minX": 0.526,
+						"minY": 0.161,
+						"maxX": 0.764,
+						"maxY": 0.332
+					}
+				]
+			}
+		},
+		{
+			"fileName": "14.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.38675,
+					"minY": 0.02675,
+					"maxX": 0.9949999999999999,
+					"maxY": 0.9199999999999999
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.415,
+						"minY": 0.008,
+						"maxX": 0.988,
+						"maxY": 0.938
+					},
+					{
+						"minX": 0.354,
+						"minY": 0.011,
+						"maxX": 0.986,
+						"maxY": 0.937
+					},
+					{
+						"minX": 0.367,
+						"minY": 0.012,
+						"maxX": 0.979,
+						"maxY": 0.978
+					},
+					{
+						"minX": 0.411,
+						"minY": 0.076,
+						"maxX": 1.027,
+						"maxY": 0.827
+					}
+				]
+			}
+		},
+		{
+			"fileName": "15.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.575,
+					"minY": 0.46675,
+					"maxX": 0.97825,
+					"maxY": 0.93025
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.574,
+						"minY": 0.43,
+						"maxX": 0.967,
+						"maxY": 0.928
+					},
+					{
+						"minX": 0.572,
+						"minY": 0.466,
+						"maxX": 0.991,
+						"maxY": 0.917
+					},
+					{
+						"minX": 0.59,
+						"minY": 0.485,
+						"maxX": 0.971,
+						"maxY": 0.947
+					},
+					{
+						"minX": 0.564,
+						"minY": 0.486,
+						"maxX": 0.984,
+						"maxY": 0.929
+					}
+				]
+			}
+		},
+		{
+			"fileName": "16.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.266,
+					"minY": 0.44975,
+					"maxX": 0.667,
+					"maxY": 0.74475
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.242,
+						"minY": 0.432,
+						"maxX": 0.667,
+						"maxY": 0.75
+					},
+					{
+						"minX": 0.284,
+						"minY": 0.444,
+						"maxX": 0.661,
+						"maxY": 0.729
+					},
+					{
+						"minX": 0.269,
+						"minY": 0.459,
+						"maxX": 0.653,
+						"maxY": 0.756
+					},
+					{
+						"minX": 0.269,
+						"minY": 0.464,
+						"maxX": 0.687,
+						"maxY": 0.744
+					}
+				]
+			}
+		},
+		{
+			"fileName": "17.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.028,
+					"minY": 0.52225,
+					"maxX": 0.32425,
+					"maxY": 0.83525
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.025,
+						"minY": 0.506,
+						"maxX": 0.344,
+						"maxY": 0.889
+					},
+					{
+						"minX": 0.016,
+						"minY": 0.51,
+						"maxX": 0.29,
+						"maxY": 0.744
+					},
+					{
+						"minX": 0.028,
+						"minY": 0.534,
+						"maxX": 0.335,
+						"maxY": 0.847
+					},
+					{
+						"minX": 0.043,
+						"minY": 0.539,
+						"maxX": 0.328,
+						"maxY": 0.861
+					}
+				]
+			}
+		},
+		{
+			"fileName": "18.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.49325,
+					"minY": 0.22875,
+					"maxX": 0.9522499999999999,
+					"maxY": 0.58675
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.476,
+						"minY": 0.186,
+						"maxX": 0.979,
+						"maxY": 0.584
+					},
+					{
+						"minX": 0.457,
+						"minY": 0.222,
+						"maxX": 0.986,
+						"maxY": 0.604
+					},
+					{
+						"minX": 0.534,
+						"minY": 0.248,
+						"maxX": 0.884,
+						"maxY": 0.569
+					},
+					{
+						"minX": 0.506,
+						"minY": 0.259,
+						"maxX": 0.96,
+						"maxY": 0.59
+					}
+				]
+			}
+		},
+		{
+			"fileName": "19.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.25625,
+					"minY": 0.21825,
+					"maxX": 0.55425,
+					"maxY": 0.50425
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.278,
+						"minY": 0.186,
+						"maxX": 0.596,
+						"maxY": 0.521
+					},
+					{
+						"minX": 0.265,
+						"minY": 0.209,
+						"maxX": 0.537,
+						"maxY": 0.498
+					},
+					{
+						"minX": 0.247,
+						"minY": 0.238,
+						"maxX": 0.596,
+						"maxY": 0.537
+					},
+					{
+						"minX": 0.235,
+						"minY": 0.24,
+						"maxX": 0.488,
+						"maxY": 0.461
+					}
+				]
+			}
+		},
+		{
+			"fileName": "20.png",
+			"result": {
+				"expectedCoordinate": {
+					"minX": 0.5325000000000001,
+					"minY": 0.13,
+					"maxX": 0.9195,
+					"maxY": 0.53725
+				},
+				"refinedCoordinate": [
+					{
+						"minX": 0.546,
+						"minY": 0.111,
+						"maxX": 0.896,
+						"maxY": 0.513
+					},
+					{
+						"minX": 0.525,
+						"minY": 0.122,
+						"maxX": 0.906,
+						"maxY": 0.567
+					},
+					{
+						"minX": 0.519,
+						"minY": 0.141,
+						"maxX": 0.926,
+						"maxY": 0.505
+					},
+					{
+						"minX": 0.54,
+						"minY": 0.146,
+						"maxX": 0.95,
+						"maxY": 0.564
+					}
+				]
+			}
+		}
+	]
+}

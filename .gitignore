@@ -3,6 +3,7 @@
 # dummy files(for verification server)
 temporary/
 result/
+workspace.xml
 
 ### Node ###
 # Logs

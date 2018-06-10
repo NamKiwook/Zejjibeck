@@ -4,66 +4,57 @@ div.container
     .modal-container
       a.close-btn(@click="hide")
       .box
-        .title 프로젝트 이름
+        .title 과제 제목
         .sep :
         .description {{modalProject.projectName}}
       .box
-        .title 프로젝트 설명
+        .title 과제 설명
         .sep :
         .description {{modalProject.description}}
       .box
-        .title 프로젝트 타입
+        .title 과제 유형
         .sep :
-        .description {{modalProject.projectState}}
+        .description {{projectStateName(modalProject.projectState)}}
       .box
-        .title 데이터 타입
+        .title 데이터 유형
         .sep :
-        .description {{modalProject.dataType}}
+        .description {{projectDataName(modalProject.dataType)}}
       .box
         .title 적립금
         .sep :
         .description
-          | 개당 {{modalProject.stateCredit}}원
+          | 개당 {{modalProject.stateCredit.toLocaleString()}}원
       a.btn(@click="selectProject(modalProject)") START
 
   modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
       .box
-        .title 프로젝트 이름
+        .title 과제 제목
         .sep :
         .description {{modalProject.projectName}}
       .box
-        .title 프로젝트 설명
+        .title 과제 설명
         .sep :
         .description(v-if="!isEditDescription") {{modalProject.description}}
           .edit-btn(@click="edit('Description')")
         .edit-wrap(v-else)
           textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
           .save.btn(@click="saveEdit('Description',modalProject)") 저장
-          .close.btn(@click="closeEdit('Description')") 취소
+          .close.btn(@click="closeEdit('Description')") 취소\
       .box
-        .title 프로젝트 질문
+        .title 과제 유형
         .sep :
-        .description(v-if="!isEditQuestion") {{modalProject.question}}
-          .edit-btn(@click="edit('Question')")
-        .edit-wrap(v-else)
-          textarea(:value="modalProject.question" ref="changeQuestion", spellcheck='false')
-          .save.btn(@click="saveEdit('Question',modalProject)") 저장
-          .close.btn(@click="closeEdit('Question')") 취소
+        .description {{projectTypeName(modalProject.projectType)}}
       .box
-        .title 프로젝트 타입
+        .title 데이터 유형
         .sep :
-        .description {{modalProject.projectType}}
-      .box
-        .title 데이터 타입
-        .sep :
-        .description {{modalProject.dataType}}
+        .description {{projectDataName(modalProject.dataType)}}
       .box
         .title 적립금
         .sep :
         .description
-          | {{modalProject.totalCredit}}원
+          | {{modalProject.totalCredit.toLocaleString()}}원
       a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
       a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
   section.credit-section
@@ -73,7 +64,7 @@ div.container
     .credit-wrap
       .wrap
         .dot.green
-        .name 총 참여 프로젝트
+        .name 나의 프로젝트
       .point {{processingProjectNo + processedProjectNo}}
       .wrap
         .title 완료된 프로젝트
@@ -86,14 +77,14 @@ div.container
       .wrap
         .dot.blue
         .name 총 크레딧
-      .point {{usableCredit+prearrangedCredit}}
+      .point {{(usableCredit+prearrangedCredit).toLocaleString()}}
       .wrap
         .title 사용 가능
-        .point {{usableCredit}}
+        .point {{usableCredit.toLocaleString()}}
       .divider
       .wrap
         .title 적립 예정
-        .point {{prearrangedCredit}}
+        .point {{prearrangedCredit.toLocaleString()}}
     <!--router-link.detail(to='/credit')-->
   .divider(v-if="projectsInfoList.length !== 0")
   carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
@@ -104,14 +95,14 @@ div.container
         .problem-wrap
           .total
             .num {{projectInfo.maxCollect}}
-            .text Total Collect
+            .text 총 수집할 파일
           .solved
             .num {{projectInfo.currentCollect}}
-            .text Current Collect
+            .text 현재 수집된 파일
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)]" class="Collect")
-              span(class="Collect") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
+            .c100.center(:class="[[percent(projectInfo.currentCollect / projectInfo.maxCollect * 100)], projectStateClass(projectInfo.projectState)]")
+              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(projectInfo.currentCollect / projectInfo.maxCollect * 100)}}%
               .slice
                 .bar
                 .fill
@@ -120,15 +111,15 @@ div.container
         .title {{projectInfo.projectName}}
         .problem-wrap
           .total
-            .num {{projectInfo.totalBlock}}
-            .text Total Refine Block
+            .num {{projectInfo.fileNo}}
+            .text 총 정제할 파일
           .solved
-            .num {{projectInfo.currentBlock}}
-            .text Current Refine Block
+            .num {{currentRefine(projectInfo)}}
+            .text 현재 정제된 파일
         .col-xs-6
           .inner-content.text-center
-            .c100.center(:class="[percent(projectInfo.currentBlock / projectInfo.totalBlock * 100)]" class="Refine")
-              span(class="Refine") {{Math.round(projectInfo.currentBlock / projectInfo.totalBlock * 100)}}%
+            .c100.center(:class="[[percent(currentRefine(projectInfo) / projectInfo.fileNo * 100)], projectStateClass(projectInfo.projectState)]")
+              span(:class="projectStateClass(projectInfo.projectState)") {{Math.round(currentRefine(projectInfo) / projectInfo.fileNo * 100)}}%
               .slice
                 .bar
                 .fill
@@ -143,8 +134,9 @@ div.container
       .title-wrap
         .date {{parseDate(project)}}
         .title {{project.projectName}}
-      .type(:class="project.projectState") {{project.projectState}}
-      .credit {{project.stateCredit}}원
+      .type(:class="project.projectState") {{projectStateName(project.projectState)}}
+      .credit {{project.stateCredit.toLocaleString()}}원
+        .text / 개당
 
 </template>
 
@@ -153,7 +145,7 @@ export default {
   name: 'dashboard',
   data () {
     return {
-      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default'},
+      modalProject: {projectName: 'default', blockNo: 0, completedBlock: 0, projectType: 'default', credit: 0, description: 'default', dataType: 'default', stateCredit: 0, totalCredit: 0},
       perpage: 2,
       username: '',
       usableCredit: null,
@@ -163,10 +155,11 @@ export default {
       projectList: [],
       isEditDescription: false,
       isEditQuestion: false,
-      processingProjectNo : null,
+      processingProjectNo: null,
       processedProjectNo: null,
       dataUrl: '#',
-      refineUrl :'#'
+      refineUrl: '#',
+      isMobile: true
     }
   },
   created () {
@@ -180,6 +173,8 @@ export default {
       this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
       this.loadList()
+      this.$store.commit('userUsableCredit', res.data.userInfo.usableCredit)
+      this.$store.commit('userPrearrangedCredit', res.data.userInfo.prearrangedCredit)
     })
   },
   beforeMount () {
@@ -189,26 +184,54 @@ export default {
     window.removeEventListener('resize', this.carouselPerpage)
   },
   methods: {
+    currentRefine (project) {
+      if (project.currentBlock === project.totalBlock) {
+        return project.fileNo
+      } else {
+        return project.currentBlock * project.blockSize
+      }
+    },
     parseDate (project) {
       var date = new Date(project.uploadTime)
       var month = date.getMonth() + 1
-      return date.getFullYear()+'. '+month+'. '+date.getDate()
+      return date.getFullYear() + '. ' + month + '. ' + date.getDate()
     },
-    projectStateClass(projectState) {
-      if(projectState === 'rValidate') {
+    projectDataName (dataType) {
+      if (dataType === 'Image') {
+        return '이미지'
+      } else if (dataType === 'Audio') {
+        return '오디오'
+      } else {
+        return '텍스트'
+      }
+    },
+    projectStateClass (projectState) {
+      if (projectState === 'rValidate') {
         return 'Refine'
-      } else if(projectState === 'cValidate') {
+      } else if (projectState === 'cValidate') {
         return 'Collect'
       }
       return projectState
     },
-    projectStateName(projectState) {
-      if(projectState === 'rValidate' || projectState === 'cValidate') {
+    projectStateName (projectState) {
+      if (projectState === 'rValidate' || projectState === 'cValidate') {
         return '검증중'
       } else if (projectState === 'finished') {
         return '완료'
+      } else if (projectState === 'Refine') {
+        return '정제'
+      } else if (projectState === 'Collect') {
+        return '수집'
       }
-      return projectState
+    },
+    projectTypeName (projectType) {
+      if (projectType === 'Collect') {
+        return '데이터 수집'
+      } else if (projectType === 'Refine') {
+        return '데이터 정제'
+      } else {
+        return '데이터 수집 & 데이터 정제'
+      }
     },
     edit (str) {
       if (str === 'Description') {
@@ -218,18 +241,17 @@ export default {
         this.isEditQuestion = true
       }
     },
-    saveEdit (str,modalProject) {
+    saveEdit (str, modalProject) {
       if (str === 'Description') {
         this.isEditDescription = false
         modalProject.description = this.$refs.changeDescription.value
-        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
+        this.$http.put('/api/project', {projectName: modalProject.projectName, projectId: modalProject._id, description: modalProject.description, question: modalProject.question})
       }
       if (str === 'Question') {
         this.isEditQuestion = false
         modalProject.question = this.$refs.changeQuestion.value
         console.log(modalProject)
-        this.$http.put('/api/project',{projectName:modalProject.projectName, projectId:modalProject._id, description : modalProject.description, question: modalProject.question})
-
+        this.$http.put('/api/project', {projectName: modalProject.projectName, projectId: modalProject._id, description: modalProject.description, question: modalProject.question})
       }
     },
     closeEdit (str) {
@@ -254,9 +276,9 @@ export default {
       })
     },
     carouselPerpage () {
-      if (this.projectNo === 0 || window.innerWidth < 620 ) {
+      if (this.projectNo === 0 || window.innerWidth < 620) {
         this.perpage = 1
-      } else if (window.innerWidth < 1050 && window.innerWidth > 620) {
+      } else if (window.innerWidth < 1050 && window.innerWidth > 620 && this.projectNo > 2) {
         this.perpage = 2
       } else if (this.projectNo > 3) {
         this.perpage = 3
@@ -269,10 +291,10 @@ export default {
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
-      if(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
-        this.$http.get('/api/project/collectedFile',{params: {projectId: modalProject._id}}).then((res) => {
-          if(res.data.success) {
-            this.dataUrl =res.data.url
+      if (modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/collectedFile', {params: {projectId: modalProject._id}}).then((res) => {
+          if (res.data.success) {
+            this.dataUrl = res.data.url
           } else {
             alert(res.data.errorMassage)
           }
@@ -280,10 +302,10 @@ export default {
           alert(err)
         })
       }
-      if(modalProject.projectType !== 'Collect'  && modalProject.projectState === 'finished') {
-        this.$http.get('/api/project/refineResult',{params: {projectId: modalProject._id}}).then((res) => {
-          if(res.data.success) {
-            this.refineUrl =res.data.url
+      if (modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished') {
+        this.$http.get('/api/project/refineResult', {params: {projectId: modalProject._id}}).then((res) => {
+          if (res.data.success) {
+            this.refineUrl = res.data.url
           } else {
             alert(res.data.errorMassage)
           }
@@ -292,7 +314,6 @@ export default {
         })
       }
       this.$modal.show('my-project-modal')
-
     },
     showProject (modalProject) {
       this.modalProject = modalProject
@@ -377,26 +398,6 @@ export default {
   flex: 1;
   margin: 0 50px;
 }
-/*.credit-section > .detail {*/
-  /*background-color: #fff;*/
-  /*background-image: url("../assets/magnifier.png");*/
-  /*background-size: 20px;*/
-  /*background-repeat: no-repeat;*/
-  /*background-position: center;*/
-  /*box-shadow: 0 2px 2px 0 rgba(0,0,0,.15);*/
-  /*border: 1px solid rgba(0,0,0,.05);*/
-  /*display: inline-block;*/
-  /*position: absolute;*/
-  /*top: 10px; right: 10px;*/
-  /*height: 45px;*/
-  /*width: 45px;*/
-  /*border-radius: 50px;*/
-  /*float: right;*/
-  /*cursor: pointer;*/
-/*}*/
-/*.credit-section > .detail:hover {*/
-  /*background-color: #fafafa;*/
-/*}*/
 .credit-section > .credit-wrap > .wrap {
   display: flex;
   align-items: center;
@@ -455,6 +456,9 @@ export default {
 }
 .register-project .project-wrap:hover .c100 > span.Collect {
   color: #62ce8d;
+}
+.register-project .project-wrap:hover .c100 > span.finished {
+  color: #666;
 }
 .register-project .project-wrap:hover .c100:after {
   top: 0.04em;
@@ -570,6 +574,60 @@ export default {
 .c100.Refine.p100 .fill {
   border-color: #5991ee;
 }
+.pie,
+.c100.finished .bar,
+.c100.finished.p51 .fill,
+.c100.finished.p52 .fill,
+.c100.finished.p53 .fill,
+.c100.finished.p54 .fill,
+.c100.finished.p55 .fill,
+.c100.finished.p56 .fill,
+.c100.finished.p57 .fill,
+.c100.finished.p58 .fill,
+.c100.finished.p59 .fill,
+.c100.finished.p60 .fill,
+.c100.finished.p61 .fill,
+.c100.finished.p62 .fill,
+.c100.finished.p63 .fill,
+.c100.finished.p64 .fill,
+.c100.finished.p65 .fill,
+.c100.finished.p66 .fill,
+.c100.finished.p67 .fill,
+.c100.finished.p68 .fill,
+.c100.finished.p69 .fill,
+.c100.finished.p70 .fill,
+.c100.finished.p71 .fill,
+.c100.finished.p72 .fill,
+.c100.finished.p73 .fill,
+.c100.finished.p74 .fill,
+.c100.finished.p75 .fill,
+.c100.finished.p76 .fill,
+.c100.finished.p77 .fill,
+.c100.finished.p78 .fill,
+.c100.finished.p79 .fill,
+.c100.finished.p80 .fill,
+.c100.finished.p81 .fill,
+.c100.finished.p82 .fill,
+.c100.finished.p83 .fill,
+.c100.finished.p84 .fill,
+.c100.finished.p85 .fill,
+.c100.finished.p86 .fill,
+.c100.finished.p87 .fill,
+.c100.finished.p88 .fill,
+.c100.finished.p89 .fill,
+.c100.finished.p90 .fill,
+.c100.finished.p91 .fill,
+.c100.finished.p92 .fill,
+.c100.finished.p93 .fill,
+.c100.finished.p94 .fill,
+.c100.finished.p95 .fill,
+.c100.finished.p96 .fill,
+.c100.finished.p97 .fill,
+.c100.finished.p98 .fill,
+.c100.finished.p99 .fill,
+.c100.finished.p100 .fill {
+  border-color: #666;
+}
 .register-project .project-wrap > .title {
   font-size: 16px;
   font-weight: 600;
@@ -595,7 +653,7 @@ export default {
   background-color: #62ce8d;
 }
 .register-project .type.finished {
-  background-color: #3c4858;
+  background-color: #666;
 }
 .register-project .problem-wrap {
   display: flex;
@@ -612,8 +670,8 @@ export default {
 }
 .register-project .problem-wrap > div > .text {
   color: #a7b3bf;
-  margin-top: 3px;
-  font-size: 14px;
+  margin-top: 5px;
+  font-size: 12px;
 }
 .project-list > .menu{
   padding: 15px 20px;
@@ -630,7 +688,7 @@ export default {
   display: flex;
   align-items: center;
   float: right;
-  width: 65px;
+  width: 85px;
   margin-right: 40px;
   font-size: 14px;
   color: #a7b3bf;
@@ -640,7 +698,7 @@ export default {
   justify-content: center;
   align-items: center;
   float: right;
-  width: 80px;
+  width: 60px;
   position: relative;
   margin-right: 20px;
   font-size: 14px;
@@ -673,12 +731,20 @@ export default {
   font-weight: bold;
 }
 .project-list > .project > .credit {
-  width: 100px;
-  line-height: 40px;
-  font-size: 14px;
+  width: 120px;
+  line-height: 20px;
+  font-size: 15px;
+  margin-top: 15px;
   text-align: right;
   float: right;
   margin-right: 50px;
+}
+.project-list > .project > .credit > .text {
+  float: right;
+  font-size: 10px;
+  color: #bcbcbc;
+  margin-left: 4px;
+  margin-top: 1.5px;
 }
 .project-list > .project > .type {
   background-color: #2979ff;
@@ -686,7 +752,7 @@ export default {
   line-height: 35px;
   text-align: center;
   font-size: 12px;
-  width: 80px;
+  width: 60px;
   float: right;
   border-radius: 20px;
   margin-top: 5px;

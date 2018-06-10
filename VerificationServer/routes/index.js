@@ -6,7 +6,6 @@ var util = require('util');
 var zip = require('zipfolder');
 var rimraf = require('rimraf');
 
-
 var downloadAPI = require('download-url');
 
 var userSchema = require('../model/user');
@@ -14,14 +13,14 @@ var projectSchema = require('../model/project');
 
 var blockSchema = require('../model/blockInfo');
 
-var flagVerification;
-var timeInterval = 1000 * 60 * 15; //1000 * 60 * 15;
-
-var unit = 600; // second
+var timeInterval = 1000 * 60 * 1; //1000 * 60 * 15;
 
 var s3 = new AWS.S3({region:'ap-northeast-2'});
 var params = {Bucket: 'zejjibeck',Key:'', Expires: 60*5 };
 var uploadParams ={Bucket: 'zejjibeck', Key:'', Body:''};
+var isRunning = 0;
+
+var isRunning = 0;
 
 const readFile = filePath => new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
@@ -59,36 +58,27 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-//flagVerification = setInterval(runVerification, unit * 60 * 5);
-
 router.get('/on', async function(req, res, next){
-//  console.log("Start Verification");
-  for(;;){
-    await runVerification();
-    await sleep(15*1000);
-    console.log()
+  if(isRunning == 0){
+    isRunning = 1;
+    for(;;){
+      await runVerification();
+      await sleep(15*1000);
+    }
   }
-//  await runVerification();
-//  flagVerification = setInterval(runVerification, unit * 10 * 1);
-//  console.log("Finished Yeah~");
-//  res.send("YEE");
 });
 
 router.get('/off', async function(req, res, next){
-  clearInterval(flagVerification);
-  console.log("Turn off!");
-  res.send("YEE");
 });
 
-
 async function runVerification(){
-  console.log("Start time expire verification!");
+  console.log(getFormattedDetailDate(new Date()) + " Start time expire verification!");
   await timeExpireVerification();
-  console.log("End time expire check, Start duplicate verification!");
+  console.log(getFormattedDetailDate(new Date()) + " End time expire check, Start duplicate verification!");
   await duplicateVerification();
-  console.log("End duplicate verification, Start refine verification!");
+  console.log(getFormattedDetailDate(new Date()) + " End duplicate verification, Start refine verification!");
   await refineVerification();
-  console.log("Finish!");
+  console.log(getFormattedDetailDate(new Date()) + " Finish!");
 }
 
 async function timeExpireVerification(){
@@ -285,7 +275,7 @@ async function IdentityFile(x, y, extension){
 
 
 async function refineVerification(){
-  //TODO: 분포 확인을 통해 불량 사용자 확인  및 사용자 벤 처벌
+  //TODO: 분포 확인을 통해 불량 사용자 확인 및 사용자 벤 처벌
   var projects = await projectSchema.find({projectState : "rValidate"});
 
   for(var i = 0 ; i < projects.length ; i++){
@@ -337,7 +327,6 @@ async function refineVerification(){
       var refineType = projects[i].refineType;
 
       if(refineType == "Radio"){
-        console.log("radio..");
         for(var k = 0 ; k < block.finished[0].answerList.length ; k++) {
           block.countResult.push([]);
           for (var l = 0; l < projects[i].refineList.length; l++) {
@@ -351,7 +340,6 @@ async function refineVerification(){
             block.countResult[l][parseInt(answerList[l])]++;
           }
         }
-
         console.log(block.countResult);
       }
       else if (refineType == "Checkbox"){
@@ -371,11 +359,12 @@ async function refineVerification(){
         }
       }
       else if (refineType == "Drag"){
-        var tempList = [];
+        var refinedList = [];
           for(var k = 0; k< block.finished[0].answerList.length;k++){
-            tempList.push([]);
-            block.coordinateResult.push({minX: 2 , minY :2 , maxX: -1, maxY: -1});
+            refinedList.push([]);
+            block.coordinateResult.push({});
           }
+
           for(var k = 0 ; k < block.finished.length; k++){
             var answerList = block.finished[k].answerList;
             for(var l = 0 ; l < answerList.length; l++){
@@ -385,17 +374,21 @@ async function refineVerification(){
               var maxX = Math.max(parseFloat(crd.prevX), parseFloat(crd.curX));
               var maxY = Math.max(parseFloat(crd.prevY), parseFloat(crd.curY));
 
-              tempList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
+              refinedList[l].push({minX : minX , minY: minY, maxX: maxX, maxY: maxY});
             }
           }
-          for(var k = 0 ; k< tempList.length; k++){
-            var resultList = tempList[k];
-            if(tempList[k].length >= 5) {
-              tempList[k].sort(function (a, b) {
+          for(var k = 0 ; k< refinedList.length; k++){
+            var resultList = refinedList[k];
+
+            // TODO : IMPROVE ALGORITHM
+
+            if(refinedList[k].length >= 5) {
+              refinedList[k].sort(function (a, b) {
                 return parseFloat(a.minX) - parseFloat(b.minX);
               });
-              var delSize = Math.floor(tempList[k].length*0.2);
-              resultList = tempList[k].slice(delSize, tempList[k].length-delSize);
+
+              var delSize = Math.floor(refinedList[k].length*0.2);
+              resultList = refinedList[k].slice(delSize, refinedList[k].length-delSize);
 
               if(resultList.length >= 5) {
                 resultList.sort(function (a, b) {
@@ -405,12 +398,10 @@ async function refineVerification(){
                 resultList = resultList.slice(delSize2, resultList.length-delSize2);
               }
             }
-            var minX = 0.0;
-            var minY = 0.0;
-            var maxX = 0.0;
-            var maxY = 0.0;
 
-            for(var l =0 ; l < resultList.length; l++){
+            var minX = 0.0, minY = 0.0, maxX = 0.0, maxY = 0.0;
+
+            for(var l = 0 ; l < resultList.length; l++){
               minX += parseFloat(resultList[l].minX);
               minY += parseFloat(resultList[l].minY);
               maxX += parseFloat(resultList[l].maxX);
@@ -422,10 +413,14 @@ async function refineVerification(){
             maxX /= resultList.length;
             maxY /= resultList.length;
 
-            block.coordinateResult[k].minX = minX;
-            block.coordinateResult[k].minY = minY;
-            block.coordinateResult[k].maxX = maxX;
-            block.coordinateResult[k].maxY = maxY;
+            block.coordinateResult[k].expectedCoordinate = {};
+
+            block.coordinateResult[k].expectedCoordinate.minX = minX;
+            block.coordinateResult[k].expectedCoordinate.minY = minY;
+            block.coordinateResult[k].expectedCoordinate.maxX = maxX;
+            block.coordinateResult[k].expectedCoordinate.maxY = maxY;
+
+            block.coordinateResult[k].refinedCoordinate = resultList;
           }
       }
       else if (refineType == "Text"){
@@ -447,9 +442,24 @@ async function refineVerification(){
       for(var j = 0 ; j < projects[i].refineBlocks.length;j++){
         var blockId = projects[i].refineBlocks[j];
         var block = await blockSchema.findOne({_id: blockId});
+
+        if(projects[i].refineType == "Checkbox") {
+
+          var writePoint = projects[i].checkBoxResult.length;
+
+          for (var l = 0; l < block.finished[0].answerList.length; l++) {
+            projects[i].checkBoxResult.push([]);
+          }
+
+          for (var k = 0; k < block.finished.length; k++) {
+            for(var l = 0 ; l < block.finished[k].answerList.length ; l++){
+              projects[i].checkBoxResult[writePoint+l].push(block.finished[k].answerList[l]);
+            }
+          }
+        }
+
         for(var k = 0 ; k < Math.max(block.countResult.length, block.textResult.length, block.coordinateResult.length) ; k++){
           if(projects[i].refineType == "Radio") {
-            console.log("projects??...");
             projects[i].totalCountResult.push(block.countResult[k]);
           } else if(projects[i].refineType == "Checkbox") {
             projects[i].totalCountResult.push(block.countResult[k]);
@@ -461,29 +471,44 @@ async function refineVerification(){
         }
       }
 
-      var resultJson = {};
-      var refineResult;
+      var resultJson = [];
+      var refineResult = {};
+      var result = {};
 
-      if(projects[i].refineType == "Radio") refineResult = projects[i].totalCountResult;
-      else if(projects[i].refineType == "Checkbox") refineResult = projects[i].totalCountResult;
+      if(projects[i].refineType == "Radio") {
+        refineResult = projects[i].totalCountResult;
+        result.refineList = projects[i].refineList;
+      }
+      else if(projects[i].refineType == "Checkbox") {
+        refineResult = projects[i].totalCountResult;
+        result.refineList = projects[i].refineList;
+      }
       else if(projects[i].refineType == "Drag") refineResult = projects[i].totalCoordinateResult;
       else if(projects[i].refineType == "Text") refineResult = projects[i].totalTextResult;
 
       if(projects[i].projectType == "Refine"){
         var originalFileNames = projects[i].originalFileNames;
         for(var j = 0 ; j < refineResult.length ; j++){
-          resultJson[originalFileNames[j]] = refineResult[j];
+          resultJson.push({});
+          resultJson[j].fileName = originalFileNames[j];
+          resultJson[j].result = refineResult[j];
+          if(projects[i].refineType == "Checkbox"){
+            resultJson[j].refineData = projects[i].checkBoxResult[j];
+          }
         }
       } else{
         for(var j = 0 ; j < refineResult.length ; j++){
           var fileName = strFileName(j) + projects[i].fileExtension;
-          resultJson[fileName] = refineResult[j];
+          refineResult[j].fileName = fileName;
+          resultJson.push = refineResult[j];
         }
       }
 
-      resultJson = JSON.stringify(resultJson, null, '\t');
+      result.result = resultJson;
 
-      await uploads(projects[i].owner, projects[i].projectName, resultJson, 'result.json');
+      result = JSON.stringify(result, null, '\t');
+
+      await uploads(projects[i].owner, projects[i].projectName, result, 'result.json');
     }
     await projects[i].save();
   }
@@ -495,7 +520,7 @@ async function downloads(user, projectName, fileNo, extension){
     var url = await getDownloadUrl(user, projectName, fileNo, extension);
     var download = await new downloadAPI(url);
     var fileName = strFileName(fileNo) + extension;
-    var result = await download.setPath("./temporary").start(fileName);
+    await download.setPath("./temporary").start(fileName);
   } catch (err){
     console.log(err);
   }
@@ -530,9 +555,13 @@ function strFileName(iName){
 }
 
 function getFormattedDate(date) {
-  return date.getFullYear().toString() + "." + pad2(date.getMonth() + 1) + "." + pad2(date.getDate()) + ", " + pad2(date.getHours()) + ":" + pad2(date.getMinutes());
+  return date.getFullYear().toString() + "." + pad(10, date.getMonth() + 1) + "." + pad(10, date.getDate()) + ", " + pad(10, date.getHours()) + ":" + pad(10, date.getMinutes());
 }
 
-function pad2(n) { return n < 10 ? '0' + n : n }
+function getFormattedDetailDate(date) {
+  return date.getFullYear().toString() + "." + pad(10, date.getMonth() + 1) + "." + pad(10, date.getDate()) + " " + pad(10, date.getHours()) + ":" + pad(10, date.getMinutes()) + ":" + pad(10, date.getSeconds()) + ":" + pad(100, date.getMilliseconds());
+}
+
+function pad(padding, n) { return n < padding ? '0' + n : n }
 
 module.exports = router;

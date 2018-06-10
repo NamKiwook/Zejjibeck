@@ -4,11 +4,9 @@ block content
   h1= title
   p Welcome to #{title}
   button#btnOn Turn On
-  button#btnOff Turn Off
 
   script.
     var btnOn = document.getElementById("btnOn").addEventListener("click", fOn);
-    var btnOff = document.getElementById("btnOff").addEventListener("click", fOff);
 
     function fOn(){
       console.log("ON!");
@@ -20,20 +18,6 @@ block content
         },
         error: function () {
           console.log("fail to turning on");
-        }
-      })
-    }
-
-    function fOff(){
-      console.log("OFF!");
-      $.ajax({
-        type: 'get',
-        url:'/off/',
-        success: function(){
-          console.log("turn off!");
-        },
-        error: function () {
-          console.log("fail to turning off");
         }
       })
     }

@@ -50,27 +50,27 @@ export default {
       profileIsVisible: false,
       username: 'temp_username',
       pathname: null,
-      image: "../assets/default-user.png",
+      image: '../assets/default-user.png',
       currentPassword: null,
-      changePassword: null,
+      changePassword: null
     }
   },
   created () {
     this.username = this.$store.getters.getUsername
-    this.pathname = window.location.pathname.split("/")[1]
-    if(this.pathname === 'refine' || this.pathname === 'collect') {
+    this.pathname = window.location.pathname.split('/')[1]
+    if (this.pathname === 'refine' || this.pathname === 'collect') {
       this.pathname = 'list'
     }
   },
   computed: {
     isLoading () {
       return this.$store.getters.getIsLoading
-    },
+    }
   },
   watch: {
     $route () {
-      this.pathname = window.location.pathname.split("/")[1]
-      if(this.pathname === 'refine' || this.pathname ===  'collect') {
+      this.pathname = window.location.pathname.split('/')[1]
+      if (this.pathname === 'refine' || this.pathname === 'collect') {
         this.pathname = 'list'
       }
     }
@@ -94,15 +94,15 @@ export default {
       if (this.$refs.file.files[0]) {
         await formData.append('file', this.$refs.file.files[0])
       }
-      if(this.changePassword) {
+      if (this.changePassword) {
         await formData.append('password', this.changePassword)
       }
-      this.$http.put('/api/userInfo',formData, {
+      this.$http.put('/api/userInfo', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
       }).then((res) => {
-        if(res.data.success) {
+        if (res.data.success) {
           this.$http.get('/api/userInfo/profile').then((res) => {
             this.$store.commit('userProfile', 'data:image/jpg;base64,' + res.data)
           })
@@ -251,12 +251,14 @@ export default {
     line-height: 49px;
     margin-right: 20px;
     font-weight: bold;
+    border-bottom: 3px solid rgba(255,255,255,0);
+    transition: all 0.4s;
   }
   nav > .section > .title:hover {
-    border-bottom: 3px solid #e4e4e4;
+    border-color: #e4e4e4;
   }
   nav > .section > .title.active {
-    border-bottom: 3px solid #2979ff;
+    border-color: #2979ff;
   }
   @media only screen and (max-width: 1170px) {
     nav > .container {
@@ -312,9 +314,15 @@ export default {
     padding: 15px 60px;
   }
   @media only screen and (max-width: 550px) {
+    nav {
+      min-width: 400px;
+    }
     nav > .container > .logo {
       width: 100px;
       background-size: 100px;
+    }
+    nav > .container > .profile-wrap > .profile-title {
+      display: none;
     }
   }
 </style>

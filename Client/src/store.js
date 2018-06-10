@@ -19,11 +19,19 @@ export const store = new Vuex.Store({
     menuVisible: false,
     accessToken: null,
     username: null,
-    userProfile: null
+    userProfile: null,
+    userPrearrangedCredit: null,
+    userUsableCredit: null
   },
   getters: {
     getIsLoading (state) {
       return state.isLoading
+    },
+    getUserPrearrangedCredit (state) {
+      return state.userPrearrangedCredit || localStorage.userPrearrangedCredit
+    },
+    getUserUsableCredit (state) {
+      return state.userUsableCredit || localStorage.userUsableCredit
     },
     getScrolled (state) {
       return state.isScrolled
@@ -49,6 +57,14 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
+    userPrearrangedCredit (state, credit) {
+      state.userPrearrangedCredit = credit
+      localStorage.userPrearrangedCredit = credit
+    },
+    userUsableCredit (state, credit) {
+      state.userUsableCredit = credit
+      localStorage.userUsableCredit = credit
+    },
     isLoadingTrue (state) {
       state.isLoading = true
     },

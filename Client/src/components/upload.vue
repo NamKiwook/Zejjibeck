@@ -2,75 +2,122 @@
   .container
     .loading-bar
       .gaze(:style="{ width: uploadPercent+'%' }")
-    section.textWrap
-      .title 프로젝트 이름
+    section.typeWrap
+      .title 과제 의뢰 유형
         .detail ?
         .description
-          p 프로젝트 이름을 입력해주세요
+          p
+            | 데이터 수집은 원하는 데이터를 얻고자 할 때 사용합니다.
+            br
+            | 데이터 정제는 데이터에 추가적인 의미를 부여할 때 사용합니다.
+      .wrap
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
+          .background 데이터 수집
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
+          .background 데이터 정제
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
+          .background 수집 및 정제
+
+    section.typeWrap
+      .title 데이터 유형
+        .detail ?
+        .description
+          p 수집 혹은 정제할 대상의 데이터 유형을 선택해주세요.
+      .wrap
+        label.radioWrap
+          input.type#tgypeImg(type="radio", name="dataType", value="Image", v-model="dataType")
+          .background 이미지
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
+          .background 오디오
+        .divider
+        label.radioWrap
+          input.type(type="radio", name="dataType", value="Text", v-model="dataType")
+          .background 텍스트
+    section.textWrap
+      .title 과제 제목
+        .detail ?
+        .description
+          p 중복된 제목은 불가능합니다.
       input.text#projectName(type='text', spellcheck='false', v-model="projectName")
     section.textWrap
-      .title 프로젝트 설명
+      .title 과제 설명
         .detail ?
         .description
-          p 프로젝트 설명을 입력해주세요
+          p
+            | 괴제에 대한 자세한 설명을 적어주세요.
       textarea.text#description(spellcheck='false', v-model="description")
-    section.textWrap
-      .title 프로젝트 질문
+    section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
+      .title 수집 요구사항
         .detail ?
         .description
-          p 프로젝트 질문을 입력해주세요
-      textarea.text#question(spellcheck='false', v-model="question")
-
+          p 수집에 필요한 요구사항을 적어주세요.
+      textarea.text(spellcheck='false', v-model="collectQuestion")
+    section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
+      .title 정제 요구사항
+        .detail ?
+        .description
+          p 정제에 필요한 요구사항을 적어주세요.
+      textarea.text#question(spellcheck='false', v-model="refineQuestion")
     section.textWrap
-      .title 프로젝트 비용
+      .title 과제 비용
+        .detail ?
+        .description
+          p 총 과제의 비용으로 과제를 수행한 사람들에게 동등하게 나누어집니다.
       input.text#totalCredit(type='text',spellcheck='false',  v-model="totalCredit", placeholder="0")
-    section.typeWrap
-      p.title 프로젝트 타입
-      label.radioWrap 데이터 수집
-        input.type(type="radio", name="projectType", value="Collect", v-model="projectType")
-        span.radiomark
-      label.radioWrap 데이터 정제
-        input.type(type="radio", name="projectType", value="Refine", v-model="projectType")
-        span.radiomark
-      label.radioWrap 수집 및 정제
-        input.type(type="radio", name="projectType", value="Refine&Collect", v-model="projectType")
-        span.radiomark
-    section.typeWrap
-      p.title 데이터 타입
-      label.radioWrap 이미지
-        input.type#typeImg(type="radio", name="dataType", value="Image", v-model="dataType")
-        span.radiomark
-      label.radioWrap 오디오
-        input.type(type="radio", name="dataType", value="Audio", v-model="dataType")
-        span.radiomark
-      label.radioWrap 텍스트
-        input.type(type="radio", name="dataType", value="Text", v-model="dataType")
-        span.radiomark
     section.tagTypeWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      p.title 정제 타입
-      label.radioWrap 단수 선택
+      .title 정제 타입
+        .detail ?
+        .description
+          p
+            | 데이터 정제작업 시 정제 타입을 선택할 수 있습니다.
+            br
+            | 객관식: 주어진 보기에서 정답을 선택합니다.(단수, 복수 가능)
+            br
+            | 주관식: 정답을 텍스트로 입력받습니다.
+            br
+            | 영역선택: 이미지를 드래그하여 영역을 선택합니다.
+      label.radioWrap 객관식(단수)
         input.tagType#radioTag(type="radio", name="refineType", value="Radio", v-model="refineType")
         span.radiomark
-      label.radioWrap 복수 선택
+      label.radioWrap 객관식(복수)
         input.tagType#checkboxTag(type="radio", name="refineType", value="Checkbox", v-model="refineType")
         span.radiomark
-      label.radioWrap 텍스트
+      label.radioWrap 주관식
         input.tagType(type="radio", name="refineType", value="Text", v-model="refineType")
         span.radiomark
       label.radioWrap#dragType(v-if="dataType === 'Image' && (projectType === 'Refine' || projectType === 'Refine&Collect')") 영역선택
         input.tagType(type="radio", name="refineType", value="Drag", v-model="refineType")
         span.radiomark
     section.textWrap(v-if="projectType === 'Collect' || projectType === 'Refine&Collect'")
-      .title Maximum Number of Data
+      .title 수집 데이터 수
+        .detail ?
+        .description
+          p 총 수집하고자 하는 데이터의 갯수를 입력해주세요.
       input.text(type='text', v-model="maxCollect", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title Block Size (Basic = 10)
+      .title 블록 사이즈
+        .detail ?
+        .description
+          p 블록은 정제 시 한 사람이 수행하게 되는 과제의 데이터의 갯수입니다.
       input.text#blockSize(type='text', v-model="blockSize", placeholder="0")
     section.textWrap(v-if="projectType === 'Refine' || projectType === 'Refine&Collect'")
-      .title 문제당 최소 정제 횟수
+      .title 데이터 당 정제 횟수
+        .detail ?
+        .description
+          p 각 데이터 당 필요한 정제 횟수를 입력해주세요.
       input.text#minimumRefine(type='text', v-model="minimumRefine", placeholder="0")
     section.tagValue(v-if="(refineType === 'Radio' || refineType === 'Checkbox') && (projectType === 'Refine' || projectType === 'Refine&Collect')")
-      .title Tag Value
+      .title 객관식 보기
+        .detail ?
+        .description
+          p 객관식 문항에서 보여줄 보기를 입력해주세요.
       .valueWrap
         .textWrap#valueField
           .inputWrap(v-for="number in tagNumber")
@@ -79,11 +126,19 @@
         .btnWrap
           a#plus.btn(@click="tagPlus") +
     section.upload.active(v-if="projectType === 'Refine'")
-      .title Upload
+      .title 파일첨부
       form#ajaxFrom(enctype="multipart/form-data")
         input#ajaxFile(type="file", multiple="multiple", @change="fileChange")
+    .example(@click="showExample()") 예시보기
     input.btn.register(type="button", @click="submit", value="REGISTER", v-if="!isSubmited && isAble")
     input.btn.register.disable(type="button", value="REGISTER", v-else)
+    modal(name="example-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
+      .modal-container
+        a.close-btn(@click="hide")
+        .title 데이터 정제
+        img(src="../assets/refine-example.png")
+        .title 데이터 수집
+        img(src="../assets/collect-example.png")
 </template>
 
 <script>
@@ -93,7 +148,8 @@ export default {
     return {
       projectName: null,
       minimumRefine: null,
-      question: null,
+      refineQuestion: null,
+      collectQuestion: null,
       totalCredit: null,
       description: null,
       blockSize: null,
@@ -142,17 +198,17 @@ export default {
   },
   computed: {
     isAble () {
-      if(this.projectType && this.description && this.question && this.totalCredit && this.projectName && this.dataType) {
-        if(this.projectType === 'Refine') {//Collect 인 경우
-          if((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList)) {
+      if (this.projectType && this.description && this.totalCredit && this.projectName && this.dataType) {
+        if (this.projectType === 'Refine') { // Collect 인 경우
+          if ((this.blockSize && this.minimumRefine && this.fileList.length && this.refineList && this.refineQuestion)) {
             return true
           }
-        } else if(this.projectType === 'Collect') {
-          if(this.maxCollect) {
+        } else if (this.projectType === 'Collect') {
+          if (this.maxCollect && this.collectQuestion) {
             return true
           }
-        } else if(this.projectType === 'Refine&Collect') {
-          if((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList)) {
+        } else if (this.projectType === 'Refine&Collect') {
+          if ((this.maxCollect && this.blockSize && this.minimumRefine && this.refineList && this.collectQuestion && this.refineQuestion)) {
             return true
           }
         }
@@ -162,13 +218,13 @@ export default {
   },
   methods: {
     isEnter (e) {
-      if(e.keyCode == 13) {
+      if (e.keyCode === 13) {
         this.tagNumber++
       }
     },
     tagValueDel (number) {
       console.log(number)
-      this.refineList.splice(number-1,1)
+      this.refineList.splice(number - 1, 1)
       this.tagNumber--
       console.log(this.refineList)
     },
@@ -188,7 +244,8 @@ export default {
         projectName: this.projectName,
         projectType: this.projectType,
         refineType: this.refineType,
-        question: this.question,
+        refineQuestion: this.refineQuestion,
+        collectQuestion: this.collectQuestion,
         dataType: this.dataType,
         maxCollect: this.maxCollect,
         minimumRefine: this.minimumRefine,
@@ -228,6 +285,12 @@ export default {
           this.$router.push('/dashboard')
         }
       })
+    },
+    showExample () {
+      this.$modal.show('example-modal')
+    },
+    hide () {
+      this.$modal.hide('example-modal')
     }
   }
 }
@@ -289,7 +352,7 @@ export default {
     width: 90%;
   }
   .loading-bar {
-    height: 2px;
+    height: 8px;
     z-index: 9999;
     position:fixed;
     top: 0; left: 0; right: 0;
@@ -306,6 +369,32 @@ export default {
   }
   section > #dragType {
     display: inline-block;
+  }
+  section > .wrap {
+    display: flex;
+    background-color: #fff;
+    border-radius: 4px;
+    border: 1px solid #eee;
+  }
+  section > .wrap > .radioWrap {
+    flex: 1;
+    text-align: center;
+    margin: 0;
+    padding: 10px;
+    position: relative;
+    font-size: 15px;
+  }
+  section > .wrap > .radioWrap > input:checked ~ .background{
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background-color: #5991ee;
+    color: #fff;
+    padding: 10px;
+    font-size: 15px;
+  }
+  section > .wrap > .divider {
+    width: 1px;
+    background-color: #eee;
   }
   input.text {
     padding: 10px;
@@ -375,6 +464,10 @@ export default {
     color: #fff;
     font-weight: 300;
     font-size: 12px;
+    display: none;
+  }
+  .title > .detail:hover ~ .description > p {
+    display: block;
   }
   .tagValue {
     display: block;
@@ -412,7 +505,7 @@ export default {
     background-repeat: no-repeat;
   }
   .tagValue > .valueWrap > .textWrap > .inputWrap:hover > .delete {
-    background-image: url("../assets/close-gray.png");
+    background-image: url("../assets/close-darkgray.png");
     cursor: pointer;
   }
   .tagValue > .valueWrap > .btnWrap {
@@ -427,6 +520,46 @@ export default {
     border: 0;
     background-color: #2979ff;
     color: #fff;
+  }
+  .example {
+    margin-top: 30px;
+    float: left;
+    background-color: inherit;
+    color: #b9b9b9;
+    line-height: 48px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    position: relative;
+  }
+  .modal-container {
+    display: flex;
+    flex-flow: column;
+    position: relative;
+    background-color: #fbfbfb;
+  }
+  .modal-container > .close-btn {
+    display: inline-block;
+    background-image: url("../assets/close-gray.png");
+    background-position: center;
+    background-size: 15px;
+    background-repeat: no-repeat;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10px; top: 10px;
+    z-index: 999;
+  }
+  .modal-container > .title {
+    font-weight: bold;
+    font-size: 16px;
+    background-color: #5991ee;
+    padding: 16px;
+    color: #fff;
+  }
+  .modal-container > img {
+    width: 100%;
+    padding: 30px 20px;
   }
   .btn.register {
     margin-top: 30px;

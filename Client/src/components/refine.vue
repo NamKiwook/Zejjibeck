@@ -10,23 +10,23 @@
       .problem-wrap(v-if="projectInfo.dataType === 'Image' && projectInfo.refineType !== 'Drag'")
         .content
           img(:src="urlSrc")
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.refineType === 'Drag'")
         .content
-          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove")
-          .delete.btn 선택 삭제
-        .problem-title {{projectInfo.question}}
+          canvas(ref="myCanvas", width="1000" height="1000" ,@mousedown="mousedown", @mouseup="mouseup", @mousemove="mousemove", @touchstart="mousedown", @touchend="mouseup",@touchmove="mousemove")
+          .delete.btn(@click="dragDel") 선택 삭제
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Text'")
         .content
           .text {{textData}}
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .problem-wrap(v-if="projectInfo.dataType === 'Audio'")
         .content
           audio(controls controlsList="nodownload", :src="urlSrc")
-        .problem-title {{projectInfo.question}}
+        .problem-title {{projectInfo.refineQuestion}}
 
       .refine-wrap.text(v-if="projectInfo.refineType === 'Text'")
         input(type="text" placeholder="정답을 입력해주세요" v-model="refineList[nowSequence-1]")
@@ -50,20 +50,17 @@
 
     section.user-info
       .profile-wrap
-        .profile-img
-        .profile-title {{this.$store.getters.username}}
-      .rating-wrap
-        .title 나의 등급
-        .rating 다이아
+        .profile-img(:style="{ 'background-image': 'url(' + this.$store.getters.getUserProfile + ')' }")
+        .profile-title {{this.$store.getters.getUsername}}
       .credit-wrap
         .wrap
           .dot
           .title 사용가능
-          .credit 2000
+          .credit {{parseInt(this.$store.getters.getUserUsableCredit).toLocaleString()}}
         .wrap
           .dot
           .title 적립예정
-          .credit 100
+          .credit {{parseInt(this.$store.getters.getUserPrearrangedCredit).toLocaleString()}}
 </template>
 
 <script>
@@ -71,7 +68,7 @@ export default {
   name: 'refine',
   data () {
     return {
-      projectInfo: {projectName: '', dataType: '', question: '', refineType: 'Drag'},
+      projectInfo: {projectName: '', dataType: '', refineQuestion: '', refineType: 'Drag'},
       nowSequence: 1,
       urlList: [],
       blockId: null,
@@ -155,16 +152,30 @@ export default {
     }
   },
   methods: {
+    dragDel () {
+      this.curY = null
+      this.clearCanvas()
+      this.refineList[this.nowSequence - 1].curY = null
+    },
     getMousePos (canvas, evt) {
       var rect = canvas.getBoundingClientRect()
-      return {
-        x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
-        y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+      if (evt.changedTouches) {
+        return {
+          x: parseInt((evt.changedTouches[0].clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.changedTouches[0].clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
+      } else {
+        return {
+          x: parseInt((evt.clientX - rect.left) / (rect.right - rect.left) * this.canvas.width),
+          y: parseInt((evt.clientY - rect.top) / (rect.bottom - rect.top) * this.canvas.height)
+        }
       }
     },
     mousemove (event) {
-      if(this.isDrawing) {
+      event.preventDefault()
+      if (this.isDrawing) {
         var mousePos = this.getMousePos(this.canvas, event)
+        console.log(mousePos)
         this.curX = mousePos.x
         this.curY = mousePos.y
         this.clearCanvas()
@@ -181,13 +192,15 @@ export default {
       this.preX = mousePos.x
       this.preY = mousePos.y
     },
-    mouseup () {
+    mouseup (event) {
       this.isDrawing = false
     },
     clearCanvas () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
     },
     imageUpdate () {
+      this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height)
       this.ctx.drawImage(this.imageObj, 0, 0, this.canvas.width, this.canvas.height)
       if (this.refineList[this.nowSequence - 1].curY !== null) {
         this.ctx.strokeRect(this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].prevY * this.canvas.height, this.refineList[this.nowSequence - 1].curX * this.canvas.width - this.refineList[this.nowSequence - 1].prevX * this.canvas.width, this.refineList[this.nowSequence - 1].curY * this.canvas.height - this.refineList[this.nowSequence - 1].prevY * this.canvas.height)
@@ -230,6 +243,7 @@ export default {
     text-align: center;
     padding: 40px 0;
   }
+
   .dot {
     display: inline-block;
     width: 5px;
@@ -238,9 +252,11 @@ export default {
     border-radius: 50%;
     margin-right: 8px;
   }
+
   section {
-    box-shadow: 0 15px 50px 0 rgba(213,216,228,.3);
+    box-shadow: 0 15px 50px 0 rgba(213, 216, 228, .3);
   }
+
   section.problem {
     display: inline-block;
     background-color: #fff;
@@ -249,58 +265,71 @@ export default {
     width: 100%;
     text-align: center;
   }
+
   .sequence-wrap {
     display: flex;
     position: fixed;
-    bottom: 30px; right: 50px;
+    bottom: 30px;
+    right: 50px;
   }
+
   .sequence-wrap > .now-sequence {
     font-size: 30px;
     font-weight: 900;
     margin-right: 10px;
   }
+
   .sequence-wrap > .total-sequence {
     font-size: 30px;
     font-weight: 900;
     color: #a7b3bf;
   }
+
   .project-wrap {
     display: flex;
     align-items: center;
     padding: 0 20px;
   }
+
   .project-wrap > .project-title {
     color: #8492a6;
     padding: 10px 0;
     font-size: 14px;
     font-weight: bold;
   }
+
   .problem-wrap {
     background-color: #eee;
     padding: 20px;
   }
+
   .problem-wrap > .problem-title {
     font-size: 16px;
     font-weight: bold;
     text-align: left;
     padding-top: 20px;
   }
+
   .content {
     text-align: center;
     overflow: hidden;
   }
+
   .content > img {
     width: 100%;
   }
+
   canvas {
     max-width: 100%;
   }
+
   .content > .delete.btn {
     padding: 8px 12px;
     border-radius: 20px;
     font-size: 12px;
     float: right;
   }
+
   .content > .text {
     font-size: 24px;
     font-weight: bold;
@@ -308,18 +337,22 @@ export default {
     padding: 20px 0;
     line-height: 1.6;
   }
+
   .content > audio {
     margin: 20px 0;
   }
+
   .refine-wrap {
     display: inline-block;
     text-align: left;
     width: 100%;
   }
+
   .refine-wrap > .title {
     font-size: 18px;
     margin-bottom: 15px;
   }
+
   .refine-wrap.text > input {
     display: inline-block;
     width: 100%;
@@ -330,7 +363,7 @@ export default {
   }
 
   /* 셀렉트 */
-  .refine-wrap.select > .inputWrap{
+  .refine-wrap.select > .inputWrap {
     display: flex;
     align-items: center;
     border-bottom: 1px solid #eee;
@@ -339,44 +372,51 @@ export default {
     padding: 20px 30px;
     cursor: pointer;
     font-size: 22px;
-     -webkit-user-select: none;
-     -moz-user-select: none;
-     -ms-user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
     user-select: none;
     font-size: 16px;
   }
+
   .refine-wrap.select > .inputWrap:hover {
     background-color: #eff4ff;
   }
+
   .refine-wrap.select > .inputWrap > input {
     position: absolute;
     opacity: 0;
     cursor: pointer;
   }
+
   .mark {
     background-image: url("../assets/check.png");
     background-repeat: no-repeat;
     background-size: 20px;
     background-position: center;
-    display:inline-block;
+    display: inline-block;
     width: 20px;
     height: 20px;
     margin-left: auto;
   }
+
   .inputWrap > input:checked ~ .mark {
     background-image: url("../assets/check-active.png");
   }
+
   .btnWrap {
-    display: flex;
     padding: 10px 20px;
-    justify-content: center;
+    text-align: center;
+    position: relative;
   }
+
   .btnWrap > .btn {
     padding: 10px 40px;
     margin: 10px;
     border: 0;
     color: #fff;
   }
+
   .user-info {
     display: inline-block;
     width: 230px;
@@ -385,75 +425,90 @@ export default {
     margin-left: 20px;
     vertical-align: top;
   }
+
   .user-info > .profile-wrap {
     border-bottom: 1px solid #eee;
     padding: 20px 0;
   }
+
   .user-info > .profile-wrap > .profile-img {
     display: inline-block;
     background-image: url("../assets/default-user.png");
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     border: 1px solid #eee;
-    border-radius: 50px;
-    width: 40px;
-    height: 40px;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
     margin-top: 10px;
   }
+
   .user-info > .profile-wrap > .profile-title {
     margin-top: 10px;
     font-weight: bold;
   }
+
   .user-info > .rating-wrap {
     border-bottom: 1px solid #eee;
     padding: 20px;
     display: flex;
     align-items: center;
   }
+
   .user-info > .rating-wrap > .title {
     font-size: 12px;
     font-weight: bold;
   }
+
   .user-info > .rating-wrap > .rating {
     font-size: 14px;
     margin-left: auto;
   }
+
   .user-info > .credit-wrap {
     padding: 20px;
   }
+
   .user-info > .credit-wrap > .wrap {
     display: flex;
     align-items: center;
     padding: 5px 0;
   }
+
   .user-info > .credit-wrap > .wrap > .title {
     font-size: 12px;
     font-weight: bold;
   }
+
   .user-info > .credit-wrap > .wrap > .credit {
     margin-left: auto;
   }
-  @media only screen and (max-width:1000px) {
+
+  @media only screen and (max-width: 1000px) {
     .container {
       padding: 40px 5%;
     }
+
     .sequence-wrap {
       float: right;
       margin-right: 10px;
       position: initial;
       padding-top: 7px;
     }
+
     .sequence-wrap > .now-sequence {
       font-size: 18px;
       font-weight: 900;
       margin-right: 10px;
     }
+
     .sequence-wrap > .total-sequence {
       font-size: 18px;
       font-weight: 900;
       color: #a7b3bf;
     }
+
     .user-info {
       display: none;
     }
