@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2e87acf6-8be5-42dd-aa2a-8404c19aceeb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Client/src/components/index.vue" beforeDir="false" afterPath="$PROJECT_DIR$/Client/src/components/index.vue" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.efac1976fd89490e62b4e9af93e5f1af.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/css/app.efac1976fd89490e62b4e9af93e5f1af.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.fc1f966f6cc0cfd19502.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/app.fc1f966f6cc0cfd19502.js.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" beforeDir="false" afterPath="$PROJECT_DIR$/MainServer/public/static/js/manifest.2ae2e69a05c33dfc65f8.js.map" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -47,8 +40,8 @@
       <file leaf-file-name="index.vue" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+            <state relative-caret-position="218">
+              <caret line="267" column="19" selection-start-line="267" selection-start-column="19" selection-end-line="267" selection-end-column="19" />
             </state>
           </provider>
         </entry>
@@ -465,25 +458,25 @@
       <workItem from="1527911413671" duration="3387000" />
       <workItem from="1528105524195" duration="11151000" />
       <workItem from="1528272428446" duration="19285000" />
-      <workItem from="1528702723624" duration="3397000" />
+      <workItem from="1528702723624" duration="3701000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="283903000" />
+    <option name="totallyTimeSpent" value="284207000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="55" y="-7" width="1488" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.22048847" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.22048847" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5006784" side_tool="true" weight="0.29973823" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.32998884" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.2526178" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.49932158" visible="true" weight="0.2526178" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="TypeScript" order="7" />
@@ -764,8 +757,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Client/src/components/index.vue">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="83" column="57" selection-start-line="83" selection-start-column="57" selection-end-line="83" selection-end-column="57" />
+        <state relative-caret-position="218">
+          <caret line="267" column="19" selection-start-line="267" selection-start-column="19" selection-end-line="267" selection-end-column="19" />
         </state>
       </provider>
     </entry>

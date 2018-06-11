@@ -263,7 +263,9 @@ export default {
     height: 100%;
   }
   .last-section .contact {
-    padding-top: 100px;
+    width: 1170px;
+    margin: 0 auto;
+    padding-top: 120px;
     padding-left: 50px;
   }
   .last-section .title {
