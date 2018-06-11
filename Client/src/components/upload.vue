@@ -525,7 +525,7 @@ export default {
     margin-top: 30px;
     float: left;
     background-color: inherit;
-    color: #b9b9b9;
+    color: #5991ee;
     line-height: 48px;
     font-size: 14px;
     font-weight: bold;
