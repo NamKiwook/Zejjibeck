@@ -89,7 +89,6 @@ router.get('/list', async function(req,res,next){
             projectList[i].currentCollect = currentCollect;
         }
     }
-    console.log(projectList);
     res.send({
       projectList: projectList,
       totalPage: totalPage,
