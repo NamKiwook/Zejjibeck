@@ -5,8 +5,10 @@
         a.close-btn(@click="hide")
         .project-name {{modalProject.projectName}}
           p 진행상황
-          .progress-bar
-            .gaze 30 / 100
+            .progress-bar(v-if="modalProject.projectState === 'Collect'")
+              .gaze(:class="modalProject.projectState", :style="{width : parseInt(modalProject.currentCollect / modalProject.maxCollect * 100)+'%'}") {{modalProject.currentCollect}} / {{modalProject.maxCollect}}
+            .progress-bar(v-else)
+              .gaze(:class="modalProject.projectState", :style="{width : parseInt(currentRefine(modalProject) / modalProject.fileNo * 100)+'%'}") {{currentRefine(modalProject)}} / {{modalProject.fileNo}}
         .box
           .title 과제 설명
           .sep :
@@ -49,8 +51,10 @@
         .type(:class="project.projectState") {{projectStateName(project.projectState)}}
         .credit {{project.stateCredit.toLocaleString()}}원
           .text / 개당
-        .progress-bar
-          .gaze(:class="project.projectState") 10/300
+        .progress-bar(v-if="project.projectState === 'Collect'")
+          .gaze(:class="project.projectState", :style="{width : parseInt(project.currentCollect / project.maxCollect * 100)+'%'}") {{project.currentCollect}} / {{project.maxCollect}}
+        .progress-bar(v-else)
+          .gaze(:class="project.projectState", :style="{width : parseInt(currentRefine(project) / project.fileNo * 100)+'%'}") {{currentRefine(project)}} / {{project.fileNo}}
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -103,6 +107,13 @@ export default {
     await this.loadList()
   },
   methods: {
+    currentRefine (project) {
+      if (project.currentBlock === project.totalBlock) {
+        return project.fileNo
+      } else {
+        return project.currentBlock * project.blockSize
+      }
+    },
     projectDataName (dataType) {
       if (dataType === 'Image') {
         return '이미지'
@@ -416,7 +427,7 @@ export default {
   }
   .project > .progress-bar > .gaze {
     border-radius: 10px;
-    width: 80%;
+    min-width: 50px;
     height: 100%;
     color: #fff;
     font-size: 10px;
@@ -478,6 +489,7 @@ export default {
   }
   .modal-container > .project-name > .progress-bar > .gaze {
     background-color: #21dc6d;
+    min-width: 70px;
     color: #fff;
     height: 100%;
     width: 40%;

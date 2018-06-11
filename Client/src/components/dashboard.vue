@@ -5,8 +5,11 @@ div.container
       a.close-btn(@click="hide")
       .project-name {{modalProject.projectName}}
         p 진행상황
-        .progress-bar
-          .gaze 30 / 100
+        .progress-bar(v-if="modalProject.projectState === 'Collect'")
+          .gaze(:class="modalProject.projectState", :style="{width : parseInt(modalProject.currentCollect / modalProject.maxCollect * 100)+'%'}") {{modalProject.currentCollect}} / {{modalProject.maxCollect}}
+        .progress-bar(v-else)
+          .gaze(:class="modalProject.projectState", :style="{width : parseInt(currentRefine(modalProject) / modalProject.fileNo * 100)+'%'}") {{currentRefine(modalProject)}} / {{modalProject.fileNo}}
+
       .box
         .title 과제 설명
         .sep :
@@ -31,8 +34,10 @@ div.container
       a.close-btn(@click="hide")
       .project-name {{modalProject.projectName}}
         p 진행상황
-        .progress-bar
-          .gaze 30 / 100
+        .progress-bar(v-if="modalProject.projectState === 'Collect'")
+          .gaze(:class="modalProject.projectState", :style="{width : parseInt(modalProject.currentCollect / modalProject.maxCollect * 100)+'%'}") {{modalProject.currentCollect}} / {{modalProject.maxCollect}}
+        .progress-bar(v-else)
+          .gaze(:class="modalProject.projectState", :style="{width : parseInt(currentRefine(modalProject) / modalProject.fileNo * 100)+'%'}") {{currentRefine(modalProject)}} / {{modalProject.fileNo}}
       .box
         .title 과제 설명
         .sep :
@@ -139,8 +144,10 @@ div.container
       .type(:class="project.projectState") {{projectStateName(project.projectState)}}
       .credit {{project.stateCredit.toLocaleString()}}원
         .text / 개당
-      .progress-bar
-        .gaze(:class="project.projectState") 10/300
+      .progress-bar(v-if="project.projectState === 'Collect'")
+        .gaze(:class="project.projectState", :style="{width : parseInt(project.currentCollect / project.maxCollect * 100)+'%'}") {{project.currentCollect}} / {{project.maxCollect}}
+      .progress-bar(v-else)
+        .gaze(:class="project.projectState", :style="{width : parseInt(currentRefine(project) / project.fileNo * 100)+'%'}") {{currentRefine(project)}} / {{project.fileNo}}
 
 </template>
 
@@ -787,6 +794,7 @@ export default {
   width: calc(100% - 300px);
 }
 .project-list > .project > .progress-bar > .gaze {
+  min-width: 50px;
   border-radius: 10px;
   width: 80%;
   height: 100%;
@@ -842,6 +850,7 @@ export default {
   width: 100%;
 }
 .modal-container > .project-name > .progress-bar > .gaze {
+  min-width: 70px;
   background-color: #21dc6d;
   color: #fff;
   height: 100%;
