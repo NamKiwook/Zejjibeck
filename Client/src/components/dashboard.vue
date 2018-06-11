@@ -60,8 +60,8 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit.toLocaleString()}}원
-      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") 수집 데이터 다운
-      a.download.btn.disable(v-if="modalProject.projectType !== 'Refine' && modalProject.projectState !== 'finished'") 수집 데이터 다운
+      a.download.btn(:href="dataUrl" download v-if="(modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') || (modalProject.projectType === 'Refine&Collect' && modalProject.projectState === 'Refine')") 수집 데이터 다운
+      a.download.btn.disable(v-if="(modalProject.projectType !== 'Refine' && modalProject.projectState === 'Collect')") 수집 데이터 다운
       a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") 정제 데이터 다운
       a.download.btn.disable(v-if="modalProject.projectType !== 'Collect' && modalProject.projectState !== 'finished'") 정제 데이터 다운
   section.credit-section
@@ -312,12 +312,12 @@ export default {
     },
     showMyProject (modalProject) {
       this.modalProject = modalProject
-      if (modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') {
+      if ((modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished') || (modalProject.projectType === 'Refine&Collect' && modalProject.projectState === 'Refine')) {
         this.$http.get('/api/project/collectedFile', {params: {projectId: modalProject._id}}).then((res) => {
           if (res.data.success) {
             this.dataUrl = res.data.url
           } else {
-            alert(res.data.errorMassage)
+            alert(res.data.errorMessage)
           }
         }).catch((err) => {
           alert(err)
@@ -328,7 +328,7 @@ export default {
           if (res.data.success) {
             this.refineUrl = res.data.url
           } else {
-            alert(res.data.errorMassage)
+            alert(res.data.errorMessage)
           }
         }).catch((err) => {
           alert(err)
