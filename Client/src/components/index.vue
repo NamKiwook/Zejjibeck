@@ -71,8 +71,17 @@ div.sections
             .role mentor
   section.last-section
     .img-cover
-      .content
-        .title Copyright © Zejjibeck
+      .contact
+        .title contact
+        .wrap
+          span 이메일
+          p listenme1@naver.com
+        .wrap
+          span 문의처
+          p 010 4180 9116
+        .wrap
+          p © team Zejjibeck
+          a(href="https://github.com/peter1201/Zejjibeck" target="_blank").icon
 </template>
 
 <script>
@@ -253,11 +262,43 @@ export default {
     width:100%;
     height: 100%;
   }
+  .last-section .contact {
+    padding-top: 100px;
+    padding-left: 50px;
+  }
   .last-section .title {
-    text-align: center;
-    padding-top: 140px;
-    font-size: 18px;
-    color: #c8c8c8;
+    color: #fff;
+    font-size: 32px;
+    margin-bottom: 24px;
+    font-weight: bold;
+    color: #d6dee9;
+  }
+  .last-section .wrap {
+    display: flex;
+    margin-bottom: 15px;
+  }
+  .last-section p {
+    color: #afb7c1;
+    font-size: 14px;
+    margin-left: 4px;
+    line-height: 20px;
+    vertical-align: middle;
+  }
+  .last-section span {
+    color: #afb7c1;
+    margin-right: 15px;
+    font-weight: bold;
+    font-size: 13px;
+  }
+  .last-section .icon {
+    display: inline-block;
+    background-image: url("../assets/github.png");
+    background-size: 20px;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 20px;
+    height: 20px;
+    margin-left: 10px;
   }
   @media only screen and (max-width: 1170px) {
     .content {
