@@ -28,7 +28,7 @@ export default {
   }
   body {
     background-color: #fbfbfb;
-    min-width: 400px;
+    min-width: 350px;
   }
   body::-webkit-scrollbar {
     display: none;

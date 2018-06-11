@@ -99,7 +99,7 @@ export default {
   }
   @media only screen and (max-width: 550px) {
     nav {
-      min-width: 400px;
+      min-width: 350px;
     }
     nav > .container > .logoImage {
       width: 100px;

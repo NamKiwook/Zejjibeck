@@ -3,10 +3,10 @@
     modal(name="project" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
       .modal-container
         a.close-btn(@click="hide")
-        .box
-          .title 과제 제목
-          .sep :
-          .description {{modalProject.projectName}}
+        .project-name {{modalProject.projectName}}
+          p 진행상황
+          .progress-bar
+            .gaze 30 / 100
         .box
           .title 과제 설명
           .sep :
@@ -49,6 +49,8 @@
         .type(:class="project.projectState") {{projectStateName(project.projectState)}}
         .credit {{project.stateCredit.toLocaleString()}}원
           .text / 개당
+        .progress-bar
+          .gaze(:class="project.projectState") 10/300
 
       .pagination
         a(@click="nextList(currentPage - 10)",  v-scroll-to="'#listTop'") &laquo;
@@ -347,14 +349,6 @@ export default {
     box-shadow: 0 0 14px 4px rgba(0, 0, 0, 0.05);
   }
 
-  .project > .date {
-    display: flex;
-    color: #8492a6;
-    font-size: 12px;
-    line-height: 35px;
-    width: 100px;
-  }
-
   .project > .title-wrap {
     display: inline-block;
     text-overflow: ellipsis;
@@ -378,7 +372,7 @@ export default {
     width: 120px;
     line-height: 20px;
     font-size: 15px;
-    margin-top: 15px;
+    margin-top: 30px;
     text-align: right;
     float: right;
     margin-right: 50px;
@@ -400,7 +394,7 @@ export default {
     width: 60px;
     float: right;
     border-radius: 20px;
-    margin-top: 5px;
+    margin-top: 24px;
     margin-right: 20px;
   }
 
@@ -409,6 +403,29 @@ export default {
   }
 
   .project > .type.Collect {
+    background-color: #62ce8d;
+  }
+
+  .project > .progress-bar {
+    background-color: #eee;
+    width: 80%;
+    height: 15px;
+    border-radius: 10px;
+    margin-top: 8px;
+    width: calc(100% - 300px);
+  }
+  .project > .progress-bar > .gaze {
+    border-radius: 10px;
+    width: 80%;
+    height: 100%;
+    color: #fff;
+    font-size: 10px;
+    text-align: center;
+  }
+  .project > .progress-bar > .gaze.Refine {
+    background-color: #5991ee;
+  }
+  .project > .progress-bar > .gaze.Collect {
     background-color: #62ce8d;
   }
 
@@ -430,14 +447,49 @@ export default {
   }
 
   .modal-container {
-    padding: 50px 20px;
     text-align: center;
     position: relative;
+    padding-bottom: 30px;
+  }
+  .modal-container > .project-name {
+    font-size: 32px;
+    text-align: left;
+    display: block;
+    padding: 40px 20px 20px;
+    font-weight: bold;
+    background-color: #448aff;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+  .modal-container > .project-name > p {
+    color: #fff;
+    text-align: right;
+    font-size: 12px;
+    margin-top: 12px;
+    padding-right: 5px;
+  }
+  .modal-container > .project-name > .progress-bar {
+    background-color: #eee;
+    width: 80%;
+    height: 25px;
+    border-radius: 20px;
+    margin-top: 8px;
+    width: 100%;
+  }
+  .modal-container > .project-name > .progress-bar > .gaze {
+    background-color: #21dc6d;
+    color: #fff;
+    height: 100%;
+    width: 40%;
+    font-size: 14px;
+    border-radius: 20px;
+    text-align: center;
+    line-height: 25px;
   }
 
   .modal-container > .close-btn {
     display: inline-block;
-    background-image: url("../assets/close.png");
+    background-image: url("../assets/close-gray.png");
     background-position: center;
     background-size: 15px;
     background-repeat: no-repeat;
@@ -453,21 +505,22 @@ export default {
     text-align: left;
     padding: 10px;
     border-bottom: 1px solid #eeeeee;
+    margin: 0 15px;
   }
 
   .modal-container > .box > .title {
     width: 100px;
     font-weight: 800;
-    font-size: 12px;
+    font-size: 13px;
   }
 
   .modal-container > .box > .sep {
-    font-size: 12px;
+    font-size: 13px;
     padding: 0 10px;
   }
 
   .modal-container > .box > .description {
-    font-size: 12px;
+    font-size: 13px;
     width: calc(100% - 130px);
   }
 
@@ -497,6 +550,19 @@ export default {
 
     .project > .credit {
       margin-right: 30px;
+      margin-top: 15px;
+    }
+    .project > .type {
+      margin-top: 8px;
+    }
+
+    .project > .progress-bar {
+      margin-top: 28px;
+    }
+  }
+  @media only screen and (max-width: 600px) {
+    .project > .progress-bar {
+      display: none;
     }
   }
 </style>

@@ -411,7 +411,10 @@ export default {
   }
 
   .btnWrap > .btn {
-    padding: 10px 40px;
+    width: 110px;
+    height: 40px;
+    padding: 0;
+    line-height: 40px;
     margin: 10px;
     border: 0;
     color: #fff;

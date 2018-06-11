@@ -553,7 +553,7 @@ export default {
   .modal-container > .title {
     font-weight: bold;
     font-size: 16px;
-    background-color: #5991ee;
+    background-color: #448aff;
     padding: 16px;
     color: #fff;
   }

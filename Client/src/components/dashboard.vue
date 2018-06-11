@@ -3,10 +3,10 @@ div.container
   modal(name="project-modal" adaptive=true width="90%" maxWidth=600 height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
-      .box
-        .title 과제 제목
-        .sep :
-        .description {{modalProject.projectName}}
+      .project-name {{modalProject.projectName}}
+        p 진행상황
+        .progress-bar
+          .gaze 30 / 100
       .box
         .title 과제 설명
         .sep :
@@ -29,10 +29,10 @@ div.container
   modal(name="my-project-modal" adaptive="true" width="90%" maxWidth="600" height="auto" scrollable=true)
     .modal-container
       a.close-btn(@click="hide")
-      .box
-        .title 과제 제목
-        .sep :
-        .description {{modalProject.projectName}}
+      .project-name {{modalProject.projectName}}
+        p 진행상황
+        .progress-bar
+          .gaze 30 / 100
       .box
         .title 과제 설명
         .sep :
@@ -41,7 +41,7 @@ div.container
         .edit-wrap(v-else)
           textarea(:value="modalProject.description" ref="changeDescription", spellcheck='false')
           .save.btn(@click="saveEdit('Description',modalProject)") 저장
-          .close.btn(@click="closeEdit('Description')") 취소\
+          .close.btn(@click="closeEdit('Description')") 취소
       .box
         .title 과제 유형
         .sep :
@@ -55,8 +55,10 @@ div.container
         .sep :
         .description
           | {{modalProject.totalCredit.toLocaleString()}}원
-      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") Collection 다운로드
-      a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") Refine 다운로드
+      a.download.btn(:href="dataUrl" download v-if="modalProject.projectType !== 'Refine' && modalProject.projectState === 'finished'") 수집 데이터 다운
+      a.download.btn.disable(v-if="modalProject.projectType !== 'Refine' && modalProject.projectState !== 'finished'") 수집 데이터 다운
+      a.download.btn(:href="refineUrl" download v-if="modalProject.projectType !== 'Collect' && modalProject.projectState === 'finished'") 정제 데이터 다운
+      a.download.btn.disable(v-if="modalProject.projectType !== 'Collect' && modalProject.projectState !== 'finished'") 정제 데이터 다운
   section.credit-section
     .profile-wrap
       img.profile-img(:src="this.$store.getters.getUserProfile" ref="profile")
@@ -87,7 +89,7 @@ div.container
         .point {{prearrangedCredit.toLocaleString()}}
     <!--router-link.detail(to='/credit')-->
   .divider(v-if="projectsInfoList.length !== 0")
-  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', navigation-enabled=true, v-if="projectsInfoList.length !== 0")
+  carousel.register-project(:perPage="perpage", scroll-per-page=true, pagination-color='#c8c8c8', :paginationPadding=5, pagination-active-color='#2979ff', :navigation-enabled="isMobile", v-if="projectsInfoList.length !== 0")
     slide(v-for="projectInfo in projectsInfoList", :key="projectInfo.projectName")
       .project-wrap(@click="showMyProject(projectInfo)", v-if="projectInfo.projectState === 'Collect' || projectInfo.projectState === 'cValidate' || (projectInfo.projectType === 'Collect' && projectInfo.projectState === 'finished')")
         .type(:class="projectStateClass(projectInfo.projectState)") {{projectStateName(projectInfo.projectState)}}
@@ -137,6 +139,8 @@ div.container
       .type(:class="project.projectState") {{projectStateName(project.projectState)}}
       .credit {{project.stateCredit.toLocaleString()}}원
         .text / 개당
+      .progress-bar
+        .gaze(:class="project.projectState") 10/300
 
 </template>
 
@@ -172,6 +176,7 @@ export default {
       this.processedProjectNo = res.data.processedProjectNo
       this.processingProjectNo = res.data.processingProjectNo
       this.carouselPerpage()
+      this.carouselIsMobile()
       this.loadList()
       this.$store.commit('userUsableCredit', res.data.userInfo.usableCredit)
       this.$store.commit('userPrearrangedCredit', res.data.userInfo.prearrangedCredit)
@@ -179,9 +184,11 @@ export default {
   },
   beforeMount () {
     window.addEventListener('resize', this.carouselPerpage)
+    window.addEventListener('resize', this.carouselIsMobile)
   },
   beforeDestroy () {
     window.removeEventListener('resize', this.carouselPerpage)
+    window.removeEventListener('resize', this.carouselIsMobile)
   },
   methods: {
     currentRefine (project) {
@@ -284,6 +291,13 @@ export default {
         this.perpage = 3
       } else {
         this.perpage = this.projectNo
+      }
+    },
+    carouselIsMobile () {
+      if (window.innerWidth < 620) {
+        this.isMobile = false
+      } else {
+        this.isMobile = true
       }
     },
     percent (percent) {
@@ -734,7 +748,7 @@ export default {
   width: 120px;
   line-height: 20px;
   font-size: 15px;
-  margin-top: 15px;
+  margin-top: 30px;
   text-align: right;
   float: right;
   margin-right: 50px;
@@ -755,7 +769,7 @@ export default {
   width: 60px;
   float: right;
   border-radius: 20px;
-  margin-top: 5px;
+  margin-top: 24px;
   margin-right: 20px;
 }
 .project-list > .project > .type.Refine {
@@ -764,14 +778,36 @@ export default {
 .project-list > .project > .type.Collect {
   background-color: #62ce8d;
 }
+.project-list > .project > .progress-bar {
+  background-color: #eee;
+  width: 80%;
+  height: 15px;
+  border-radius: 10px;
+  margin-top: 8px;
+  width: calc(100% - 300px);
+}
+.project-list > .project > .progress-bar > .gaze {
+  border-radius: 10px;
+  width: 80%;
+  height: 100%;
+  color: #fff;
+  font-size: 10px;
+  text-align: center;
+}
+.project-list > .project > .progress-bar > .gaze.Refine {
+  background-color: #5991ee;
+}
+.project-list > .project > .progress-bar > .gaze.Collect {
+  background-color: #62ce8d;
+}
 .modal-container {
-  padding: 50px 20px;
   text-align: center;
   position: relative;
+  padding-bottom: 30px;
 }
 .modal-container > .close-btn {
   display: inline-block;
-  background-image: url("../assets/close.png");
+  background-image: url("../assets/close-gray.png");
   background-position: center;
   background-size: 15px;
   background-repeat: no-repeat;
@@ -780,11 +816,47 @@ export default {
   position: absolute;
   right: 10px; top: 10px;
 }
+.modal-container > .project-name {
+  font-size: 32px;
+  text-align: left;
+  display: block;
+  padding: 40px 20px 20px;
+  font-weight: bold;
+  background-color: #448aff;
+  color: #fff;
+  margin-bottom: 10px;
+}
+.modal-container > .project-name > p {
+  color: #fff;
+  text-align: right;
+  font-size: 12px;
+  margin-top: 12px;
+  padding-right: 5px;
+}
+.modal-container > .project-name > .progress-bar {
+  background-color: #eee;
+  width: 80%;
+  height: 25px;
+  border-radius: 20px;
+  margin-top: 8px;
+  width: 100%;
+}
+.modal-container > .project-name > .progress-bar > .gaze {
+  background-color: #21dc6d;
+  color: #fff;
+  height: 100%;
+  width: 40%;
+  font-size: 14px;
+  border-radius: 20px;
+  text-align: center;
+  line-height: 25px;
+}
 .modal-container > .box {
   display: flex;
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #eeeeee;
+  margin: 0 15px;
 }
 .modal-container > .box > .title {
   width: 100px;
@@ -792,6 +864,7 @@ export default {
   font-size: 12px;
 }
 .modal-container > .box > .sep {
+  display: none;
   font-size: 12px;
   padding: 0 10px;
 }
@@ -873,6 +946,18 @@ export default {
   }
   .project-list > .project > .credit {
     margin-right: 30px;
+    margin-top: 15px;
+  }
+  .project-list > .project > .type {
+    margin-top: 8px;
+  }
+  .project-list > .project > .progress-bar {
+    margin-top: 28px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .project-list > .project > .progress-bar {
+    display: none;
   }
 }
 </style>
